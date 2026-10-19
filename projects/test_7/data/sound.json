@@ -1,0 +1,31 @@
+{
+  "sfx": [
+    { "t": 102.80, "type": "rocket", "gain": 0.75 },
+    { "t": 104.20, "type": "boom",   "gain": 0.90 },
+    { "t": 128.50, "type": "boom",   "gain": 0.80 },
+    { "t": 196.80, "type": "boom",   "gain": 0.90 },
+    { "t": 214.20, "type": "boom",   "gain": 0.90 },
+    { "t": 239.00, "type": "rocket", "gain": 0.70 },
+    { "t": 239.95, "type": "boom",   "gain": 0.75 },
+    { "t": 240.40, "type": "rocket", "gain": 0.70 },
+    { "t": 241.35, "type": "boom",   "gain": 0.75 },
+    { "t": 241.80, "type": "rocket", "gain": 0.70 },
+    { "t": 242.75, "type": "boom",   "gain": 0.75 },
+    { "t": 294.20, "type": "boom",   "gain": 0.90 },
+    { "t": 333.50, "type": "rocket", "gain": 0.80 },
+    { "t": 334.80, "type": "boom",   "gain": 0.85 },
+    { "t": 345.00, "type": "rocket", "gain": 0.70 },
+    { "t": 345.95, "type": "boom",   "gain": 0.75 },
+    { "t": 346.50, "type": "rocket", "gain": 0.70 },
+    { "t": 347.45, "type": "boom",   "gain": 0.75 },
+    { "t": 358.80, "type": "mg",     "dur": 0.55, "gain": 0.75 },
+    { "t": 359.30, "type": "boom",   "gain": 0.70 },
+    { "t": 361.20, "type": "cannon", "gain": 0.75 },
+    { "t": 361.60, "type": "boom",   "gain": 0.70 },
+    { "t": 366.60, "type": "burst",  "n": 4, "step": 0.10, "gain": 0.70 },
+    { "t": 367.20, "type": "boom",   "gain": 0.75 },
+    { "t": 368.90, "type": "burst",  "n": 5, "step": 0.10, "gain": 0.70 },
+    { "t": 385.70, "type": "cannon", "gain": 0.80 },
+    { "t": 386.50, "type": "boom",   "gain": 0.90 }
+  ]
+}

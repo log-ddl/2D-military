@@ -1,0 +1,56 @@
+{
+  "sfxGain": 0.65,
+  "sfx": [
+    { "t": 1.20, "type": "rocket", "power": 0.85, "dur": 1.4 },
+    { "t": 22.10, "type": "burst", "power": 0.45, "count": 4, "rate": 6.0 },
+    { "t": 25.00, "type": "boom", "power": 0.90, "size": 1.2 },
+
+    { "t": 41.20, "type": "rocket", "power": 0.80, "dur": 1.3 },
+    { "t": 99.60, "type": "rocket", "power": 0.85, "dur": 1.2 },
+    { "t": 106.00, "type": "boom", "power": 0.85, "size": 1.1 },
+
+    { "t": 109.10, "type": "rocket", "power": 0.85, "dur": 1.5 },
+    { "t": 115.20, "type": "cannon", "power": 0.65 },
+    { "t": 131.50, "type": "boom", "power": 0.65, "size": 0.8 },
+
+    { "t": 146.50, "type": "boom", "power": 0.80, "size": 1.0 },
+    { "t": 157.80, "type": "burst", "power": 0.45, "count": 5, "rate": 8.0 },
+    { "t": 161.20, "type": "boom", "power": 0.95, "size": 1.2 },
+    { "t": 171.20, "type": "cannon", "power": 0.55 },
+
+    { "t": 212.50, "type": "rocket", "power": 0.85, "dur": 1.2 },
+    { "t": 216.00, "type": "boom", "power": 0.85, "size": 1.0 },
+    { "t": 223.80, "type": "boom", "power": 0.70, "size": 0.9 },
+
+    { "t": 250.50, "type": "rocket", "power": 0.75, "dur": 1.2 },
+    { "t": 255.20, "type": "rocket", "power": 0.85, "dur": 1.2 },
+    { "t": 260.40, "type": "boom", "power": 0.85, "size": 1.1 },
+
+    { "t": 280.40, "type": "rocket", "power": 0.75, "dur": 1.1 },
+    { "t": 280.75, "type": "rocket", "power": 0.75, "dur": 1.1 },
+    { "t": 285.00, "type": "boom", "power": 0.85, "size": 1.0 },
+    { "t": 291.20, "type": "burst", "power": 0.65, "count": 4, "rate": 3.0 },
+    { "t": 296.50, "type": "boom", "power": 0.80, "size": 1.0 },
+    { "t": 297.80, "type": "boom", "power": 0.80, "size": 1.0 },
+
+    { "t": 306.80, "type": "rocket", "power": 0.60, "dur": 1.4 },
+    { "t": 328.80, "type": "burst", "power": 0.65, "count": 6, "rate": 4.0 },
+    { "t": 344.20, "type": "rocket", "power": 0.75, "dur": 1.0 },
+    { "t": 344.60, "type": "rocket", "power": 0.75, "dur": 1.0 },
+    { "t": 347.20, "type": "boom", "power": 0.75, "size": 0.9 },
+    { "t": 347.60, "type": "boom", "power": 0.75, "size": 0.9 },
+    { "t": 349.10, "type": "boom", "power": 0.50, "size": 0.7 },
+
+    { "t": 352.20, "type": "rocket", "power": 0.85, "dur": 1.3 },
+    { "t": 355.80, "type": "cannon", "power": 0.65 },
+
+    { "t": 383.50, "type": "rocket", "power": 0.65, "dur": 1.0 },
+    { "t": 388.20, "type": "boom", "power": 0.70, "size": 0.9 },
+    { "t": 391.20, "type": "burst", "power": 0.65, "count": 3, "rate": 3.0 },
+
+    { "t": 438.20, "type": "rocket", "power": 0.85, "dur": 1.3 },
+    { "t": 445.80, "type": "boom", "power": 0.85, "size": 1.1 },
+    { "t": 449.80, "type": "rocket", "power": 0.75, "dur": 1.0 },
+    { "t": 451.60, "type": "boom", "power": 0.80, "size": 1.0 }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "sfxGain": 0.65,
+  "sfx": [
+    { "t": 3.5, "type": "cannon", "power": 0.85 },
+    { "t": 4.5, "type": "boom", "power": 0.95, "size": 0.85 },
+    { "t": 12.4, "type": "cannon", "power": 0.85 },
+    { "t": 13.4, "type": "boom", "power": 1.0, "size": 0.9 },
+    { "t": 15.1, "type": "cannon", "power": 0.85 },
+    { "t": 16.1, "type": "boom", "power": 1.0, "size": 0.9 },
+
+    { "t": 34.2, "type": "boom", "power": 0.9, "size": 0.8 },
+    { "t": 35.8, "type": "boom", "power": 0.9, "size": 0.8 },
+
+    { "t": 72.2, "type": "boom", "power": 0.95, "size": 0.85 },
+    { "t": 73.8, "type": "boom", "power": 0.95, "size": 0.85 },
+
+    { "t": 90.8, "type": "boom", "power": 0.85, "size": 0.75 },
+    { "t": 92.1, "type": "boom", "power": 0.85, "size": 0.75 },
+    { "t": 94.0, "type": "mg", "power": 0.55, "dur": 2.2, "rate": 11 },
+    { "t": 98.6, "type": "cannon", "power": 1.0 },
+    { "t": 99.8, "type": "boom", "power": 0.95, "size": 0.75 },
+    { "t": 102.6, "type": "burst", "power": 0.65, "count": 3, "rate": 12 },
+    { "t": 104.2, "type": "burst", "power": 0.65, "count": 3, "rate": 12 },
+    { "t": 107.4, "type": "burst", "power": 0.65, "count": 3, "rate": 12 },
+    { "t": 111.8, "type": "burst", "power": 0.65, "count": 3, "rate": 12 },
+
+    { "t": 232.6, "type": "mg", "power": 0.6, "dur": 2.7, "rate": 11 },
+
+    { "t": 249.2, "type": "boom", "power": 1.0, "size": 1.0 },
+    { "t": 261.2, "type": "boom", "power": 1.0, "size": 1.0 },
+    { "t": 268.8, "type": "boom", "power": 1.05, "size": 1.1 },
+
+    { "t": 285.5, "type": "cannon", "power": 0.65 },
+    { "t": 286.3, "type": "boom", "power": 0.9, "size": 0.8 },
+    { "t": 301.4, "type": "mg", "power": 0.6, "dur": 1.8, "rate": 10 },
+
+    { "t": 352.6, "type": "cannon", "power": 0.95 },
+
+    { "t": 393.2, "type": "mg", "power": 0.55, "dur": 1.4, "rate": 10 },
+    { "t": 397.6, "type": "rocket", "power": 0.9, "dur": 0.8 },
+    { "t": 398.4, "type": "boom", "power": 1.05, "size": 1.05 },
+
+    { "t": 424.2, "type": "boom", "power": 0.85, "size": 0.75 },
+    { "t": 437.2, "type": "boom", "power": 0.85, "size": 0.75 },
+    { "t": 438.4, "type": "boom", "power": 0.85, "size": 0.75 },
+    { "t": 439.6, "type": "boom", "power": 0.85, "size": 0.75 }
+  ]
+}

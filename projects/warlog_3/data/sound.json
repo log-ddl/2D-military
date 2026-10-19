@@ -1,0 +1,65 @@
+{
+ "_doc": "Chỉ tiếng bắn (cannon, mg, burst, rocket) và tiếng nổ (boom). Không nhạc nền.",
+ "sfxGain": 0.65,
+ "sfx": [
+  {
+   "t": 13.0,
+   "type": "mg",
+   "dur": 1.2,
+   "power": 0.5
+  },
+  {
+   "t": 97.8,
+   "type": "burst",
+   "power": 0.4,
+   "count": 3,
+   "rate": 6
+  },
+  {
+   "t": 103.4,
+   "type": "burst",
+   "power": 0.8,
+   "count": 4,
+   "rate": 5
+  },
+  {
+   "t": 135.0,
+   "type": "cannon",
+   "power": 0.5
+  },
+  {
+   "t": 412.5,
+   "type": "cannon",
+   "power": 0.6
+  },
+  {
+   "t": 412.9,
+   "type": "cannon",
+   "power": 0.6
+  },
+  {
+   "t": 413.8,
+   "type": "boom",
+   "power": 0.9,
+   "size": 1.0
+  },
+  {
+   "t": 414.12,
+   "type": "boom",
+   "power": 1.0,
+   "size": 1.3
+  },
+  {
+   "t": 417.2,
+   "type": "rocket",
+   "dur": 1.6,
+   "power": 0.8
+  },
+  {
+   "t": 418.0,
+   "type": "rocket",
+   "dur": 1.6,
+   "power": 0.8
+  }
+ ]
+}

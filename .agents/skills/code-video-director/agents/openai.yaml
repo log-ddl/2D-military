@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Video Director"
+  short_description: "Lập kế hoạch kể bằng hình rồi dựng video giải thích quân sự 2D từ voice"
+  default_prompt: "Dùng $code-video-director: đọc nguồn, chia cụm giải thích, chọn hình và góc máy theo ý, đọc thêm code-video-2d / mechanism / tactics khi cần, rồi dựng và kiểm bằng ảnh render."

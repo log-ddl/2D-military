@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "warlog_6",
+  "name": "warlog_6",
+  "type": "custom",
+  "bpm": 120,
+  "createdAt": "2026-10-13T06:31:03+07:00",
+  "duration": 478.511,
+  "hasAudio": true,
+  "audioFile": "assets/audio/voice.mp3",
+  "voiceFile": "assets/audio/voice.mp3",
+  "sfxFile": "assets/audio/sfx.wav",
+  "sfxGain": 0.5
+}

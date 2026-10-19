@@ -1,0 +1,302 @@
+{
+ "_doc": "Ch\u1ec9 ti\u1ebfng b\u1eafn (cannon, mg, burst, rocket) v\u00e0 ti\u1ebfng n\u1ed5 (boom). Kh\u00f4ng nh\u1ea1c n\u1ec1n. M\u1ed9t cue m\u1ed7i l\u1ea7n b\u1eafn ho\u1eb7c n\u1ed5 tr\u00ean h\u00ecnh. Xem references/sound.md.",
+ "sfxGain": 0.65,
+ "sfx": [
+  {
+   "t": 5.4,
+   "type": "boom",
+   "power": 0.35,
+   "size": 0.35
+  },
+  {
+   "t": 5.5,
+   "type": "cannon",
+   "power": 0.35
+  },
+  {
+   "t": 5.7,
+   "type": "rocket",
+   "power": 0.5,
+   "dur": 1.6
+  },
+  {
+   "t": 12.2,
+   "type": "cannon",
+   "power": 0.3
+  },
+  {
+   "t": 17.3,
+   "type": "cannon",
+   "power": 0.2
+  },
+  {
+   "t": 17.4,
+   "type": "rocket",
+   "power": 0.7,
+   "dur": 2.8
+  },
+  {
+   "t": 44.2,
+   "type": "rocket",
+   "power": 0.28,
+   "dur": 0.9
+  },
+  {
+   "t": 45.6,
+   "type": "rocket",
+   "power": 0.28,
+   "dur": 0.9
+  },
+  {
+   "t": 47.4,
+   "type": "rocket",
+   "power": 0.28,
+   "dur": 0.9
+  },
+  {
+   "t": 49.5,
+   "type": "rocket",
+   "power": 0.28,
+   "dur": 0.9
+  },
+  {
+   "t": 74.4,
+   "type": "rocket",
+   "power": 0.9,
+   "dur": 2.2
+  },
+  {
+   "t": 83.3,
+   "type": "rocket",
+   "power": 0.6,
+   "dur": 2.1
+  },
+  {
+   "t": 96.19,
+   "type": "cannon",
+   "power": 0.4
+  },
+  {
+   "t": 100.6,
+   "type": "cannon",
+   "power": 0.4
+  },
+  {
+   "t": 133.36,
+   "type": "cannon",
+   "power": 0.4
+  },
+  {
+   "t": 146.05,
+   "type": "boom",
+   "power": 0.9,
+   "size": 1.0
+  },
+  {
+   "t": 157.1,
+   "type": "rocket",
+   "power": 0.5,
+   "dur": 1.8
+  },
+  {
+   "t": 163.4,
+   "type": "rocket",
+   "power": 0.7,
+   "dur": 1.8
+  },
+  {
+   "t": 164.7,
+   "type": "cannon",
+   "power": 0.4
+  },
+  {
+   "t": 212.6,
+   "type": "rocket",
+   "power": 0.5,
+   "dur": 1.8
+  },
+  {
+   "t": 215.2,
+   "type": "rocket",
+   "power": 0.5,
+   "dur": 1.8
+  },
+  {
+   "t": 217.8,
+   "type": "rocket",
+   "power": 0.5,
+   "dur": 1.8
+  },
+  {
+   "t": 280.0,
+   "type": "rocket",
+   "power": 0.5,
+   "dur": 1.8
+  },
+  {
+   "t": 298.0,
+   "type": "mg",
+   "power": 0.5,
+   "dur": 1.2
+  },
+  {
+   "t": 298.0,
+   "type": "rocket",
+   "power": 0.4,
+   "dur": 1.4
+  },
+  {
+   "t": 299.6,
+   "type": "boom",
+   "power": 0.8,
+   "size": 0.8
+  },
+  {
+   "t": 330.6,
+   "type": "rocket",
+   "power": 0.7,
+   "dur": 1.8
+  },
+  {
+   "t": 337.6,
+   "type": "rocket",
+   "power": 0.6,
+   "dur": 2.6
+  },
+  {
+   "t": 347.8,
+   "type": "rocket",
+   "power": 0.5,
+   "dur": 3.0
+  },
+  {
+   "t": 372.05,
+   "type": "rocket",
+   "power": 0.45,
+   "dur": 0.9
+  },
+  {
+   "t": 372.76,
+   "type": "rocket",
+   "power": 0.45,
+   "dur": 0.9
+  },
+  {
+   "t": 372.95,
+   "type": "boom",
+   "power": 0.6,
+   "size": 0.6
+  },
+  {
+   "t": 373.4,
+   "type": "rocket",
+   "power": 0.45,
+   "dur": 0.9
+  },
+  {
+   "t": 373.66,
+   "type": "boom",
+   "power": 0.6,
+   "size": 0.6
+  },
+  {
+   "t": 373.76,
+   "type": "rocket",
+   "power": 0.45,
+   "dur": 0.9
+  },
+  {
+   "t": 374.3,
+   "type": "boom",
+   "power": 0.6,
+   "size": 0.6
+  },
+  {
+   "t": 374.66,
+   "type": "boom",
+   "power": 0.6,
+   "size": 0.6
+  },
+  {
+   "t": 381.8,
+   "type": "boom",
+   "power": 0.8,
+   "size": 0.9
+  },
+  {
+   "t": 385.2,
+   "type": "rocket",
+   "power": 0.4,
+   "dur": 0.7
+  },
+  {
+   "t": 385.7,
+   "type": "boom",
+   "power": 0.55,
+   "size": 0.6
+  },
+  {
+   "t": 430.2,
+   "type": "rocket",
+   "power": 0.5,
+   "dur": 1.8
+  },
+  {
+   "t": 442.9,
+   "type": "rocket",
+   "power": 0.25,
+   "dur": 0.9
+  },
+  {
+   "t": 446.3,
+   "type": "rocket",
+   "power": 0.25,
+   "dur": 0.9
+  },
+  {
+   "t": 449.4,
+   "type": "rocket",
+   "power": 0.25,
+   "dur": 0.9
+  },
+  {
+   "t": 450.6,
+   "type": "rocket",
+   "power": 0.25,
+   "dur": 0.9
+  },
+  {
+   "t": 453.3,
+   "type": "rocket",
+   "power": 0.25,
+   "dur": 0.9
+  },
+  {
+   "t": 455.8,
+   "type": "rocket",
+   "power": 0.25,
+   "dur": 0.9
+  },
+  {
+   "t": 462.56,
+   "type": "cannon",
+   "power": 0.4
+  },
+  {
+   "t": 472.36,
+   "type": "cannon",
+   "power": 0.35
+  },
+  {
+   "t": 474.8,
+   "type": "rocket",
+   "power": 0.7,
+   "dur": 1.7
+  },
+  {
+   "t": 475.5,
+   "type": "cannon",
+   "power": 0.35
+  }
+ ]
+}

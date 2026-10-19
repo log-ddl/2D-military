@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<link rel="icon" href="data:," />
+<title>logdd — Tạo video bằng AI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/src/studio/studio.css" />
+<style>
+  :root { color-scheme: dark; }
+  html, body { margin: 0; height: 100%; background: #07080a; color: #eee9df; font: 12px/1.4 'JetBrains Mono', ui-monospace, Menlo, monospace; overflow: hidden; }
+  #wrap { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+  #c { max-width: 100%; max-height: 100%; aspect-ratio: 16/9; background: #000; cursor: pointer; box-shadow: 0 0 32px rgba(0,0,0,0.8); }
+  #errs { display: none; position: fixed; top: 56px; left: 16px; right: 16px; max-height: 40vh; overflow: auto; background: #280909; color: #ffb4b4; padding: 12px; border: 1px solid #ff4d12; border-radius: 6px; white-space: pre-wrap; z-index: 99; }
+</style>
+<link rel="stylesheet" href="/src/studio/theme.css" />
+</head>
+<body>
+<div id="wrap"><canvas id="c"></canvas></div>
+<div id="ui">
+  <div id="marks"></div>
+  <input id="scrub" type="range" min="0" value="0" />
+  <div id="info"></div>
+</div>
+<pre id="errs"></pre>
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 377 524" width="377" height="524"><style>.o{stroke:#0d0d0d;stroke-width:7;stroke-linejoin:round;stroke-linecap:round}.t{fill:none;stroke:#0d0d0d;stroke-linecap:round;stroke-linejoin:round}</style><rect width="377" height="524" fill="#dfe2ea"/><g><defs><clipPath id="cD"><path id="bD" d="M166,244 L214,244 C235.0,248 244,278 244,316 L254,372 C270,400 270,424 250,438 C240,454 140,454 130,438 C110,424 110,400 126,372 L136,316 C136,278 145.0,248 166,244Z"/></clipPath></defs><g clip-path="url(#cD)"><rect x="90" y="230" width="200" height="240" fill="#cdab72"/><path fill="#5d4034" d="M90,374 C150,382 230,382 290,374 L290,470 L90,470Z"/><path fill="#f9e0d8" d="M176,230 C178,254 185,272 190,276 C195,272 202,254 204,230Z"/><path fill="#c3a066" d="M176,240 C180,258 184,276 190,276 L178,294 C162,282 154,262 150,250Z"/><path fill="#c3a066" d="M204,240 C200,258 196,276 190,276 L202,294 C218,282 226,262 230,250Z"/><g fill="none" stroke="#0d0d0d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M176,236 C178,254 185,272 190,276 C195,272 202,254 204,236"/><path d="M190,276 L190,376"/><path d="M90,374 C150,382 230,382 290,374"/><path fill="#c3a066" d="M154,302 q14,-6 28,0 v22 q-14,8 -28,0z"/><path fill="#c3a066" d="M198,302 q14,-6 28,0 v22 q-14,8 -28,0z"/></g><circle cx="168" cy="313" r="4" fill="#0d0d0d"/><circle cx="212" cy="313" r="4" fill="#0d0d0d"/><path d="M246,250 C252,310 210,370 142,384" fill="none" stroke="#0d0d0d" stroke-width="18" stroke-linecap="round"/><path d="M246,250 C252,310 210,370 142,384" fill="none" stroke="#b98b55" stroke-width="10" stroke-linecap="round"/></g><use href="#bD" fill="none" stroke="#0d0d0d" stroke-width="7" stroke-linejoin="round"/><path class="o" style="stroke-width:7" fill="#c99b63" d="M130,382 C132,374 170,372 174,382 L174,406 C162,418 140,418 130,410Z"/><path d="M130,390 C144,398 162,398 174,390" fill="none" stroke="#0d0d0d" stroke-width="4" stroke-linecap="round"/></g><!-- head -->
+<path class="o" fill="#f9e0d8" d="M190,243 C250,245 282,206 280,150 C279,100 242,70 190,70 C132,70 100,108 100,160 C100,208 134,242 190,243Z"/>
+<!-- hair -->
+<path class="o" fill="#0d0d0d" d="M104,178 C72,128 80,84 122,68 C156,40 228,34 262,78 C284,104 284,130 279,152 C266,122 238,100 202,98 C168,96 142,112 134,146 C130,166 130,188 136,206 C120,208 108,196 104,178Z"/>
+<!-- ear -->
+<path class="o" style="stroke-width:5.5" fill="#f9e0d8" d="M134,150 C114,138 98,158 106,182 C112,198 128,200 136,192"/>
+<path class="t" stroke-width="3" d="M114,160 C110,170 114,182 122,186"/>
+<!-- face -->
+<path class="t" stroke-width="9" d="M158,127 Q186,128 206,147"/>
+<path class="t" stroke-width="9" d="M266,124 Q240,128 222,147"/>
+<circle class="o" style="stroke-width:3.5" fill="#fff" cx="182" cy="157" r="10"/>
+<circle class="o" style="stroke-width:3.5" fill="#fff" cx="242" cy="157" r="10"/>
+<circle cx="184" cy="158" r="3.6" fill="#0d0d0d"/><circle cx="240" cy="158" r="3.6" fill="#0d0d0d"/>
+<path class="t" stroke-width="2.6" d="M166,173 q15,8 30,0 M226,173 q15,8 30,0"/>
+<path class="t" stroke-width="3" d="M152,172 q-5,10 3,20 M148,190 q6,2 8,10"/>
+<path class="t" stroke-width="3" d="M268,172 q5,10 -3,20"/>
+<path class="t" stroke-width="3" d="M186,212 q4,12 5,26 M197,211 q4,12 6,24 M208,212 q3,9 5,18"/>
+</svg>

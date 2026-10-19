@@ -1,0 +1,5 @@
+{
+  "_doc": "Chỉ tiếng bắn (cannon, mg, burst, rocket) và tiếng nổ (boom). Không nhạc nền. Một cue mỗi lần bắn hoặc nổ trên hình. Xem references/sound.md.",
+  "sfxGain": 0.65,
+  "sfx": []
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "2D Tactical Storytelling"
+  short_description: "Explain spatial situations through evolving 2D scenes"
+  default_prompt: "Use $code-video-tactics-2d to turn this supplied scenario into a clear, engaging 2D visual treatment and shot plan."

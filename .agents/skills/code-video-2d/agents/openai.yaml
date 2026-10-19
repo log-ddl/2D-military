@@ -1,0 +1,4 @@
+interface:
+  display_name: "Military Drawing Style"
+  short_description: "Apply clear linework and adaptable military forms"
+  default_prompt: "Use $code-video-2d to define clear military illustrations with consistent linework and simplified forms, adapting colors and subjects to this brief."

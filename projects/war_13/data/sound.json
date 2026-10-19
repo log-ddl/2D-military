@@ -1,0 +1,22 @@
+{
+  "sfxGain": 0.65,
+  "sfx": [
+    { "scene": "sc01", "at": 16.5, "type": "burst", "power": 0.45, "count": 4, "rate": 16.0 },
+    { "t": 97.6, "type": "rocket", "power": 0.75, "dur": 1.3 },
+    { "t": 101.68, "type": "burst", "power": 0.55, "count": 5, "rate": 14.0 },
+    { "t": 123.56, "type": "burst", "power": 0.5, "count": 4, "rate": 15.0 },
+    { "t": 135.22, "type": "rocket", "power": 0.75, "dur": 1.3 },
+    { "t": 142.34, "type": "burst", "power": 0.65, "count": 6, "rate": 14.0 },
+    { "t": 152.14, "type": "rocket", "power": 0.65, "dur": 1.1 },
+    { "t": 179.04, "type": "rocket", "power": 0.75, "dur": 1.4 },
+    { "t": 207.28, "type": "burst", "power": 0.5, "count": 5, "rate": 15.0 },
+    { "t": 285.1, "type": "burst", "power": 0.5, "count": 4, "rate": 14.0 },
+    { "t": 307.9, "type": "boom", "power": 0.9, "size": 1.1 },
+    { "t": 348.5, "type": "cannon", "power": 0.75 },
+    { "t": 349.18, "type": "boom", "power": 0.85, "size": 1.0 },
+    { "t": 353.88, "type": "burst", "power": 0.45, "count": 3, "rate": 18.0 },
+    { "t": 398.96, "type": "burst", "power": 0.55, "count": 4, "rate": 15.0 },
+    { "t": 403.5, "type": "cannon", "power": 0.65 },
+    { "t": 404.6, "type": "boom", "power": 0.6, "size": 0.8 }
+  ]
+}

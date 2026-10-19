@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Video Director (video dài)"
+  short_description: "Video giải thích 2D dài 4–9 phút: kế hoạch toàn phim, vẽ một lần, dựng và kiểm theo chương"
+  default_prompt: "Dùng $code-video-director-long: đọc code-video-director trước, rồi lên kế hoạch toàn phim, vẽ toàn bộ vật, dựng và kiểm từng chương, ghi trạng thái cuối mỗi chương vào Shot plan."

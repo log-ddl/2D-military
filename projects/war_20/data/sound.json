@@ -1,0 +1,57 @@
+{
+  "sfxGain": 0.62,
+  "sfx": [
+    { "t": 3.52, "type": "boom", "power": 0.78, "size": 0.85 },
+    { "t": 3.76, "type": "boom", "power": 0.72, "size": 0.80 },
+    { "t": 4.00, "type": "boom", "power": 0.80, "size": 0.90 },
+    { "t": 4.24, "type": "boom", "power": 0.85, "size": 0.95 },
+
+    { "t": 18.18, "type": "whoosh", "power": 0.45, "dur": 0.9 },
+    { "t": 23.60, "type": "thud", "power": 0.42 },
+    { "t": 27.80, "type": "thud", "power": 0.42 },
+    { "t": 31.80, "type": "thud", "power": 0.45 },
+    { "t": 35.40, "type": "chime", "power": 0.42, "f": 880 },
+
+    { "t": 53.50, "type": "thud", "power": 0.55 },
+    { "t": 95.44, "type": "whoosh", "power": 0.65, "dur": 0.8 },
+
+    { "t": 139.24, "type": "whoosh", "power": 0.55, "dur": 0.9 },
+    { "t": 152.64, "type": "chime", "power": 0.40, "f": 880 },
+    { "t": 173.24, "type": "whir", "power": 0.35, "dur": 1.2 },
+    { "t": 218.88, "type": "whoosh", "power": 0.45, "dur": 0.45 },
+    { "t": 221.24, "type": "thud", "power": 0.65 },
+    { "t": 221.36, "type": "chime", "power": 0.40, "f": 960 },
+    { "t": 245.18, "type": "whir", "power": 0.38, "dur": 2.0, "f": 160 },
+
+    { "t": 263.74, "type": "whir", "power": 0.35, "dur": 1.4 },
+    { "t": 299.76, "type": "thud", "power": 0.55 },
+    { "t": 301.90, "type": "whoosh", "power": 0.60, "dur": 0.7 },
+    { "t": 303.38, "type": "cannon", "power": 0.62 },
+    { "t": 306.16, "type": "thud", "power": 0.70 },
+    { "t": 319.22, "type": "whir", "power": 0.35, "dur": 1.6, "f": 160 },
+    { "t": 319.80, "type": "thud", "power": 0.45 },
+
+    { "t": 346.22, "type": "cannon", "power": 0.50 },
+    { "t": 349.56, "type": "thud", "power": 0.60 },
+    { "t": 354.82, "type": "chime", "power": 0.40, "f": 920 },
+    { "t": 357.70, "type": "thud", "power": 0.45 },
+    { "t": 382.10, "type": "tick", "power": 0.45 },
+    { "t": 382.35, "type": "tick", "power": 0.45 },
+    { "t": 382.60, "type": "tick", "power": 0.45 },
+    { "t": 393.28, "type": "whoosh", "power": 0.60, "dur": 0.8 },
+    { "t": 396.70, "type": "cannon", "power": 0.58 },
+    { "t": 398.96, "type": "thud", "power": 0.65 },
+
+    { "t": 442.40, "type": "rocket", "power": 0.80, "dur": 1.3 },
+    { "t": 442.75, "type": "rocket", "power": 0.78, "dur": 1.3 },
+    { "t": 453.32, "type": "boom", "power": 1.00, "size": 1.30 },
+    { "t": 456.60, "type": "thud", "power": 0.55 },
+    { "t": 456.85, "type": "thud", "power": 0.55 },
+
+    { "t": 468.06, "type": "tick", "power": 0.42 },
+    { "t": 469.50, "type": "tick", "power": 0.42 },
+    { "t": 470.54, "type": "tick", "power": 0.42 },
+    { "t": 471.68, "type": "tick", "power": 0.42 },
+    { "t": 473.06, "type": "chime", "power": 0.45, "f": 920 }
+  ]
+}

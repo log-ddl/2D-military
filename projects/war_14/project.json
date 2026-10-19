@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "war_14",
+  "name": "war_14",
+  "type": "custom",
+  "bpm": 120,
+  "createdAt": "2026-10-15T09:40:56+07:00",
+  "duration": 479.53,
+  "hasAudio": true,
+  "audioFile": "assets/audio/voice.mp3",
+  "voiceFile": "assets/audio/voice.mp3",
+  "sfxFile": "assets/audio/sfx.wav",
+  "sfxGain": 0.5
+}

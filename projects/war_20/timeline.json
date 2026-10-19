@@ -1,0 +1,16 @@
+[
+  { "id": "sc01", "scene": "sc01", "start": 0.0, "end": 17.42 },
+  { "id": "sc02", "scene": "sc02", "start": 17.42, "end": 41.96 },
+  { "id": "sc03", "scene": "sc03", "start": 41.96, "end": 75.50 },
+  { "id": "sc04", "scene": "sc04", "start": 75.50, "end": 112.24 },
+  { "id": "sc05", "scene": "sc05", "start": 112.24, "end": 156.08 },
+  { "id": "sc06", "scene": "sc06", "start": 156.08, "end": 195.08 },
+  { "id": "sc07", "scene": "sc07", "start": 195.08, "end": 233.56 },
+  { "id": "sc08", "scene": "sc08", "start": 233.56, "end": 252.56 },
+  { "id": "sc09", "scene": "sc09", "start": 252.56, "end": 307.30 },
+  { "id": "sc10", "scene": "sc10", "start": 307.30, "end": 328.18 },
+  { "id": "sc11", "scene": "sc11", "start": 328.18, "end": 366.30 },
+  { "id": "sc12", "scene": "sc12", "start": 366.30, "end": 415.58 },
+  { "id": "sc13", "scene": "sc13", "start": 415.58, "end": 458.70 },
+  { "id": "sc14", "scene": "sc14", "start": 458.70, "end": 482.273 }
+]

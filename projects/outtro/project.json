@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "id": "outtro",
+  "name": "outtro",
+  "type": "custom",
+  "bpm": 120,
+  "createdAt": "2026-10-13T09:32:01+07:00",
+  "duration": 12,
+  "hasAudio": true,
+  "audioFile": "assets/audio/sfx.wav"
+}
