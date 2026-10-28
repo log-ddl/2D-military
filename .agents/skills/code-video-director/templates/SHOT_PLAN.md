@@ -1,20 +1,29 @@
 # Shot plan: <id>
 
-Mốc là giây toàn phim. Mặc định không có chữ trên hình. Ghi theo skill code-video-director mục 1–5; lược trường không áp dụng.
+Voice: `input/voice.mp3`. Mốc là giây voice. Máy đọc: `plan/scenes.json`, mốc: `video/cues.ts`.
 
-## Lập luận biên tập
-Hook mở câu hỏi gì; video giải đáp bằng cách kể nào; quy ước hình đã đặt (hình nào đại diện cho ý nào).
+## 1. Ý tưởng
+- Câu hỏi mở đầu / điểm nhấn:
+- Mô-típ hình xuyên suốt:
 
-## Vật dùng xuyên phim
-| Vật | Dấu nhận dạng giữ ở mọi góc nhìn | Có mặt ở cụm nào |
-|---|---|---|
+## 2. Thiết kế mỹ thuật riêng của video
+- Không khí, giờ trong ngày, thời tiết:
+- Bảng màu 2D (nền, chủ thể, nhấn):
+- Bảng màu & ánh sáng 3D (sky, sun, exposure, sương, hậu kỳ):
+- Ngôn ngữ camera:
+- Media người dùng sẽ dùng (input/ hoặc library/):
 
-## Cụm giải thích
-Mỗi cụm: người xem đã biết gì → còn cần hiểu gì → bằng chứng / biến đổi nhìn thấy → cuối cụm hiểu thêm gì.
-
-### Cụm 1: <câu hỏi>
-| Mốc · từ then chốt | Điều người xem phải THẤY | Góc máy · cỡ cảnh | Diễn biến (trạng thái đầu → biến đổi → cuối) | Nối với shot sau, lý do |
+## 3. Mô hình & hình dùng chung (`video/local/`)
+| Tên | Loại | Kích thước thật / nguồn tỉ lệ | Bộ phận chuyển động | Dùng ở cảnh |
 |---|---|---|---|---|
 
-## Lỗi thấy khi kiểm
--
+## 4. Phân cảnh
+| Cảnh | Mốc (s) | 2D/3D | Góc máy & diễn biến | Mốc CUE chính | SFX (1–2) |
+|---|---|---|---|---|---|
+
+## 5. Phân công subagent
+- Nhóm 1: S01, S02 …
+
+## 6. Âm thanh
+- Nhạc (synth / tracks):
+- SFX:

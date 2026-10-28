@@ -1,5 +1,5 @@
 # phụ thuộc và môi trường
-node_modules/
+node_modules
 .venv/
 .venv-*/
 __pycache__/
@@ -10,6 +10,10 @@ app/dist/
 out/
 out_whisper/
 projects/*/out/
+projects/*/public/
+projects/*/video/Video.tsx
+projects/*/video/entry.tsx
+projects/node_modules
 *.mp4
 
 # trạng thái cục bộ của Studio
@@ -19,6 +23,4 @@ projects/*/out/
 .DS_Store
 .claude/
 
-# âm thanh sinh lại được bằng tools/sound.py
-projects/*/assets/audio/sfx.wav
-projects/*/assets/audio/music.wav
+

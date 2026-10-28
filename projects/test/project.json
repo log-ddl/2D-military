@@ -1,0 +1,8 @@
+{
+  "id": "test",
+  "voice": "voice/t.mp3",
+  "from": null,
+  "to": null,
+  "duration": 70.1,
+  "fps": 30
+}

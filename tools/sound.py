@@ -1,21 +1,17 @@
 #!/usr/bin/env python3
-"""Tạo track tiếng bắn và tiếng nổ (SFX) cho một project video. Không có nhạc nền, không có tiếng khác.
+"""Bộ tổng hợp tiếng động (SFX) bằng numpy. Là module, dùng qua tools/audio.py.
 
-    python3 tools/sound.py <project_id> [--outdir thư_mục]
-
-Đọc:  projects/<id>/data/sound.json, timeline.json, project.json
-Ghi:  projects/<id>/assets/audio/sfx.wav   mono 44.1 kHz, dài đúng bằng video; khai sfxFile vào project.json nếu chưa có.
-
-Chỉ 5 loại: tiếng bắn cannon (pháo), mg (súng máy), burst (loạt đạn), rocket (phóng rocket/tên lửa); tiếng nổ boom (power, size).
-Cue neo theo mốc tuyệt đối {"t": 12.1} hoặc theo scene {"scene": "sc02", "at": 3.2}.
-Luật dùng: .agents/skills/code-video-director/RULES.md §5. Chỉ cần numpy.
+Loại: cannon mg burst rocket boom whoosh tick chime thud whir prop. Mỗi hàm trả mảng mono 44.1 kHz.
+Trong audio/sound.json: {"t": 3.7, "type": "cannon", "power": 0.8}. Muốn dùng file thật thì {"t": 3.7, "src": "sfx/x.wav"}.
 """
-import json
 import sys
 import wave
 from pathlib import Path
 
-import numpy as np
+try:
+    import numpy as np
+except ImportError:
+    sys.exit('Thiếu numpy. Chạy bằng .venv/bin/python (cài: python3 -m venv .venv && .venv/bin/pip install -r requirements.txt)')
 
 SR = 44100
 ROOT = Path(__file__).resolve().parent.parent
@@ -151,20 +147,6 @@ SFX = dict(cannon=cannon, mg=mg, burst=burst, rocket=rocket, boom=boom,
 
 
 # ---------------------------------------------------------------- tiện ích
-def load_tl(pdir):
-    tl = json.loads((pdir / 'timeline.json').read_text())
-    return {e.get('id'): e for e in tl} | {e.get('scene'): e for e in tl}
-
-
-def at(cue, tl):
-    if 't' in cue:
-        return float(cue['t'])
-    sc = tl.get(cue.get('scene'))
-    if not sc:
-        raise SystemExit(f"cue tham chiếu scene không có trong timeline: {cue}")
-    return float(sc['start']) + float(cue.get('at', 0))
-
-
 def place(buf, x, t0):
     i = int(t0 * SR)
     if i >= len(buf) or len(x) == 0:
@@ -187,42 +169,3 @@ def write_track(path, x, label):
         w.writeframes((y * 32767).astype('<i2').tobytes())
     print(f'  {path.relative_to(ROOT) if path.is_relative_to(ROOT) else path}: {label}, đỉnh {peak:.2f}')
 
-
-def main():
-    args = sys.argv[1:]
-    if not args:
-        print(__doc__)
-        sys.exit(1)
-    pid = args[0]
-    pdir = ROOT / 'projects' / pid
-    proj = json.loads((pdir / 'project.json').read_text())
-    cfg = json.loads((pdir / 'data' / 'sound.json').read_text())
-    tl = load_tl(pdir)
-    n = int(float(proj['duration']) * SR)
-    outdir = Path(args[args.index('--outdir') + 1]) if '--outdir' in args else pdir / 'assets' / 'audio'
-    if cfg.get('music'):
-        print('  bỏ qua "music": skill không dùng nhạc nền')
-
-    sfx = np.zeros(n)
-    times = []
-    for c in cfg.get('sfx', []):
-        fn = SFX.get(c.get('type'))
-        if not fn:
-            raise SystemExit(f"loại SFX không dùng: {c.get('type')} (chỉ có: {', '.join(sorted(SFX))})")
-        t0 = at(c, tl)
-        times.append((t0, c['type']))
-        place(sfx, fn(**{k: v for k, v in c.items() if k not in ('t', 'scene', 'at', 'type')}), t0)
-    sfx *= float(cfg.get('sfxGain', 0.65))
-    write_track(outdir / 'sfx.wav', sfx, f'{len(times)} cue')
-    for t0, kind in sorted(times):
-        print(f'    {t0:7.2f}s  {kind}')
-
-    if '--outdir' not in args and not proj.get('sfxFile'):
-        proj['sfxFile'] = 'assets/audio/sfx.wav'
-        proj.setdefault('sfxGain', 0.5)
-        (pdir / 'project.json').write_text(json.dumps(proj, ensure_ascii=False, indent=2) + '\n')
-        print('  project.json: đã khai sfxFile')
-
-
-if __name__ == '__main__':
-    main()

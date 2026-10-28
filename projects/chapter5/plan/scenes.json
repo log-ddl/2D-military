@@ -1,0 +1,151 @@
+{
+  "fps": 30,
+  "music": 0.4,
+  "sfx": 0.5,
+  "scenes": [
+    {
+      "id": "S01",
+      "from": 0,
+      "to": 26.2,
+      "kind": "3d",
+      "transition": "fade",
+      "brief": "Hook: pháo bắn, đạn bay, nổ, pháo đã rời đi"
+    },
+    {
+      "id": "S02",
+      "from": 26.2,
+      "to": 50.9,
+      "kind": "2d",
+      "transition": "wipe:from-right",
+      "brief": ""
+    },
+    {
+      "id": "S03",
+      "from": 50.9,
+      "to": 87.96,
+      "kind": "2d",
+      "transition": "slide:from-bottom",
+      "brief": "Mặt cắt nòng: nòng dài vs tầm bắn"
+    },
+    {
+      "id": "S04",
+      "from": 87.96,
+      "to": 116.46,
+      "kind": "2d",
+      "transition": "fade",
+      "brief": ""
+    },
+    {
+      "id": "S05",
+      "from": 116.46,
+      "to": 143.1,
+      "kind": "3d",
+      "transition": "wipe:from-left",
+      "brief": ""
+    },
+    {
+      "id": "S06",
+      "from": 143.1,
+      "to": 165.48,
+      "kind": "2d",
+      "transition": "slide:from-right",
+      "brief": ""
+    },
+    {
+      "id": "S07",
+      "from": 165.48,
+      "to": 190.48,
+      "kind": "3d",
+      "transition": "fade",
+      "brief": ""
+    },
+    {
+      "id": "S08",
+      "from": 190.48,
+      "to": 210.62,
+      "kind": "2d",
+      "transition": "wipe:from-bottom",
+      "brief": ""
+    },
+    {
+      "id": "S09",
+      "from": 210.62,
+      "to": 232.7,
+      "kind": "3d",
+      "transition": "slide:from-left",
+      "brief": "Radar phản pháo & shoot-and-scoot"
+    },
+    {
+      "id": "S10",
+      "from": 232.7,
+      "to": 253.76,
+      "kind": "2d",
+      "transition": "fade",
+      "brief": ""
+    },
+    {
+      "id": "S11",
+      "from": 253.76,
+      "to": 281.76,
+      "kind": "2d",
+      "transition": "wipe:from-top",
+      "brief": ""
+    },
+    {
+      "id": "S12",
+      "from": 281.76,
+      "to": 308.14,
+      "kind": "3d",
+      "transition": "slide:from-bottom",
+      "brief": ""
+    },
+    {
+      "id": "S13",
+      "from": 308.14,
+      "to": 340.56,
+      "kind": "2d",
+      "transition": "wipe:from-right",
+      "brief": "Độ tản vs đạn dẫn đường (top-down)"
+    },
+    {
+      "id": "S14",
+      "from": 340.56,
+      "to": 372.66,
+      "kind": "2d",
+      "transition": "fade",
+      "brief": ""
+    },
+    {
+      "id": "S15",
+      "from": 372.66,
+      "to": 403.22,
+      "kind": "3d",
+      "transition": "slide:from-right",
+      "brief": ""
+    },
+    {
+      "id": "S16",
+      "from": 403.22,
+      "to": 429.72,
+      "kind": "2d",
+      "transition": "wipe:from-left",
+      "brief": ""
+    },
+    {
+      "id": "S17",
+      "from": 429.72,
+      "to": 453.64,
+      "kind": "2d",
+      "transition": "fade",
+      "brief": ""
+    },
+    {
+      "id": "S18",
+      "from": 453.64,
+      "to": 471.8,
+      "kind": "3d",
+      "transition": "slide:from-bottom",
+      "brief": ""
+    }
+  ]
+}

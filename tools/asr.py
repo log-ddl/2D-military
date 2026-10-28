@@ -4,8 +4,8 @@
     python3 tools/asr.py <project_id> [--voice đường_dẫn.mp3]
 
 Ghi:
-  projects/<id>/data/transcript.json   {"lang", "duration", "segments":[{start,end,text,words:[{w,s,e}]}]}
-  projects/<id>/data/voice_map.md      bản đọc cho người: câu có mốc, khoảng ngắt dài, từ có số/tên riêng
+  projects/<id>/plan/transcript.json   {"lang", "duration", "segments":[{start,end,text,words:[{w,s,e}]}]}
+  projects/<id>/plan/voice_map.md      bản đọc cho người: câu có mốc, khoảng ngắt dài, từ có số/tên riêng
 Model: deepdml/faster-whisper-large-v3-turbo-ct2 (đã có trong ~/.cache/huggingface).
 """
 import json
@@ -31,7 +31,7 @@ def main():
         sys.exit(1)
     pid = a[0]
     pdir = ROOT / 'projects' / pid
-    voice = Path(a[a.index('--voice') + 1]) if '--voice' in a else pdir / 'assets/audio/voice.mp3'
+    voice = Path(a[a.index('--voice') + 1]) if '--voice' in a else pdir / 'input/voice.mp3'
     if not voice.exists():
         sys.exit(f'không thấy voice: {voice}')
     from faster_whisper import WhisperModel
@@ -43,11 +43,11 @@ def main():
         out.append({'start': round(s.start, 2), 'end': round(s.end, 2), 'text': s.text.strip(), 'words': words})
         print(f'{s.start:7.2f}–{s.end:7.2f}  {s.text.strip()}', flush=True)
     dur = probe(voice)
-    (pdir / 'data').mkdir(parents=True, exist_ok=True)
+    (pdir / 'plan').mkdir(parents=True, exist_ok=True)
     json.dump({'lang': info.language, 'duration': round(dur, 3), 'segments': out},
-              open(pdir / 'data/transcript.json', 'w'), ensure_ascii=False, indent=1)
+              open(pdir / 'plan/transcript.json', 'w'), ensure_ascii=False, indent=1)
     write_map(pdir, out, dur)
-    print(f'→ {pdir / "data/transcript.json"}\n→ {pdir / "data/voice_map.md"}  (voice {dur:.3f}s)')
+    print(f'→ {pdir / "plan/transcript.json"}\n→ {pdir / "plan/voice_map.md"}  (voice {dur:.3f}s)')
 
 
 def write_map(pdir, segs, dur):
@@ -72,15 +72,15 @@ def write_map(pdir, segs, dur):
         prev = s['end']
     if dur - prev >= PAUSE:
         L.append(f'‖ {dur - prev:.1f}s (đuôi)')
-    (pdir / 'data/voice_map.md').write_text('\n'.join(L) + '\n')
+    (pdir / 'plan/voice_map.md').write_text('\n'.join(L) + '\n')
 
 
 if __name__ == '__main__':
     if len(sys.argv) > 2 and sys.argv[2] == '--map-only':
         p = ROOT / 'projects' / sys.argv[1]
-        d = json.load(open(p / 'data/transcript.json'))
+        d = json.load(open(p / 'plan/transcript.json'))
         segs = [dict(s, words=s.get('words', [])) for s in d['segments']]
-        write_map(p, segs, d.get('duration') or probe(p / 'assets/audio/voice.mp3'))
-        print(f'→ {p / "data/voice_map.md"}')
+        write_map(p, segs, d.get('duration') or probe(p / 'input/voice.mp3'))
+        print(f'→ {p / "plan/voice_map.md"}')
     else:
         main()

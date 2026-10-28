@@ -1,4 +1,0 @@
-interface:
-  display_name: "2D Mechanism Storytelling"
-  short_description: "Explain mechanisms through connected visual discoveries"
-  default_prompt: "Use $code-video-mechanism-2d to turn this source into a compelling 2D mechanism explainer and an actionable shot plan."

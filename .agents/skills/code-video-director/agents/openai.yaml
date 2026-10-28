@@ -1,4 +1,3 @@
-interface:
-  display_name: "Code Video Director"
-  short_description: "Lập kế hoạch kể bằng hình rồi dựng video giải thích quân sự 2D từ voice"
-  default_prompt: "Dùng $code-video-director: đọc nguồn, chia cụm giải thích, chọn hình và góc máy theo ý, đọc thêm code-video-2d / mechanism / tactics khi cần, rồi dựng và kiểm bằng ảnh render."
+display_name: Code Video Director (Remotion 2D · 3D)
+short_description: Đạo diễn và dựng video giải thích quân sự từ voice; mỗi video một dự án độc lập trong projects/<id>/.
+default_prompt: Dựng video giải thích quân sự từ voice theo skill code-video-director, kết hợp cảnh thuần 2D và thuần 3D, tự dựng mô hình và tự kiểm hình.
