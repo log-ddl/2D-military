@@ -34,7 +34,7 @@ Không tải mô hình 3D hay hình ảnh từ ngoài: mô hình tự dựng; �
 | Mốc từ | `.venv/bin/python tools/asr.py <id>` | `plan/voice_map.md`, `transcript.json` |
 | Ráp + kiểm kiểu | `python3 tools/build.py <id>` | Video.tsx từ scenes.json; cảnh lỗi → khung giữ chỗ + in lỗi |
 | Kiểm mô hình | `python3 tools/sheet.py <id> --model M109` | `out/models/M109.png` (4 góc) |
-| Kiểm cảnh | `python3 tools/sheet.py <id> --scene S03,S07` | `out/scenes/S03.png` (6 khung, rộng 960) |
+| Kiểm cảnh | `python3 tools/sheet.py <id> --scene S03,S07` | `out/scenes/S03.png` (6 khung, rộng 960; tự kiểm `tsc` & đóng gói cô lập, không cần `build.py`) |
 | Âm thanh | `.venv/bin/python tools/audio.py <id>` | `public/{voice.mp3,music.wav,sfx.wav}` |
 | Sheet cả video | `python3 tools/sheet.py <id>` | `out/sheet.png` |
 | Xem / xuất | `python3 tools/render.py <id> --studio` · `python3 tools/render.py <id> [--no-music] [--no-sfx]` | Studio port riêng (bảng Props: quality 1/4·1/2·Full, music, sfx) · `out/video.mp4` (chỉ khi được yêu cầu) |
@@ -54,17 +54,17 @@ Không dùng nút mắt/loa trên timeline Studio: nó ghi `hidden` thẳng vào
    `sheet.py --model <Tên>`, tự xem ảnh, sửa tới khi đạt. Các hình 2D dùng nhiều cảnh cũng làm sẵn trong `local/`.
 
 ### Bước B — Subagent dựng cảnh song song
-- Chia cảnh thành 2–4 nhóm; **mỗi subagent tối đa 2 cảnh 3D** (3D tốn công hơn 2D). Mỗi prompt BẮT BUỘC có:
+- Chia cảnh thành 2–8+ nhóm tuỳ độ dài video (có thể chạy 4–10 subagent song song; nếu >6 subagent thì giữ prompt giao việc gọn, tham chiếu chi tiết từ `SHOT_PLAN.md`, hoặc gọi làm 2 nhịp liền nhau); **mỗi subagent tối đa 2 cảnh 3D** (3D tốn công hơn 2D). Mỗi prompt BẮT BUỘC có:
   1. Đọc: SKILL.md này, `plan/SHOT_PLAN.md`, `plan/scenes.json`, `video/cues.ts`, `engine/lib/CATALOG.md`, `library/INDEX.md`, các file trong `video/local/` liên quan.
-  2. Danh sách file duy nhất được tạo/sửa: `video/scenes/Sxx.tsx` của nhóm mình. Không sửa local/, cues.ts, scenes.json, file nhóm khác.
+  2. Danh sách file duy nhất được tạo/sửa: `video/scenes/Sxx.tsx` của nhóm mình. Không sửa `local/`, `cues.ts`, `scenes.json`, `Video.tsx`, `entry.tsx`, file nhóm khác; **không gọi `build.py`**.
   3. Mỗi file: `const Sxx: React.FC<{ t0: number }> = …; export default Sxx;`, `const t = useT(t0)` (giây voice tuyệt đối).
   4. Lời thoại + mốc `CUE.*` + mô tả cảnh lấy từ SHOT_PLAN.
-  5. **Tự kiểm hình bắt buộc:** `python3 tools/build.py <id>` (không còn LỖI ở cảnh mình) → `python3 tools/sheet.py <id> --scene Sxx`
+  5. **Tự kiểm hình bắt buộc:** gọi thẳng `python3 tools/sheet.py <id> --scene Sxx,Syy` (lệnh tự kiểm `tsc` cô lập cho đúng cảnh của nhóm và đóng gói riêng, không đụng `Video.tsx`/`entry.tsx`)
      → đọc ảnh `out/scenes/Sxx.png`, sửa ít nhất một vòng (bố cục, độ rõ chủ thể, khung trống, chữ đè, lỗi hình). Báo lại: đã kiểm gì, còn gì chưa ổn, mốc giây các sự kiện lớn cho SFX.
-- Tool chạy song song an toàn: mỗi lần render tự chọn port, tsc chỉ kiểm dự án này.
+- Tool chạy song song an toàn: mỗi lệnh `--scene` có entry/tsconfig tạm riêng và khoá điều tiết tối đa 4 tiến trình Chrome render đồng thời.
 
 ### Bước C — Agent chính ráp & kiểm
-`build.py` (phải sạch lỗi) → `audio.py` → `sheet.py <id>` → tự xem sheet, sửa hoặc giao lại cảnh hỏng.
+`audio.py` → `build.py --strict` (phải sạch lỗi) → `sheet.py <id>` → tự xem sheet, sửa hoặc giao lại cảnh hỏng.
 
 ## 4. Tư duy đạo diễn
 - Mỗi cảnh thuần 2D hoặc thuần 3D (cảnh 3D chỉ được đè `<Label>` HTML). Xen kẽ theo nội dung: sơ đồ, mặt cắt, bản đồ,

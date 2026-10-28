@@ -11,6 +11,7 @@ out/
 out_whisper/
 projects/*/out/
 projects/*/public/
+projects/*/.cache/
 projects/*/video/Video.tsx
 projects/*/video/entry.tsx
 projects/node_modules
