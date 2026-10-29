@@ -81,17 +81,16 @@ const Models: React.FC<{{ name: string }}> = ({{ name }}) => <Turntable models={
     (pdir / 'video/entry.tsx').write_text(f"""// SINH TỰ ĐỘNG bởi tools/build.py — entry Remotion chỉ chứa dự án {pid}.
 import React from 'react';
 import {{ Composition, registerRoot }} from 'remotion';
-import {{ VideoTimeline, durationOf }} from '@kit/timeline';
-import {{ qualitySchema, qualityScale, type QualityName }} from '@kit/quality';
+import {{ VideoTimeline, durationOf, propsSchema }} from '@kit/timeline';
 import {{ spec }} from './Video';
 {models}
-// Chất lượng / nhạc / sfx chọn ở bảng Props của Studio; render.py truyền Full và cờ --no-music / --no-sfx.
-const Main: React.FC<{{ quality: QualityName; music: boolean; sfx: boolean }}> = ({{ quality, music, sfx }}) => (
-  <VideoTimeline spec={{{{ ...spec, music: music ? spec.music : 0, sfx: sfx ? spec.sfx : 0 }}}} quality={{qualityScale(quality)}} />
+// Bật/tắt nhạc nền và tiếng động ở bảng Props của Studio; render.py truyền cờ --no-music / --no-sfx.
+const Main: React.FC<{{ music: boolean; sfx: boolean }}> = ({{ music, sfx }}) => (
+  <VideoTimeline spec={{{{ ...spec, music: music ? spec.music : 0, sfx: sfx ? spec.sfx : 0 }}}} />
 );
 registerRoot(() => (
   <>
-    <Composition id="{comp_id(pid)}" component={{Main}} schema={{qualitySchema}} defaultProps={{{{ quality: '1/2' as const, music: true, sfx: true }}}} durationInFrames={{durationOf(spec)}} fps={{spec.fps ?? 30}} width={{1920}} height={{1080}} />{models_comp}
+    <Composition id="{comp_id(pid)}" component={{Main}} schema={{propsSchema}} defaultProps={{{{ music: true, sfx: true }}}} durationInFrames={{durationOf(spec)}} fps={{spec.fps ?? 30}} width={{1920}} height={{1080}} />{models_comp}
   </>
 ));
 """)

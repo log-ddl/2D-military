@@ -35,6 +35,6 @@ python3 tools/build.py <id>                      # sinh Video.tsx, kiểm kiểu
 python3 tools/sheet.py <id> --scene S03          # kiểm một cảnh  (--model M109: kiểm mô hình 4 góc)
 .venv/bin/python tools/audio.py <id>             # public/music.wav, sfx.wav
 python3 tools/sheet.py <id>                      # out/sheet.png
-python3 tools/render.py <id> --studio            # xem trong Studio (port riêng theo id; chất lượng 1/4 · 1/2 · Full ở bảng Props)
+python3 tools/render.py <id> --studio            # xem trong Studio (port riêng theo id; bật/tắt music, sfx ở bảng Props)
 python3 tools/render.py <id>                     # out/video.mp4  (thêm --no-music / --no-sfx để bỏ nhạc / tiếng động)
 ```

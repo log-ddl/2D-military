@@ -4,7 +4,6 @@
  * Alias @kit/* và @lib/* trỏ về engine/kit, engine/lib cho code của các dự án.
  */
 import { Config } from "@remotion/cli/config";
-import { existsSync } from "node:fs";
 import path from "node:path";
 
 Config.setRspack(true);
@@ -22,7 +21,5 @@ Config.overrideRspackConfig((c) => ({
   resolve: { ...c.resolve, alias: { ...((c.resolve?.alias as object) ?? {}), ...ALIAS }, modules: MODULES },
 }));
 
-// Bản chrome-headless-shell tải kèm có lúc treo ở "Waiting for root component" trên máy này;
-// có Chrome hệ thống thì dùng nó để render.
-const SYSTEM_CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-if (existsSync(SYSTEM_CHROME)) Config.setBrowserExecutable(SYSTEM_CHROME);
+// Render bằng chrome-headless-shell tải kèm Remotion. Không dùng Chrome hệ thống: ở chế độ ẩn nó chụp khung
+// trước khi GPU vẽ xong lớp nặng (filter #sh/#glow), làm vật thể/chữ 2D chớp mất ngẫu nhiên trong video xuất.

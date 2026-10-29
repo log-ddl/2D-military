@@ -1,0 +1,75 @@
+{
+  "sfx": [
+    { "t": 4.82, "type": "rocket", "power": 0.85, "dur": 1.3 },
+    { "t": 11.35, "type": "boom", "power": 0.9, "size": 1.0 },
+
+    { "t": 19.94, "type": "whoosh", "power": 0.55, "dur": 0.6 },
+    { "t": 24.85, "type": "cannon", "power": 0.9 },
+
+    { "t": 34.36, "type": "burst", "power": 0.55, "count": 4, "rate": 10.0 },
+    { "t": 41.25, "type": "boom", "power": 1.0, "size": 1.1 },
+
+    { "t": 46.34, "type": "tick", "power": 0.6 },
+    { "t": 55.34, "type": "prop", "power": 0.4, "dur": 2.4 },
+
+    { "t": 70.8, "type": "boom", "power": 1.0, "size": 1.3 },
+    { "t": 74.2, "type": "rocket", "power": 0.85, "dur": 1.4 },
+
+    { "t": 90.2, "type": "rocket", "power": 0.8, "dur": 1.2 },
+    { "t": 93.1, "type": "boom", "power": 0.85, "size": 0.9 },
+
+    { "t": 97.92, "type": "prop", "power": 0.38, "dur": 2.2 },
+    { "t": 106.36, "type": "whoosh", "power": 0.7, "dur": 0.75 },
+
+    { "t": 119.42, "type": "whoosh", "power": 0.65, "dur": 0.9 },
+    { "t": 125.78, "type": "thud", "power": 0.7 },
+
+    { "t": 135.45, "type": "thud", "power": 0.65 },
+    { "t": 136.35, "type": "rocket", "power": 0.95, "dur": 1.6 },
+
+    { "t": 148.28, "type": "thud", "power": 0.55 },
+    { "t": 154.56, "type": "whoosh", "power": 0.65, "dur": 0.8 },
+
+    { "t": 156.88, "type": "whir", "power": 0.35, "dur": 1.8, "f": 165.0 },
+    { "t": 170.7, "type": "whoosh", "power": 0.55, "dur": 0.7 },
+
+    { "t": 176.9, "type": "tick", "power": 0.55 },
+    { "t": 192.0, "type": "chime", "power": 0.5, "f": 740.0 },
+
+    { "t": 203.9, "type": "tick", "power": 0.55 },
+    { "t": 216.12, "type": "chime", "power": 0.5, "f": 880.0 },
+
+    { "t": 233.4, "type": "rocket", "power": 0.9, "dur": 1.6 },
+    { "t": 236.2, "type": "thud", "power": 0.7 },
+
+    { "t": 260.42, "type": "chime", "power": 0.55, "f": 980.0 },
+    { "t": 276.6, "type": "rocket", "power": 0.85, "dur": 1.3 },
+
+    { "t": 281.5, "type": "cannon", "power": 0.65 },
+    { "t": 292.84, "type": "chime", "power": 0.55, "f": 1046.0 },
+
+    { "t": 305.5, "type": "burst", "power": 0.6, "count": 5, "rate": 11.0 },
+    { "t": 315.4, "type": "boom", "power": 1.15, "size": 1.4 },
+
+    { "t": 334.8, "type": "cannon", "power": 0.78 },
+    { "t": 340.08, "type": "thud", "power": 0.75 },
+
+    { "t": 348.8, "type": "burst", "power": 0.55, "count": 6, "rate": 9.0 },
+    { "t": 354.76, "type": "boom", "power": 0.85, "size": 0.95 },
+
+    { "t": 372.02, "type": "prop", "power": 0.42, "dur": 2.4 },
+    { "t": 380.6, "type": "rocket", "power": 0.82, "dur": 1.2 },
+
+    { "t": 384.2, "type": "rocket", "power": 0.85, "dur": 1.2 },
+    { "t": 390.6, "type": "boom", "power": 0.85, "size": 1.05 },
+
+    { "t": 399.28, "type": "tick", "power": 0.55 },
+    { "t": 408.5, "type": "boom", "power": 0.85, "size": 1.0 },
+
+    { "t": 430.96, "type": "prop", "power": 0.38, "dur": 2.2 },
+    { "t": 433.94, "type": "cannon", "power": 0.8 },
+
+    { "t": 440.65, "type": "whoosh", "power": 0.7, "dur": 0.75 },
+    { "t": 441.4, "type": "boom", "power": 1.0, "size": 1.25 }
+  ]
+}

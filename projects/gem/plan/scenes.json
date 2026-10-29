@@ -1,0 +1,175 @@
+{
+  "fps": 30,
+  "music": 0.38,
+  "sfx": 0.52,
+  "scenes": [
+    {
+      "id": "S01",
+      "from": 0,
+      "to": 24.8,
+      "kind": "3d",
+      "transition": "fade",
+      "brief": "05:30 sáng 28/01/2024 tại sa mạc Rukban, Jordan: khu nhà ngủ CHU của 350 lính Mỹ chìm trong yên tĩnh trước khi UAV cảm tử Shahed lao từ trời đêm nổ tung giữa dãy nhà."
+    },
+    {
+      "id": "S02",
+      "from": 24.8,
+      "to": 43.6,
+      "kind": "2d",
+      "transition": "wipe:from-left",
+      "brief": "Nghịch lý đối đầu phi đối xứng: hệ thống vệ tinh - radar - tên lửa của siêu cường 800 tỷ USD đặt cạnh chiếc UAV cảm tử cánh quạt rẻ tiền bay chậm hơn ô tô trên cao tốc."
+    },
+    {
+      "id": "S03",
+      "from": 43.6,
+      "to": 64.4,
+      "kind": "2d",
+      "transition": "slide:from-right",
+      "brief": "Bản đồ địa hình đông bắc Jordan trống rỗng không có sân bay công khai nào của Mỹ và vòng đồng hồ 90 phút cảnh báo cuối cùng trôi qua mà không kích hoạt còi báo động."
+    },
+    {
+      "id": "S04",
+      "from": 64.4,
+      "to": 89.68,
+      "kind": "3d",
+      "transition": "fade",
+      "brief": "Toàn cảnh ban ngày căn cứ hậu cần dã chiến Tháp 22 (Tower 22) tại ngã ba biên giới Jordan-Syria-Iraq không đường băng phản lực, nối mạch tiếp vận 20 km tới tiền đồn Al-Tanf ở Syria."
+    },
+    {
+      "id": "S05",
+      "from": 89.68,
+      "to": 105.9,
+      "kind": "2d",
+      "transition": "wipe:from-left",
+      "brief": "Bản đồ tam giác biên giới: trên 160 vụ tập kích bên phía Iraq và Syria đối lập với ảo giác vòm hậu phương an toàn trong lãnh thổ Jordan bắt đầu nứt toạc tại Tháp 22."
+    },
+    {
+      "id": "S06",
+      "from": 105.9,
+      "to": 128.3,
+      "kind": "3d",
+      "transition": "fade",
+      "brief": "Giải phẫu cận cảnh UAV cảm tử dòng Shahed (120-185 km/h) bay trên thung lũng sa mạc: chậm chạp dưới vệt tên lửa siêu thanh nhưng ẩn mình hoàn hảo sát địa hình thấp."
+    },
+    {
+      "id": "S07",
+      "from": 128.3,
+      "to": 147.55,
+      "kind": "2d",
+      "transition": "slide:from-right",
+      "brief": "Mặt cắt vật lý radar cảnh giới: chùm sóng bắt mục tiêu bay cao-nhanh, thuật toán Doppler lọc bỏ chim trời/bụi cát sát đất và UAV vỏ composite bay là là dưới chân trời radar."
+    },
+    {
+      "id": "S08",
+      "from": 147.55,
+      "to": 172.62,
+      "kind": "2d",
+      "transition": "flip:from-top",
+      "brief": "Hồ sơ điều tra giải mật AR 15-6: Tháp 22 khuyết hoàn toàn pháo C-RAM và đạn Coyote, đề xuất cấp radar băng Ku KuRFS cùng vũ khí đánh chặn cứng bị cấp trên từ chối."
+    },
+    {
+      "id": "S09",
+      "from": 172.62,
+      "to": 187.5,
+      "kind": "3d",
+      "transition": "fade",
+      "brief": "Hệ thống tác chiến điện tử chế áp mềm tại Tháp 22 phát vòm sóng vô tuyến cắt liên lạc flycam dân dụng nhưng bất lực trước UAV cảm tử quân sự bay tự hành."
+    },
+    {
+      "id": "S10",
+      "from": 187.5,
+      "to": 206.82,
+      "kind": "2d",
+      "transition": "wipe:from-left",
+      "brief": "Mặt cắt X-quang khoang dẫn đường Shahed: tọa độ nạp cứng trước lúc phóng, sóng vệ tinh bị nhiễu nhưng con quay hồi chuyển và gia tốc kế quán tính INS vẫn khóa thẳng quỹ đạo như viên đạn rời nòng."
+    },
+    {
+      "id": "S11",
+      "from": 206.82,
+      "to": 222.68,
+      "kind": "3d",
+      "transition": "fade",
+      "brief": "Dolly ngang tầm mắt qua hầm bê tông trú ẩn, trụ camera tầm nhiệt NightHawk và nhà trực nhận cảnh báo tình báo sớm 90 phút trước vụ nổ, dừng lại trước chiếc còi báo động câm lặng."
+    },
+    {
+      "id": "S12",
+      "from": 222.68,
+      "to": 237.06,
+      "kind": "2d",
+      "transition": "slide:from-right",
+      "brief": "Giả thuyết truyền thông về việc UAV địch bám đuôi UAV Mỹ gây nhầm lẫn bạn-thù IFF bị hồ sơ giải mật Lầu Năm Góc bác bỏ, mở vào sự thật trong phòng điều hành phòng thủ căn cứ."
+    },
+    {
+      "id": "S13",
+      "from": 237.06,
+      "to": 266.14,
+      "kind": "3d",
+      "transition": "fade",
+      "brief": "30-45 giây trước vụ nổ: UAV trinh sát không bánh xe ScanEagle lao đầu cánh móc vào dây cáp treo thẳng đứng trên cần cẩu SkyHook cao 15 m, đẩy kíp trực vào tầm nhìn đường hầm."
+    },
+    {
+      "id": "S14",
+      "from": 266.14,
+      "to": 279.94,
+      "kind": "2d",
+      "transition": "wipe:from-left",
+      "brief": "Bản đồ la bàn chiến thuật 360 độ: phòng tuyến canh hướng Bắc Syria và Đông Iraq trong khi UAV cảm tử vòng xuống nội địa Jordan rồi bò chậm chạp đánh lén từ hướng Nam sau lưng căn cứ."
+    },
+    {
+      "id": "S15",
+      "from": 279.94,
+      "to": 299.9,
+      "kind": "2d",
+      "transition": "clockWipe",
+      "brief": "POV màn hình phòng không FAAD trong phòng trực và góc nhìn camera nhiệt NightHawk: mắt kíp trực dán vào ScanEagle, bỏ qua hai vệt tín hiệu chậm hướng Nam vì ngỡ là chim trời hoặc rác bay."
+    },
+    {
+      "id": "S16",
+      "from": 299.9,
+      "to": 327.22,
+      "kind": "3d",
+      "transition": "fade",
+      "brief": "05:31 sáng: UAV cảm tử lao xuống đâm nổ tung ngay trên kết cấu cứng giữa hai dãy nhà container CHU CC và Z, bị vây quanh bởi tường bê tông chữ T cao lớn và rọ đất HESCO."
+    },
+    {
+      "id": "S17",
+      "from": 327.22,
+      "to": 354.4,
+      "kind": "2d",
+      "transition": "wipe:from-left",
+      "brief": "Mặt cắt hành lang tường bê tông chữ T khóa kín lối thoát khí, biến khe hẹp thành ống dẫn sóng xung kích và mảnh văng quét qua phòng ngủ; 3 chiến sĩ Đại đội 718 tử trận và hơn 100/350 quân nhân chấn thương quá áp."
+    },
+    {
+      "id": "S18",
+      "from": 354.4,
+      "to": 373.8,
+      "kind": "3d",
+      "transition": "fade",
+      "brief": "Kịch bản giả định 60 giây trước: xoay camera NightHawk sang hướng Nam kích báo động hầm trú ẩn, hoặc tổ hợp LIDS tích hợp radar KuRFS phóng đạn phản lực Coyote Block II diệt gọn UAV từ xa hàng km."
+    },
+    {
+      "id": "S19",
+      "from": 373.8,
+      "to": 391.46,
+      "kind": "3d",
+      "transition": "fade",
+      "brief": "Ngày 02/02/2024: máy bay ném bom siêu thanh B-1B Lancer đốt sau khép cánh bay nửa vòng trái đất từ Texas, trút hơn 125 quả đạn chính xác xuống hơn 85 mục tiêu tại Iraq và Syria."
+    },
+    {
+      "id": "S20",
+      "from": 391.46,
+      "to": 402,
+      "kind": "2d",
+      "transition": "slide:from-right",
+      "brief": "Bản vẽ kỹ thuật cải tổ tiền đồn khẩn cấp: triển khai vũ khí động năng, vi sóng, laser, dựng mái kích nổ sớm trên nóc container CHU và xếp lệch tường chữ T cắt đứt hành lang sóng nổ."
+    },
+    {
+      "id": "S21",
+      "from": 402,
+      "to": 420.19,
+      "kind": "3d",
+      "transition": "fade",
+      "brief": "Nghịch lý kết phim sát mặt cát sa mạc Rukban: chiếc UAV rẻ tiền bay là là lẫn vào bụi cát, chọn đúng 45 giây con người nhìn đi hướng khác và bay đủ chậm để bị xem thường như cánh chim đêm."
+    }
+  ]
+}

@@ -7,7 +7,11 @@ import { AbsoluteFill, staticFile } from 'remotion';
 import { Audio } from '@remotion/media';
 import { TransitionSeries, linearTiming, type TransitionPresentation } from '@remotion/transitions';
 import { fade } from '@remotion/transitions/fade';
-import { QualityProvider } from './quality';
+import { z } from 'zod';
+
+// Bật/tắt nhạc nền và tiếng động từ bảng Props của Studio hoặc cờ --no-music / --no-sfx của render.py.
+// Dùng các ô này thay cho nút loa trên timeline: nút loa của Studio ghi `hidden` thẳng vào code kit dùng chung.
+export const propsSchema = z.object({ music: z.boolean(), sfx: z.boolean() });
 
 export type SceneC = React.FC<{ t0: number }>;
 export type VideoSpec = {
@@ -27,10 +31,9 @@ export type VideoSpec = {
 
 export const durationOf = (v: VideoSpec) => Math.round(v.cuts[v.cuts.length - 1] * (v.fps ?? 30));
 
-export const VideoTimeline: React.FC<{ spec: VideoSpec; quality?: number }> = ({ spec, quality = 1 }) => {
+export const VideoTimeline: React.FC<{ spec: VideoSpec }> = ({ spec }) => {
   const fps = spec.fps ?? 30, T = 12, n = spec.scenes.length;
   return (
-    <QualityProvider value={quality}>
     <AbsoluteFill style={{ backgroundColor: '#000' }}>
       <TransitionSeries>
         {spec.scenes.map((Scene, k) => {
@@ -48,7 +51,6 @@ export const VideoTimeline: React.FC<{ spec: VideoSpec; quality?: number }> = ({
       {spec.music !== 0 && <Audio src={staticFile('music.wav')} volume={spec.music ?? 0.45} />}
       {spec.sfx !== 0 && <Audio src={staticFile('sfx.wav')} volume={spec.sfx ?? 0.5} />}
     </AbsoluteFill>
-    </QualityProvider>
   );
 };
 

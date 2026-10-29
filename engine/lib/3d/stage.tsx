@@ -9,7 +9,6 @@ import { EffectComposer, Bloom, N8AO, Vignette, ToneMapping, SMAA } from '@react
 import { ToneMappingMode } from 'postprocessing';
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
-import { useQuality } from '@kit/quality';
 
 export type V3 = [number, number, number];
 
@@ -37,31 +36,26 @@ export type StageProps = {
   height?: number;
 };
 
-/**
- * Chất lượng preview (useQuality: 1 · 0.5 · 0.25) tự giảm tải: độ phân giải canvas, cỡ bóng đổ, hậu kỳ
- * (1/2: bỏ AO + SMAA; 1/4: chỉ tone mapping). Xuất video luôn chất lượng đầy đủ.
- */
 export const Stage: React.FC<StageProps> = ({
   children, sky = ['#3f8ed6', '#a9d6f2', '#e7f2f2'], sun = [40, 60, 25], sunColor = '#fff3df', sunIntensity = 2.6,
   shadowArea = 40, shadowCenter = [0, 0, 0], fog = [140, 700], fogColor, env = 0.35, ambient = 0.18, exposure = 1,
   post = {}, width = 1920, height = 1080,
 }) => {
-  const q = useQuality();
   const effects: React.ReactElement[] = [];
   if (post !== false) {
-    if (q >= 1) effects.push(<N8AO key="ao" aoRadius={post.aoRadius ?? 2.5} intensity={post.ao ?? 2.2} distanceFalloff={1} halfRes />);
-    if (q >= 0.5) effects.push(<Bloom key="bl" intensity={post.bloom ?? 0.6} luminanceThreshold={post.bloomThreshold ?? 0.82} luminanceSmoothing={0.2} mipmapBlur />);
+    effects.push(<N8AO key="ao" aoRadius={post.aoRadius ?? 2.5} intensity={post.ao ?? 2.2} distanceFalloff={1} halfRes />);
+    effects.push(<Bloom key="bl" intensity={post.bloom ?? 0.6} luminanceThreshold={post.bloomThreshold ?? 0.82} luminanceSmoothing={0.2} mipmapBlur />);
     effects.push(<ToneMapping key="tm" mode={ToneMappingMode.ACES_FILMIC} />);
-    if (q >= 0.5) effects.push(<Vignette key="vg" offset={0.3} darkness={post.vignette ?? 0.45} />);
-    if (q >= 1) effects.push(<SMAA key="aa" />);
+    effects.push(<Vignette key="vg" offset={0.3} darkness={post.vignette ?? 0.45} />);
+    effects.push(<SMAA key="aa" />);
   }
   return (
-    <ThreeCanvas width={width} height={height} dpr={q} shadows flat={post !== false} gl={{ antialias: post === false, toneMappingExposure: exposure }}>
+    <ThreeCanvas width={width} height={height} dpr={1} shadows flat={post !== false} gl={{ antialias: post === false, toneMappingExposure: exposure }}>
       <SkyDome colors={sky} sun={sun} />
       {fog && <fog attach="fog" args={[fogColor ?? sky[1], fog[0], fog[1]]} />}
       <Env intensity={env} />
       <hemisphereLight args={[sky[1], '#6b6152', ambient]} />
-      <Sun dir={sun} color={sunColor} intensity={sunIntensity} area={shadowArea} center={shadowCenter} mapSize={q >= 1 ? 4096 : q >= 0.5 ? 2048 : 1024} />
+      <Sun dir={sun} color={sunColor} intensity={sunIntensity} area={shadowArea} center={shadowCenter} mapSize={4096} />
       {children}
       {post !== false && <EffectComposer multisampling={0}>{effects}</EffectComposer>}
       {post !== false && <PostWarmup />}

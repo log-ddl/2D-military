@@ -10,8 +10,7 @@ và bối cảnh của mình (trong `projects/<id>/video/local/`) bằng các c�
 | `@kit/theme`: `D`, `FONT`, `W`, `H`, `prog(t,a,b,ease?)`, `lerp`, `mix(hexA,hexB,p)`, `bump(t,a,d)`, `rnd(seed)`, `skyColors(h)`, `deg` | Bảng màu 2D, hàm thời gian/nội suy |
 | `@kit/motion`: `useT(t0)`, `useSpring(t,at)`, `handheld(t,amp,seed)`, `Layer`, `Label` | Giây voice tuyệt đối, lò xo, rung máy, svg toàn khung, nhãn chữ |
 | `@kit/media`: `media('images/x.jpg')` | Ảnh/footage của bạn (input/ → library/), build.py tự chép |
-| `@kit/timeline` | Engine dùng (Video.tsx sinh tự động) — cảnh không cần import |
-| `@kit/quality`: `useQuality()` → 1 · 0.5 · 0.25 | Chất lượng preview chọn trong Studio. `Stage`, `Grain` đã tự giảm tải; công cụ mới nặng (nhiều hạt, filter) nên đọc nó để giảm khi < 1. Xuất video luôn = 1 |
+| `@kit/timeline` | Engine dùng (Video.tsx, entry.tsx sinh tự động) — cảnh không cần import |
 
 ## 2D — `@lib/2d/*`
 | Import | Props chính | Ghi chú |
@@ -50,4 +49,7 @@ và bối cảnh của mình (trong `projects/<id>/video/local/`) bằng các c�
 ## Quy tắc
 - Mọi thứ tất định theo `t` và seed: không state, không `Math.random`.
 - Hàm độ cao / danh sách điểm nặng: tạo ở cấp module hoặc `useMemo`.
+- **UV của `extrude` / `extrudeTop`:** `ExtrudeGeometry` tính UV theo đơn vị mét thật (`1 m = 1 UV`), khác `lathe`/`rbox` (`0..1`) → mảng thân khí tài lớn dựng bằng `extrude` nên đặt `paint({ ..., repeat: 0.35–0.5 })` để vân sơn không bị đốm vụn; đường cong bầu mũi/vòm lớn nên lấy đủ điểm mượt (≥16–20 điểm).
+- **Filter SVG trong `<Cam2D>`:** tránh gắn `filter="url(#glow)"` trực tiếp lên đường chéo dài bên trong nhóm đang `scale` của `<Cam2D>` (dễ dính lỗi cắt ô filter của Chromium); ưu tiên vẽ nét kép (halo mờ bản rộng + lõi sáng) hoặc đặt `<Defs2D>` ngoài lớp zoom.
+- **Góc `Cam` 3D với `<Trail>`:** tránh đặt quỹ đạo `Cam` đi xuyên trùng dọc theo vector kéo dài của `<Trail>` đầu cánh/đạn để vệt khói không bị chiếu suy biến thành vạch thẳng đứng trên khung hình.
 - Công cụ nào thiếu → viết trong `video/local/` của dự án. Chỉ chuyển lên `engine/lib` khi người dùng đồng ý, kèm cập nhật bảng này.

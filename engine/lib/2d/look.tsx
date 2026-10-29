@@ -2,7 +2,6 @@
 // Đặt <Defs2D /> một lần trong <svg> của cảnh rồi dùng filter="url(#sh)" / "url(#glow)".
 import React from 'react';
 import { AbsoluteFill } from 'remotion';
-import { useQuality } from '@kit/quality';
 
 /** Bộ filter dùng chung: sh (bóng đổ mềm), shHard (bóng cứng kiểu cắt giấy), glow, grain (hạt giấy). */
 export const Defs2D: React.FC<{ shadow?: string }> = ({ shadow = 'rgba(20,25,35,0.35)' }) => (
@@ -29,11 +28,17 @@ export const Defs2D: React.FC<{ shadow?: string }> = ({ shadow = 'rgba(20,25,35,
   </defs>
 );
 
-/** Lớp hạt phủ toàn khung (giảm cảm giác vector phẳng). Đặt cuối cảnh. Tắt khi preview dưới Full (filter rất nặng). */
-export const Grain: React.FC<{ opacity?: number }> = ({ opacity = 0.5 }) => useQuality() < 1 ? null : (
+/** Lớp hạt phủ toàn khung (giảm cảm giác vector phẳng). Đặt cuối cảnh. */
+export const Grain: React.FC<{ opacity?: number }> = ({ opacity = 0.5 }) => (
   <svg width={1920} height={1080} style={{ position: 'absolute', inset: 0, pointerEvents: 'none', opacity, mixBlendMode: 'overlay' }}>
-    <Defs2D />
-    <rect width={1920} height={1080} filter="url(#grain)" />
+    <defs>
+      <filter id="grainOverlay" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="n" />
+        <feColorMatrix in="n" type="saturate" values="0" result="g" />
+        <feComponentTransfer in="g"><feFuncA type="linear" slope="0.18" /></feComponentTransfer>
+      </filter>
+    </defs>
+    <rect width={1920} height={1080} filter="url(#grainOverlay)" />
   </svg>
 );
 
