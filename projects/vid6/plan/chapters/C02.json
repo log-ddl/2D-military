@@ -1,0 +1,58 @@
+{
+  "id": "C02",
+  "title": "Hoả lực 120mm: Vỏ đạn tự cháy, thanh xuyên Uranium nghèo Mach 5 & đạn thông minh",
+  "from": 183.9,
+  "to": 298.8,
+  "scenes": [
+    {
+      "id": "C02S01",
+      "from": 183.9,
+      "to": 198.4,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C02S02",
+      "from": 198.4,
+      "to": 218.1,
+      "type": "code",
+      "transition": "wipe:from-left"
+    },
+    {
+      "id": "C02S03",
+      "from": 218.1,
+      "to": 231.2,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C02S04",
+      "from": 231.2,
+      "to": 243.6,
+      "type": "code",
+      "transition": "slide:from-right"
+    },
+    {
+      "id": "C02S05",
+      "from": 243.6,
+      "to": 254.2,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C02S06",
+      "from": 254.2,
+      "to": 283.76,
+      "type": "code",
+      "transition": "wipe:from-left"
+    },
+    {
+      "id": "C02S07",
+      "from": 283.76,
+      "to": 298.8,
+      "type": "code",
+      "transition": "fade"
+    }
+  ],
+  "sfx": []
+}

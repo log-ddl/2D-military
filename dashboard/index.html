@@ -3,1197 +3,618 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Trạm Điều Khiển Dự Án — 2D/3D Military Video</title>
+  <title>Video Studio</title>
   <style>
     :root {
-      --bg: #0b0f17;
-      --panel: #131a26;
-      --panel-2: #192233;
-      --border: #25324a;
-      --border-hi: #395075;
-      --text: #e7eef8;
-      --muted: #8fa1bc;
-      --accent: #38bdf8;
-      --accent-2: #0284c7;
-      --green: #22c55e;
-      --amber: #f59e0b;
-      --red: #ef4444;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --bg: #0e1116;
+      --panel: #161a21;
+      --panel-2: #1c212a;
+      --line: #262c37;
+      --line-hi: #343c4a;
+      --text: #e6e9ef;
+      --muted: #8a93a3;
+      --faint: #5b6473;
+      --accent: #4f8cff;
+      --green: #3ecf8e;
+      --red: #f06464;
+      --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
       --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      background: rgba(11, 15, 23, 0.9);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 14px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .brand-mark {
-      width: 36px;
-      height: 36px;
-      border-radius: 9px;
-      background: linear-gradient(135deg, #0ea5e9, #2563eb);
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-      font-size: 15px;
-      color: #fff;
-      box-shadow: 0 4px 16px rgba(14, 165, 233, 0.3);
-    }
-    .brand h1 {
-      margin: 0;
-      font-size: 17px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-    .brand small {
-      display: block;
-      color: var(--muted);
-      font-size: 12px;
-      font-family: var(--mono);
-      margin-top: 2px;
-    }
-    .toolbar {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    input[type="text"], input[type="number"], select {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      color: var(--text);
-      border-radius: 8px;
-      padding: 8px 12px;
-      font-size: 13.5px;
-      outline: none;
-      transition: border-color 0.15s;
-    }
-    input:focus, select:focus {
-      border-color: var(--accent);
-    }
+    body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.45 var(--sans); }
+    button, input, select { font: inherit; color: inherit; }
     button {
-      cursor: pointer;
-      border: 1px solid var(--border);
-      background: var(--panel-2);
-      color: var(--text);
-      padding: 8px 13px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.14s ease;
+      background: var(--panel-2); border: 1px solid var(--line-hi); border-radius: 7px;
+      padding: 7px 13px; cursor: pointer; white-space: nowrap;
     }
-    button:hover:not(:disabled) {
-      border-color: var(--border-hi);
-      background: #212e45;
+    button:hover { border-color: #4a5466; }
+    button:disabled { opacity: .45; cursor: default; }
+    .primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+    .primary:hover { border-color: #7aa8ff; }
+    .danger { color: var(--red); }
+    .danger-fill { background: var(--red); border-color: var(--red); color: #fff; font-weight: 600; }
+    .ghost { background: transparent; border-color: transparent; color: var(--muted); }
+    .ghost:hover { color: var(--text); border-color: var(--line-hi); }
+    input, select {
+      background: var(--bg); border: 1px solid var(--line-hi); border-radius: 7px; padding: 8px 10px; width: 100%;
     }
-    button:disabled {
-      opacity: 0.48;
-      cursor: not-allowed;
-    }
-    .btn-primary {
-      background: linear-gradient(180deg, #0ea5e9, #0284c7);
-      border-color: #38bdf8;
-      color: #fff;
-    }
-    .btn-primary:hover:not(:disabled) {
-      background: linear-gradient(180deg, #38bdf8, #0284c7);
-      border-color: #7dd3fc;
-    }
-    .btn-green {
-      background: rgba(34, 197, 94, 0.16);
-      border-color: rgba(34, 197, 94, 0.5);
-      color: #86efac;
-    }
-    .btn-green:hover:not(:disabled) {
-      background: rgba(34, 197, 94, 0.28);
-    }
-    .btn-danger {
-      background: rgba(239, 68, 68, 0.13);
-      border-color: rgba(239, 68, 68, 0.42);
-      color: #fca5a5;
-    }
-    .btn-danger:hover:not(:disabled) {
-      background: rgba(239, 68, 68, 0.25);
-    }
-    .btn-sm {
-      padding: 6px 10px;
-      font-size: 12px;
-      border-radius: 7px;
-    }
-    main {
-      padding: 22px 24px 40px;
-      max-width: 1480px;
-      width: 100%;
-      margin: 0 auto;
-      flex: 1;
-    }
-    .stats-bar {
-      display: flex;
-      gap: 14px;
-      margin-bottom: 18px;
-      flex-wrap: wrap;
-      font-size: 13px;
-      color: var(--muted);
-    }
-    .stat-pill {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 5px 13px;
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-    }
-    .stat-pill b { color: var(--text); }
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      display: inline-block;
-    }
-    .dot-live {
-      background: var(--green);
-      box-shadow: 0 0 10px var(--green);
-      animation: pulse 1.6s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(390px, 1fr));
-      gap: 18px;
-    }
-    .card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: border-color 0.16s, transform 0.16s;
-    }
-    .card:hover {
-      border-color: var(--border-hi);
-    }
-    .card.is-live {
-      border-color: rgba(34, 197, 94, 0.65);
-      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.2), 0 10px 30px rgba(0, 0, 0, 0.35);
-    }
-    .thumb {
-      position: relative;
-      aspect-ratio: 16 / 9;
-      background: #080c12;
-      overflow: hidden;
-      cursor: pointer;
-      border-bottom: 1px solid var(--border);
-    }
-    .thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.25s ease;
-    }
-    .thumb:hover img {
-      transform: scale(1.025);
-    }
-    .thumb-empty {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      font-size: 13px;
-      gap: 6px;
-      background: radial-gradient(circle at 50% 40%, #172133, #0a0e16);
-    }
-    .thumb-badges {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      right: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      pointer-events: none;
-      gap: 8px;
-    }
-    .badge {
-      padding: 4px 9px;
-      border-radius: 999px;
-      font-size: 11.5px;
-      font-weight: 700;
-      font-family: var(--mono);
-      background: rgba(11, 15, 23, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      backdrop-filter: blur(6px);
-      color: var(--text);
-    }
-    .badge-live {
-      background: rgba(20, 83, 45, 0.92);
-      border-color: rgba(74, 222, 128, 0.6);
-      color: #bbf7d0;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .card-body {
-      padding: 15px 16px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      flex: 1;
-    }
-    .card-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 8px;
-    }
-    .card-title {
-      font-size: 18px;
-      font-weight: 700;
-      font-family: var(--mono);
-      margin: 0;
-      color: #fff;
-    }
-    .card-meta {
-      font-size: 12px;
-      color: var(--muted);
-      font-family: var(--mono);
-    }
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-    .tag {
-      font-size: 11.5px;
-      padding: 3px 8px;
-      border-radius: 6px;
-      background: var(--panel-2);
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
-    .tag.ok {
-      color: #93c5fd;
-      border-color: rgba(56, 189, 248, 0.35);
-      background: rgba(14, 165, 233, 0.1);
-    }
-    .tag.mp4 {
-      color: #fcd34d;
-      border-color: rgba(245, 158, 11, 0.4);
-      background: rgba(245, 158, 11, 0.12);
-    }
-    .progress-track {
-      height: 5px;
-      border-radius: 99px;
-      background: #1d2738;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #38bdf8, #22c55e);
-      transition: width 0.25s;
-    }
-    .studio-row {
-      display: flex;
-      gap: 8px;
-    }
-    .studio-row .grow { flex: 1; justify-content: center; }
-    .actions-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      padding-top: 4px;
-      border-top: 1px solid rgba(37, 50, 74, 0.65);
-    }
-    .empty-state {
-      text-align: center;
-      padding: 64px 20px;
-      background: var(--panel);
-      border: 1px dashed var(--border-hi);
-      border-radius: 14px;
-      color: var(--muted);
-    }
+    input:focus, select:focus { outline: none; border-color: var(--accent); }
+    code { font-family: var(--mono); font-size: 12px; color: var(--muted); }
 
-    /* Drawer Console cho Jobs */
-    .console-bar {
-      position: sticky;
-      bottom: 0;
-      z-index: 25;
-      background: #0d131f;
-      border-top: 1px solid var(--border-hi);
-      box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.45);
+    /* Đầu trang */
+    header {
+      position: sticky; top: 0; z-index: 10; background: rgba(14,17,22,.92); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
     }
-    .console-header {
-      padding: 9px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      font-size: 12.5px;
-      user-select: none;
-    }
-    .console-body {
-      max-height: 230px;
-      overflow-y: auto;
-      padding: 10px 20px 14px;
-      border-top: 1px solid var(--border);
-      font-family: var(--mono);
-      font-size: 12px;
-      line-height: 1.5;
-      background: #070a10;
-      color: #cbd5e1;
-      white-space: pre-wrap;
-    }
-    .job-tabs {
-      display: flex;
-      gap: 6px;
-      padding: 8px 20px 0;
-      background: #070a10;
-      flex-wrap: wrap;
-    }
-    .job-tab {
-      font-size: 11.5px;
-      padding: 4px 10px;
-      border-radius: 6px 6px 0 0;
-      border-bottom: none;
-    }
-    .job-tab.active {
-      background: #172236;
-      border-color: var(--accent);
-      color: #fff;
-    }
+    .bar { max-width: 1080px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; gap: 14px; }
+    .bar h1 { font-size: 17px; margin: 0; font-weight: 650; flex: 1; }
+    .bar h1 small { color: var(--faint); font-weight: 400; font-size: 13px; margin-left: 8px; }
+    .bar input { width: 220px; }
 
-    /* Modals */
-    .backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(4, 7, 13, 0.78);
-      backdrop-filter: blur(5px);
-      z-index: 50;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+    main { max-width: 1080px; margin: 0 auto; padding: 20px 20px 120px; }
+    .live-note {
+      display: flex; align-items: center; gap: 10px; padding: 10px 14px; margin-bottom: 14px;
+      border: 1px solid #23493a; background: #13241d; border-radius: 9px; color: #b7ecd3;
     }
+    .live-note span { flex: 1; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); display: inline-block; box-shadow: 0 0 0 3px rgba(62,207,142,.18); }
+
+    /* Danh sách dự án */
+    .row {
+      display: grid; grid-template-columns: 168px 1fr auto; gap: 18px; align-items: center;
+      padding: 12px; border: 1px solid var(--line); border-radius: 11px; background: var(--panel); margin-bottom: 10px;
+      cursor: pointer;
+    }
+    .row:hover { border-color: var(--line-hi); }
+    .row.live { border-color: #2c6b51; }
+    .thumb { width: 168px; aspect-ratio: 16/9; border-radius: 7px; background: var(--panel-2); overflow: hidden; display: grid; place-items: center; color: var(--faint); font-size: 12px; }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .name { font-size: 15.5px; font-weight: 650; display: flex; align-items: center; gap: 8px; }
+    .meta { color: var(--muted); font-size: 13px; margin: 3px 0 9px; }
+    .steps { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: var(--faint); }
+    .steps b { font-weight: 500; }
+    .steps .ok { color: var(--text); }
+    .steps .ok::before { content: "✓ "; color: var(--green); }
+    .steps .no::before { content: "○ "; }
+    .busy { color: var(--accent); font-size: 12.5px; }
+    .side { display: flex; gap: 6px; align-items: center; }
+    .empty { text-align: center; color: var(--muted); padding: 70px 20px; border: 1px dashed var(--line-hi); border-radius: 12px; }
+
+    /* Menu ⋯ */
+    .menu { position: relative; }
+    .menu-list {
+      position: absolute; right: 0; top: calc(100% + 4px); z-index: 20; min-width: 190px; padding: 5px;
+      background: var(--panel-2); border: 1px solid var(--line-hi); border-radius: 9px; box-shadow: 0 12px 30px rgba(0,0,0,.45); display: none;
+    }
+    .menu-list.open { display: block; }
+    .menu-list button { display: block; width: 100%; text-align: left; border: 0; background: none; padding: 8px 10px; border-radius: 6px; }
+    .menu-list button:hover { background: var(--line); }
+    .menu-list hr { border: 0; border-top: 1px solid var(--line-hi); margin: 4px 0; }
+
+    /* Hộp thoại */
+    .backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.55); display: none; align-items: center; justify-content: center; z-index: 50; padding: 20px; }
     .backdrop.open { display: flex; }
-    .modal {
-      background: var(--panel);
-      border: 1px solid var(--border-hi);
-      border-radius: 14px;
-      width: 100%;
-      max-width: 540px;
-      max-height: 92vh;
-      overflow-y: auto;
-      padding: 20px 22px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
+    .dialog { background: var(--panel); border: 1px solid var(--line-hi); border-radius: 13px; width: min(470px, 100%); padding: 22px; }
+    .dialog h2 { margin: 0 0 16px; font-size: 17px; }
+    .dialog p { color: var(--muted); margin: 0 0 18px; }
+    .field { margin-bottom: 14px; }
+    .field > label { display: block; font-size: 12.5px; color: var(--muted); margin-bottom: 6px; }
+    .hint { font-size: 12px; color: var(--faint); margin-top: 5px; }
+    .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .seg { display: flex; gap: 6px; }
+    .seg button { flex: 1; padding: 7px 4px; }
+    .seg button.on { border-color: var(--accent); color: #fff; background: #1d2a44; }
+    .inline { display: flex; gap: 8px; }
+    .check { display: flex; gap: 8px; align-items: center; font-size: 13.5px; cursor: pointer; }
+    .check input { width: auto; }
+    .foot { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; }
+
+    /* Ngăn chi tiết */
+    .drawer {
+      position: fixed; top: 0; right: 0; bottom: 0; width: min(760px, 100%); background: var(--panel); border-left: 1px solid var(--line-hi);
+      z-index: 40; display: flex; flex-direction: column; transform: translateX(100%); transition: transform .18s ease;
     }
-    .modal.modal-wide {
-      max-width: 1180px;
+    .drawer.open { transform: none; }
+    .drawer-head { padding: 16px 20px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 10px; }
+    .drawer-head h2 { margin: 0; font-size: 16px; flex: 1; }
+    .drawer-actions { padding: 12px 20px; display: flex; flex-wrap: wrap; gap: 6px; border-bottom: 1px solid var(--line); }
+    .tabs { display: flex; gap: 2px; padding: 0 20px; border-bottom: 1px solid var(--line); }
+    .tabs button { border: 0; border-bottom: 2px solid transparent; border-radius: 0; background: none; color: var(--muted); padding: 11px 12px; }
+    .tabs button.on { color: var(--text); border-bottom-color: var(--accent); }
+    .stage { flex: 1; overflow: auto; padding: 18px 20px; }
+    .stage img, .stage video { width: 100%; border-radius: 8px; display: block; background: #000; }
+    .stage .none { color: var(--muted); text-align: center; padding: 50px 10px; }
+    .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+    .tile h4 { margin: 0 0 6px; font-size: 13px; font-weight: 600; display: flex; justify-content: space-between; }
+    .tile h4 span { color: var(--faint); font-weight: 400; }
+    .tile .none { padding: 28px 10px; border: 1px dashed var(--line-hi); border-radius: 8px; font-size: 12.5px; }
+    pre.doc { margin: 0; white-space: pre-wrap; font: 12.5px/1.6 var(--mono); color: #c9d1dc; }
+
+    /* Tác vụ nền */
+    .jobs {
+      position: fixed; right: 16px; bottom: 16px; width: min(520px, calc(100% - 32px)); z-index: 30;
+      background: var(--panel); border: 1px solid var(--line-hi); border-radius: 11px; box-shadow: 0 14px 40px rgba(0,0,0,.5); display: none;
     }
-    .modal h2 {
-      margin: 0 0 14px;
-      font-size: 18px;
-    }
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 14px;
-      font-size: 13px;
-    }
-    .field label { color: var(--muted); font-weight: 600; }
-    .field-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    .modal-foot {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-top: 18px;
-    }
-    .inspector-tabs {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
-    }
-    .inspector-tabs button.active {
-      background: var(--accent-2);
-      border-color: var(--accent);
-      color: #fff;
-    }
-    .media-stage {
-      background: #070a10;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px;
-      min-height: 320px;
-      max-height: 70vh;
-      overflow-y: auto;
-    }
-    .media-stage img, .media-stage video {
-      max-width: 100%;
-      border-radius: 8px;
-      display: block;
-      margin: 0 auto;
-    }
-    .sub-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 14px;
-    }
-    .sub-item {
-      background: var(--panel-2);
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      padding: 10px;
-    }
-    .sub-item h4 {
-      margin: 0 0 8px;
-      font-family: var(--mono);
-      font-size: 13px;
-      display: flex;
-      justify-content: space-between;
-    }
+    .jobs-head { display: flex; align-items: center; gap: 8px; padding: 10px 12px; cursor: pointer; }
+    .jobs-head span { flex: 1; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .jobs-body { border-top: 1px solid var(--line); }
+    .jobs-tabs { display: flex; gap: 4px; padding: 8px 10px; overflow-x: auto; }
+    .jobs-tabs button { font-size: 12px; padding: 4px 9px; }
+    .jobs-tabs button.on { border-color: var(--accent); }
+    .log { margin: 0; height: 200px; overflow: auto; padding: 8px 12px 12px; font: 11.5px/1.5 var(--mono); color: #b8c0cc; white-space: pre-wrap; }
+
     .toast {
-      position: fixed;
-      bottom: 56px;
-      right: 22px;
-      z-index: 80;
-      background: #172338;
-      border: 1px solid var(--accent);
-      color: #fff;
-      padding: 10px 16px;
-      border-radius: 10px;
-      font-size: 13px;
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
-      display: none;
+      position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 60; display: none;
+      background: var(--panel-2); border: 1px solid var(--line-hi); border-radius: 9px; padding: 10px 16px; font-size: 13.5px;
     }
-    .toast.err { border-color: var(--red); background: #2c1218; color: #fecaca; }
+    .toast.err { border-color: var(--red); color: #ffb4b4; }
+
+    @media (max-width: 720px) {
+      .row { grid-template-columns: 1fr; }
+      .thumb { width: 100%; }
+      .bar input { display: none; }
+    }
   </style>
 </head>
 <body>
   <header>
-    <div class="brand">
-      <div class="brand-mark">2D·3D</div>
-      <div>
-        <h1>Trạm Điều Khiển Dự Án Video Quân Sự</h1>
-        <small id="repoRoot">Đang kết nối...</small>
-      </div>
-    </div>
-    <div class="toolbar">
-      <input type="text" id="searchInput" placeholder="Tìm dự án theo ID..." oninput="renderProjects()" />
-      <button onclick="refreshState(true)">↻ Làm mới</button>
-      <button class="btn-primary" onclick="openCreateModal()">＋ Tạo dự án mới</button>
+    <div class="bar">
+      <h1>Video Studio <small id="root"></small></h1>
+      <input id="search" placeholder="Tìm dự án" oninput="renderList()" />
+      <button class="primary" onclick="openCreate()">+ Dự án mới</button>
     </div>
   </header>
 
   <main>
-    <div class="stats-bar" id="statsBar"></div>
-    <div id="projectsContainer" class="grid"></div>
+    <div id="liveNote"></div>
+    <div id="list"></div>
   </main>
 
-  <div class="console-bar" id="consoleBar" style="display:none;">
-    <div class="console-header" onclick="toggleConsole()">
-      <div id="consoleSummary">Nhật ký tác vụ nền</div>
-      <div style="display:flex; gap:8px; align-items:center;">
-        <button class="btn-sm btn-danger" id="cancelJobBtn" style="display:none;" onclick="event.stopPropagation(); cancelActiveJob();">Huỷ tác vụ</button>
-        <span id="consoleChevron">▼</span>
-      </div>
+  <!-- Chi tiết dự án -->
+  <aside class="drawer" id="drawer">
+    <div class="drawer-head">
+      <h2 id="dTitle"></h2>
+      <button class="ghost" onclick="closeDrawer()">Đóng</button>
     </div>
-    <div id="consoleContent">
-      <div class="job-tabs" id="jobTabs"></div>
-      <div class="console-body" id="consoleLog"></div>
-    </div>
-  </div>
+    <div class="drawer-actions" id="dActions"></div>
+    <div class="tabs" id="dTabs"></div>
+    <div class="stage" id="dStage"></div>
+  </aside>
 
-  <!-- Modal Tạo dự án mới -->
-  <div class="backdrop" id="createModal">
-    <div class="modal">
-      <h2>＋ Tạo Dự Án Mới (`tools/init.py`)</h2>
+  <!-- Tạo dự án -->
+  <div class="backdrop" id="createDlg">
+    <div class="dialog">
+      <h2>Dự án mới</h2>
       <div class="field">
-        <label>Tên ID dự án (chữ thường a-z, số, dấu gạch dưới `_`)</label>
-        <input type="text" id="newPid" placeholder="ví dụ: phao_m109_tap1" />
+        <label>Tên dự án</label>
+        <input id="cId" placeholder="vd: f15_tap1" />
+        <div class="hint">chữ thường, số và dấu _, bắt đầu bằng chữ</div>
       </div>
       <div class="field">
-        <label>Chọn file giọng đọc trong `voice/`</label>
-        <div style="display:flex; gap:8px;">
-          <select id="newVoiceSelect" style="flex:1;" onchange="suggestProjectId()"></select>
-          <label class="btn-sm" style="background:var(--panel-2); border:1px solid var(--border); border-radius:8px; padding:8px 11px; cursor:pointer; white-space:nowrap;">
-            ⬆ Tải voice lên
-            <input type="file" id="uploadVoiceInput" accept=".mp3,.wav,.m4a,.aac,.ogg,.flac" style="display:none;" onchange="uploadVoiceFile(this)" />
+        <label>Chủ đề</label>
+        <select id="cSkill"></select>
+      </div>
+      <div class="field">
+        <label>Khổ hình</label>
+        <div class="seg" id="cFormat"></div>
+      </div>
+      <div class="field">
+        <label>Giọng đọc</label>
+        <div class="inline">
+          <select id="cVoice" onchange="onVoiceChange()"></select>
+          <label class="ghost" style="border:1px solid var(--line-hi); border-radius:7px; padding:7px 12px; cursor:pointer; white-space:nowrap;">
+            Tải lên<input type="file" accept=".mp3,.wav,.m4a,.aac,.ogg,.flac" hidden onchange="uploadVoice(this)" />
           </label>
         </div>
+        <div class="hint" id="cVoiceHint">Bỏ trống để tạo dự án trống, thêm voice sau.</div>
       </div>
-      <div class="field-row">
-        <div class="field">
-          <label>Cắt từ giây `--from` (bỏ trống = từ đầu)</label>
-          <input type="number" step="0.1" min="0" id="newFrom" placeholder="0.0" />
+      <div id="cVoiceOpts" hidden>
+        <div class="field pair">
+          <div><label class="hint" style="margin:0 0 6px; display:block;">Cắt từ giây</label><input id="cFrom" type="number" step="0.1" min="0" placeholder="đầu file" /></div>
+          <div><label class="hint" style="margin:0 0 6px; display:block;">Đến giây</label><input id="cTo" type="number" step="0.1" min="0" placeholder="hết file" /></div>
         </div>
-        <div class="field">
-          <label>Đến giây `--to` (bỏ trống = hết file)</label>
-          <input type="number" step="0.1" min="0" id="newTo" placeholder="hết file" />
-        </div>
+        <label class="check"><input type="checkbox" id="cAsr" checked /> Bóc mốc từng từ ngay sau khi tạo</label>
       </div>
-      <label style="display:flex; align-items:center; gap:8px; font-size:13px; cursor:pointer;">
-        <input type="checkbox" id="newRunAsr" checked />
-        Chạy luôn ASR bóc băng từng từ (`tools/asr.py`) sau khi tạo
-      </label>
-      <div class="modal-foot">
-        <button onclick="closeModal('createModal')">Đóng</button>
-        <button class="btn-primary" id="createSubmitBtn" onclick="submitCreateProject()">Tạo dự án</button>
+      <div class="foot">
+        <button onclick="closeDlg('createDlg')">Huỷ</button>
+        <button class="primary" id="cBtn" onclick="submitCreate()">Tạo</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal Đổi tên dự án -->
-  <div class="backdrop" id="renameModal">
-    <div class="modal">
-      <h2>✎ Đổi Tên Dự Án</h2>
-      <p style="font-size:13px; color:var(--muted); margin-top:0;">
-        Tự động tắt Studio (nếu đang mở), đổi tên thư mục, cập nhật <code>project.json</code> và chạy lại <code>build.py</code> để đồng bộ ID mới.
-      </p>
-      <input type="hidden" id="renameOldId" />
-      <div class="field">
-        <label>Tên hiện tại</label>
-        <input type="text" id="renameOldDisplay" disabled />
-      </div>
-      <div class="field">
-        <label>Tên ID mới (`a-z`, `0-9`, `_`)</label>
-        <input type="text" id="renameNewId" placeholder="ten_du_an_moi" />
-      </div>
-      <div class="modal-foot">
-        <button onclick="closeModal('renameModal')">Huỷ</button>
-        <button class="btn-primary" onclick="submitRenameProject()">Lưu tên mới</button>
+  <!-- Đổi tên -->
+  <div class="backdrop" id="renameDlg">
+    <div class="dialog">
+      <h2>Đổi tên dự án</h2>
+      <div class="field"><input id="rNew" /></div>
+      <div class="foot">
+        <button onclick="closeDlg('renameDlg')">Huỷ</button>
+        <button class="primary" onclick="submitRename()">Lưu</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal Xuất MP4 -->
-  <div class="backdrop" id="mp4Modal">
-    <div class="modal">
-      <h2>🎬 Xuất File `out/video.mp4`</h2>
-      <input type="hidden" id="mp4Pid" />
-      <p style="font-size:13px; color:var(--muted); margin-top:0;">
-        Chạy <code>python3 tools/render.py &lt;id&gt;</code> ở chất lượng <b>Full (1920×1080)</b>. Tiến trình sẽ hiển thị trực tiếp ở khung Nhật ký bên dưới.
-      </p>
-      <label style="display:flex; align-items:center; gap:8px; font-size:13.5px; margin-bottom:10px; cursor:pointer;">
-        <input type="checkbox" id="mp4Music" checked /> Bật nhạc nền (`music.wav`)
-      </label>
-      <label style="display:flex; align-items:center; gap:8px; font-size:13.5px; cursor:pointer;">
-        <input type="checkbox" id="mp4Sfx" checked /> Bật tiếng động hiệu ứng (`sfx.wav`)
-      </label>
-      <div class="modal-foot">
-        <button onclick="closeModal('mp4Modal')">Đóng</button>
-        <button class="btn-primary" onclick="submitRenderMp4()">Bắt đầu xuất MP4</button>
+  <!-- Xuất video -->
+  <div class="backdrop" id="mp4Dlg">
+    <div class="dialog">
+      <h2>Xuất video</h2>
+      <p>Ra file <code>out/video.mp4</code>. Video dài sẽ mất một lúc; theo dõi ở góc dưới.</p>
+      <label class="check" style="margin-bottom:8px;"><input type="checkbox" id="mMusic" checked /> Có nhạc nền</label>
+      <label class="check"><input type="checkbox" id="mSfx" checked /> Có tiếng động</label>
+      <div class="foot">
+        <button onclick="closeDlg('mp4Dlg')">Huỷ</button>
+        <button class="primary" onclick="submitMp4()">Xuất</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal Xoá / Dọn rác -->
-  <div class="backdrop" id="deleteModal">
-    <div class="modal">
-      <h2>🗑 Dọn Rác hoặc Xoá Dự Án</h2>
-      <input type="hidden" id="delPid" />
-      <p style="font-size:13.5px; line-height:1.5; margin-top:0;">
-        Dự án đang chọn: <b id="delPidLabel" style="font-family:var(--mono); color:#fff;"></b>
-      </p>
-      <div style="background:var(--panel-2); border:1px solid var(--border); border-radius:10px; padding:12px; margin-bottom:14px;">
-        <div style="font-weight:700; font-size:13px; margin-bottom:6px;">Tuỳ chọn 1: Chỉ dọn thư mục `out/` (An toàn)</div>
-        <div style="font-size:12.5px; color:var(--muted); margin-bottom:10px;">Xoá ảnh sheet & file MP4 đã xuất để nhẹ ổ cứng, giữ nguyên 100% code, mô hình 3D, kịch bản và âm thanh.</div>
-        <button class="btn-sm" onclick="submitCleanOut()">🧹 Chỉ dọn `out/`</button>
-      </div>
-      <div style="background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.35); border-radius:10px; padding:12px;">
-        <div style="font-weight:700; font-size:13px; color:#fca5a5; margin-bottom:6px;">Tuỳ chọn 2: Xoá vĩnh viễn toàn bộ dự án</div>
-        <div style="font-size:12.5px; color:var(--muted); margin-bottom:8px;">Nhập đúng tên ID dự án để xác nhận xoá hẳn thư mục:</div>
-        <input type="text" id="delConfirmInput" placeholder="Nhập lại ID để xác nhận..." style="width:100%; margin-bottom:10px;" />
-        <button class="btn-sm btn-danger" onclick="submitDeleteAll()">🗑 Xoá vĩnh viễn dự án</button>
-      </div>
-      <div class="modal-foot">
-        <button onclick="closeModal('deleteModal')">Đóng</button>
+  <!-- Xác nhận có / không -->
+  <div class="backdrop" id="askDlg">
+    <div class="dialog">
+      <h2 id="askTitle"></h2>
+      <p id="askText"></p>
+      <div class="foot">
+        <button onclick="answer(false)">Không</button>
+        <button id="askYes" onclick="answer(true)">Có</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal Xem nhanh Ảnh / Mô hình / MP4 / Kịch bản -->
-  <div class="backdrop" id="inspectModal">
-    <div class="modal modal-wide">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-        <h2 style="margin:0;" id="inspectTitle">Chi tiết dự án</h2>
-        <button class="btn-sm" onclick="closeModal('inspectModal')">✕ Đóng</button>
-      </div>
-      <div class="inspector-tabs" id="inspectTabs"></div>
-      <div class="media-stage" id="inspectStage"></div>
+  <div class="jobs" id="jobs">
+    <div class="jobs-head" onclick="logOpen = !logOpen; renderJobs();">
+      <span id="jobsSummary"></span>
+      <button id="jobCancel" class="danger" onclick="event.stopPropagation(); cancelJob();">Huỷ</button>
+      <button class="ghost" onclick="event.stopPropagation(); hideJobs();">Ẩn</button>
+    </div>
+    <div class="jobs-body" id="jobsBody">
+      <div class="jobs-tabs" id="jobsTabs"></div>
+      <pre class="log" id="jobsLog"></pre>
     </div>
   </div>
 
   <div class="toast" id="toast"></div>
 
   <script>
-    let STATE = { root: '', projects: [], voices: [], jobs: [] };
-    let selectedJobId = null;
-    let consoleOpen = true;
-    let inspectPid = null;
-    let inspectTab = 'sheet';
-    let pollTimer = null;
+    const FORMATS = [['16:9', 'Ngang 16:9'], ['9:16', 'Dọc 9:16'], ['1:1', 'Vuông'], ['4:5', '4:5']];
+    let S = { projects: [], voices: [], skills: [], jobs: [] };
+    let cur = null, tab = null, jobId = null, logOpen = true, jobsHidden = false, format = '16:9', askCb = null, renaming = null, mp4For = null;
+    let poll = null;
 
-    function showToast(msg, isErr = false) {
-      const el = document.getElementById('toast');
+    const $ = (id) => document.getElementById(id);
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const file = (p, rel, t) => `/files/${encodeURIComponent(p)}/${rel}${t ? `?t=${t}` : ''}`;
+
+    function toast(msg, err = false) {
+      const el = $('toast');
       el.textContent = msg;
-      el.className = isErr ? 'toast err' : 'toast';
+      el.className = 'toast' + (err ? ' err' : '');
       el.style.display = 'block';
       clearTimeout(el._t);
-      el._t = setTimeout(() => { el.style.display = 'none'; }, 3800);
+      el._t = setTimeout(() => { el.style.display = 'none'; }, 3500);
     }
 
-    function esc(s) {
-      return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    async function post(url, body) {
+      try {
+        const r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body || {}) });
+        return await r.json();
+      } catch (e) {
+        return { ok: false, error: 'Mất kết nối tới dashboard' };
+      }
     }
 
-    async function apiPost(url, payload) {
-      const r = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload || {}),
-      });
-      return await r.json();
-    }
-
-    async function refreshState(manual = false) {
+    async function refresh() {
       try {
         const r = await fetch('/api/state');
-        const data = await r.json();
-        if (!data.ok) return;
-        STATE = data;
-        document.getElementById('repoRoot').textContent = data.root;
-        renderStats();
-        renderProjects();
-        renderConsole();
-        if (inspectPid && document.getElementById('inspectModal').classList.contains('open')) {
-          const p = STATE.projects.find(x => x.id === inspectPid);
-          if (p) renderInspectTabs(p, false);
+        const d = await r.json();
+        if (d.ok) {
+          S = d;
+          $('root').textContent = d.root;
+          renderList();
+          renderJobs();
+          if (cur && $('drawer').classList.contains('open')) renderDrawer(false);
         }
-        if (manual) showToast('Đã cập nhật trạng thái mới nhất');
-      } catch (e) {
-        if (manual) showToast('Không kết nối được server Dashboard', true);
-      }
-      scheduleNextPoll();
+      } catch (e) { /* server tắt: thử lại ở lượt sau */ }
+      clearTimeout(poll);
+      poll = setTimeout(refresh, S.jobs.some(j => j.status === 'running') ? 1200 : 4000);
     }
 
-    function scheduleNextPoll() {
-      clearTimeout(pollTimer);
-      const hasRunningJob = STATE.jobs.some(j => j.status === 'running');
-      pollTimer = setTimeout(() => refreshState(false), hasRunningJob ? 1200 : 4000);
-    }
+    const project = (id) => S.projects.find(p => p.id === id);
+    const runningJob = (id) => S.jobs.find(j => j.project === id && j.status === 'running');
 
-    function renderStats() {
-      const total = STATE.projects.length;
-      const liveList = STATE.projects.filter(p => p.studio_running);
-      const live = liveList.length;
-      const voices = STATE.voices.length;
-      const runningJobs = STATE.jobs.filter(j => j.status === 'running').length;
-      document.getElementById('statsBar').innerHTML = `
-        <span class="stat-pill">Dự án: <b>${total}</b></span>
-        <span class="stat-pill">${live > 0 ? '<span class="dot dot-live"></span>' : ''}Studio đang mở: <b>${live > 0 ? liveList.map(x => esc(x.id)).join(', ') : '0'} (tối đa 1)</b></span>
-        ${live > 0 ? `<button class="btn-sm btn-danger" onclick="stopAllStudios()">■ Tắt Studio đang mở</button>` : ''}
-        <span class="stat-pill">Kho <code>voice/</code>: <b>${voices} file</b></span>
-        ${runningJobs > 0 ? `<span class="stat-pill" style="border-color:var(--accent); color:#7dd3fc;">⚙ Đang chạy <b>${runningJobs} tác vụ</b></span>` : ''}
-      `;
-    }
-
-    function pickThumb(p) {
-      if (p.has_sheet) return `/files/${p.id}/out/sheet.png?t=${p.sheet_mtime}`;
+    function thumb(p) {
+      if (p.has_sheet) return file(p.id, 'out/checks/sheet.png', p.sheet_mtime);
       const sc = p.scenes.find(s => s.has_sheet);
-      if (sc) return `/files/${p.id}/out/scenes/${sc.id}.png?t=${sc.sheet_mtime}`;
-      if (p.models.length > 0) return `/files/${p.id}/out/models/${encodeURIComponent(p.models[0].file)}?t=${p.models[0].mtime}`;
+      if (sc) return file(p.id, `out/checks/scenes/${sc.id}.png`, sc.sheet_mtime);
+      if (p.models.length) return file(p.id, `out/checks/parts/${encodeURIComponent(p.models[0].file)}`, p.models[0].mtime);
       return null;
     }
 
-    function renderProjects() {
-      const q = (document.getElementById('searchInput').value || '').trim().toLowerCase();
-      const list = STATE.projects.filter(p => !q || p.id.toLowerCase().includes(q) || (p.voice_src || '').toLowerCase().includes(q));
-      const box = document.getElementById('projectsContainer');
-      if (list.length === 0) {
-        box.className = '';
-        box.innerHTML = `<div class="empty-state">
-          <div style="font-size:17px; font-weight:700; color:var(--text); margin-bottom:6px;">Chưa có dự án nào khớp tìm kiếm</div>
-          <div>Bấm <b>"＋ Tạo dự án mới"</b> ở góc trên để khởi tạo từ file voice.</div>
-        </div>`;
+    function steps(p) {
+      const s = (ok, label) => `<b class="${ok ? 'ok' : 'no'}">${label}</b>`;
+      return [
+        s(p.has_voice, 'Voice'),
+        s(p.has_asr, 'Mốc từ'),
+        s(p.has_shot_plan, 'Kế hoạch'),
+        s(p.scenes_total > 0 && p.scenes_done === p.scenes_total, `Cảnh ${p.scenes_done}/${p.scenes_total}`),
+        s(p.has_audio, 'Âm thanh'),
+        s(p.has_mp4, 'Video'),
+      ].join('');
+    }
+
+    function renderList() {
+      const live = S.projects.find(p => p.studio_running);
+      $('liveNote').innerHTML = live ? `<div class="live-note"><i class="dot"></i><span>Studio đang mở: <b>${esc(live.id)}</b></span>
+        <button onclick="openStudio('${esc(live.id)}')">Xem</button><button onclick="stopStudio('${esc(live.id)}')">Tắt</button></div>` : '';
+
+      const q = $('search').value.trim().toLowerCase();
+      const list = S.projects.filter(p => !q || p.id.includes(q));
+      if (!list.length) {
+        $('list').innerHTML = `<div class="empty">${S.projects.length ? 'Không có dự án khớp tìm kiếm.' : 'Chưa có dự án nào.<br><br><button class="primary" onclick="openCreate()">+ Tạo dự án đầu tiên</button>'}</div>`;
         return;
       }
-      const activeStudios = STATE.projects.filter(x => x.studio_running);
-      box.className = 'grid';
-      box.innerHTML = list.map(p => {
-        const thumb = pickThumb(p);
-        const pct = p.scenes_total > 0 ? Math.round((p.scenes_done / p.scenes_total) * 100) : 0;
-        const jobRunning = STATE.jobs.find(j => j.project === p.id && j.status === 'running');
-        const otherActive = activeStudios.find(x => x.id !== p.id);
-        return `
-        <div class="card ${p.studio_running ? 'is-live' : ''}">
-          <div class="thumb" onclick="openInspector('${esc(p.id)}')" title="Bấm để xem ảnh Sheet, từng cảnh, mô hình 3D & video MP4">
-            ${thumb
-              ? `<img src="${esc(thumb)}" loading="lazy" alt="${esc(p.id)}" />`
-              : `<div class="thumb-empty"><div>Chưa có ảnh kiểm hình</div><small>Bấm để xem thông tin / nghe voice</small></div>`
-            }
-            <div class="thumb-badges">
-              <span class="badge">${p.duration}s · ${p.fps}fps</span>
-              ${p.studio_running
-                ? `<span class="badge badge-live"><span class="dot dot-live"></span>STUDIO :${p.port}</span>`
-                : `<span class="badge" style="opacity:0.8;">Port :${p.port}</span>`
-              }
-            </div>
+      $('list').innerHTML = list.map(p => {
+        const t = thumb(p), job = runningJob(p.id);
+        const meta = [p.skill || 'chưa chọn chủ đề', p.size, p.duration ? `${p.duration}s` : 'chưa có voice'].join(' · ');
+        return `<div class="row ${p.studio_running ? 'live' : ''}" onclick="openDrawer('${esc(p.id)}')">
+          <div class="thumb">${t ? `<img src="${esc(t)}" loading="lazy" alt="" />` : 'chưa có ảnh'}</div>
+          <div>
+            <div class="name">${p.studio_running ? '<i class="dot"></i>' : ''}${esc(p.id)}</div>
+            <div class="meta">${esc(meta)}</div>
+            ${job ? `<div class="busy">Đang chạy: ${esc(job.title)}…</div>` : `<div class="steps">${steps(p)}</div>`}
           </div>
-          <div class="card-body">
-            <div class="card-head">
-              <h3 class="card-title">${esc(p.id)}</h3>
-              <span class="card-meta">${p.scenes_done}/${p.scenes_total} cảnh · ${p.disk_mb} MB</span>
-            </div>
-            <div class="progress-track" title="Tiến độ file cảnh: ${p.scenes_done}/${p.scenes_total}">
-              <div class="progress-fill" style="width:${pct}%;"></div>
-            </div>
-            <div class="tags">
-              <span class="tag ${p.has_asr ? 'ok' : ''}">ASR ${p.has_asr ? '✓' : '—'}</span>
-              <span class="tag ${p.models.length ? 'ok' : ''}">3D Models: ${p.models.length}</span>
-              <span class="tag ${p.has_audio ? 'ok' : ''}">Audio ${p.has_audio ? '✓' : '—'}</span>
-              <span class="tag ${p.has_sheet ? 'ok' : ''}">Sheet ${p.has_sheet ? '✓' : '—'}</span>
-              ${p.has_mp4 ? `<span class="tag mp4">MP4 (${p.mp4_size_mb} MB)</span>` : ''}
-              ${jobRunning ? `<span class="tag ok">⚙ ${esc(jobRunning.action)}...</span>` : ''}
-            </div>
-            <div class="studio-row">
-              ${p.studio_running
-                ? `<button class="btn-green grow" onclick="openStudioTimeline('${esc(p.id)}', true, '${esc(p.studio_url)}')">
-                     ▶ Mở Tab Timeline Đang Chạy
-                   </button>
-                   <button class="btn-danger" onclick="stopStudio('${esc(p.id)}')" title="Tắt tiến trình Studio để giải phóng RAM & mở khoá dự án khác">■ Tắt</button>`
-                : otherActive
-                  ? `<button class="grow" disabled title="Chỉ mở 1 Timeline mỗi lúc để không tràn WebGL 3D. Hãy bấm Tắt ở dự án đang mở hoặc nút Đổi ngay bên cạnh.">
-                       🔒 Đang mở "${esc(otherActive.id)}" (tắt trước)
-                     </button>
-                     <button class="btn-primary" onclick="openStudioTimeline('${esc(p.id)}', false, '${esc(p.studio_url)}', '${esc(otherActive.id)}')" title="Tự động tắt Studio của '${esc(otherActive.id)}' và chuyển sang '${esc(p.id)}'">⇄ Đổi sang đây</button>`
-                  : `<button class="btn-primary grow" onclick="openStudioTimeline('${esc(p.id)}', false, '${esc(p.studio_url)}')">
-                       ▶ Mở Timeline (Remotion Studio)
-                     </button>`
-              }
-            </div>
-            <div class="actions-row">
-              <button class="btn-sm" onclick="openInspector('${esc(p.id)}')">👁 Xem hình / MP4</button>
-              <button class="btn-sm" onclick="triggerJob('${esc(p.id)}', 'build')" title="Chạy tools/build.py">🔨 Build</button>
-              <button class="btn-sm" onclick="triggerJob('${esc(p.id)}', 'audio')" title="Chạy tools/audio.py + build.py">🔊 Audio</button>
-              <button class="btn-sm" onclick="triggerJob('${esc(p.id)}', 'sheet')" title="Xuất bảng 24 khung out/sheet.png">🖼 Sheet</button>
-              <button class="btn-sm" onclick="openMp4Modal('${esc(p.id)}')" title="Xuất out/video.mp4">🎬 Xuất MP4</button>
-              <button class="btn-sm" onclick="openRenameModal('${esc(p.id)}')" title="Đổi tên dự án đồng bộ">✎ Đổi tên</button>
-              <button class="btn-sm btn-danger" onclick="openDeleteModal('${esc(p.id)}')" title="Dọn out/ hoặc xoá dự án">🗑</button>
+          <div class="side" onclick="event.stopPropagation()">
+            <button class="${p.studio_running ? '' : 'primary'}" onclick="openStudio('${esc(p.id)}')">${p.studio_running ? 'Xem Studio' : 'Mở Studio'}</button>
+            <div class="menu">
+              <button class="ghost" onclick="toggleMenu(this)">⋯</button>
+              <div class="menu-list">
+                <button onclick="openRename('${esc(p.id)}')">Đổi tên</button>
+                <button onclick="askCleanOut('${esc(p.id)}')">Dọn ảnh kiểm và video</button>
+                <hr />
+                <button class="danger" onclick="askDelete('${esc(p.id)}')">Xoá dự án</button>
+              </div>
             </div>
           </div>
         </div>`;
       }).join('');
     }
 
-    async function openStudioTimeline(pid, alreadyRunning, knownUrl, closingPid = '') {
-      if (alreadyRunning) {
-        window.open(knownUrl, 'remotion_studio_timeline');
-        return;
-      }
-      // Dùng chung 1 tab tên 'remotion_studio_timeline' để thu hồi ngay WebGL context cũ và không bị chặn popup
-      const win = window.open('about:blank', 'remotion_studio_timeline');
-      const note = closingPid
-        ? `Đang tắt Studio "${esc(closingPid)}" và chuyển sang "${esc(pid)}"...`
-        : `Đang khởi động Remotion Studio Timeline cho "${esc(pid)}"...`;
+    function toggleMenu(btn) {
+      const m = btn.nextElementSibling, was = m.classList.contains('open');
+      closeMenus();
+      if (!was) m.classList.add('open');
+    }
+    function closeMenus() { document.querySelectorAll('.menu-list.open').forEach(m => m.classList.remove('open')); }
+    document.addEventListener('click', e => { if (!e.target.closest('.menu')) closeMenus(); });
+
+    /* Studio */
+    async function openStudio(id) {
+      closeMenus();
+      const p = project(id);
+      if (p && p.studio_running) { window.open(p.studio_url, 'remotion_studio'); return; }
+      const win = window.open('about:blank', 'remotion_studio');
       if (win) {
-        win.document.open();
-        win.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Đang mở Studio: ${esc(pid)}...</title></head>
-          <body style="margin:0;background:#0b0f17;color:#e7eef8;font-family:sans-serif;display:grid;place-items:center;height:100vh;">
-            <div style="text-align:center;">
-              <div style="font-size:20px;font-weight:700;margin-bottom:8px;">${note}</div>
-              <div style="color:#8fa1bc;font-size:14px;">Đang đóng gói Rspack & mở cổng riêng (mất khoảng 4–8 giây)</div>
-            </div>
-          </body></html>`);
+        win.document.write(`<!doctype html><meta charset="utf-8"><title>Đang mở ${esc(id)}…</title>
+          <body style="margin:0;background:#0e1116;color:#e6e9ef;font:16px sans-serif;display:grid;place-items:center;height:100vh">Đang mở Studio cho ${esc(id)}…</body>`);
         win.document.close();
       }
-      showToast(closingPid ? `Đang tắt "${closingPid}" & mở "${pid}"...` : `Đang khởi động Studio cho "${pid}"...`);
-      const res = await apiPost('/api/studio/start', { id: pid });
-      await refreshState(false);
-      if (res.ok && res.url) {
-        showToast(`Đã mở Timeline "${pid}"`);
-        if (win) win.location.href = res.url;
-        else window.open(res.url, 'remotion_studio_timeline');
-      } else {
-        if (win) win.close();
-        showToast(res.error || 'Không mở được Studio', true);
-      }
+      toast(`Đang mở Studio cho ${id}…`);
+      const r = await post('/api/studio/start', { id });
+      await refresh();
+      if (r.ok && r.url) { if (win) win.location.href = r.url; else window.open(r.url, 'remotion_studio'); }
+      else { if (win) win.close(); toast(r.error || 'Không mở được Studio', true); }
     }
 
-    async function stopStudio(pid) {
-      const res = await apiPost('/api/studio/stop', { id: pid });
-      if (res.ok) showToast(`Đã tắt Studio của "${pid}"`);
-      else showToast(res.error || 'Lỗi khi tắt Studio', true);
-      refreshState(false);
+    async function stopStudio(id) {
+      const r = await post('/api/studio/stop', { id });
+      toast(r.ok ? `Đã tắt Studio ${id}` : (r.error || 'Lỗi khi tắt Studio'), !r.ok);
+      refresh();
     }
 
-    async function stopAllStudios() {
-      const res = await apiPost('/api/studio/stop_all', {});
-      if (res.ok) showToast('Đã tắt toàn bộ Studio đang mở');
-      refreshState(false);
+    /* Tác vụ nền */
+    async function runJob(id, action, extra = {}) {
+      const r = await post('/api/job/start', { id, action, ...extra });
+      if (!r.ok) { toast(r.error || 'Không chạy được', true); return; }
+      jobId = r.job.id; logOpen = true; jobsHidden = false;
+      refresh();
     }
 
-    async function triggerJob(pid, action, extra = {}) {
-      const res = await apiPost('/api/job/start', { id: pid, action, ...extra });
-      if (!res.ok) {
-        showToast(res.error || 'Không khởi chạy được tác vụ', true);
-        return;
-      }
-      selectedJobId = res.job.id;
-      consoleOpen = true;
-      showToast(`Đã chạy: ${res.job.title}`);
-      refreshState(false);
+    function renderJobs() {
+      const box = $('jobs');
+      if (!S.jobs.length || jobsHidden && !S.jobs.some(j => j.status === 'running' && j.id === jobId)) { box.style.display = 'none'; return; }
+      box.style.display = 'block';
+      if (!jobId || !S.jobs.some(j => j.id === jobId)) jobId = S.jobs[0].id;
+      const j = S.jobs.find(x => x.id === jobId);
+      const mark = { running: '…', done: '✓', error: '✕ lỗi', cancelled: '✕ huỷ' };
+      $('jobsSummary').innerHTML = `${j.status === 'running' ? '<i class="dot"></i> ' : ''}${esc(j.title)} <span style="color:var(--faint)">${mark[j.status] || j.status}</span>`;
+      $('jobCancel').style.display = j.status === 'running' ? '' : 'none';
+      $('jobsBody').style.display = logOpen ? '' : 'none';
+      $('jobsTabs').innerHTML = S.jobs.length > 1 ? S.jobs.slice(0, 8).map(x =>
+        `<button class="${x.id === jobId ? 'on' : ''}" onclick="jobId='${x.id}'; renderJobs();">${mark[x.status] || ''} ${esc(x.title)}</button>`).join('') : '';
+      const log = $('jobsLog'), atEnd = log.scrollHeight - log.scrollTop - log.clientHeight < 40;
+      log.textContent = (j.log || []).join('\n');
+      if (atEnd || j.status === 'running') log.scrollTop = log.scrollHeight;
     }
+    function hideJobs() { jobsHidden = true; $('jobs').style.display = 'none'; }
+    async function cancelJob() { await post('/api/job/cancel', { job_id: jobId }); refresh(); }
 
-    function renderConsole() {
-      const bar = document.getElementById('consoleBar');
-      if (!STATE.jobs || STATE.jobs.length === 0) {
-        bar.style.display = 'none';
-        return;
-      }
-      bar.style.display = 'block';
-      if (!selectedJobId || !STATE.jobs.some(j => j.id === selectedJobId)) {
-        selectedJobId = STATE.jobs[0].id;
-      }
-      const active = STATE.jobs.find(j => j.id === selectedJobId) || STATE.jobs[0];
-      const runningCount = STATE.jobs.filter(j => j.status === 'running').length;
-
-      document.getElementById('consoleSummary').innerHTML =
-        `${runningCount > 0 ? '<span class="dot dot-live" style="margin-right:8px;"></span>' : ''}` +
-        `<b>Nhật ký lệnh CLI</b> — ${esc(active.title)} <span style="color:var(--muted);">[${esc(active.status)}]</span>`;
-
-      const cancelBtn = document.getElementById('cancelJobBtn');
-      cancelBtn.style.display = active.status === 'running' ? 'inline-flex' : 'none';
-
-      document.getElementById('consoleContent').style.display = consoleOpen ? 'block' : 'none';
-      document.getElementById('consoleChevron').textContent = consoleOpen ? '▼' : '▲';
-
-      document.getElementById('jobTabs').innerHTML = STATE.jobs.slice(0, 8).map(j => {
-        const icon = j.status === 'running' ? '⏳' : j.status === 'done' ? '✓' : '✕';
-        return `<button class="job-tab ${j.id === active.id ? 'active' : ''}" onclick="selectedJobId='${j.id}'; renderConsole();">${icon} ${esc(j.title)}</button>`;
-      }).join('');
-
-      const logEl = document.getElementById('consoleLog');
-      const atBottom = logEl.scrollHeight - logEl.scrollTop - logEl.clientHeight < 40;
-      logEl.textContent = (active.log || []).join('\n');
-      if (atBottom || active.status === 'running') logEl.scrollTop = logEl.scrollHeight;
+    /* Hộp thoại */
+    function closeDlg(id) { $(id).classList.remove('open'); }
+    function ask(title, text, yesLabel, danger, cb) {
+      $('askTitle').textContent = title;
+      $('askText').textContent = text;
+      $('askYes').textContent = yesLabel;
+      $('askYes').className = danger ? 'danger-fill' : 'primary';
+      askCb = cb;
+      $('askDlg').classList.add('open');
     }
+    function answer(yes) { closeDlg('askDlg'); const cb = askCb; askCb = null; if (yes && cb) cb(); }
 
-    function toggleConsole() {
-      consoleOpen = !consoleOpen;
-      renderConsole();
-    }
-
-    async function cancelActiveJob() {
-      if (!selectedJobId) return;
-      await apiPost('/api/job/cancel', { job_id: selectedJobId });
-      showToast('Đã gửi lệnh huỷ tác vụ');
-      refreshState(false);
-    }
-
-    /* Modals */
-    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-
-    function openCreateModal() {
-      const sel = document.getElementById('newVoiceSelect');
-      sel.innerHTML = STATE.voices.map(v =>
-        `<option value="${esc(v.rel)}">${esc(v.name)} (${v.duration}s · ${v.size_mb} MB)</option>`
-      ).join('');
-      document.getElementById('newPid').value = '';
-      document.getElementById('newFrom').value = '';
-      document.getElementById('newTo').value = '';
-      suggestProjectId();
-      document.getElementById('createModal').classList.add('open');
-      document.getElementById('newPid').focus();
-    }
-
-    function suggestProjectId() {
-      const pidEl = document.getElementById('newPid');
-      if (pidEl.value.trim()) return;
-      const v = document.getElementById('newVoiceSelect').value || '';
-      const stem = v.split('/').pop().replace(/\.[^.]+$/, '').toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^[^a-z]+/, 'v_').replace(/_+$/, '');
-      if (stem && !STATE.projects.some(p => p.id === stem)) {
-        pidEl.value = stem;
-      }
-    }
-
-    async function uploadVoiceFile(input) {
-      const file = input.files && input.files[0];
-      if (!file) return;
-      showToast(`Đang tải lên "${file.name}"...`);
-      try {
-        const r = await fetch('/api/voice/upload', {
-          method: 'POST',
-          headers: { 'X-Filename': encodeURIComponent(file.name) },
-          body: file,
-        });
-        const data = await r.json();
-        input.value = '';
-        if (!data.ok) {
-          showToast(data.error || 'Tải file thất bại', true);
-          return;
-        }
-        await refreshState(false);
-        const sel = document.getElementById('newVoiceSelect');
-        sel.innerHTML = STATE.voices.map(v =>
-          `<option value="${esc(v.rel)}" ${v.rel === data.voice ? 'selected' : ''}>${esc(v.name)} (${v.duration}s · ${v.size_mb} MB)</option>`
-        ).join('');
-        document.getElementById('newPid').value = '';
-        suggestProjectId();
-        showToast(`Đã lưu vào ${data.voice}`);
-      } catch (e) {
-        showToast('Lỗi kết nối khi tải file voice', true);
-      }
-    }
-
-    async function submitCreateProject() {
-      const pid = document.getElementById('newPid').value.trim();
-      const voice = document.getElementById('newVoiceSelect').value;
-      const tFrom = document.getElementById('newFrom').value.trim();
-      const tTo = document.getElementById('newTo').value.trim();
-      const runAsr = document.getElementById('newRunAsr').checked;
-
-      const btn = document.getElementById('createSubmitBtn');
-      btn.disabled = true;
-      const res = await apiPost('/api/project/create', {
-        id: pid,
-        voice,
-        from: tFrom === '' ? null : Number(tFrom),
-        to: tTo === '' ? null : Number(tTo),
-        run_asr: runAsr,
+    function askDelete(id) {
+      closeMenus();
+      ask(`Xoá dự án "${id}"?`, 'Xoá hẳn thư mục dự án, không lấy lại được.', 'Có, xoá', true, async () => {
+        const r = await post('/api/project/delete', { id, mode: 'all' });
+        toast(r.ok ? `Đã xoá ${id}` : (r.error || 'Xoá thất bại'), !r.ok);
+        if (r.ok && cur === id) closeDrawer();
+        refresh();
       });
-      btn.disabled = false;
-      if (!res.ok) {
-        showToast(res.error || 'Tạo dự án thất bại', true);
-        return;
+    }
+    function askCleanOut(id) {
+      closeMenus();
+      ask(`Dọn "${id}"?`, 'Xoá ảnh kiểm và video đã xuất trong out/. Code, kế hoạch và tài sản giữ nguyên.', 'Có, dọn', false, async () => {
+        const r = await post('/api/project/delete', { id, mode: 'out' });
+        toast(r.ok ? `Đã dọn ${id}` : (r.error || 'Dọn thất bại'), !r.ok);
+        refresh();
+      });
+    }
+
+    function openCreate() {
+      $('cId').value = ''; $('cFrom').value = ''; $('cTo').value = '';
+      $('cSkill').innerHTML = S.skills.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('') + '<option value="">Không chọn</option>';
+      fillVoices('');
+      format = '16:9'; renderFormats();
+      $('createDlg').classList.add('open');
+      $('cId').focus();
+    }
+    function renderFormats() {
+      $('cFormat').innerHTML = FORMATS.map(([v, l]) => `<button class="${v === format ? 'on' : ''}" onclick="format='${v}'; renderFormats();">${l}</button>`).join('');
+    }
+    function fillVoices(selected) {
+      $('cVoice').innerHTML = '<option value="">Không có, tạo dự án trống</option>' + S.voices.map(v =>
+        `<option value="${esc(v.rel)}" ${v.rel === selected ? 'selected' : ''}>${esc(v.name)} · ${v.duration}s</option>`).join('');
+      onVoiceChange();
+    }
+    function onVoiceChange() {
+      const v = $('cVoice').value;
+      $('cVoiceOpts').hidden = !v;
+      $('cVoiceHint').hidden = !!v;
+      if (v && !$('cId').value.trim()) {
+        const stem = v.split('/').pop().replace(/\.[^.]+$/, '').toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '').replace(/^(?=[^a-z])/, 'v_');
+        if (stem && !project(stem)) $('cId').value = stem;
       }
-      closeModal('createModal');
-      if (res.job) {
-        selectedJobId = res.job.id;
-        consoleOpen = true;
-      }
-      showToast(`Đã tạo dự án "${pid}"`);
-      refreshState(false);
+    }
+    async function uploadVoice(input) {
+      const f = input.files && input.files[0];
+      if (!f) return;
+      toast(`Đang tải lên ${f.name}…`);
+      try {
+        const r = await fetch('/api/voice/upload', { method: 'POST', headers: { 'X-Filename': encodeURIComponent(f.name) }, body: f });
+        const d = await r.json();
+        input.value = '';
+        if (!d.ok) { toast(d.error || 'Tải lên thất bại', true); return; }
+        await refresh();
+        fillVoices(d.voice);
+        toast(`Đã lưu ${d.voice}`);
+      } catch (e) { toast('Tải lên thất bại', true); }
+    }
+    async function submitCreate() {
+      const id = $('cId').value.trim(), voice = $('cVoice').value;
+      if (!/^[a-z][a-z0-9_]*$/.test(id)) { toast('Tên dự án: chữ thường, số, dấu _, bắt đầu bằng chữ', true); $('cId').focus(); return; }
+      $('cBtn').disabled = true;
+      const r = await post('/api/project/create', {
+        id, voice, skill: $('cSkill').value, format,
+        from: voice && $('cFrom').value !== '' ? Number($('cFrom').value) : null,
+        to: voice && $('cTo').value !== '' ? Number($('cTo').value) : null,
+        run_asr: !!voice && $('cAsr').checked,
+      });
+      $('cBtn').disabled = false;
+      if (!r.ok) { toast(r.error || 'Tạo thất bại', true); return; }
+      closeDlg('createDlg');
+      if (r.job) { jobId = r.job.id; jobsHidden = false; }
+      toast(`Đã tạo ${id}`);
+      await refresh();
+      openDrawer(id);
     }
 
-    function openRenameModal(pid) {
-      document.getElementById('renameOldId').value = pid;
-      document.getElementById('renameOldDisplay').value = pid;
-      document.getElementById('renameNewId').value = pid;
-      document.getElementById('renameModal').classList.add('open');
-      const inp = document.getElementById('renameNewId');
-      inp.focus();
-      inp.select();
+    function openRename(id) {
+      closeMenus();
+      renaming = id;
+      $('rNew').value = id;
+      $('renameDlg').classList.add('open');
+      $('rNew').select();
+    }
+    async function submitRename() {
+      const nid = $('rNew').value.trim();
+      const r = await post('/api/project/rename', { old_id: renaming, new_id: nid });
+      if (!r.ok) { toast(r.error || 'Đổi tên thất bại', true); return; }
+      closeDlg('renameDlg');
+      if (cur === renaming) cur = nid;
+      toast(`Đã đổi thành ${nid}`);
+      refresh();
     }
 
-    async function submitRenameProject() {
-      const oldId = document.getElementById('renameOldId').value;
-      const newId = document.getElementById('renameNewId').value.trim();
-      const res = await apiPost('/api/project/rename', { old_id: oldId, new_id: newId });
-      if (!res.ok) {
-        showToast(res.error || 'Đổi tên thất bại', true);
-        return;
-      }
-      closeModal('renameModal');
-      showToast(`Đã đổi tên "${oldId}" → "${newId}"`);
-      refreshState(false);
-    }
+    function openMp4(id) { mp4For = id; $('mp4Dlg').classList.add('open'); }
+    function submitMp4() { closeDlg('mp4Dlg'); runJob(mp4For, 'mp4', { music: $('mMusic').checked, sfx: $('mSfx').checked }); }
 
-    function openMp4Modal(pid) {
-      document.getElementById('mp4Pid').value = pid;
-      document.getElementById('mp4Modal').classList.add('open');
-    }
-
-    function submitRenderMp4() {
-      const pid = document.getElementById('mp4Pid').value;
-      const music = document.getElementById('mp4Music').checked;
-      const sfx = document.getElementById('mp4Sfx').checked;
-      closeModal('mp4Modal');
-      triggerJob(pid, 'mp4', { music, sfx });
-    }
-
-    function openDeleteModal(pid) {
-      document.getElementById('delPid').value = pid;
-      document.getElementById('delPidLabel').textContent = pid;
-      document.getElementById('delConfirmInput').value = '';
-      document.getElementById('deleteModal').classList.add('open');
-    }
-
-    async function submitCleanOut() {
-      const pid = document.getElementById('delPid').value;
-      const res = await apiPost('/api/project/delete', { id: pid, mode: 'out' });
-      if (!res.ok) {
-        showToast(res.error || 'Lỗi khi dọn out/', true);
-        return;
-      }
-      closeModal('deleteModal');
-      showToast(res.message);
-      refreshState(false);
-    }
-
-    async function submitDeleteAll() {
-      const pid = document.getElementById('delPid').value;
-      const confirmVal = document.getElementById('delConfirmInput').value.trim();
-      if (confirmVal !== pid) {
-        showToast(`Vui lòng nhập chính xác "${pid}" để xác nhận xoá`, true);
-        return;
-      }
-      const res = await apiPost('/api/project/delete', { id: pid, mode: 'all' });
-      if (!res.ok) {
-        showToast(res.error || 'Xoá thất bại', true);
-        return;
-      }
-      closeModal('deleteModal');
-      showToast(res.message);
-      refreshState(false);
-    }
-
-    /* Inspector Lightbox */
-    function openInspector(pid) {
-      const p = STATE.projects.find(x => x.id === pid);
+    /* Ngăn chi tiết */
+    function openDrawer(id) {
+      const p = project(id);
       if (!p) return;
-      inspectPid = pid;
-      inspectTab = p.has_mp4 ? 'mp4' : p.has_sheet ? 'sheet' : p.scenes.some(s => s.has_sheet) ? 'scenes' : p.models.length ? 'models' : 'voice';
-      document.getElementById('inspectTitle').textContent = `Dự án: ${pid} (${p.duration}s)`;
-      renderInspectTabs(p, true);
-      document.getElementById('inspectModal').classList.add('open');
+      cur = id;
+      tab = p.has_mp4 ? 'video' : p.has_sheet ? 'sheet' : p.scenes.some(s => s.has_sheet) ? 'scenes' : p.models.length ? 'parts' : 'plan';
+      $('drawer').classList.add('open');
+      renderDrawer(true);
     }
+    function closeDrawer() { cur = null; $('drawer').classList.remove('open'); }
+    function setTab(t) { tab = t; renderDrawer(true); }
 
-    function setInspectTab(tab) {
-      inspectTab = tab;
-      const p = STATE.projects.find(x => x.id === inspectPid);
-      if (p) renderInspectTabs(p, true);
-    }
-
-    async function renderInspectTabs(p, redrawStage = true) {
-      const tabs = [
-        { id: 'sheet', label: `Bảng tổng 24 khung ${p.has_sheet ? '✓' : ''}` },
-        { id: 'scenes', label: `Từng cảnh (${p.scenes.filter(s => s.has_sheet).length}/${p.scenes_total})` },
-        { id: 'models', label: `Mô hình 3D (${p.models.length})` },
-        { id: 'mp4', label: `Video MP4 ${p.has_mp4 ? '✓' : ''}` },
-        { id: 'voice', label: 'Giọng đọc & Kịch bản' },
-      ];
-      document.getElementById('inspectTabs').innerHTML = tabs.map(t =>
-        `<button class="btn-sm ${inspectTab === t.id ? 'active' : ''}" onclick="setInspectTab('${t.id}')">${esc(t.label)}</button>`
-      ).join('');
-
-      if (!redrawStage) return;
-      const stage = document.getElementById('inspectStage');
-
-      if (inspectTab === 'sheet') {
-        if (!p.has_sheet) {
-          stage.innerHTML = `<div style="text-align:center; padding:50px; color:var(--muted);">
-            Chưa có <code>out/sheet.png</code>.<br><br>
-            <button class="btn-primary" onclick="closeModal('inspectModal'); triggerJob('${esc(p.id)}', 'sheet');">🖼 Xuất bảng ảnh tổng ngay</button>
-          </div>`;
-        } else {
-          const url = `/files/${p.id}/out/sheet.png?t=${p.sheet_mtime}`;
-          stage.innerHTML = `<a href="${esc(url)}" target="_blank" title="Bấm để mở ảnh gốc kích thước đầy đủ"><img src="${esc(url)}" alt="sheet" /></a>`;
-        }
-      } else if (inspectTab === 'scenes') {
-        stage.innerHTML = `<div class="sub-grid">${p.scenes.map(s => `
-          <div class="sub-item">
-            <h4><span>${esc(s.id)} (${s.kind.toUpperCase()})</span><span style="color:var(--muted);">${s.from}s → ${s.to}s</span></h4>
-            ${s.has_sheet
-              ? `<a href="/files/${esc(p.id)}/out/scenes/${esc(s.id)}.png?t=${s.sheet_mtime}" target="_blank">
-                   <img src="/files/${esc(p.id)}/out/scenes/${esc(s.id)}.png?t=${s.sheet_mtime}" alt="${esc(s.id)}" />
-                 </a>`
-              : `<div style="padding:26px; text-align:center; color:var(--muted); font-size:12px;">Chưa chụp ${esc(s.id)}.png (${s.has_code ? 'đã có code' : 'chưa có code'})</div>`
-            }
-            ${s.brief ? `<div style="font-size:12px; color:var(--muted); margin-top:8px;">${esc(s.brief)}</div>` : ''}
-          </div>
-        `).join('')}</div>`;
-      } else if (inspectTab === 'models') {
-        if (!p.models.length) {
-          stage.innerHTML = `<div style="text-align:center; padding:50px; color:var(--muted);">Dự án chưa có ảnh kiểm định mô hình 3D trong <code>out/models/</code>.</div>`;
-        } else {
-          stage.innerHTML = `<div class="sub-grid">${p.models.map(m => `
-            <div class="sub-item">
-              <h4><span>${esc(m.name)}</span><span style="color:var(--muted);">4 góc</span></h4>
-              <a href="/files/${esc(p.id)}/out/models/${encodeURIComponent(m.file)}?t=${m.mtime}" target="_blank">
-                <img src="/files/${esc(p.id)}/out/models/${encodeURIComponent(m.file)}?t=${m.mtime}" alt="${esc(m.name)}" />
-              </a>
-            </div>
-          `).join('')}</div>`;
-        }
-      } else if (inspectTab === 'mp4') {
-        if (!p.has_mp4) {
-          stage.innerHTML = `<div style="text-align:center; padding:50px; color:var(--muted);">
-            Chưa xuất file <code>out/video.mp4</code>.<br><br>
-            <button class="btn-primary" onclick="closeModal('inspectModal'); openMp4Modal('${esc(p.id)}');">🎬 Xuất MP4 ngay</button>
-          </div>`;
-        } else {
-          const url = `/files/${p.id}/out/video.mp4?t=${p.mp4_mtime}`;
-          stage.innerHTML = `
-            <video controls autoplay style="max-height:58vh;" src="${esc(url)}"></video>
-            <div style="text-align:center; margin-top:10px;">
-              <a href="${esc(url)}" download="${esc(p.id)}.mp4" style="color:var(--accent); font-size:13px;">⬇ Tải xuống ${esc(p.id)}.mp4 (${p.mp4_size_mb} MB)</a>
-            </div>`;
-        }
-      } else if (inspectTab === 'voice') {
-        let planText = '';
+    async function renderDrawer(redraw) {
+      const p = project(cur);
+      if (!p) { closeDrawer(); return; }
+      $('dTitle').textContent = p.id;
+      const busy = !!runningJob(p.id);
+      const a = (label, act, show = true) => show ? `<button ${busy ? 'disabled' : ''} onclick="runJob('${esc(p.id)}', '${act}')">${label}</button>` : '';
+      $('dActions').innerHTML = [
+        `<button class="primary" onclick="openStudio('${esc(p.id)}')">${p.studio_running ? 'Xem Studio' : 'Mở Studio'}</button>`,
+        a('Bóc mốc từ', 'asr', p.has_voice),
+        a('Build', 'build'),
+        a('Trộn âm thanh', 'audio'),
+        a('Chụp ảnh kiểm', 'sheet'),
+        `<button ${busy ? 'disabled' : ''} onclick="openMp4('${esc(p.id)}')">Xuất video</button>`,
+      ].join('');
+      const tabs = [['video', 'Video'], ['sheet', 'Ảnh kiểm'], ['scenes', `Cảnh (${p.scenes_total})`], ['parts', `Part (${p.models.length})`], ['plan', 'Kế hoạch']];
+      $('dTabs').innerHTML = tabs.map(([k, l]) => `<button class="${tab === k ? 'on' : ''}" onclick="setTab('${k}')">${l}</button>`).join('');
+      if (!redraw) return;
+      const st = $('dStage');
+      const none = (t) => `<div class="none">${t}</div>`;
+      if (tab === 'video') {
+        st.innerHTML = p.has_mp4
+          ? `<video controls src="${file(p.id, 'out/video.mp4', p.mp4_mtime)}"></video>
+             <p style="color:var(--faint); font-size:12.5px;">out/video.mp4 · ${p.mp4_size_mb} MB · <a style="color:var(--accent)" href="${file(p.id, 'out/video.mp4', p.mp4_mtime)}" download="${esc(p.id)}.mp4">Tải về</a></p>`
+          : none('Chưa xuất video.');
+      } else if (tab === 'sheet') {
+        st.innerHTML = p.has_sheet
+          ? `<a href="${file(p.id, 'out/checks/sheet.png', p.sheet_mtime)}" target="_blank"><img src="${file(p.id, 'out/checks/sheet.png', p.sheet_mtime)}" /></a>`
+          : none('Chưa có ảnh kiểm cả video. Bấm "Chụp ảnh kiểm".');
+      } else if (tab === 'scenes') {
+        st.innerHTML = p.scenes.length ? `<div class="tiles">${p.scenes.map(s => `<div class="tile">
+            <h4>${esc(s.id)} <span>${esc(s.kind)} · ${s.from}–${s.to}s</span></h4>
+            ${s.has_sheet ? `<a href="${file(p.id, `out/checks/scenes/${s.id}.png`, s.sheet_mtime)}" target="_blank"><img src="${file(p.id, `out/checks/scenes/${s.id}.png`, s.sheet_mtime)}" /></a>`
+              : none(s.has_code ? 'Chưa chụp' : 'Chưa dựng')}
+          </div>`).join('')}</div>` : none('Chưa có cảnh. Cảnh nằm trong plan/chapters/ và hiện ở đây sau khi Build.');
+      } else if (tab === 'parts') {
+        st.innerHTML = p.models.length ? `<div class="tiles">${p.models.map(m => `<div class="tile">
+            <h4>${esc(m.name)}</h4>
+            <a href="${file(p.id, `out/checks/parts/${encodeURIComponent(m.file)}`, m.mtime)}" target="_blank"><img src="${file(p.id, `out/checks/parts/${encodeURIComponent(m.file)}`, m.mtime)}" /></a>
+          </div>`).join('')}</div>` : none('Chưa có ảnh part.');
+      } else {
+        let story = '';
         if (p.has_shot_plan) {
-          try {
-            const r = await fetch(`/files/${p.id}/plan/SHOT_PLAN.md`);
-            if (r.ok) planText = await r.text();
-          } catch (e) {}
+          try { const r = await fetch(file(p.id, 'plan/STORY.md', Date.now())); if (r.ok) story = await r.text(); } catch (e) { /* bỏ qua */ }
         }
-        stage.innerHTML = `
-          <div style="margin-bottom:14px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
-            <b style="font-size:13px;">Nghe <code>input/voice.mp3</code>:</b>
-            ${p.has_voice ? `<audio controls src="/files/${esc(p.id)}/input/voice.mp3"></audio>` : '<span>Không có file</span>'}
-            ${!p.has_asr ? `<button class="btn-sm btn-primary" onclick="triggerJob('${esc(p.id)}', 'asr')">Chạy ASR bóc băng</button>` : ''}
-          </div>
-          <pre style="margin:0; font-family:var(--mono); font-size:12px; line-height:1.55; white-space:pre-wrap; color:#cbd5e1; background:#0b101a; padding:14px; border-radius:8px; border:1px solid var(--border);">${esc(planText || 'Chưa có SHOT_PLAN.md')}</pre>
-        `;
+        st.innerHTML = `${p.has_voice ? `<audio controls style="width:100%; margin-bottom:14px;" src="${file(p.id, 'assets/voice/voice.mp3')}"></audio>` : ''}
+          ${story ? `<pre class="doc">${esc(story)}</pre>` : none('Chưa có plan/STORY.md.')}`;
       }
     }
 
     window.addEventListener('keydown', e => {
-      if (e.key === 'Escape') {
-        document.querySelectorAll('.backdrop.open').forEach(el => el.classList.remove('open'));
-      }
+      if (e.key !== 'Escape') return;
+      const open = document.querySelector('.backdrop.open');
+      if (open) open.classList.remove('open');
+      else if ($('drawer').classList.contains('open')) closeDrawer();
+      closeMenus();
     });
 
-    refreshState(false);
+    refresh();
   </script>
 </body>
 </html>

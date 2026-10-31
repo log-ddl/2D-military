@@ -1,0 +1,16 @@
+{
+  "id": "vid7",
+  "title": "",
+  "skill": "military",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "remotion": "4.0.539",
+  "source": {
+    "file": "voice/vid7.mp3",
+    "from": null,
+    "to": null
+  },
+  "duration": 809.04,
+  "created": "2026-10-31"
+}

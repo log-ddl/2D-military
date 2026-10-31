@@ -5,23 +5,24 @@ node_modules
 __pycache__/
 *.pyc
 
-# bản build và kết quả render (tạo lại được)
-app/dist/
-out/
-out_whisper/
-projects/*/out/
-projects/*/public/
-projects/*/.cache/
-projects/*/video/Video.tsx
-projects/*/video/entry.tsx
-projects/node_modules
-*.mp4
+# sinh bởi core/tools/setup.py và upgrade.py
+/tsconfig.json
+/.agents/skills/
+remotion/docs/
+remotion/.docs-tmp/
 
-# trạng thái cục bộ của Studio
-.studio/
+# mỗi dự án: chỉ giữ project.json, assets/ASSETS.json, plan/, src/ (file media nặng không đưa vào git)
+projects/*/.build/
+projects/*/out/
+projects/*/input/
+*.mp4
+*.mov
+*.wav
+*.mp3
+
+# bản xuất cũ trước khi tái cấu trúc
+old_exports/
 
 # hệ điều hành, editor
 .DS_Store
 .claude/
-
-

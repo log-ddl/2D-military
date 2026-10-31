@@ -1,0 +1,223 @@
+{
+  "id": "t",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "duration": 70.1,
+  "chapters": [
+    {
+      "id": "C01",
+      "from": 0,
+      "to": 70.1,
+      "title": "Nghịch lý Giáp Xe Tăng 60 Tấn & Phòng Vệ Chủ Động"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "C01S01",
+      "from": 0,
+      "to": 4.22,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S02",
+      "from": 4.22,
+      "to": 10.86,
+      "type": "code",
+      "transition": "cut",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S03",
+      "from": 10.86,
+      "to": 16.36,
+      "type": "code",
+      "transition": "wipe:from-right",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S04",
+      "from": 16.36,
+      "to": 21.28,
+      "type": "code",
+      "transition": "cut",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S05",
+      "from": 21.28,
+      "to": 28.26,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S06",
+      "from": 28.26,
+      "to": 36.18,
+      "type": "code",
+      "transition": "cut",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S07",
+      "from": 36.18,
+      "to": 45.1,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S08",
+      "from": 45.1,
+      "to": 51.54,
+      "type": "code",
+      "transition": "cut",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S09",
+      "from": 51.54,
+      "to": 56.32,
+      "type": "code",
+      "transition": "cut",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S10",
+      "from": 56.32,
+      "to": 70.1,
+      "type": "code",
+      "transition": "wipe:from-left",
+      "chapter": "C01"
+    }
+  ],
+  "sfx": [
+    {
+      "at": 0.15,
+      "synth": "prop",
+      "power": 0.45,
+      "dur": 3.8
+    },
+    {
+      "at": 1.72,
+      "synth": "thud",
+      "power": 0.75
+    },
+    {
+      "at": 8.3,
+      "synth": "whoosh",
+      "power": 0.65,
+      "dur": 0.92
+    },
+    {
+      "at": 9.24,
+      "synth": "cannon",
+      "power": 0.95
+    },
+    {
+      "at": 14.06,
+      "synth": "tick",
+      "power": 0.6
+    },
+    {
+      "at": 15.06,
+      "synth": "rocket",
+      "power": 0.85,
+      "dur": 1.25
+    },
+    {
+      "at": 16.45,
+      "synth": "whir",
+      "power": 0.48,
+      "dur": 4.6,
+      "f": 240.0
+    },
+    {
+      "at": 26.26,
+      "synth": "thud",
+      "power": 0.9
+    },
+    {
+      "at": 30.64,
+      "synth": "whoosh",
+      "power": 0.55,
+      "dur": 0.75
+    },
+    {
+      "at": 32.6,
+      "synth": "chime",
+      "power": 0.52,
+      "f": 960.0
+    },
+    {
+      "at": 39.28,
+      "synth": "tick",
+      "power": 0.55
+    },
+    {
+      "at": 41.56,
+      "synth": "rocket",
+      "power": 0.88,
+      "dur": 1.6
+    },
+    {
+      "at": 43.36,
+      "synth": "whoosh",
+      "power": 0.78,
+      "dur": 1.5
+    },
+    {
+      "at": 46.02,
+      "synth": "tick",
+      "power": 0.7
+    },
+    {
+      "at": 47.18,
+      "synth": "cannon",
+      "power": 0.82
+    },
+    {
+      "at": 50.3,
+      "synth": "whoosh",
+      "power": 0.72,
+      "dur": 1.05
+    },
+    {
+      "at": 53.48,
+      "synth": "whoosh",
+      "power": 0.78,
+      "dur": 0.8
+    },
+    {
+      "at": 54.7,
+      "synth": "boom",
+      "power": 1.0,
+      "size": 1.3
+    },
+    {
+      "at": 62.22,
+      "synth": "chime",
+      "power": 0.55,
+      "f": 1120.0
+    },
+    {
+      "at": 63.68,
+      "synth": "tick",
+      "power": 0.75
+    },
+    {
+      "at": 66.3,
+      "synth": "cannon",
+      "power": 0.85
+    },
+    {
+      "at": 67.18,
+      "synth": "boom",
+      "power": 1.0,
+      "size": 1.15
+    }
+  ]
+}

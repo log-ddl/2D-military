@@ -1,6 +1,0 @@
-{
-  "extends": "../../engine/tsconfig.base.json",
-  "include": [
-    "video"
-  ]
-}

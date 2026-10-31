@@ -1,0 +1,16 @@
+{
+  "next": 2,
+  "assets": [
+    {
+      "id": "a001",
+      "kind": "voice",
+      "file": "voice/voice.mp3",
+      "status": "have",
+      "source": "user",
+      "locked": true,
+      "tags": [],
+      "duration": 809.04,
+      "used": []
+    }
+  ]
+}

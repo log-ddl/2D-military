@@ -1,0 +1,14 @@
+{
+  "sfx": [
+    {
+      "at": 688.28,
+      "synth": "whoosh",
+      "power": 0.65
+    },
+    {
+      "at": 691.02,
+      "synth": "thud",
+      "power": 0.72
+    }
+  ]
+}

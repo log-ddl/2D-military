@@ -1,0 +1,79 @@
+{
+  "id": "C04",
+  "title": "Cạn xăng trong đêm bão Trung Hoa & cú ngoặt chiến lược Midway",
+  "from": 614.4,
+  "to": 809.04,
+  "scenes": [
+    {
+      "id": "C04S01",
+      "from": 614.4,
+      "to": 625.5,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C04S02",
+      "from": 625.5,
+      "to": 644.98,
+      "type": "code",
+      "transition": "wipe:from-left"
+    },
+    {
+      "id": "C04S03",
+      "from": 644.98,
+      "to": 664.38,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C04S04",
+      "from": 664.38,
+      "to": 685.6,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C04S05",
+      "from": 685.6,
+      "to": 705.98,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C04S06",
+      "from": 705.98,
+      "to": 717.04,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C04S07",
+      "from": 717.04,
+      "to": 748.9,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C04S08",
+      "from": 748.9,
+      "to": 777.84,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C04S09",
+      "from": 777.84,
+      "to": 796.8,
+      "type": "code",
+      "transition": "wipe:from-left"
+    },
+    {
+      "id": "C04S10",
+      "from": 796.8,
+      "to": 809.04,
+      "type": "code",
+      "transition": "fade"
+    }
+  ],
+  "sfx": []
+}

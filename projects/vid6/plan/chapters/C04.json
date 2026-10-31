@@ -1,0 +1,86 @@
+{
+  "id": "C04",
+  "title": "Tuabin phản lực Whispering Death, gánh nặng nhiên liệu, FPV Drone & kỷ nguyên M1E3",
+  "from": 473.1,
+  "to": 668.71,
+  "scenes": [
+    {
+      "id": "C04S01",
+      "from": 473.1,
+      "to": 500.1,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C04S02",
+      "from": 500.1,
+      "to": 521.2,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C04S03",
+      "from": 521.2,
+      "to": 556.24,
+      "type": "code",
+      "transition": "wipe:from-left"
+    },
+    {
+      "id": "C04S04",
+      "from": 556.24,
+      "to": 569.5,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C04S05",
+      "from": 569.5,
+      "to": 581.54,
+      "type": "code",
+      "transition": "slide:from-right"
+    },
+    {
+      "id": "C04S06",
+      "from": 581.54,
+      "to": 603.16,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C04S07",
+      "from": 603.16,
+      "to": 610.2,
+      "type": "code",
+      "transition": "wipe:from-left"
+    },
+    {
+      "id": "C04S08",
+      "from": 610.2,
+      "to": 618.1,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C04S09",
+      "from": 618.1,
+      "to": 645.9,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C04S10",
+      "from": 645.9,
+      "to": 662.0,
+      "type": "code",
+      "transition": "wipe:from-left"
+    },
+    {
+      "id": "C04S11",
+      "from": 662.0,
+      "to": 668.71,
+      "type": "code",
+      "transition": "fade"
+    }
+  ],
+  "sfx": []
+}

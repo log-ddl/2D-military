@@ -1,0 +1,93 @@
+{
+  "id": "C03",
+  "title": "Hai điểm mù phòng thủ & bão lửa giữa trưa trên đất Nhật",
+  "from": 368.08,
+  "to": 614.4,
+  "scenes": [
+    {
+      "id": "C03S01",
+      "from": 368.08,
+      "to": 394.32,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C03S02",
+      "from": 394.32,
+      "to": 421.34,
+      "type": "code",
+      "transition": "wipe:from-left"
+    },
+    {
+      "id": "C03S03",
+      "from": 421.34,
+      "to": 449.78,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C03S04",
+      "from": 449.78,
+      "to": 462.76,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C03S05",
+      "from": 462.76,
+      "to": 475.86,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C03S06",
+      "from": 475.86,
+      "to": 502.3,
+      "type": "code",
+      "transition": "cut"
+    },
+    {
+      "id": "C03S07",
+      "from": 502.3,
+      "to": 522.74,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C03S08",
+      "from": 522.74,
+      "to": 547.86,
+      "type": "code",
+      "transition": "cut"
+    },
+    {
+      "id": "C03S09",
+      "from": 547.86,
+      "to": 577.84,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C03S10",
+      "from": 577.84,
+      "to": 598.98,
+      "type": "code",
+      "transition": "cut"
+    },
+    {
+      "id": "C03S11",
+      "from": 598.98,
+      "to": 609.9,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C03S12",
+      "from": 609.9,
+      "to": 614.4,
+      "type": "code",
+      "transition": "fade"
+    }
+  ],
+  "sfx": []
+}

@@ -1,0 +1,3 @@
+display_name: Military Explainer (Remotion 2D · 3D)
+short_description: Đạo diễn và dựng video giải thích quân sự từ voice; mỗi video một dự án trong projects/<id>/.
+default_prompt: Dựng video giải thích quân sự từ voice theo skill military, kết hợp cảnh 2D, 3D và footage thật, tự dựng mô hình và tự kiểm hình.

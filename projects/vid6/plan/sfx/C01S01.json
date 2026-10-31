@@ -1,0 +1,6 @@
+{
+  "sfx": [
+    { "at": 17.64, "synth": "whoosh", "power": 0.8 },
+    { "at": 18.9, "synth": "boom", "power": 1.0 }
+  ]
+}

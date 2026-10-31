@@ -1,0 +1,79 @@
+{
+  "id": "C03",
+  "title": "Pháo đài cứu tổ lái: Tấm xả nổ, giáp Chobham, Trophy APS & Bão táp Sa mạc 1991",
+  "from": 298.8,
+  "to": 473.1,
+  "scenes": [
+    {
+      "id": "C03S01",
+      "from": 298.8,
+      "to": 312.32,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C03S02",
+      "from": 312.32,
+      "to": 328.2,
+      "type": "code",
+      "transition": "wipe:from-left"
+    },
+    {
+      "id": "C03S03",
+      "from": 328.2,
+      "to": 344.1,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C03S04",
+      "from": 344.1,
+      "to": 368.6,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C03S05",
+      "from": 368.6,
+      "to": 385.6,
+      "type": "code",
+      "transition": "wipe:from-left"
+    },
+    {
+      "id": "C03S06",
+      "from": 385.6,
+      "to": 410.0,
+      "type": "code",
+      "transition": "slide:from-right"
+    },
+    {
+      "id": "C03S07",
+      "from": 410.0,
+      "to": 424.0,
+      "type": "code",
+      "transition": "wipe:from-left"
+    },
+    {
+      "id": "C03S08",
+      "from": 424.0,
+      "to": 436.5,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C03S09",
+      "from": 436.5,
+      "to": 454.4,
+      "type": "code",
+      "transition": "slide:from-right"
+    },
+    {
+      "id": "C03S10",
+      "from": 454.4,
+      "to": 473.1,
+      "type": "code",
+      "transition": "fade"
+    }
+  ],
+  "sfx": []
+}

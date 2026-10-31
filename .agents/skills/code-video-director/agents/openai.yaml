@@ -1,3 +1,0 @@
-display_name: Code Video Director (Remotion 2D · 3D)
-short_description: Đạo diễn và dựng video giải thích quân sự từ voice; mỗi video một dự án độc lập trong projects/<id>/.
-default_prompt: Dựng video giải thích quân sự từ voice theo skill code-video-director, kết hợp cảnh thuần 2D và thuần 3D, tự dựng mô hình và tự kiểm hình.

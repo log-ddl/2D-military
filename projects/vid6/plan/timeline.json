@@ -1,0 +1,685 @@
+{
+  "id": "vid6",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "duration": 668.71,
+  "chapters": [
+    {
+      "id": "C01",
+      "from": 0,
+      "to": 183.9,
+      "title": "Cú bắn không tưởng ở 40 dặm/giờ: Gương ổn định, Hunter-Killer & Coincidence Firing"
+    },
+    {
+      "id": "C02",
+      "from": 183.9,
+      "to": 298.8,
+      "title": "Hoả lực 120mm: Vỏ đạn tự cháy, thanh xuyên Uranium nghèo Mach 5 & đạn thông minh"
+    },
+    {
+      "id": "C03",
+      "from": 298.8,
+      "to": 473.1,
+      "title": "Pháo đài cứu tổ lái: Tấm xả nổ, giáp Chobham, Trophy APS & Bão táp Sa mạc 1991"
+    },
+    {
+      "id": "C04",
+      "from": 473.1,
+      "to": 668.71,
+      "title": "Tuabin phản lực Whispering Death, gánh nặng nhiên liệu, FPV Drone & kỷ nguyên M1E3"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "C01S01",
+      "from": 0,
+      "to": 23.86,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S02",
+      "from": 23.86,
+      "to": 39.6,
+      "type": "code",
+      "transition": "wipe:from-right",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S03",
+      "from": 39.6,
+      "to": 58.1,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S04",
+      "from": 58.1,
+      "to": 80.64,
+      "type": "code",
+      "transition": "slide:from-right",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S05",
+      "from": 80.64,
+      "to": 95.3,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S06",
+      "from": 95.3,
+      "to": 107.6,
+      "type": "code",
+      "transition": "wipe:from-left",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S07",
+      "from": 107.6,
+      "to": 129,
+      "type": "code",
+      "transition": "slide:from-right",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S08",
+      "from": 129,
+      "to": 139,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S09",
+      "from": 139,
+      "to": 155.6,
+      "type": "code",
+      "transition": "wipe:from-right",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S10",
+      "from": 155.6,
+      "to": 183.9,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C01"
+    },
+    {
+      "id": "C02S01",
+      "from": 183.9,
+      "to": 198.4,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C02"
+    },
+    {
+      "id": "C02S02",
+      "from": 198.4,
+      "to": 218.1,
+      "type": "code",
+      "transition": "wipe:from-left",
+      "chapter": "C02"
+    },
+    {
+      "id": "C02S03",
+      "from": 218.1,
+      "to": 231.2,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C02"
+    },
+    {
+      "id": "C02S04",
+      "from": 231.2,
+      "to": 243.6,
+      "type": "code",
+      "transition": "slide:from-right",
+      "chapter": "C02"
+    },
+    {
+      "id": "C02S05",
+      "from": 243.6,
+      "to": 254.2,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C02"
+    },
+    {
+      "id": "C02S06",
+      "from": 254.2,
+      "to": 283.76,
+      "type": "code",
+      "transition": "wipe:from-left",
+      "chapter": "C02"
+    },
+    {
+      "id": "C02S07",
+      "from": 283.76,
+      "to": 298.8,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C02"
+    },
+    {
+      "id": "C03S01",
+      "from": 298.8,
+      "to": 312.32,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C03"
+    },
+    {
+      "id": "C03S02",
+      "from": 312.32,
+      "to": 328.2,
+      "type": "code",
+      "transition": "wipe:from-left",
+      "chapter": "C03"
+    },
+    {
+      "id": "C03S03",
+      "from": 328.2,
+      "to": 344.1,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C03"
+    },
+    {
+      "id": "C03S04",
+      "from": 344.1,
+      "to": 368.6,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C03"
+    },
+    {
+      "id": "C03S05",
+      "from": 368.6,
+      "to": 385.6,
+      "type": "code",
+      "transition": "wipe:from-left",
+      "chapter": "C03"
+    },
+    {
+      "id": "C03S06",
+      "from": 385.6,
+      "to": 410.0,
+      "type": "code",
+      "transition": "slide:from-right",
+      "chapter": "C03"
+    },
+    {
+      "id": "C03S07",
+      "from": 410.0,
+      "to": 424.0,
+      "type": "code",
+      "transition": "wipe:from-left",
+      "chapter": "C03"
+    },
+    {
+      "id": "C03S08",
+      "from": 424.0,
+      "to": 436.5,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C03"
+    },
+    {
+      "id": "C03S09",
+      "from": 436.5,
+      "to": 454.4,
+      "type": "code",
+      "transition": "slide:from-right",
+      "chapter": "C03"
+    },
+    {
+      "id": "C03S10",
+      "from": 454.4,
+      "to": 473.1,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C03"
+    },
+    {
+      "id": "C04S01",
+      "from": 473.1,
+      "to": 500.1,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C04"
+    },
+    {
+      "id": "C04S02",
+      "from": 500.1,
+      "to": 521.2,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C04"
+    },
+    {
+      "id": "C04S03",
+      "from": 521.2,
+      "to": 556.24,
+      "type": "code",
+      "transition": "wipe:from-left",
+      "chapter": "C04"
+    },
+    {
+      "id": "C04S04",
+      "from": 556.24,
+      "to": 569.5,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C04"
+    },
+    {
+      "id": "C04S05",
+      "from": 569.5,
+      "to": 581.54,
+      "type": "code",
+      "transition": "slide:from-right",
+      "chapter": "C04"
+    },
+    {
+      "id": "C04S06",
+      "from": 581.54,
+      "to": 603.16,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C04"
+    },
+    {
+      "id": "C04S07",
+      "from": 603.16,
+      "to": 610.2,
+      "type": "code",
+      "transition": "wipe:from-left",
+      "chapter": "C04"
+    },
+    {
+      "id": "C04S08",
+      "from": 610.2,
+      "to": 618.1,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C04"
+    },
+    {
+      "id": "C04S09",
+      "from": 618.1,
+      "to": 645.9,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C04"
+    },
+    {
+      "id": "C04S10",
+      "from": 645.9,
+      "to": 662.0,
+      "type": "code",
+      "transition": "wipe:from-left",
+      "chapter": "C04"
+    },
+    {
+      "id": "C04S11",
+      "from": 662.0,
+      "to": 668.71,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C04"
+    }
+  ],
+  "sfx": [
+    {
+      "at": 17.64,
+      "synth": "whoosh",
+      "power": 0.8
+    },
+    {
+      "at": 18.9,
+      "synth": "boom",
+      "power": 1.0
+    },
+    {
+      "at": 28.34,
+      "synth": "thud",
+      "power": 0.75
+    },
+    {
+      "at": 32.4,
+      "synth": "whir",
+      "power": 0.65
+    },
+    {
+      "at": 44.96,
+      "synth": "tick",
+      "power": 0.7
+    },
+    {
+      "at": 54.4,
+      "synth": "boom",
+      "power": 0.95
+    },
+    {
+      "at": 68.14,
+      "synth": "thud",
+      "power": 0.9
+    },
+    {
+      "at": 78.92,
+      "synth": "whir",
+      "power": 0.72
+    },
+    {
+      "at": 88.06,
+      "synth": "whir",
+      "power": 0.75
+    },
+    {
+      "at": 92.68,
+      "synth": "chime",
+      "power": 0.8
+    },
+    {
+      "at": 98.52,
+      "synth": "thud",
+      "power": 0.95
+    },
+    {
+      "at": 103.32,
+      "synth": "tick",
+      "power": 0.8
+    },
+    {
+      "at": 124.9,
+      "synth": "cannon",
+      "power": 1.0
+    },
+    {
+      "at": 126.44,
+      "synth": "whir",
+      "power": 0.85,
+      "dur": 0.85,
+      "f": 230.0
+    },
+    {
+      "at": 134.34,
+      "synth": "tick",
+      "power": 0.55
+    },
+    {
+      "at": 135.72,
+      "synth": "chime",
+      "power": 0.55,
+      "f": 1040
+    },
+    {
+      "at": 141.26,
+      "synth": "tick",
+      "power": 0.5
+    },
+    {
+      "at": 148.12,
+      "synth": "chime",
+      "power": 0.5,
+      "f": 960
+    },
+    {
+      "at": 161.2,
+      "synth": "thud",
+      "power": 0.85
+    },
+    {
+      "at": 182.62,
+      "synth": "cannon",
+      "power": 1.0
+    },
+    {
+      "at": 193.58,
+      "synth": "whoosh",
+      "power": 0.85,
+      "dur": 1.1
+    },
+    {
+      "at": 196.3,
+      "synth": "chime",
+      "power": 0.75,
+      "f": 740.0
+    },
+    {
+      "at": 204.02,
+      "synth": "thud",
+      "power": 0.8
+    },
+    {
+      "at": 209.42,
+      "synth": "tick",
+      "power": 0.85
+    },
+    {
+      "at": 218.1,
+      "synth": "cannon",
+      "power": 1.0
+    },
+    {
+      "at": 227.46,
+      "synth": "whoosh",
+      "power": 0.85,
+      "dur": 0.75
+    },
+    {
+      "at": 235.0,
+      "synth": "thud",
+      "power": 0.8
+    },
+    {
+      "at": 241.64,
+      "synth": "burst",
+      "power": 0.65,
+      "count": 4,
+      "rate": 18.0
+    },
+    {
+      "at": 247.18,
+      "synth": "thud",
+      "power": 0.9
+    },
+    {
+      "at": 249.84,
+      "synth": "boom",
+      "power": 1.0,
+      "size": 1.25
+    },
+    {
+      "at": 264.52,
+      "synth": "cannon",
+      "power": 0.92
+    },
+    {
+      "at": 281.46,
+      "synth": "boom",
+      "power": 0.85
+    },
+    {
+      "at": 288.84,
+      "synth": "mg",
+      "power": 0.68,
+      "dur": 1.45,
+      "rate": 14.0
+    },
+    {
+      "at": 292.22,
+      "synth": "burst",
+      "power": 0.72,
+      "count": 8,
+      "rate": 8.5
+    },
+    {
+      "at": 302.36,
+      "synth": "tick"
+    },
+    {
+      "at": 307.42,
+      "synth": "thud"
+    },
+    {
+      "at": 315.58,
+      "synth": "cannon"
+    },
+    {
+      "at": 324.94,
+      "synth": "boom"
+    },
+    {
+      "at": 335.7,
+      "synth": "thud"
+    },
+    {
+      "at": 339.36,
+      "synth": "whir"
+    },
+    {
+      "at": 350.12,
+      "synth": "whir"
+    },
+    {
+      "at": 356.24,
+      "synth": "thud"
+    },
+    {
+      "at": 376.56,
+      "synth": "boom"
+    },
+    {
+      "at": 379.68,
+      "synth": "whoosh"
+    },
+    {
+      "at": 392.94,
+      "synth": "thud"
+    },
+    {
+      "at": 404.66,
+      "synth": "boom"
+    },
+    {
+      "at": 417.76,
+      "synth": "rocket"
+    },
+    {
+      "at": 421.18,
+      "synth": "burst"
+    },
+    {
+      "at": 428.84,
+      "synth": "chime"
+    },
+    {
+      "at": 430.04,
+      "synth": "whoosh"
+    },
+    {
+      "at": 445.0,
+      "synth": "whoosh"
+    },
+    {
+      "at": 449.06,
+      "synth": "chime"
+    },
+    {
+      "at": 461.24,
+      "synth": "cannon"
+    },
+    {
+      "at": 469.06,
+      "synth": "boom"
+    },
+    {
+      "at": 488.8,
+      "synth": "whir"
+    },
+    {
+      "at": 497.16,
+      "synth": "thud"
+    },
+    {
+      "at": 507.02,
+      "synth": "thud"
+    },
+    {
+      "at": 527.9,
+      "synth": "whir"
+    },
+    {
+      "at": 550.7,
+      "synth": "whoosh"
+    },
+    {
+      "at": 562.5,
+      "synth": "whoosh"
+    },
+    {
+      "at": 573.6,
+      "synth": "tick"
+    },
+    {
+      "at": 579.62,
+      "synth": "tick"
+    },
+    {
+      "at": 596.52,
+      "synth": "thud"
+    },
+    {
+      "at": 600.2,
+      "synth": "prop"
+    },
+    {
+      "at": 606.04,
+      "synth": "tick"
+    },
+    {
+      "at": 608.58,
+      "synth": "chime"
+    },
+    {
+      "at": 614.14,
+      "synth": "prop"
+    },
+    {
+      "at": 616.86,
+      "synth": "boom"
+    },
+    {
+      "at": 627.92,
+      "synth": "chime"
+    },
+    {
+      "at": 644.18,
+      "synth": "whir"
+    },
+    {
+      "at": 658.64,
+      "synth": "whir"
+    },
+    {
+      "at": 665.88,
+      "synth": "whir"
+    },
+    {
+      "at": 668.04,
+      "synth": "boom"
+    }
+  ],
+  "volume": {
+    "music": 0.42,
+    "sfx": 0.52
+  }
+}

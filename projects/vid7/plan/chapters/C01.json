@@ -1,0 +1,65 @@
+{
+  "id": "C01",
+  "title": "Bị lộ giữa bão khơi & lệnh xuất kích sớm 10 tiếng",
+  "from": 0,
+  "to": 124.26,
+  "scenes": [
+    {
+      "id": "C01S01",
+      "from": 0,
+      "to": 24.32,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C01S02",
+      "from": 24.32,
+      "to": 38.68,
+      "type": "code",
+      "transition": "wipe:from-right"
+    },
+    {
+      "id": "C01S03",
+      "from": 38.68,
+      "to": 48.98,
+      "type": "code",
+      "transition": "slide:from-right"
+    },
+    {
+      "id": "C01S04",
+      "from": 48.98,
+      "to": 57.44,
+      "type": "code",
+      "transition": "cut"
+    },
+    {
+      "id": "C01S05",
+      "from": 57.44,
+      "to": 68.56,
+      "type": "code",
+      "transition": "wipe:from-left"
+    },
+    {
+      "id": "C01S06",
+      "from": 68.56,
+      "to": 92.48,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C01S07",
+      "from": 92.48,
+      "to": 115.38,
+      "type": "code",
+      "transition": "wipe:from-right"
+    },
+    {
+      "id": "C01S08",
+      "from": 115.38,
+      "to": 124.26,
+      "type": "code",
+      "transition": "fade"
+    }
+  ],
+  "sfx": []
+}

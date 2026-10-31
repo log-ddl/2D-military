@@ -1,0 +1,6 @@
+{
+  "sfx": [
+    { "at": 800.44, "synth": "boom", "power": 0.95 },
+    { "at": 802.3, "synth": "cannon", "power": 0.9 }
+  ]
+}

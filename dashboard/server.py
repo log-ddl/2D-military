@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Dashboard Web quản lý các dự án video quân sự (viết tách riêng 100%, nối với tools/*.py qua CLI chuẩn).
+"""Dashboard Web quản lý các dự án video (viết tách riêng, nối với core/tools/*.py qua CLI chuẩn).
 
     ./dash
     python3 dashboard/server.py [--port 3000] [--no-open]
 
-- Không sửa đổi engine/ hay bất kỳ chức năng CLI nào của tools/*.py.
-- Bấm mở dự án → tự kiểm build.py nếu cần, khởi chạy ngầm `tools/render.py <id> --studio` ở port riêng và mở thẳng Remotion Timeline.
+- Không sửa remotion/, core/ hay skills/; chỉ gọi lệnh của core/tools/.
+- Bấm mở dự án → tự kiểm build.py nếu cần, khởi chạy ngầm `core/tools/render.py <id> --studio` ở port riêng và mở thẳng Remotion Timeline.
 - Hỗ trợ tạo dự án mới (chọn hoặc tải file voice lên), đổi tên dự án đồng bộ ID, xóa/dọn rác, xem nhanh sheet/model/mp4 và chạy lệnh trực tiếp.
 """
 from __future__ import annotations
@@ -30,7 +30,7 @@ from pathlib import Path
 
 DASH_DIR = Path(__file__).resolve().parent
 ROOT = DASH_DIR.parent
-TOOLS_DIR = ROOT / 'tools'
+TOOLS_DIR = ROOT / 'core/tools'
 sys.path.insert(0, str(TOOLS_DIR))
 
 from common import PROJECTS, comp_id, opt, probe, studio_port  # noqa: E402
@@ -111,6 +111,15 @@ def list_voices() -> list[dict]:
     return items
 
 
+# Skill chỉ chia việc (dùng kèm skill chủ đề), không chọn làm skill chính của dự án
+WORKFLOW_SKILLS = {'long-video'}
+
+
+def list_skills() -> list[str]:
+    d = ROOT / 'skills'
+    return sorted(x.name for x in d.iterdir() if (x / 'SKILL.md').is_file() and x.name not in WORKFLOW_SKILLS) if d.is_dir() else []
+
+
 def read_json_safe(path: Path, default):
     try:
         return json.loads(path.read_text())
@@ -121,30 +130,30 @@ def read_json_safe(path: Path, default):
 def inspect_project(pdir: Path) -> dict:
     pid = pdir.name
     pmeta = read_json_safe(pdir / 'project.json', {'id': pid})
-    smeta = read_json_safe(pdir / 'plan/scenes.json', {'fps': 30, 'scenes': []})
+    smeta = read_json_safe(pdir / 'plan/timeline.json', {'fps': pmeta.get('fps', 30), 'scenes': []})
     raw_scenes = smeta.get('scenes', []) if isinstance(smeta, dict) else []
 
     scenes_info = []
     done_count = 0
     for s in raw_scenes:
         sid = s.get('id', '')
-        code_f = pdir / 'video/scenes' / f'{sid}.tsx'
-        sheet_f = pdir / 'out/scenes' / f'{sid}.png'
-        has_code = code_f.is_file()
+        code_f = pdir / 'src/scenes' / f'{sid}.tsx'
+        sheet_f = pdir / 'out/checks/scenes' / f'{sid}.png'
+        has_code = code_f.is_file() or s.get('type') in ('clip', 'still')
         if has_code:
             done_count += 1
         scenes_info.append({
             'id': sid,
             'from': s.get('from', 0),
             'to': s.get('to', 0),
-            'kind': s.get('kind', ''),
-            'brief': s.get('brief', ''),
+            'kind': s.get('type', ''),
+            'brief': s.get('chapter', ''),
             'has_code': has_code,
             'has_sheet': sheet_f.is_file(),
             'sheet_mtime': int(sheet_f.stat().st_mtime) if sheet_f.is_file() else 0,
         })
 
-    models_dir = pdir / 'out/models'
+    models_dir = pdir / 'out/checks/parts'
     models_info = []
     if models_dir.is_dir():
         for mf in sorted(models_dir.glob('*.png')):
@@ -154,10 +163,10 @@ def inspect_project(pdir: Path) -> dict:
                 'mtime': int(mf.stat().st_mtime),
             })
 
-    sheet_main = pdir / 'out/sheet.png'
+    sheet_main = pdir / 'out/checks/sheet.png'
     mp4_file = pdir / 'out/video.mp4'
-    music_wav = pdir / 'public/music.wav'
-    voice_in = pdir / 'input/voice.mp3'
+    music_wav = pdir / '.build/public/music.wav'
+    voice_in = pdir / 'assets/voice/voice.mp3'
 
     # build.py tạo file wav im lặng 1 giây (~88KB); file thật từ audio.py lớn hơn nhiều
     has_real_audio = music_wav.is_file() and music_wav.stat().st_size > 110_000
@@ -170,7 +179,7 @@ def inspect_project(pdir: Path) -> dict:
     try:
         mtime = int(max(
             (pdir / 'project.json').stat().st_mtime,
-            (pdir / 'plan/scenes.json').stat().st_mtime if (pdir / 'plan/scenes.json').exists() else 0,
+            (pdir / 'plan/timeline.json').stat().st_mtime if (pdir / 'plan/timeline.json').exists() else 0,
             sheet_main.stat().st_mtime if sheet_main.exists() else 0,
         ))
     except OSError:
@@ -184,11 +193,13 @@ def inspect_project(pdir: Path) -> dict:
         'studio_url': f'http://localhost:{port}/{cid}',
         'duration': round(float(dur or 0), 2),
         'fps': smeta.get('fps', pmeta.get('fps', 30)),
-        'voice_src': pmeta.get('voice', ''),
+        'voice_src': (pmeta.get('source') or {}).get('file') or '',
+        'skill': pmeta.get('skill') or '',
+        'size': f"{pmeta.get('width', 1920)}×{pmeta.get('height', 1080)}",
         'has_voice': voice_in.is_file(),
         'has_asr': (pdir / 'plan/voice_map.md').is_file(),
-        'has_shot_plan': (pdir / 'plan/SHOT_PLAN.md').is_file(),
-        'has_entry': (pdir / 'video/entry.tsx').is_file(),
+        'has_shot_plan': (pdir / 'plan/STORY.md').is_file(),
+        'has_entry': (pdir / '.build/entry.tsx').is_file(),
         'has_audio': has_real_audio,
         'has_sheet': sheet_main.is_file(),
         'sheet_mtime': int(sheet_main.stat().st_mtime) if sheet_main.is_file() else 0,
@@ -343,8 +354,8 @@ def start_studio_for(pid: str) -> tuple[bool, str, str]:
         stop_studio_for(pid)
 
     # Tự chạy build.py nếu chưa có entry.tsx để mở Timeline không bao giờ lỗi trắng
-    if not (pdir / 'video/entry.tsx').is_file():
-        rb = subprocess.run([SYS_PY, 'tools/build.py', pid], cwd=ROOT, capture_output=True, text=True)
+    if not (pdir / '.build/entry.tsx').is_file():
+        rb = subprocess.run([SYS_PY, 'core/tools/build.py', pid], cwd=ROOT, capture_output=True, text=True)
         if rb.returncode != 0:
             msg = (rb.stdout + '\n' + rb.stderr).strip()[-500:]
             return False, '', f'Build thất bại trước khi mở Studio:\n{msg}'
@@ -353,7 +364,7 @@ def start_studio_for(pid: str) -> tuple[bool, str, str]:
     env = {**os.environ, 'BROWSER': 'none'}
     logs: list[str] = []
     proc = subprocess.Popen(
-        [SYS_PY, 'tools/render.py', pid, '--studio'],
+        [SYS_PY, 'core/tools/render.py', pid, '--studio'],
         cwd=ROOT,
         env=env,
         stdout=subprocess.PIPE,
@@ -536,6 +547,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
                 'root': str(ROOT),
                 'projects': list_projects(),
                 'voices': list_voices(),
+                'skills': list_skills(),
                 'jobs': list_jobs(),
             })
             return
@@ -606,28 +618,39 @@ class DashboardHandler(BaseHTTPRequestHandler):
                 if (PROJECTS / pid).exists():
                     self.send_json({'ok': False, 'error': f'Dự án "{pid}" đã tồn tại'}, 400)
                     return
-                vpath = (ROOT / voice_rel).resolve()
-                if not voice_rel or not vpath.is_relative_to(VOICE_DIR.resolve()) or not vpath.is_file():
-                    self.send_json({'ok': False, 'error': 'Vui lòng chọn một file voice hợp lệ trong thư mục voice/'}, 400)
-                    return
-
-                cmd = [SYS_PY, 'tools/init.py', pid, voice_rel]
-                if t_from not in (None, ''):
-                    cmd += ['--from', str(float(t_from))]
-                if t_to not in (None, ''):
-                    cmd += ['--to', str(float(t_to))]
+                # Bỏ trống voice = dự án trống (thêm voice / kịch bản sau qua input/ + ingest)
+                cmd = [SYS_PY, 'core/tools/new.py', pid]
+                if voice_rel:
+                    vpath = (ROOT / voice_rel).resolve()
+                    if not vpath.is_relative_to(VOICE_DIR.resolve()) or not vpath.is_file():
+                        self.send_json({'ok': False, 'error': 'File voice không hợp lệ (phải nằm trong voice/)'}, 400)
+                        return
+                    cmd.append(voice_rel)
+                    if t_from not in (None, ''):
+                        cmd += ['--from', str(float(t_from))]
+                    if t_to not in (None, ''):
+                        cmd += ['--to', str(float(t_to))]
+                skill = str(body.get('skill') or '')
+                if skill:
+                    if skill not in list_skills():
+                        self.send_json({'ok': False, 'error': f'Không có skill "{skill}"'}, 400)
+                        return
+                    cmd += ['--skill', skill]
+                fmt = str(body.get('format') or '16:9')
+                cmd += ['--format', fmt]
 
                 r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
                 if r.returncode != 0:
                     self.send_json({'ok': False, 'error': (r.stdout + '\n' + r.stderr).strip()}, 500)
                     return
 
-                # Build khung ban đầu ngay để có sẵn entry.tsx nếu người dùng bấm mở Studio luôn
-                subprocess.run([SYS_PY, 'tools/build.py', pid], cwd=ROOT, capture_output=True, text=True)
+                # Có voice thì build khung ban đầu ngay để mở Studio được luôn (dự án trống chưa có chương nào)
+                if voice_rel:
+                    subprocess.run([SYS_PY, 'core/tools/build.py', pid], cwd=ROOT, capture_output=True, text=True)
 
                 job = None
-                if run_asr:
-                    job = start_background_job(pid, 'asr', f'ASR trích mốc từ ({pid})', [[VENV_PY, 'tools/asr.py', pid]])
+                if run_asr and voice_rel:
+                    job = start_background_job(pid, 'asr', f'ASR trích mốc từ ({pid})', [[VENV_PY, 'core/tools/asr.py', pid]])
 
                 self.send_json({'ok': True, 'id': pid, 'job': job})
                 return
@@ -656,20 +679,21 @@ class DashboardHandler(BaseHTTPRequestHandler):
                 stop_studio_for(old_id)
                 old_dir.rename(new_dir)
 
-                # Đồng bộ project.json, SHOT_PLAN.md và tái tạo Video.tsx / entry.tsx theo ID mới
+                # Đồng bộ project.json, tiêu đề STORY.md và tái tạo .build/ theo ID mới
                 pj_path = new_dir / 'project.json'
                 pmeta = read_json_safe(pj_path, {})
                 pmeta['id'] = new_id
                 pj_path.write_text(json.dumps(pmeta, ensure_ascii=False, indent=2) + '\n')
 
-                sp_path = new_dir / 'plan/SHOT_PLAN.md'
+                sp_path = new_dir / 'plan/STORY.md'
                 if sp_path.is_file():
                     txt = sp_path.read_text()
-                    if txt.startswith(f'# Shot plan: {old_id}'):
-                        sp_path.write_text(txt.replace(f'# Shot plan: {old_id}', f'# Shot plan: {new_id}', 1))
+                    if txt.startswith(f'# {old_id}\n'):
+                        sp_path.write_text(txt.replace(f'# {old_id}', f'# {new_id}', 1))
 
-                if (new_dir / 'video/entry.tsx').is_file() or (new_dir / 'video/Video.tsx').is_file():
-                    subprocess.run([SYS_PY, 'tools/build.py', new_id], cwd=ROOT, capture_output=True, text=True)
+                if (new_dir / '.build').is_dir():
+                    shutil.rmtree(new_dir / '.build', ignore_errors=True)
+                    subprocess.run([SYS_PY, 'core/tools/build.py', new_id], cwd=ROOT, capture_output=True, text=True)
 
                 self.send_json({'ok': True, 'old_id': old_id, 'id': new_id})
                 return
@@ -689,7 +713,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
                     return
 
                 if mode == 'out':
-                    for sub in ('out', '.cache'):
+                    for sub in ('out', '.build/check'):
                         sd = pdir / sub
                         if sd.is_dir():
                             shutil.rmtree(sd, ignore_errors=True)
@@ -710,19 +734,19 @@ class DashboardHandler(BaseHTTPRequestHandler):
                     return
 
                 if action == 'asr':
-                    cmds = [[VENV_PY, 'tools/asr.py', pid]]
+                    cmds = [[VENV_PY, 'core/tools/asr.py', pid]]
                     title = f'ASR bóc băng ({pid})'
                 elif action == 'build':
-                    cmds = [[SYS_PY, 'tools/build.py', pid]]
+                    cmds = [[SYS_PY, 'core/tools/build.py', pid]]
                     title = f'Build & kiểm kiểu ({pid})'
                 elif action == 'build_strict':
-                    cmds = [[SYS_PY, 'tools/build.py', pid, '--strict']]
+                    cmds = [[SYS_PY, 'core/tools/build.py', pid, '--strict']]
                     title = f'Build --strict ({pid})'
                 elif action == 'audio':
-                    cmds = [[VENV_PY, 'tools/audio.py', pid], [SYS_PY, 'tools/build.py', pid]]
+                    cmds = [[VENV_PY, 'core/tools/audio.py', pid], [SYS_PY, 'core/tools/build.py', pid]]
                     title = f'Tổng hợp Audio + Build ({pid})'
                 elif action == 'sheet':
-                    cmds = [[SYS_PY, 'tools/build.py', pid], [SYS_PY, 'tools/sheet.py', pid]]
+                    cmds = [[SYS_PY, 'core/tools/build.py', pid], [SYS_PY, 'core/tools/check.py', pid]]
                     title = f'Xuất bảng ảnh tổng sheet.png ({pid})'
                 elif action == 'mp4':
                     flags = []
@@ -730,7 +754,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
                         flags.append('--no-music')
                     if not body.get('sfx', True):
                         flags.append('--no-sfx')
-                    cmds = [[SYS_PY, 'tools/build.py', pid], [SYS_PY, 'tools/render.py', pid, *flags]]
+                    cmds = [[SYS_PY, 'core/tools/build.py', pid], [SYS_PY, 'core/tools/render.py', pid, *flags]]
                     title = f'Render video.mp4 ({pid})'
                 else:
                     self.send_json({'ok': False, 'error': f'Tác vụ không hỗ trợ: {action}'}, 400)

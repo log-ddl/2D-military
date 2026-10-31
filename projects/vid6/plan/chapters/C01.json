@@ -1,0 +1,79 @@
+{
+  "id": "C01",
+  "title": "Cú bắn không tưởng ở 40 dặm/giờ: Gương ổn định, Hunter-Killer & Coincidence Firing",
+  "from": 0,
+  "to": 183.9,
+  "scenes": [
+    {
+      "id": "C01S01",
+      "from": 0,
+      "to": 23.86,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C01S02",
+      "from": 23.86,
+      "to": 39.6,
+      "type": "code",
+      "transition": "wipe:from-right"
+    },
+    {
+      "id": "C01S03",
+      "from": 39.6,
+      "to": 58.1,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C01S04",
+      "from": 58.1,
+      "to": 80.64,
+      "type": "code",
+      "transition": "slide:from-right"
+    },
+    {
+      "id": "C01S05",
+      "from": 80.64,
+      "to": 95.3,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C01S06",
+      "from": 95.3,
+      "to": 107.6,
+      "type": "code",
+      "transition": "wipe:from-left"
+    },
+    {
+      "id": "C01S07",
+      "from": 107.6,
+      "to": 129,
+      "type": "code",
+      "transition": "slide:from-right"
+    },
+    {
+      "id": "C01S08",
+      "from": 129,
+      "to": 139,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C01S09",
+      "from": 139,
+      "to": 155.6,
+      "type": "code",
+      "transition": "wipe:from-right"
+    },
+    {
+      "id": "C01S10",
+      "from": 155.6,
+      "to": 183.9,
+      "type": "code",
+      "transition": "fade"
+    }
+  ],
+  "sfx": []
+}

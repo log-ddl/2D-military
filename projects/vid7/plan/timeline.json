@@ -1,0 +1,759 @@
+{
+  "id": "vid7",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "duration": 809.04,
+  "chapters": [
+    {
+      "id": "C01",
+      "from": 0,
+      "to": 124.26,
+      "title": "Bị lộ giữa bão khơi & lệnh xuất kích sớm 10 tiếng"
+    },
+    {
+      "id": "C02",
+      "from": 124.26,
+      "to": 368.08,
+      "title": "Bẫy vật lý, cải hoán B-25B & 467 bộ sàn tàu giữa cuồng phong"
+    },
+    {
+      "id": "C03",
+      "from": 368.08,
+      "to": 614.4,
+      "title": "Hai điểm mù phòng thủ & bão lửa giữa trưa trên đất Nhật"
+    },
+    {
+      "id": "C04",
+      "from": 614.4,
+      "to": 809.04,
+      "title": "Cạn xăng trong đêm bão Trung Hoa & cú ngoặt chiến lược Midway"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "C01S01",
+      "from": 0,
+      "to": 24.32,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S02",
+      "from": 24.32,
+      "to": 38.68,
+      "type": "code",
+      "transition": "wipe:from-right",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S03",
+      "from": 38.68,
+      "to": 48.98,
+      "type": "code",
+      "transition": "slide:from-right",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S04",
+      "from": 48.98,
+      "to": 57.44,
+      "type": "code",
+      "transition": "cut",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S05",
+      "from": 57.44,
+      "to": 68.56,
+      "type": "code",
+      "transition": "wipe:from-left",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S06",
+      "from": 68.56,
+      "to": 92.48,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S07",
+      "from": 92.48,
+      "to": 115.38,
+      "type": "code",
+      "transition": "wipe:from-right",
+      "chapter": "C01"
+    },
+    {
+      "id": "C01S08",
+      "from": 115.38,
+      "to": 124.26,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C01"
+    },
+    {
+      "id": "C02S01",
+      "from": 124.26,
+      "to": 156.98,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C02"
+    },
+    {
+      "id": "C02S02",
+      "from": 156.98,
+      "to": 186.38,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C02"
+    },
+    {
+      "id": "C02S03",
+      "from": 186.38,
+      "to": 205.64,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C02"
+    },
+    {
+      "id": "C02S04",
+      "from": 205.64,
+      "to": 228.04,
+      "type": "code",
+      "transition": "wipe:from-left",
+      "chapter": "C02"
+    },
+    {
+      "id": "C02S05",
+      "from": 228.04,
+      "to": 241.18,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C02"
+    },
+    {
+      "id": "C02S06",
+      "from": 241.18,
+      "to": 269.6,
+      "type": "code",
+      "transition": "wipe:from-left",
+      "chapter": "C02"
+    },
+    {
+      "id": "C02S07",
+      "from": 269.6,
+      "to": 291.28,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C02"
+    },
+    {
+      "id": "C02S08",
+      "from": 291.28,
+      "to": 315.78,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C02"
+    },
+    {
+      "id": "C02S09",
+      "from": 315.78,
+      "to": 330.86,
+      "type": "code",
+      "transition": "cut",
+      "chapter": "C02"
+    },
+    {
+      "id": "C02S10",
+      "from": 330.86,
+      "to": 354.86,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C02"
+    },
+    {
+      "id": "C02S11",
+      "from": 354.86,
+      "to": 368.08,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C02"
+    },
+    {
+      "id": "C03S01",
+      "from": 368.08,
+      "to": 394.32,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C03"
+    },
+    {
+      "id": "C03S02",
+      "from": 394.32,
+      "to": 421.34,
+      "type": "code",
+      "transition": "wipe:from-left",
+      "chapter": "C03"
+    },
+    {
+      "id": "C03S03",
+      "from": 421.34,
+      "to": 449.78,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C03"
+    },
+    {
+      "id": "C03S04",
+      "from": 449.78,
+      "to": 462.76,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C03"
+    },
+    {
+      "id": "C03S05",
+      "from": 462.76,
+      "to": 475.86,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C03"
+    },
+    {
+      "id": "C03S06",
+      "from": 475.86,
+      "to": 502.3,
+      "type": "code",
+      "transition": "cut",
+      "chapter": "C03"
+    },
+    {
+      "id": "C03S07",
+      "from": 502.3,
+      "to": 522.74,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C03"
+    },
+    {
+      "id": "C03S08",
+      "from": 522.74,
+      "to": 547.86,
+      "type": "code",
+      "transition": "cut",
+      "chapter": "C03"
+    },
+    {
+      "id": "C03S09",
+      "from": 547.86,
+      "to": 577.84,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C03"
+    },
+    {
+      "id": "C03S10",
+      "from": 577.84,
+      "to": 598.98,
+      "type": "code",
+      "transition": "cut",
+      "chapter": "C03"
+    },
+    {
+      "id": "C03S11",
+      "from": 598.98,
+      "to": 609.9,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C03"
+    },
+    {
+      "id": "C03S12",
+      "from": 609.9,
+      "to": 614.4,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C03"
+    },
+    {
+      "id": "C04S01",
+      "from": 614.4,
+      "to": 625.5,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C04"
+    },
+    {
+      "id": "C04S02",
+      "from": 625.5,
+      "to": 644.98,
+      "type": "code",
+      "transition": "wipe:from-left",
+      "chapter": "C04"
+    },
+    {
+      "id": "C04S03",
+      "from": 644.98,
+      "to": 664.38,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C04"
+    },
+    {
+      "id": "C04S04",
+      "from": 664.38,
+      "to": 685.6,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C04"
+    },
+    {
+      "id": "C04S05",
+      "from": 685.6,
+      "to": 705.98,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C04"
+    },
+    {
+      "id": "C04S06",
+      "from": 705.98,
+      "to": 717.04,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C04"
+    },
+    {
+      "id": "C04S07",
+      "from": 717.04,
+      "to": 748.9,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C04"
+    },
+    {
+      "id": "C04S08",
+      "from": 748.9,
+      "to": 777.84,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C04"
+    },
+    {
+      "id": "C04S09",
+      "from": 777.84,
+      "to": 796.8,
+      "type": "code",
+      "transition": "wipe:from-left",
+      "chapter": "C04"
+    },
+    {
+      "id": "C04S10",
+      "from": 796.8,
+      "to": 809.04,
+      "type": "code",
+      "transition": "fade",
+      "chapter": "C04"
+    }
+  ],
+  "sfx": [
+    {
+      "at": 6.7,
+      "synth": "whoosh",
+      "power": 0.88
+    },
+    {
+      "at": 11.62,
+      "synth": "thud",
+      "power": 0.82
+    },
+    {
+      "at": 33.02,
+      "synth": "chime",
+      "power": 0.78
+    },
+    {
+      "at": 37.64,
+      "synth": "whoosh",
+      "power": 0.85
+    },
+    {
+      "at": 38.88,
+      "synth": "whoosh",
+      "power": 0.72
+    },
+    {
+      "at": 41.9,
+      "synth": "tick",
+      "power": 0.75
+    },
+    {
+      "at": 53.58,
+      "synth": "cannon",
+      "power": 0.92
+    },
+    {
+      "at": 55.78,
+      "synth": "cannon",
+      "power": 0.96
+    },
+    {
+      "at": 58.8,
+      "synth": "boom",
+      "power": 0.78
+    },
+    {
+      "at": 63.9,
+      "synth": "tick",
+      "power": 0.65
+    },
+    {
+      "at": 79.26,
+      "synth": "boom",
+      "power": 0.95
+    },
+    {
+      "at": 85.04,
+      "synth": "chime",
+      "power": 0.62
+    },
+    {
+      "at": 98.82,
+      "synth": "tick",
+      "power": 0.85
+    },
+    {
+      "at": 109.66,
+      "synth": "whoosh",
+      "power": 0.9
+    },
+    {
+      "at": 118.36,
+      "synth": "chime",
+      "power": 0.88
+    },
+    {
+      "at": 122.02,
+      "synth": "prop",
+      "power": 0.92
+    },
+    {
+      "at": 140.68,
+      "synth": "tick",
+      "power": 0.65
+    },
+    {
+      "at": 150.9,
+      "synth": "whoosh",
+      "power": 0.72
+    },
+    {
+      "at": 165.7,
+      "synth": "thud",
+      "power": 0.72
+    },
+    {
+      "at": 179.94,
+      "synth": "whir",
+      "power": 0.55
+    },
+    {
+      "at": 193.56,
+      "synth": "whoosh",
+      "power": 0.82
+    },
+    {
+      "at": 213.82,
+      "synth": "thud",
+      "power": 0.65
+    },
+    {
+      "at": 224.2,
+      "synth": "chime",
+      "power": 0.45
+    },
+    {
+      "at": 233.44,
+      "synth": "whoosh",
+      "power": 0.4
+    },
+    {
+      "at": 236.62,
+      "synth": "tick",
+      "power": 0.6
+    },
+    {
+      "at": 249.54,
+      "synth": "whir",
+      "power": 0.38
+    },
+    {
+      "at": 268.74,
+      "synth": "tick",
+      "power": 0.65
+    },
+    {
+      "at": 270.84,
+      "synth": "prop",
+      "power": 0.78
+    },
+    {
+      "at": 307.72,
+      "synth": "whoosh",
+      "power": 0.82
+    },
+    {
+      "at": 310.76,
+      "synth": "prop",
+      "power": 0.95
+    },
+    {
+      "at": 316.16,
+      "synth": "prop",
+      "power": 0.9
+    },
+    {
+      "at": 323.86,
+      "synth": "whoosh",
+      "power": 0.9
+    },
+    {
+      "at": 343.84,
+      "synth": "thud",
+      "power": 0.72
+    },
+    {
+      "at": 351.36,
+      "synth": "burst",
+      "power": 0.42
+    },
+    {
+      "at": 363.98,
+      "synth": "prop",
+      "power": 0.76
+    },
+    {
+      "at": 366.88,
+      "synth": "whoosh",
+      "power": 0.78
+    },
+    {
+      "at": 372.52,
+      "synth": "prop",
+      "power": 0.85
+    },
+    {
+      "at": 384.94,
+      "synth": "whoosh",
+      "power": 0.9
+    },
+    {
+      "at": 403.68,
+      "synth": "tick",
+      "power": 0.8
+    },
+    {
+      "at": 418.9,
+      "synth": "chime",
+      "power": 0.88
+    },
+    {
+      "at": 427.16,
+      "synth": "prop",
+      "power": 0.85
+    },
+    {
+      "at": 442.9,
+      "synth": "whoosh",
+      "power": 0.78
+    },
+    {
+      "at": 458.3,
+      "synth": "prop",
+      "power": 0.85
+    },
+    {
+      "at": 467.38,
+      "synth": "prop",
+      "power": 0.42
+    },
+    {
+      "at": 471.54,
+      "synth": "tick",
+      "power": 0.68
+    },
+    {
+      "at": 488.82,
+      "synth": "boom",
+      "power": 0.95
+    },
+    {
+      "at": 495.22,
+      "synth": "cannon",
+      "power": 0.85
+    },
+    {
+      "at": 516.3,
+      "synth": "whoosh",
+      "power": 0.8
+    },
+    {
+      "at": 520.8,
+      "synth": "boom",
+      "power": 1.0
+    },
+    {
+      "at": 525.04,
+      "synth": "cannon",
+      "power": 0.95
+    },
+    {
+      "at": 543.38,
+      "synth": "whoosh",
+      "power": 0.9
+    },
+    {
+      "at": 554.64,
+      "synth": "prop",
+      "power": 0.6
+    },
+    {
+      "at": 575.58,
+      "synth": "whoosh",
+      "power": 0.72
+    },
+    {
+      "at": 583.44,
+      "synth": "burst",
+      "power": 0.82
+    },
+    {
+      "at": 591.72,
+      "synth": "boom",
+      "power": 0.95
+    },
+    {
+      "at": 604.24,
+      "synth": "whoosh",
+      "power": 0.78
+    },
+    {
+      "at": 607.62,
+      "synth": "boom",
+      "power": 0.92
+    },
+    {
+      "at": 610.38,
+      "synth": "prop",
+      "power": 0.82
+    },
+    {
+      "at": 615.6,
+      "synth": "prop",
+      "power": 0.72
+    },
+    {
+      "at": 622.32,
+      "synth": "thud",
+      "power": 0.85
+    },
+    {
+      "at": 634.26,
+      "synth": "tick",
+      "power": 0.7
+    },
+    {
+      "at": 640.4,
+      "synth": "whoosh",
+      "power": 0.78
+    },
+    {
+      "at": 648.68,
+      "synth": "whoosh",
+      "power": 0.68
+    },
+    {
+      "at": 660.72,
+      "synth": "prop",
+      "power": 0.55
+    },
+    {
+      "at": 674.08,
+      "synth": "whir",
+      "power": 0.45
+    },
+    {
+      "at": 684.6,
+      "synth": "thud",
+      "power": 0.72
+    },
+    {
+      "at": 688.28,
+      "synth": "whoosh",
+      "power": 0.65
+    },
+    {
+      "at": 691.02,
+      "synth": "thud",
+      "power": 0.72
+    },
+    {
+      "at": 710.92,
+      "synth": "boom",
+      "power": 0.85
+    },
+    {
+      "at": 714.7,
+      "synth": "whoosh",
+      "power": 0.62
+    },
+    {
+      "at": 718.48,
+      "synth": "prop",
+      "power": 0.6
+    },
+    {
+      "at": 739.34,
+      "synth": "cannon",
+      "power": 0.72
+    },
+    {
+      "at": 750.14,
+      "synth": "boom",
+      "power": 0.62
+    },
+    {
+      "at": 776.94,
+      "synth": "chime",
+      "power": 0.68
+    },
+    {
+      "at": 780.06,
+      "synth": "tick",
+      "power": 0.78
+    },
+    {
+      "at": 787.24,
+      "synth": "whoosh",
+      "power": 0.86
+    },
+    {
+      "at": 800.44,
+      "synth": "boom",
+      "power": 0.95
+    },
+    {
+      "at": 802.3,
+      "synth": "cannon",
+      "power": 0.9
+    }
+  ],
+  "volume": {
+    "music": 0.42,
+    "sfx": 0.54
+  }
+}

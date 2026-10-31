@@ -1,0 +1,86 @@
+{
+  "id": "C02",
+  "title": "Bẫy vật lý, cải hoán B-25B & 467 bộ sàn tàu giữa cuồng phong",
+  "from": 124.26,
+  "to": 368.08,
+  "scenes": [
+    {
+      "id": "C02S01",
+      "from": 124.26,
+      "to": 156.98,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C02S02",
+      "from": 156.98,
+      "to": 186.38,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C02S03",
+      "from": 186.38,
+      "to": 205.64,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C02S04",
+      "from": 205.64,
+      "to": 228.04,
+      "type": "code",
+      "transition": "wipe:from-left"
+    },
+    {
+      "id": "C02S05",
+      "from": 228.04,
+      "to": 241.18,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C02S06",
+      "from": 241.18,
+      "to": 269.6,
+      "type": "code",
+      "transition": "wipe:from-left"
+    },
+    {
+      "id": "C02S07",
+      "from": 269.6,
+      "to": 291.28,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C02S08",
+      "from": 291.28,
+      "to": 315.78,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C02S09",
+      "from": 315.78,
+      "to": 330.86,
+      "type": "code",
+      "transition": "cut"
+    },
+    {
+      "id": "C02S10",
+      "from": 330.86,
+      "to": 354.86,
+      "type": "code",
+      "transition": "fade"
+    },
+    {
+      "id": "C02S11",
+      "from": 354.86,
+      "to": 368.08,
+      "type": "code",
+      "transition": "fade"
+    }
+  ],
+  "sfx": []
+}
