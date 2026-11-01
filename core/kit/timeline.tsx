@@ -10,8 +10,12 @@ import { z } from 'zod';
 import { SceneStart } from './time';
 import { ClipScene, StillScene, type Move } from './scenes';
 
-// Bật/tắt nhạc nền và tiếng động từ bảng Props của Studio hoặc cờ --no-music / --no-sfx của render.py.
-export const propsSchema = z.object({ music: z.boolean(), sfx: z.boolean() });
+// Bật/tắt voice, nhạc nền và tiếng động từ bảng Props của Studio hoặc khi chụp kiểm / xuất phần hình câm.
+export const propsSchema = z.object({
+  voice: z.boolean().default(true),
+  music: z.boolean().default(true),
+  sfx: z.boolean().default(true),
+});
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Transition = TransitionPresentation<any> | null;
@@ -31,12 +35,25 @@ export type SceneSpec = {
   transition?: Transition;
 };
 
-/** music / sfx: mức nhạc nền và tiếng động so với voice (plan/mix.json → volume). */
-export type VideoSpec = { fps: number; scenes: SceneSpec[]; overlays: React.FC[]; music?: number; sfx?: number };
+/** music / sfx: mức nhạc nền và tiếng động so với voice (plan/mix.json → volume). lead / tail: bù biên chuyển cảnh khi cắt lát. */
+export type VideoSpec = {
+  fps: number;
+  scenes: SceneSpec[];
+  overlays: React.FC[];
+  music?: number;
+  sfx?: number;
+  lead?: boolean;
+  tail?: boolean;
+};
 
 const T = 12;
 
-export const durationOf = (v: VideoSpec) => Math.round(v.scenes[v.scenes.length - 1].to * v.fps);
+export const durationOf = (v: VideoSpec) => {
+  const first = v.scenes[0], last = v.scenes[v.scenes.length - 1];
+  const lead = v.lead && first.transition ? T / 2 : 0;
+  const tail = v.tail ? T / 2 : 0;
+  return Math.round(last.to * v.fps) - Math.round(first.from * v.fps) + lead + tail;
+};
 
 const SceneBody: React.FC<{ s: SceneSpec; lead: number }> = ({ s, lead }) => (
   <AbsoluteFill style={{ backgroundColor: '#000' }}>
@@ -53,18 +70,24 @@ export const SceneView: React.FC<{ s: SceneSpec; t0: number }> = ({ s, t0 }) => 
   </SceneStart.Provider>
 );
 
-export const VideoTimeline: React.FC<{ spec: VideoSpec; music?: boolean; sfx?: boolean }> = ({ spec, music = true, sfx = true }) => {
+export const VideoTimeline: React.FC<{ spec: VideoSpec; voice?: boolean; music?: boolean; sfx?: boolean }> = ({
+  spec,
+  voice = true,
+  music = true,
+  sfx = true,
+}) => {
   const { fps, scenes } = spec;
   const at = scenes.map((s) => Math.round(s.from * fps)).concat(Math.round(scenes[scenes.length - 1].to * fps));
+  const lead0 = spec.lead && scenes[0].transition ? T / 2 : 0;
   return (
     <AbsoluteFill style={{ backgroundColor: '#000' }}>
       <TransitionSeries>
         {scenes.map((s, k) => {
-          const before = k > 0 && scenes[k].transition ? T / 2 : 0;
-          const after = k < scenes.length - 1 && scenes[k + 1].transition ? T / 2 : 0;
+          const before = (k > 0 || spec.lead) && scenes[k].transition ? T / 2 : 0;
+          const after = (k < scenes.length - 1 ? Boolean(scenes[k + 1].transition) : Boolean(spec.tail)) ? T / 2 : 0;
           return (
             <React.Fragment key={s.id}>
-              {before > 0 && <TransitionSeries.Transition presentation={s.transition!} timing={linearTiming({ durationInFrames: T })} />}
+              {k > 0 && before > 0 && <TransitionSeries.Transition presentation={s.transition!} timing={linearTiming({ durationInFrames: T })} />}
               <TransitionSeries.Sequence durationInFrames={at[k + 1] - at[k] + before + after} name={s.id}>
                 <SceneStart.Provider value={(at[k] - before) / fps}>
                   <SceneBody s={s} lead={before / fps} />
@@ -74,8 +97,12 @@ export const VideoTimeline: React.FC<{ spec: VideoSpec; music?: boolean; sfx?: b
           );
         })}
       </TransitionSeries>
-      {spec.overlays.map((O, i) => <AbsoluteFill key={i}><O /></AbsoluteFill>)}
-      <Audio src={staticFile('voice.mp3')} />
+      {spec.overlays.length > 0 && (
+        <SceneStart.Provider value={(at[0] - lead0) / fps}>
+          {spec.overlays.map((O, i) => <AbsoluteFill key={i}><O /></AbsoluteFill>)}
+        </SceneStart.Provider>
+      )}
+      {voice && <Audio src={staticFile('voice.mp3')} />}
       {music && spec.music !== 0 && <Audio src={staticFile('music.wav')} volume={spec.music ?? 0.4} />}
       {sfx && spec.sfx !== 0 && <Audio src={staticFile('sfx.wav')} volume={spec.sfx ?? 0.5} />}
     </AbsoluteFill>

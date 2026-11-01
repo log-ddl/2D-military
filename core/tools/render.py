@@ -15,7 +15,7 @@ import shutil
 import subprocess
 import sys
 
-from common import comp_id, need, remotion, studio_port, timeline
+from common import comp_id, ensure_bundle, need, remotion, studio_port, timeline
 
 PART = 6000  # khung tối đa mỗi phần
 
@@ -68,6 +68,8 @@ def main():
         shutil.rmtree(pdir_parts, ignore_errors=True)
     pdir_parts.mkdir(parents=True, exist_ok=True)
     print(f"xuất projects/{pdir.name}/out/video.mp4 thành {len(ranges)} phần: nhạc {'có' if props['music'] else 'không'}, sfx {'có' if props['sfx'] else 'không'}")
+    silent_props = json.dumps({'voice': False, 'music': False, 'sfx': False})
+    target = None
     files = []
     for i, (a, b) in enumerate(ranges, 1):
         f = pdir_parts / f'{a:06d}-{b:06d}.mp4'
@@ -75,10 +77,12 @@ def main():
         if f.exists():
             print(f'[{i}/{len(ranges)}] khung {a}-{b}: đã có, bỏ qua')
             continue
+        if target is None:
+            target = ensure_bundle(pdir)
         print(f'[{i}/{len(ranges)}] khung {a}-{b}')
         tmp = f.with_suffix('.part.mp4')
-        r = remotion(['render', str(entry), comp_id(pdir.name), str(tmp), pub, f'--frames={a}-{b}', '--muted',
-                      f'--props={json.dumps(props)}'])
+        r = remotion(['render', target, comp_id(pdir.name), str(tmp), f'--frames={a}-{b}', '--muted',
+                      f'--props={silent_props}'])
         if r.returncode:
             sys.exit(f'phần {i} (khung {a}-{b}) lỗi; sửa xong chạy lại với --resume để giữ các phần đã xong')
         tmp.rename(f)

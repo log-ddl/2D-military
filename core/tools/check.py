@@ -9,11 +9,14 @@
     python3 core/tools/check.py <id> --part F16,HostGirl     part cô lập theo `preview` của nó → out/checks/parts/F16.png ('all' = mọi part)
     tuỳ chọn: --n 6  --cols 3  --width 960  --force (chụp lại kể cả chưa đổi code)  --full (render đủ độ phân giải)
 
---scene và --part tự kiểm kiểu riêng (cache incremental trong .build/check/), bỏ qua mục chưa đổi code,
-và giới hạn tối đa 4 tiến trình Chrome render cùng lúc trên máy, nên nhiều subagent gọi song song an toàn.
+--scene và --part tự dò đúng cây import của từng mục (cache incremental trong .build/check/), chỉ chụp lại mục thực sự đổi code/tài sản;
+--chapter, --seams và --from/--to chỉ đóng gói lát cắt các cảnh nằm trong đoạn cần chụp và tắt giải mã voice.mp3;
+giới hạn tối đa 4 tiến trình Chrome render cùng lúc trên máy, nên nhiều subagent gọi song song an toàn.
 """
 import contextlib
 import fcntl
+import hashlib
+import json
 import os
 import re
 import shutil
@@ -23,10 +26,11 @@ import tempfile
 import time
 from pathlib import Path
 
-from common import (asset_refs, comp_id, load, need, opt, remotion, scene_spec_ts, sync_assets, sync_cues, timeline, tsc,
-                    write_if_changed, write_tsconfig)
+from common import (KIT, SKILLS, assets, asset_refs, comp_id, ensure_bundle, load, need, opt, remotion, save_json,
+                    scene_spec_ts, sync_assets, sync_cues, timeline, tsc, write_if_changed, write_tsconfig)
 
 MAX_PARALLEL_RENDERS = 4
+IMPORT_RE = re.compile(r'''(?:from|import)\s*\(?['"]([^'"]+)['"]''')
 
 
 @contextlib.contextmanager
@@ -55,7 +59,7 @@ def render_slot(max_slots: int = MAX_PARALLEL_RENDERS):
 
 @contextlib.contextmanager
 def work_lock(work: Path):
-    """Khoá thư mục cache để giữ tsbuildinfo an toàn giữa các lần chạy song song."""
+    """Khoá thư mục cache để giữ tsbuildinfo và bảng chữ ký an toàn giữa các lần chạy song song."""
     work.mkdir(parents=True, exist_ok=True)
     lf = open(work / '.lock', 'w')
     try:
@@ -91,16 +95,6 @@ def write_secs(out: Path, secs: str):
     write_if_changed(out.with_suffix('.txt'), secs + '\n')
 
 
-def latest_mtime(paths: list) -> float:
-    mt = 0.0
-    for p in paths:
-        if p.is_file():
-            mt = max(mt, p.stat().st_mtime)
-        elif p.is_dir():
-            mt = max([mt] + [f.stat().st_mtime for f in p.rglob('*') if f.is_file() and f.suffix in ('.ts', '.tsx', '.json')])
-    return mt
-
-
 def rel(p: Path, base: Path) -> str:
     return Path(os.path.relpath(p, base)).as_posix()
 
@@ -134,21 +128,186 @@ def bundle(entry: Path, td: Path, pdir: Path):
     return str(td / 'bundle')
 
 
+# ---------------------------------------------------------------- dò phụ thuộc đúng từng cảnh / part
+
+def cue_table(pdir: Path) -> dict:
+    """Bảng {khoá_CUE: giá_trị} đọc từ src/cues/*.ts (trừ index.ts)."""
+    d = pdir / 'src/cues'
+    out = {}
+    if d.is_dir():
+        for f in sorted(d.glob('*.ts')):
+            if f.stem != 'index':
+                for k, v in re.findall(r'^\s*([A-Za-z_]\w*)\s*:\s*([^\s,}]+)', f.read_text(), re.M):
+                    out[k] = v
+    return out
+
+
+def resolve_ts(base: Path):
+    for cand in (base, base.with_suffix('.tsx'), base.with_suffix('.ts'), base.with_suffix('.json'),
+                 base / 'index.tsx', base / 'index.ts'):
+        if cand.is_file():
+            return cand.resolve()
+    return None
+
+
+def trace_deps(start: Path, pdir: Path):
+    """Lần theo cây import từ `start` → (tập file nguồn thực sự dùng, tập khoá CUE.<k>, có dùng CUE động không)."""
+    cues_idx = (pdir / 'src/cues/index.ts').resolve()
+    cues_dir = (pdir / 'src/cues').resolve()
+    seen, stack, cue_keys, all_cues = set(), [start.resolve()], set(), False
+    while stack:
+        cur = stack.pop()
+        if cur in seen or not cur.is_file():
+            continue
+        seen.add(cur)
+        txt = cur.read_text(errors='ignore')
+        cue_keys.update(re.findall(r'\bCUE\.([A-Za-z_]\w*)', txt))
+        if re.search(r'\bCUE\s*\[', txt):
+            all_cues = True
+        for spec in IMPORT_RE.findall(txt):
+            if spec.startswith('.'):
+                base = (cur.parent / spec).resolve()
+            elif spec.startswith('@core/'):
+                base = (KIT / spec[6:]).resolve()
+            elif spec.startswith('@skill/'):
+                sk, _, rest = spec[7:].partition('/')
+                base = (SKILLS / sk / 'lib' / rest).resolve()
+            else:
+                continue
+            nxt = resolve_ts(base)
+            if not nxt:
+                continue
+            if nxt == cues_idx or nxt == cues_dir:
+                continue
+            stack.append(nxt)
+    if all_cues and cues_dir.is_dir():
+        seen.update(f.resolve() for f in cues_dir.glob('*.ts') if f.stem != 'index')
+    return seen, cue_keys, all_cues
+
+
+def read_sigs(pdir: Path) -> dict:
+    with work_lock(pdir / '.build/check') as root:
+        f = root / 'signatures.json'
+        return load(f) if f.is_file() else {}
+
+
+def update_sigs(pdir: Path, patch: dict):
+    if not patch:
+        return
+    with work_lock(pdir / '.build/check') as root:
+        f = root / 'signatures.json'
+        cur = load(f) if f.is_file() else {}
+        cur.update(patch)
+        save_json(f, cur)
+
+
+def sig_hash(data: dict) -> str:
+    return hashlib.sha1(json.dumps(data, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+
+
 # ---------------------------------------------------------------- cả video / đoạn / chương / chỗ nối (cần build)
 
-def shoot(pdir: Path, proj: dict, a: float, b: float, n: int, cols: int, width: int, out: Path, full: bool):
-    fps = proj['fps']
-    f0, f1 = round(a * fps), max(round(a * fps), round(b * fps) - 1)
-    step = max(1, (f1 - f0) // max(1, n - 1)) if n > 1 else f1 - f0 + 1
-    with tempfile.TemporaryDirectory() as td, render_slot():
-        tdp = Path(td)
-        shots = render_frames(str(pdir / '.build/entry.tsx'), comp_id(pdir.name), f'{f0}-{f1}', step,
-                              render_scale(width, proj['width'], full), tdp,
-                              [f'--public-dir={pdir / ".build/public"}', '--props={"music":false,"sfx":false}'])[:n]
-        tile_frames(shots, tdp, cols, width, out)
-    secs = ' '.join(f'{(f0 + i * step) / fps:.2f}' for i in range(len(shots)))
-    write_secs(out, secs)
-    print(out, '\n  mốc (giây):', secs)
+def shoot_ranges(pdir: Path, proj: dict, tl: dict, jobs: list, full: bool):
+    """Chụp một hoặc nhiều đoạn [(tag, a, b, n, cols, width, out)].
+    Nếu phủ trọn phim → dùng .build/bundle cache; nếu chỉ một phần (chương / mối nối / đoạn) → cắt lát đúng các cảnh liên quan."""
+    fps, w, h = proj['fps'], proj['width'], proj['height']
+    scenes = tl['scenes']
+    plans = []
+    for tag, a, b, n, cols, width, out in jobs:
+        a = max(0.0, float(a))
+        b = min(float(tl['duration']), max(a, float(b)))
+        f0, f1 = round(a * fps), max(round(a * fps), round(b * fps) - 1)
+        step = max(1, (f1 - f0) // max(1, n - 1)) if n > 1 else f1 - f0 + 1
+        hit = [idx for idx, s in enumerate(scenes) if round(s['to'] * fps) > f0 - 7 and round(s['from'] * fps) < f1 + 7]
+        i0, i1 = (hit[0], hit[-1]) if hit else (0, len(scenes) - 1)
+        plans.append((tag, i0, i1, f0, f1, step, n, cols, width, out))
+
+    silent_props = '--props={"voice":false,"music":false,"sfx":false}'
+    if len(plans) == 1 and plans[0][1] == 0 and plans[0][2] == len(scenes) - 1:
+        _, _, _, f0, f1, step, n, cols, width, out = plans[0]
+        target = ensure_bundle(pdir)
+        with tempfile.TemporaryDirectory() as td, render_slot():
+            tdp = Path(td)
+            shots = render_frames(target, comp_id(pdir.name), f'{f0}-{f1}', step,
+                                  render_scale(width, w, full), tdp, [silent_props])[:n]
+            tile_frames(shots, tdp, cols, width, out)
+        secs = ' '.join(f'{(f0 + i * step) / fps:.2f}' for i in range(len(shots)))
+        write_secs(out, secs)
+        print(out, '\n  mốc (giây):', secs)
+        return
+
+    vtxt = (pdir / '.build/Video.tsx').read_text(errors='ignore')
+    bad_map = {m.group(1): m.group(0) for m in re.finditer(r"placeholder\('(C\d{2}S\d{2,3})',\s*'[^']*'\)", vtxt)}
+    need_idx = sorted({k for _, i0, i1, *_ in plans for k in range(i0, i1 + 1)})
+    work_tag = 'slice_' + '_'.join(p[0] for p in plans[:4]) + (f'_{len(plans)}' if len(plans) > 4 else '')
+
+    with work_lock(pdir / '.build/check' / work_tag) as work:
+        imports = [
+            f"import '{rel(pdir / '.build/assets', work)}';",
+            "import React from 'react';",
+            "import { Composition, registerRoot } from 'remotion';",
+            "import { VideoTimeline, durationOf, type VideoSpec } from '@core/timeline';",
+        ]
+        trans_imps, scene_imps, comp_expr = set(), [], {}
+        use_holder = False
+        for k in need_idx:
+            s = scenes[k]
+            sid = s['id']
+            src = pdir / 'src/scenes' / f'{sid}.tsx'
+            if sid in bad_map:
+                comp_expr[sid], use_holder = bad_map[sid], True
+            elif (s['type'] == 'code' or s.get('overlay')) and src.is_file():
+                scene_imps.append(f"import {sid} from '{rel(src.with_suffix(''), work)}';")
+                comp_expr[sid] = sid
+            elif s['type'] == 'code':
+                note = 'chưa plan' if s.get('pending') else 'chưa dựng'
+                comp_expr[sid], use_holder = f"placeholder('{sid}', '{note}')", True
+            else:
+                comp_expr[sid] = None
+            _, imp = scene_spec_ts(s, comp_expr[sid], w, h)
+            if imp:
+                trans_imps.add(imp)
+        if use_holder:
+            imports.append("import { placeholder } from '@core/timeline';")
+        overlays = sorted((pdir / 'src/overlays').glob('*.tsx'))
+        ov_imps = [f"import Overlay_{f.stem} from '{rel(f.with_suffix(''), work)}';" for f in overlays]
+        ov_names = ', '.join(f'Overlay_{f.stem}' for f in overlays)
+
+        specs_ts, comps_ts, bases = [], [], {}
+        for tag, i0, i1, f0, f1, step, n, cols, width, out in plans:
+            lead = i0 > 0
+            tail = i1 < len(scenes) - 1 and (scenes[i1 + 1].get('transition') or 'fade').partition(':')[0] != 'cut'
+            lead_f = 6 if lead and (scenes[i0].get('transition') or 'fade').partition(':')[0] != 'cut' else 0
+            bases[tag] = round(scenes[i0]['from'] * fps) - lead_f
+            items = [scene_spec_ts(scenes[k], comp_expr[scenes[k]['id']], w, h)[0] for k in range(i0, i1 + 1)]
+            specs_ts.append(
+                f"const spec_{tag}: VideoSpec = {{\n  fps: {fps},\n  lead: {'true' if lead else 'false'}, tail: {'true' if tail else 'false'},\n"
+                f"  scenes: [\n    {(',' + chr(10) + '    ').join(items)},\n  ],\n  overlays: [{ov_names}],\n}};"
+            )
+            cid = comp_id(f'slice-{tag}')
+            comps_ts.append(
+                f'    <Composition id="{cid}" component={{() => <VideoTimeline spec={{spec_{tag}}} voice={{false}} music={{false}} sfx={{false}} />}} '
+                f'durationInFrames={{durationOf(spec_{tag})}} fps={{{fps}}} width={{{w}}} height={{{h}}} />'
+            )
+
+        entry_code = '\n'.join([*imports, *sorted(trans_imps), *scene_imps, *ov_imps, '', *specs_ts, '',
+                                'registerRoot(() => (', '  <>', *comps_ts, '  </>', '));', ''])
+        write_if_changed(work / 'entry.tsx', entry_code)
+
+        with tempfile.TemporaryDirectory(dir=work, prefix='shots_') as td, render_slot():
+            tdp = Path(td)
+            target, pub = (bundle(work / 'entry.tsx', tdp, pdir), []) if len(plans) > 1 else \
+                (str(work / 'entry.tsx'), [f'--public-dir={pdir / ".build/public"}'])
+            for tag, i0, i1, f0, f1, step, n, cols, width, out in plans:
+                base = bases[tag]
+                sd = tdp / tag
+                sd.mkdir()
+                shots = render_frames(target, comp_id(f'slice-{tag}'), f'{f0 - base}-{f1 - base}', step,
+                                      render_scale(width, w, full), sd, pub)[:n]
+                tile_frames(shots, sd, cols, width, out)
+                secs = ' '.join(f'{(f0 + i * step) / fps:.2f}' for i in range(len(shots)))
+                write_secs(out, secs)
+                print(out, '\n  mốc (giây):', secs)
 
 
 # ---------------------------------------------------------------- cảnh cô lập
@@ -163,54 +322,87 @@ def shoot_scenes(pdir: Path, proj: dict, want: list, n: int, cols: int, width: i
         if (s['type'] == 'code' or s.get('overlay')) and not (pdir / 'src/scenes' / f'{sid}.tsx').exists():
             sys.exit(f'chưa có file src/scenes/{sid}.tsx')
     sync_cues(pdir)
-    files = [f for f in (pdir / 'src').rglob('*.ts*') if f.parent.name != 'scenes' or f.stem in want]
-    ids = set(asset_refs(pdir, files)) | {by[s]['asset'] for s in want if by[s].get('asset')}
-    errs = sync_assets(pdir, ids)
+
+    fps, w, h = proj['fps'], proj['width'], proj['height']
+    cues, reg, sigs = cue_table(pdir), assets(pdir), read_sigs(pdir)
+    plan, new_sigs, backfill, all_aids, dirty = {}, {}, {}, set(), []
+
+    for sid in want:
+        s = by[sid]
+        pad = min(0.3, (s['to'] - s['from']) / 10)
+        f0, f1 = round((s['from'] + pad) * fps), round((s['to'] - pad) * fps) - 1
+        f1 = max(f0, f1)
+        step = max(1, (f1 - f0) // max(1, n - 1)) if n > 1 else f1 - f0 + 1
+        base = max(0, round(s['from'] * fps) - 6)
+        dur = max(f1 + 1, round(s['to'] * fps) + 6) - base
+        cnt = min(n, (f1 - f0) // step + 1)
+        exp_secs = ' '.join(f'{(f0 + i * step) / fps:.2f}' for i in range(cnt))
+        plan[sid] = (f0, f0 - base, f1 - base, step, base, dur)
+
+        src = pdir / 'src/scenes' / f'{sid}.tsx'
+        dep_files, cue_keys, _ = trace_deps(src, pdir) if src.is_file() else (set(), set(), False)
+        aids = sorted(set(asset_refs(pdir, dep_files)) | ({s['asset']} if s.get('asset') else set()))
+        all_aids.update(aids)
+        for aid in aids:
+            af = reg.get(aid, {}).get('file')
+            if af and (pdir / 'assets' / af).is_file():
+                dep_files.add((pdir / 'assets' / af).resolve())
+        dep_mt = max((f.stat().st_mtime for f in dep_files if f.is_file()), default=0.0)
+        sig = sig_hash({
+            's': {k: s.get(k) for k in ('from', 'to', 'type', 'asset', 'in', 'move', 'overlay', 'volume')},
+            'grid': [n, cols, width, full],
+            'cues': {k: cues.get(k) for k in sorted(cue_keys)},
+            'assets': {a: reg.get(a, {}).get('file') for a in aids},
+        })
+        new_sigs[f'scene:{sid}'] = sig
+
+        out = pdir / 'out/checks/scenes' / f'{sid}.png'
+        txt = out.with_suffix('.txt')
+        prev = sigs.get(f'scene:{sid}')
+        clean_sig = (prev == sig) if prev is not None else (not full and txt.is_file() and txt.read_text().strip() == exp_secs)
+        if not force and out.is_file() and txt.is_file() and out.stat().st_mtime >= dep_mt and clean_sig:
+            print(f'{out}  [bỏ qua: chưa đổi code — thêm --force để chụp lại]')
+            if prev is None:
+                backfill[f'scene:{sid}'] = sig
+        else:
+            dirty.append(sid)
+
+    if backfill:
+        update_sigs(pdir, backfill)
+    if not dirty:
+        return
+
+    errs = sync_assets(pdir, all_aids)
     if errs:
         sys.exit('THIẾU tài sản: ' + '; '.join(errs))
 
-    fps, w, h = proj['fps'], proj['width'], proj['height']
-    with work_lock(pdir / '.build/check' / ('scene_' + '_'.join(want))) as work:
-        imports = ["import '" + rel(pdir / '.build/assets', work) + "';", "import { Composition, registerRoot } from 'remotion';", "import { SceneView } from '@core/timeline';"]
-        comps, plan = [], {}
-        for sid in want:
+    with work_lock(pdir / '.build/check' / ('scene_' + '_'.join(dirty))) as work:
+        imports = [
+            "import '" + rel(pdir / '.build/assets', work) + "';",
+            "import { Composition, registerRoot } from 'remotion';",
+            "import { SceneView } from '@core/timeline';",
+        ]
+        comps = []
+        for sid in dirty:
             s = by[sid]
             comp = None
             if (pdir / 'src/scenes' / f'{sid}.tsx').exists():
                 imports.append(f"import {sid} from '{rel(pdir / 'src/scenes' / sid, work)}';")
                 comp = sid
-            ts, imp = scene_spec_ts(dict(s, transition='cut'), comp, w, h)
-            pad = min(0.3, (s['to'] - s['from']) / 10)
-            f0, f1 = round((s['from'] + pad) * fps), round((s['to'] - pad) * fps) - 1
-            f1 = max(f0, f1)
-            step = max(1, (f1 - f0) // max(1, n - 1)) if n > 1 else f1 - f0 + 1
-            base = max(0, round(s['from'] * fps) - 6)
-            dur = max(f1 + 1, round(s['to'] * fps) + 6) - base
+            ts, _ = scene_spec_ts(dict(s, transition='cut'), comp, w, h)
+            _, _, _, _, base, dur = plan[sid]
             comps.append(f'    <Composition id="scene-{sid}" component={{() => <SceneView s={{{ts}}} t0={{{base / fps:.6f}}} />}} '
                          f'durationInFrames={{{dur}}} fps={{{fps}}} width={{{w}}} height={{{h}}} />')
-            plan[sid] = (f0, f0 - base, f1 - base, step)
         write_if_changed(work / 'entry.tsx', '\n'.join(imports) + '\n\nregisterRoot(() => (\n  <>\n' + '\n'.join(comps) + '\n  </>\n));\n')
-        typecheck(work, f"cảnh {', '.join(want)}")
+        typecheck(work, f"cảnh {', '.join(dirty)}")
 
-        shared = latest_mtime([pdir / 'src/design', pdir / 'src/parts', pdir / 'src/cues', pdir / 'assets/ASSETS.json'])
-        dirty = []
-        for sid in want:
-            out = pdir / 'out/checks/scenes' / f'{sid}.png'
-            src = pdir / 'src/scenes' / f'{sid}.tsx'
-            mt = max(shared, (pdir / 'plan/chapters' / f"{by[sid]['chapter']}.json").stat().st_mtime, src.stat().st_mtime if src.exists() else 0)
-            txt = out.with_suffix('.txt')
-            if not force and not full and out.exists() and txt.exists() and out.stat().st_mtime >= mt and len(txt.read_text().split()) == n:
-                print(f'{out}  [bỏ qua: chưa đổi code — thêm --force để chụp lại]')
-            else:
-                dirty.append(sid)
-        if not dirty:
-            return
+        done_sigs = {}
         with tempfile.TemporaryDirectory(dir=work, prefix='shots_') as td, render_slot():
             tdp = Path(td)
             target, pub = (bundle(work / 'entry.tsx', tdp, pdir), []) if len(dirty) > 1 else \
                 (str(work / 'entry.tsx'), [f'--public-dir={pdir / ".build/public"}'])
             for sid in dirty:
-                f0, lf0, lf1, step = plan[sid]
+                f0, lf0, lf1, step, _, _ = plan[sid]
                 sd = tdp / sid
                 sd.mkdir()
                 shots = render_frames(target, f'scene-{sid}', f'{lf0}-{lf1}', step, render_scale(width, w, full), sd, pub)[:n]
@@ -218,7 +410,9 @@ def shoot_scenes(pdir: Path, proj: dict, want: list, n: int, cols: int, width: i
                 tile_frames(shots, sd, cols, width, out)
                 secs = ' '.join(f'{(f0 + i * step) / fps:.2f}' for i in range(len(shots)))
                 write_secs(out, secs)
+                done_sigs[f'scene:{sid}'] = new_sigs[f'scene:{sid}']
                 print(out, '\n  mốc (giây):', secs)
+        update_sigs(pdir, done_sigs)
 
 
 # ---------------------------------------------------------------- part cô lập
@@ -226,41 +420,76 @@ def shoot_scenes(pdir: Path, proj: dict, want: list, n: int, cols: int, width: i
 def shoot_parts(pdir: Path, proj: dict, raw: str, width: int, force: bool, full: bool):
     pdirs = pdir / 'src/parts'
     have = {f.stem: f for f in sorted(pdirs.glob('*.tsx')) if re.search(r'\bexport\s+const\s+preview\b', f.read_text())} if pdirs.is_dir() else {}
-    names = list(have) if raw == 'all' else [x.strip() for x in raw.split(',') if x.strip()]
+    names = list(have) if raw == 'all' else list(dict.fromkeys(x.strip() for x in raw.split(',') if x.strip()))
     for nm in names:
         if nm not in have:
             sys.exit(f"part '{nm}' không có hoặc chưa export preview (có: {', '.join(have) or 'trống'})")
     if not names:
         sys.exit('chưa có part nào export preview trong src/parts/')
     sync_cues(pdir)
-    errs = sync_assets(pdir, asset_refs(pdir, [f for f in (pdir / 'src').rglob('*.ts*') if f.parent.name != 'scenes']))
+
+    w, h = proj['width'], proj['height']
+    cues, reg, sigs = cue_table(pdir), assets(pdir), read_sigs(pdir)
+    new_sigs, backfill, all_aids, dirty = {}, {}, set(), []
+
+    for nm in names:
+        dep_files, cue_keys, _ = trace_deps(have[nm], pdir)
+        aids = sorted(set(asset_refs(pdir, dep_files)))
+        all_aids.update(aids)
+        for aid in aids:
+            af = reg.get(aid, {}).get('file')
+            if af and (pdir / 'assets' / af).is_file():
+                dep_files.add((pdir / 'assets' / af).resolve())
+        dep_mt = max((f.stat().st_mtime for f in dep_files if f.is_file()), default=0.0)
+        sig = sig_hash({
+            'grid': [width, full],
+            'cues': {k: cues.get(k) for k in sorted(cue_keys)},
+            'assets': {a: reg.get(a, {}).get('file') for a in aids},
+        })
+        new_sigs[f'part:{nm}'] = sig
+
+        out = pdir / 'out/checks/parts' / f'{nm}.png'
+        prev = sigs.get(f'part:{nm}')
+        clean_sig = (prev == sig) if prev is not None else (not full)
+        if not force and out.is_file() and out.stat().st_mtime >= dep_mt and clean_sig:
+            print(f'{out}  [bỏ qua: chưa đổi code — thêm --force để chụp lại]')
+            if prev is None:
+                backfill[f'part:{nm}'] = sig
+        else:
+            dirty.append(nm)
+
+    if backfill:
+        update_sigs(pdir, backfill)
+    if not dirty:
+        return
+
+    errs = sync_assets(pdir, all_aids)
     if errs:
         sys.exit('THIẾU tài sản: ' + '; '.join(errs))
-    w, h = proj['width'], proj['height']
-    tag = 'part_' + '_'.join(names[:6]) + (f'_{len(names)}' if len(names) > 6 else '')
+
+    tag = 'part_' + '_'.join(dirty[:6]) + (f'_{len(dirty)}' if len(dirty) > 6 else '')
     with work_lock(pdir / '.build/check' / tag) as work:
-        imports = ["import '" + rel(pdir / '.build/assets', work) + "';", "import { Composition, registerRoot } from 'remotion';", "import { PreviewHost } from '@core/preview';"]
+        imports = [
+            "import '" + rel(pdir / '.build/assets', work) + "';",
+            "import { Composition, registerRoot } from 'remotion';",
+            "import { PreviewHost } from '@core/preview';",
+        ]
         comps = []
-        for nm in names:
+        for nm in dirty:
             imports.append(f"import {{ preview as P_{nm} }} from '{rel(have[nm].with_suffix(''), work)}';")
-            comps.append(f'    <Composition id="part-{nm}" component={{() => <PreviewHost preview={{P_{nm}}} />}} '
+            comps.append(f'    <Composition id="{comp_id(f"part-{nm}")}" component={{() => <PreviewHost preview={{P_{nm}}} />}} '
                          f'durationInFrames={{P_{nm}.views}} fps={{30}} width={{{w}}} height={{{h}}} />')
         write_if_changed(work / 'entry.tsx', '\n'.join(imports) + '\n\nregisterRoot(() => (\n  <>\n' + '\n'.join(comps) + '\n  </>\n));\n')
-        typecheck(work, f"part {', '.join(names)}")
-        shared = latest_mtime([pdir / 'src/design', pdirs])
-        dirty = [nm for nm in names if force or full or not (pdir / 'out/checks/parts' / f'{nm}.png').exists()
-                 or (pdir / 'out/checks/parts' / f'{nm}.png').stat().st_mtime < shared]
-        for nm in set(names) - set(dirty):
-            print(f"{pdir / 'out/checks/parts' / f'{nm}.png'}  [bỏ qua: chưa đổi code — thêm --force để chụp lại]")
-        if not dirty:
-            return
+        typecheck(work, f"part {', '.join(dirty)}")
+
+        done_sigs = {}
         with tempfile.TemporaryDirectory(dir=work, prefix='shots_') as td, render_slot():
             tdp = Path(td)
             target = bundle(work / 'entry.tsx', tdp, pdir)
             for nm in dirty:
                 sd = tdp / nm
                 sd.mkdir()
-                r = remotion(['render', target, f'part-{nm}', str(sd / 'f'), '--sequence', '--image-format=jpeg',
+                r = remotion(['render', target, comp_id(f'part-{nm}'), str(sd / 'f'), '--sequence', '--image-format=jpeg',
                               f'--scale={render_scale(width, w, full)}', '--muted', '--log=error'], capture_output=True, text=True)
                 shots = sorted((sd / 'f').glob('*.jpeg'))
                 if r.returncode or not shots:
@@ -268,7 +497,9 @@ def shoot_parts(pdir: Path, proj: dict, raw: str, width: int, force: bool, full:
                     sys.exit(f'render lỗi ở part {nm}')
                 out = pdir / 'out/checks/parts' / f'{nm}.png'
                 tile_frames(shots, sd, 2 if len(shots) == 4 else min(len(shots), 4), width, out)
+                done_sigs[f'part:{nm}'] = new_sigs[f'part:{nm}']
                 print(out, f'  ({len(shots)} góc)')
+        update_sigs(pdir, done_sigs)
 
 
 def main():
@@ -301,22 +532,28 @@ def main():
             sys.exit('cần ít nhất 2 chương')
         i = argv.index('--seams') + 1
         only = {x.strip() for x in argv[i].split(',')} if i < len(argv) and not argv[i].startswith('--') else set()
+        n, cols, width = opt(argv, '--n', 6, int), opt(argv, '--cols', 6, int), opt(argv, '--width', 480, int)
+        jobs = []
         for c0, c1 in zip(chs, chs[1:]):
             if not only or c0['id'] in only or c1['id'] in only:
                 t = c1['from']
-                shoot(pdir, proj, max(0.0, t - 1.5), t + 1.5, opt(argv, '--n', 6, int), opt(argv, '--cols', 6, int),
-                      opt(argv, '--width', 480, int), out / 'seams' / f"{c0['id']}-{c1['id']}.png", full)
+                jobs.append((f"seam_{c0['id']}_{c1['id']}", max(0.0, t - 1.5), t + 1.5, n, cols, width,
+                             out / 'seams' / f"{c0['id']}-{c1['id']}.png"))
+        if jobs:
+            shoot_ranges(pdir, proj, tl, jobs, full)
         return
     if '--chapter' in argv:
         cid = opt(argv, '--chapter')
         c = next((c for c in chs if c['id'] == cid), None) or sys.exit(f'không có chương {cid}')
         k = sum(s['chapter'] == cid for s in tl['scenes'])
-        shoot(pdir, proj, c['from'], c['to'], opt(argv, '--n', max(12, min(36, 2 * k)), int), opt(argv, '--cols', 6, int),
-              opt(argv, '--width', 480, int), out / 'chapters' / f'{cid}.png', full)
+        shoot_ranges(pdir, proj, tl, [(f'chapter_{cid}', c['from'], c['to'], opt(argv, '--n', max(12, min(36, 2 * k)), int),
+                                       opt(argv, '--cols', 6, int), opt(argv, '--width', 480, int), out / 'chapters' / f'{cid}.png')], full)
         return
     a, b = opt(argv, '--from', 0.0, float), opt(argv, '--to', tl['duration'], float)
     name = 'sheet.png' if '--from' not in argv and '--to' not in argv else f'sheet_{a:g}-{b:g}.png'
-    shoot(pdir, proj, a, b, opt(argv, '--n', 24, int), opt(argv, '--cols', 6, int), opt(argv, '--width', 480, int), out / name, full)
+    tag = 'full' if name == 'sheet.png' else re.sub(r'[^A-Za-z0-9_]+', '_', f'range_{a:g}_{b:g}')
+    shoot_ranges(pdir, proj, tl, [(tag, a, b, opt(argv, '--n', 24, int), opt(argv, '--cols', 6, int),
+                                   opt(argv, '--width', 480, int), out / name)], full)
 
 
 if __name__ == '__main__':

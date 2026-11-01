@@ -1,4 +1,5 @@
 """Đường dẫn và tiện ích dùng chung cho core/tools/*.py. Mọi lệnh nhận <id> và chỉ làm việc trong projects/<id>/ (khung: README.md)."""
+import fcntl
 import json
 import os
 import re
@@ -171,10 +172,15 @@ def assets(pdir: Path) -> dict:
 
 def asset_refs(pdir: Path, files=None) -> dict:
     """Mã tài sản gọi trong code: {mã: [nơi dùng]} (nơi dùng = id cảnh, hoặc đường dẫn trong src/)."""
-    refs = {}
+    refs, src_root = {}, (pdir / 'src').resolve()
     for f in files if files is not None else (pdir / 'src').rglob('*.ts*'):
         if f.is_file():
-            where = f.stem if f.parent.name == 'scenes' else str(f.relative_to(pdir / 'src'))
+            rf = f.resolve()
+            where = f.stem if f.parent.name == 'scenes' else (
+                str(rf.relative_to(src_root)) if src_root in rf.parents else (
+                    str(rf.relative_to(ROOT)) if ROOT in rf.parents else f.name
+                )
+            )
             for a in re.findall(r"asset(?:Info)?\(\s*['\"](a\d{3,})['\"]\s*\)", f.read_text()):
                 refs.setdefault(a, []).append(where)
     return refs
@@ -239,6 +245,50 @@ def tsc(config: Path) -> list:
 def remotion(args, **kw):
     """Chạy CLI Remotion từ remotion/ (để nhận remotion.config.ts)."""
     return subprocess.run([NPX, 'remotion', *args], cwd=RUNTIME, **kw)
+
+
+def max_mtime(paths) -> float:
+    """Dấu thời gian mới nhất của tập file / thư mục (tính cả mtime thư mục khi xoá file)."""
+    mt = 0.0
+    for p in paths:
+        if not p.exists():
+            continue
+        mt = max(mt, p.stat().st_mtime)
+        if p.is_dir():
+            for f in p.rglob('*'):
+                if f.name != '.DS_Store':
+                    mt = max(mt, f.stat().st_mtime)
+    return mt
+
+
+def ensure_bundle(pdir: Path) -> str:
+    """Đóng gói .build/entry.tsx vào .build/bundle một lần và tự dùng lại nếu code / tài sản chưa đổi."""
+    bdir = pdir / '.build/bundle'
+    bdir.parent.mkdir(parents=True, exist_ok=True)
+    lf = open(pdir / '.build/bundle.lock', 'w')
+    try:
+        fcntl.flock(lf.fileno(), fcntl.LOCK_EX)
+        stamp = bdir / '.stamp'
+        watch = [pdir / 'src', pdir / '.build/entry.tsx', pdir / '.build/Video.tsx', pdir / '.build/assets.ts',
+                 pdir / '.build/public/assets', KIT, *skill_libs().values()]
+        mt = max_mtime(watch)
+        if stamp.exists() and (bdir / 'index.html').exists() and stamp.stat().st_mtime >= mt:
+            return str(bdir)
+        tmp = pdir / f'.build/.bundle_tmp_{os.getpid()}'
+        shutil.rmtree(tmp, ignore_errors=True)
+        rb = remotion(['bundle', str(pdir / '.build/entry.tsx'), f'--out-dir={tmp}',
+                       f'--public-dir={pdir / ".build/public"}', '--log=error'], capture_output=True, text=True)
+        if rb.returncode:
+            shutil.rmtree(tmp, ignore_errors=True)
+            print(rb.stdout[-3000:], rb.stderr[-3000:])
+            sys.exit('bundle lỗi')
+        shutil.rmtree(bdir, ignore_errors=True)
+        os.replace(tmp, bdir)
+        stamp.write_text(f'{mt}\n')
+        return str(bdir)
+    finally:
+        fcntl.flock(lf.fileno(), fcntl.LOCK_UN)
+        lf.close()
 
 
 TRANS = {

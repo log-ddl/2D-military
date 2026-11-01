@@ -68,17 +68,17 @@ Video ngắn là một chương `C01` (`new.py` đã tạo `plan/chapters/C01.js
 - **Hình 2D dùng nhiều cảnh (`src/parts/*`) → Agent chính tự vẽ trực tiếp bằng SVG như chuẩn cũ** ngay trong lúc chờ các subagent 3D chạy ngầm (quy đổi từ kích thước mét thật đã chốt ở A1, đổ khối 3 tông sáng/trung/tối + viền nhất quán).
 - Khi toàn bộ subagent 3D báo xong: Agent chính chạy `python3 core/tools/build.py <id>` sạch lỗi và duyệt nhanh ảnh `out/checks/parts/*.png` (`check.py <id> --part all`) trước khi mở Bước B.
 
-### Bước B — Subagent dựng cảnh song song
-- Chia cảnh thành 2–8+ nhóm tuỳ độ dài video (có thể chạy 4–10 subagent song song; nếu >6 subagent thì giữ prompt giao việc gọn, tham chiếu chi tiết từ `C01.md`, hoặc gọi làm 2 nhịp liền nhau); **mỗi subagent tối đa 2 cảnh 3D** (3D tốn công hơn 2D). Mỗi prompt BẮT BUỘC có:
+### Bước B — Subagent dựng cảnh song song (dây chuyền cuốn chiếu)
+- Chia cảnh thành 2–8+ nhóm tuỳ độ dài video; **mỗi subagent tối đa 2 cảnh 3D** (3D tốn công hơn 2D). Nếu ≤6 nhóm thì gọi song song một lượt; nếu >6 nhóm thì chạy **dây chuyền cuốn chiếu giữ ~6 subagent hoạt động liên tục** — hễ 1 subagent xong là bù ngay nhóm tiếp theo, không chia đợt cứng đứng chờ subagent chậm nhất (giữ prompt giao việc gọn, tham chiếu chi tiết từ `C01.md`). Mỗi prompt BẮT BUỘC có:
   1. Đọc: SKILL.md này, `plan/STORY.md`, `plan/chapters/C01.md`, `C01.json`, `src/cues/C01.ts`, `skills/military/CATALOG.md`, `assets/ASSETS.json`, các file trong `src/design/`, `src/parts/` liên quan.
   2. Danh sách file duy nhất được tạo/sửa: `src/scenes/C01Sxx.tsx` của nhóm mình. Không sửa `parts/`, `design/`, `cues/`, `plan/`, file nhóm khác; **không gọi `build.py`**.
   3. Mỗi file: `const C01Sxx: React.FC = () => { const t = useT(); … }; export default C01Sxx;` (`useT` từ `@core/time`: giây voice tuyệt đối).
   4. Lời thoại + mốc `CUE.*` + mô tả cảnh lấy từ `C01.md`.
   5. **Tự kiểm hình bắt buộc:** vòng 1 gọi `python3 core/tools/check.py <id> --scene C01Sxx,C01Syy`; từ vòng sửa thứ 2 trở đi **chỉ gọi riêng cảnh vừa sửa** (`check.py <id> --scene C01Syy`) để không render lại cảnh đã đạt → đọc ảnh `out/checks/scenes/C01Sxx.png`, sửa ít nhất một vòng (bố cục, độ rõ chủ thể, khung trống, chữ đè, lỗi hình). Báo lại: đã kiểm gì, còn gì chưa ổn, mốc giây các sự kiện lớn cho SFX.
-- Tool chạy song song an toàn: mỗi nhóm cảnh/mô hình có cache `tsc` incremental riêng trong `.build/check/`, hạ `--scale` khớp đúng kích thước ô kiểm hình và điều tiết tối đa 4 tiến trình Chrome render đồng thời.
+- Tool chạy song song an toàn: `check.py` lần chính xác cây `import` / khoá `CUE` / asset của từng cảnh và mô hình (sửa 1 part hay chạy `build.py` không làm mất cache của cảnh không liên quan), giữ cache `tsc` incremental riêng trong `.build/check/`, hạ `--scale` khớp đúng kích thước ô kiểm hình và điều tiết tối đa 4 tiến trình Chrome render đồng thời.
 
 ### Bước C — Agent chính ráp & kiểm
-Ghi `"sfx"` vào `C01.json` theo mốc subagent báo → `audio.py` → `build.py --strict` (phải sạch lỗi) → `check.py <id>` → tự xem sheet, sửa hoặc giao lại cảnh hỏng.
+Ghi `"sfx"` vào `C01.json` theo mốc subagent báo → `audio.py` → `build.py --strict` (phải sạch lỗi) → `check.py <id>` → tự xem sheet, sửa hoặc giao lại cảnh hỏng. *(Khi sửa lỗi hình ảnh thuần `.tsx` ở vòng kiểm mà không đổi `plan/mix.json` hay `"sfx"`, không chạy lại `audio.py` — chỉ chạy `build.py --strict` rồi `check.py`).*
 
 ## 4. Tư duy đạo diễn
 - Mỗi cảnh thuần 2D hoặc thuần 3D (cảnh 3D chỉ được đè `<Label>` HTML). Xen kẽ theo nội dung: sơ đồ, mặt cắt, bản đồ,

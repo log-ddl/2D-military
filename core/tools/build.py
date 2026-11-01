@@ -62,11 +62,13 @@ import {{ Composition, registerRoot }} from 'remotion';
 import {{ VideoTimeline, durationOf, propsSchema }} from '@core/timeline';
 import {{ spec }} from './Video';
 
-// Bật/tắt nhạc nền và tiếng động ở bảng Props của Studio; render.py truyền cờ --no-music / --no-sfx.
-const Main: React.FC<{{ music: boolean; sfx: boolean }}> = (p) => <VideoTimeline spec={{spec}} music={{p.music}} sfx={{p.sfx}} />;
+// Bật/tắt voice, nhạc nền và tiếng động ở bảng Props của Studio; check.py / render.py tắt khi chụp hình câm.
+const Main: React.FC<{{ voice?: boolean; music?: boolean; sfx?: boolean }}> = (p) => (
+  <VideoTimeline spec={{spec}} voice={{p.voice}} music={{p.music}} sfx={{p.sfx}} />
+);
 
 registerRoot(() => (
-  <Composition id="{cid}" component={{Main}} schema={{propsSchema}} defaultProps={{{{ music: true, sfx: true }}}}
+  <Composition id="{cid}" component={{Main}} schema={{propsSchema}} defaultProps={{{{ voice: true, music: true, sfx: true }}}}
     durationInFrames={{durationOf(spec)}} fps={{spec.fps}} width={{{tl['width']}}} height={{{tl['height']}}} />
 ));
 """)
@@ -100,8 +102,9 @@ def main():
         a['used'] = sorted(set(refs.get(a['id'], [])))
     save_json(pdir / 'assets/ASSETS.json', book)
 
-    # Code: kiểm kiểu theo cây import từ entry; cảnh lỗi → giữ chỗ rồi kiểm lại
-    write_tsconfig(pdir / '.build/tsconfig.json', ['entry.tsx'])
+    # Code: kiểm kiểu theo cây import từ entry (có incremental cache); cảnh lỗi → giữ chỗ rồi kiểm lại
+    write_tsconfig(pdir / '.build/tsconfig.json', ['entry.tsx'],
+                   {'incremental': True, 'tsBuildInfoFile': './tsconfig.tsbuildinfo'})
     write_video(pdir, tl, {})
     errs = tsc(pdir / '.build/tsconfig.json')
     bad, other = {}, []

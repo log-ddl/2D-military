@@ -1,0 +1,107 @@
+{
+  "_doc": "Bản D — tối giản từ C: mỗi lúc một tiếng chính. Nhạc 3 bài, chỉ đổi ở 2 bước ngoặt lớn; bỏ whoosh chuyển cảnh, bỏ chuỗi beep, HUD chỉ 3 lần; mỗi sự kiện tối đa 3 lớp; nền chỉ 1 lớp mỗi không gian.",
+  "tag": "D",
+
+  "stages": [[0, 21.28, "out"], [21.28, 36.18, "lab"], [36.18, 45.1, "out"], [45.1, 54.7, "lab"], [54.7, 70.1, "out"]],
+
+  "music": [
+    {"name": "mở + lab — suspense liền một mạch", "id": 387223, "src": 14.0, "at": 0.0, "to": 36.4, "gain": 0.9, "fi": 1.5, "fo": 0.4},
+    {"name": "đột kích nóc — vào bằng cú hit, chạy liền tới cao trào", "id": 507747, "src": 3.3, "at": 36.08, "to": 53.9, "gain": 0.85, "fi": 0.05, "fo": 0.15, "snap": true},
+    {"name": "lời giải — vào bằng cú hit, fade cuối", "id": 716385, "src": 3.3, "at": 56.22, "to": 70.1, "gain": 0.9, "fi": 0.05, "fo": 2.0, "snap": true}
+  ],
+  "music_db": [[0, -3], [19.0, -1], [21.28, -3], [32.0, -1], [36.18, 0], [53.4, 1], [53.9, -60], [56.2, -60], [56.32, 0], [70.1, 0]],
+
+  "amb": [
+    {"name": "gió thảo nguyên", "id": 620099, "src": 10.0, "at": 0.0, "to": 21.6, "gain": 0.8, "fi": 0.8, "fo": 0.6, "hp": 120},
+    {"name": "phòng điều khiển", "id": 211683, "src": 5.0, "at": 21.0, "to": 36.5, "gain": 0.7, "fi": 0.8, "fo": 0.6, "hp": 80},
+    {"name": "gió thảo nguyên", "id": 620099, "src": 40.0, "at": 35.9, "to": 45.3, "gain": 0.8, "fi": 0.6, "fo": 0.3, "hp": 120},
+    {"name": "phòng điều khiển", "id": 211683, "src": 30.0, "at": 45.1, "to": 54.75, "gain": 0.6, "fi": 0.3, "fo": 0.1, "hp": 80},
+    {"name": "gió thảo nguyên", "id": 620099, "src": 70.0, "at": 54.7, "to": 70.1, "gain": 0.8, "fi": 0.05, "fo": 1.0, "hp": 120}
+  ],
+
+  "events": [
+    {"name": "S01 xích tăng (nền)", "at": 0.15, "layers": [
+      {"id": 329800, "trim": [7.2, 11.6], "align": "start", "gain": 0.8, "norm": "rms", "fi": 0.4, "fo": 1.2}
+    ]},
+    {"name": "S01 dằn 60 tấn", "at": 1.72, "duck": 3, "layers": [
+      {"id": 531862, "gain": 0.8},
+      {"id": 640204, "gain": 0.7}
+    ]},
+    {"name": "S01 HUD 60 TẤN", "at": 3.12, "layers": [{"id": 511418, "trim": [0.9, 2.3], "gain": 0.3, "pan": 0.3}]},
+    {"name": "S02 đạn lao tới", "at": 9.15, "layers": [
+      {"id": 730959, "hp": 80, "trim": [0.8, 2.6], "gain": 0.5, "fo": 0.4, "pan": [-0.8, 0.15]}
+    ]},
+    {"name": "S02 đạn nảy khỏi giáp", "at": 9.24, "duck": 6, "layers": [
+      {"id": 441373, "gain": 0.8, "pan": 0.15},
+      {"id": 562198, "gain": 0.65, "pan": 0.15},
+      {"id": 671306, "trim": [0.0, 2.5], "gain": 0.6, "fo": 1.2}
+    ]},
+    {"name": "S03 ATGM rời ống", "at": 15.06, "duck": 5, "layers": [
+      {"id": 249298, "trim": [0.0, 2.4], "gain": 0.9, "fo": 1.0, "pan": -0.45},
+      {"id": 698696, "hp": 80, "trim": [0.3, 4.0], "align": "start", "off": 0.15, "gain": 0.3, "fi": 0.1, "fo": 1.8, "pan": [-0.4, 0.3], "pitch": [0, -3]}
+    ]},
+    {"name": "S04 FPV drone", "at": 16.4, "layers": [
+      {"id": 677833, "trim": [8.0, 13.2], "align": "start", "gain": 0.45, "norm": "rms", "fi": 0.3, "fo": 0.9, "pan": [-0.15, 0.15], "pitch": [0, 3]}
+    ]},
+    {"name": "S05 vào lab — braam", "at": 21.28, "duck": 4, "layers": [
+      {"id": 647712, "trim": [0.0, 3.4], "gain": 0.75, "fo": 1.8}
+    ]},
+    {"name": "S05 hộp thép sập bệ cân", "at": 26.26, "duck": 6, "layers": [
+      {"id": 406197, "trim": [0.0, 1.9], "gain": 0.8},
+      {"id": 531862, "gain": 0.65},
+      {"id": 671306, "trim": [0.0, 2.5], "gain": 0.5, "fo": 1.2}
+    ]},
+    {"name": "S06 tách lớp giáp", "at": 30.64, "layers": [
+      {"id": 648614, "hp": 80, "trim": [0.8, 3.0], "gain": 0.35, "fo": 0.8, "pan": [0.3, -0.2]}
+    ]},
+    {"name": "S06 cảnh báo NÓC 30–40 MM", "at": 34.74, "layers": [{"id": 511418, "trim": [0.9, 2.3], "gain": 0.3}]},
+    {"name": "S07 tên lửa vọt lên", "at": 41.56, "duck": 4, "layers": [
+      {"id": 521377, "gain": 0.85, "pan": -0.3},
+      {"id": 698696, "hp": 80, "trim": [0.3, 3.0], "align": "start", "off": 0.05, "gain": 0.4, "fi": 0.1, "fo": 0.6, "pan": [-0.3, 0.1], "pitch": [0, 2]}
+    ]},
+    {"name": "S07 bổ nhào", "at": 44.4, "layers": [
+      {"id": 730959, "hp": 80, "trim": [11.8, 14.6], "gain": 0.45, "fo": 0.5, "pan": [0.4, 0.0]}
+    ]},
+    {"name": "S08 kích nổ đầu đạn lõm", "at": 47.18, "duck": 6, "layers": [
+      {"id": 523089, "gain": 0.85},
+      {"id": 255111, "trim": [0.0, 2.5], "gain": 0.5, "fo": 1.0}
+    ]},
+    {"name": "S08 luồng kim loại", "at": 50.3, "layers": [
+      {"id": 234782, "gain": 0.35, "align": "start", "fo": 0.6}
+    ]},
+    {"name": "S09 xuyên thủng trần", "at": 53.48, "duck": 4, "layers": [
+      {"id": 562198, "gain": 0.6}
+    ]},
+    {"name": "S09 hút khí trước nổ", "at": 54.62, "layers": [
+      {"id": 383903, "trim": [7.6, 8.6], "align": "end", "gain": 0.4, "fi": 0.6}
+    ]},
+    {"name": "S09 HẦM ĐẠN NỔ", "at": 54.7, "duck": 8, "layers": [
+      {"id": 177556, "trim": [7.4, 13.0], "gain": 1.0, "fo": 2.5},
+      {"id": 560510, "trim": [3.0, 5.2], "gain": 0.5, "fo": 1.2, "pan": -0.3},
+      {"id": 428073, "gain": 0.6}
+    ]},
+    {"name": "S09 lửa cháy", "at": 55.8, "layers": [
+      {"id": 563765, "trim": [2.0, 7.0], "align": "start", "gain": 0.35, "norm": "rms", "fi": 0.4, "fo": 2.5}
+    ]},
+    {"name": "wipe sang S10", "at": 56.32, "layers": [{"id": 701104, "gain": 0.35, "pan": [-0.8, 0.8]}]},
+    {"name": "S10 xe tăng lăn (nền)", "at": 57.0, "layers": [
+      {"id": 329800, "trim": [2.0, 14.0], "align": "start", "gain": 0.45, "norm": "rms", "fi": 1.0, "fo": 1.5, "pan": [-0.3, 0.3]}
+    ]},
+    {"name": "S10 radar quét 360°", "at": 62.22, "layers": [
+      {"id": 859535, "trim": [0.0, 2.3], "align": "start", "gain": 0.35, "fo": 0.5, "pan": [-0.9, 0.9]}
+    ]},
+    {"name": "S10 HUD RADAR 360°", "at": 62.58, "layers": [{"id": 511418, "trim": [0.9, 2.3], "gain": 0.28, "pan": -0.3}]},
+    {"name": "S10 ATGM lao vào", "at": 63.9, "layers": [
+      {"id": 698696, "hp": 80, "trim": [0.3, 3.5], "align": "start", "gain": 0.35, "fi": 0.4, "fo": 0.3, "pan": [0.8, 0.2], "pitch": [-1, 2]}
+    ]},
+    {"name": "S10 APS bắn đánh chặn", "at": 66.3, "duck": 5, "layers": [
+      {"id": 441373, "gain": 0.75, "pan": -0.1},
+      {"id": 448002, "trim": [0.0, 2.0], "gain": 0.5, "fo": 0.8, "pan": -0.1}
+    ]},
+    {"name": "S10 NỔ ĐÁNH CHẶN", "at": 67.18, "duck": 7, "layers": [
+      {"id": 523089, "gain": 0.9, "pan": 0.35},
+      {"id": 264031, "trim": [0.0, 4.0], "gain": 0.75, "fo": 1.5, "pan": 0.35},
+      {"id": 671306, "trim": [0.0, 3.0], "gain": 0.5, "fo": 1.5}
+    ]}
+  ]
+}
