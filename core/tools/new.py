@@ -164,7 +164,9 @@ def main():
     put(pdir / 'plan/STORY.md', fill(template(skill, 'STORY.md', STORY), title=pid, chapters=chapters, progress=progress, duration=duration or '?'))
     synth = {'synth': {'pad': 2.0, 'root': 38, 'hits': [], 'bass': [[2.0, duration, 0.6]], 'hats': [duration, duration],
                        'riser': [duration - 0.1, duration]}} if duration else None
-    put_json(pdir / 'plan/mix.json', {'volume': {'voice': 1.0, 'music': 0.4, 'sfx': 0.5}, 'music': [synth] if synth else []})
+    # bộ trộn v2 (core/tools/audio.py); nhạc tổng hợp chỉ giữ chỗ tới khi agent âm thanh chọn nhạc thật (skills/sound-design)
+    put_json(pdir / 'plan/mix.json', {'version': 2, 'source': 'epidemic', 'volume': {'music': 1.0, 'sfx': 1.0}, 'music': [dict(synth, gain=0.6)] if synth else [],
+                                      'options': {'word_dodge': True, 'beat_snap': True}, 'trim': {'music': 0, 'sfx': 0}})
     put(pdir / '.gitignore', '.build/\nout/\ninput/\n')
 
     print(f'projects/{pid}/  {width}x{height} {fps}fps  skill {skill or "—"}  '

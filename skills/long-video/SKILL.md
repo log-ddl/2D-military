@@ -20,7 +20,7 @@ từng chương) giao subagent. Mọi trạng thái nằm trong file nên bị n
 
 ```
 plan/STORY.md                 Agent chính (template STORY.md của skill chính)
-plan/mix.json                 Agent chính (nhạc, mức music / sfx cho cả phim)
+plan/mix.json                 agent nhạc (skills/sound-design): nhạc cả phim, tiếng nền, "version": 2
 plan/chapters/CNN.json        khung {"id","title","from","to","scenes":[],"sfx":[]} do Agent chính; "scenes" do planner chương NN
 plan/chapters/CNN.voice.md    SINH bởi asr.py --chapters: câu + mốc MỌI từ của đúng chương
 plan/chapters/CNN.md          planner chương NN (template CHAPTER.md)
@@ -30,7 +30,7 @@ src/cues/index.ts             SINH TỰ ĐỘNG gộp src/cues/*.ts — cấm s�
 src/parts/…                   base dùng chung (Agent chính + subagent mô hình), khoá trước khi chia chương
 src/parts/CNN_<Tên>.tsx       biến thể 2D / 3D riêng chương NN (planner chương NN), 3D kiểm bằng --part
 src/scenes/CNNSxx.tsx         mỗi file một cảnh, id dạng C03S05 (chương 03, cảnh 05)
-plan/sfx/CNNSxx.json          {"sfx":[...]} của cảnh đó, do subagent dựng cảnh viết; audio.py gộp
+plan/sfx/CNN.json             {"sfx":[...]} SFX của chương NN, do agent SFX (skills/sound-design) viết; audio.py gộp
 ```
 
 Lệnh thêm:
@@ -56,7 +56,7 @@ hiện một khung giữ chỗ.
    chữ ký `props` đủ rộng cho các biến thể chương sẽ cần: hư hỏng, cháy, ngụy trang, cấu hình đạn/giáp, phụ kiện), quy ước tên,
    bảng chương có trạng thái đầu/cuối, bảng theo dõi.
 6. Viết khung `plan/chapters/CNN.json` cho mọi chương (`"scenes": []`; `new.py` đã tạo `C01` phủ cả voice: sửa `to` của nó), chạy `asr.py <id> --chapters`.
-7. `plan/mix.json` cho cả phim. `src/design/` (bảng màu / ánh sáng). Xoá `src/cues/C01.ts` mẫu nếu chưa dùng,
+7. `src/design/` (bảng màu / ánh sáng). `plan/mix.json` để agent nhạc viết (mục 4). Xoá `src/cues/C01.ts` mẫu nếu chưa dùng,
    tạo `src/cues/film.ts` nếu cần mốc chung.
 8. Gửi người dùng lập luận + bảng chương + bảng base, **dừng chờ duyệt** (trừ khi họ đã bảo làm luôn).
 
@@ -90,13 +90,18 @@ Xong, Agent chính **đọc mọi `CNN.md`** (bảng phân cảnh + đề xuất
 - đề xuất base: chấp nhận thì bổ sung base (props / mô hình mới, kiểm lại `--part`), ghi vào STORY.md mục 7; báo planner chỉnh lại nếu cần.
 `python3 core/tools/build.py <id>` sạch lỗi (mọi cảnh hiện giữ chỗ). Cập nhật Plan / Duyệt; gửi người dùng theo đợt nếu họ muốn duyệt.
 
+**Âm thanh chạy nền ngay sau khi plan chương khoá** (`skills/sound-design/SKILL.md` mục 4, công thức `skills/<skill>/SOUND.md`):
+1 agent nhạc cho cả phim (`plan/mix.json`: một bài mỗi phần lớn, cùng họ giọng, chỗ đổi bài ở ranh giới chương có khoảng im / cú hit)
++ 1–3 agent SFX, mỗi agent một nhóm chương (chỉ ghi `plan/sfx/CNN.json` của chương mình). Kèm nguyên văn yêu cầu âm thanh của người dùng.
+Không chờ chúng; dựng cảnh (mục 5) chạy song song.
+
 ## 5. Dựng cảnh (dây chuyền cuốn chiếu)
 
 Như Bước B của skill chính, gom toàn bộ nhóm cảnh của mọi chương (đã chốt hết ở mục 4) thành hàng đợi theo thứ tự `C01 → CNN`, rồi chạy **dây chuyền cuốn chiếu giữ ~6 subagent hoạt động liên tục** (khớp 4 luồng Chrome render + luồng viết code):
 - **Không chia đợt cứng chờ thợ chậm nhất:** hễ **1 subagent bất kỳ báo xong**, lập tức giao ngay nhóm cảnh kế tiếp trong hàng đợi (vượt qua ranh giới chương bình thường vì plan/CUE mọi chương đã khoá ở mục 4).
 - Prompt mỗi subagent dựng BẮT BUỘC có, ngoài 5 điểm của Bước B:
   - Đọc thêm `plan/STORY.md` mục 2–4, `plan/chapters/CNN.md`, `plan/chapters/CNN.voice.md`, `src/cues/CNN.ts`, `src/parts/CNN_*`.
-  - File được tạo/sửa: `src/scenes/CNNSxx.tsx` và `plan/sfx/CNNSxx.json` của nhóm mình (1–2 tiếng mỗi cảnh, `at` lấy từ CUE).
+  - File được tạo/sửa: chỉ `src/scenes/CNNSxx.tsx` của nhóm mình (SFX do agent âm thanh làm). Báo lại mốc giây các sự kiện lớn nếu khác CUE.
   - Cần thêm mốc → báo lại, không sửa `cues/CNN.ts` (planner chương đã xong việc; Agent chính thêm khoá `cNN_…`).
 
 Cập nhật cột Dựng ngay khi một chương đủ cảnh (và có thể mở kiểm cuốn chiếu cho chương đó luôn, xem mục 6).
@@ -104,7 +109,7 @@ Cập nhật cột Dựng ngay khi một chương đủ cảnh (và có thể m�
 ## 6. Kiểm (cuốn chiếu theo chương, Agent chính kiểm chỗ nối)
 
 1. Kiểm hình theo chương không phụ thuộc `audio.py` (`--chapter` và `--seams` tự cắt lát đúng các cảnh trong khoảng kiểm và tắt giải mã `voice.mp3`): ngay khi một chương `CNN` vừa dựng đủ cảnh, chạy `python3 core/tools/build.py <id>` rồi giao ngay 1 subagent kiểm chương đó (`check.py <id> --chapter CNN`) song song trong lúc các chương sau vẫn đang dựng. Mỗi subagent kiểm xem ảnh, đối chiếu `CNN.md` và chuẩn chất lượng của skill chính; báo cảnh hỏng kèm lý do. Không sửa code.
-2. Khi toàn bộ cảnh đã dựng xong (đủ `plan/sfx/*.json`): chạy `.venv/bin/python core/tools/audio.py <id>` → `python3 core/tools/build.py <id> --strict` sạch lỗi.
+2. Khi toàn bộ cảnh đã dựng xong và các agent âm thanh đã báo xong: sửa `at` trong `plan/sfx/CNN.json` theo mốc subagent dựng cảnh báo khác CUE (nếu có) → `.venv/bin/python core/tools/audio.py <id>` (đọc `.build/sound_report.txt`) → `python3 core/tools/build.py <id> --strict` sạch lỗi.
 3. Agent chính: `check.py <id> --seams`, xem mọi `out/checks/seams/*.png` (gom toàn bộ chỗ nối trong 1 lần chụp cắt lát: liền mạch, không giật màu / ánh sáng vô lý, trạng thái khớp).
 4. Cảnh hỏng → giao lại subagent dựng cảnh đó kèm ghi chú. **Khi sửa lỗi hình ảnh thuần `.tsx` mà không đổi `plan/mix.json` hay `plan/sfx/*.json` (`"sfx"`), KHÔNG chạy lại `audio.py`** — chỉ chạy `python3 core/tools/build.py <id> --strict` rồi chụp lại đúng `--chapter CNN` / `--seams` bị ảnh hưởng. Cập nhật cột Kiểm.
 5. Báo người dùng: đã dựng gì, lỗi còn lại theo chương. Xuất `render.py <id>` chỉ khi được yêu cầu (video dài render nhiều giờ, chạy nền).

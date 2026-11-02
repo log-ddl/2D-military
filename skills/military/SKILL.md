@@ -25,7 +25,8 @@ projects/<id>/
 
 **Độc lập tuyệt đối:** không đọc, không chép, không tham khảo code của dự án khác trong `projects/`. Chỉ dùng lại qua
 `core/kit`, `skills/military/lib` và `library/`. Muốn biết API thì đọc `CATALOG.md` và tài liệu Remotion (`remotion/docs/`) / three.js.
-Không tải mô hình 3D hay hình ảnh từ ngoài: mô hình tự dựng; ảnh/nhạc/sfx thật chỉ lấy từ tài sản người dùng bỏ vào (`assets/`, `library/`).
+Không tải mô hình 3D hay hình ảnh từ ngoài: mô hình tự dựng; ảnh thật chỉ lấy từ tài sản người dùng bỏ vào (`assets/`, `library/`).
+Nhạc / SFX: theo `skills/sound-design/SKILL.md` — kho `library/` rồi Freesound CC0 / Mixkit qua `core/tools/sound_lib.py` (agent chỉ ghi vào `library/*/dl/`).
 
 ## 2. Lệnh (chạy từ gốc repo; lệnh nào cũng chỉ đụng projects/<id>)
 
@@ -37,7 +38,7 @@ Không tải mô hình 3D hay hình ảnh từ ngoài: mô hình tự dựng; �
 | Ráp + kiểm kiểu | `python3 core/tools/build.py <id> [--strict]` | `.build/` từ `plan/chapters/`; cảnh lỗi → khung giữ chỗ + in lỗi |
 | Kiểm mô hình | `python3 core/tools/check.py <id> --part M109,T72` | `out/checks/parts/<Tên>.png` (4 góc, chụp gộp 1 phiên; tự kiểm `tsc` cô lập, không cần `build.py`; `--part all` chụp hết) |
 | Kiểm cảnh | `python3 core/tools/check.py <id> --scene C01S03,C01S07` | `out/checks/scenes/C01S03.png` (6 khung, rộng 960; `tsc` incremental cô lập, tự bỏ qua cảnh chưa đổi code; thêm `--force` để ép chụp lại) |
-| Âm thanh | `.venv/bin/python core/tools/audio.py <id>` | `.build/public/{voice.mp3,music.wav,sfx.wav}` |
+| Âm thanh | `python3 core/tools/sound_lib.py search "…"` · `.venv/bin/python core/tools/sound_lib.py get fs:ID` · `.venv/bin/python core/tools/audio.py <id>` | kho `library/`; `.build/public/{voice.mp3,music.wav,sfx.wav,master.json}` + `.build/sound_report.txt` (agent âm thanh, mục 7) |
 | Sheet cả video | `python3 core/tools/check.py <id>` | `out/checks/sheet.png` |
 | Xem / xuất | `python3 core/tools/render.py <id> --studio` · `python3 core/tools/render.py <id> [--no-music] [--no-sfx]` | Studio port riêng (bảng Props: music, sfx) · `out/video.mp4` (chỉ khi được yêu cầu) |
 
@@ -59,6 +60,7 @@ Video ngắn là một chương `C01` (`new.py` đã tạo `plan/chapters/C01.js
 3. Viết mảng `scenes` trong `plan/chapters/C01.json`: `{"id":"C01S01","from":0,"to":26.2,"type":"code","transition":"fade"}`
    — cảnh liền mạch (`from` = `to` cảnh trước, phủ đúng chương), `transition` của cảnh k là cú chuyển VÀO cảnh k: `fade` (mặc định), `slide:from-right`, `wipe:from-left`, `flip:from-top`, `clockWipe`.
 4. Viết `src/cues/C01.ts` (`export const CUE = {...} as const`: mọi mốc sự kiện đặt tên theo cảnh `c01_s03_fire`) và bảng màu/ánh sáng dùng chung `src/design/` (chỉ màu và ánh sáng; chữ dùng `<Label>`, xem mục 7).
+5. **Gọi ngay 1 subagent âm thanh chạy nền** (prompt theo `skills/sound-design/SKILL.md` mục 4, kèm nguyên văn yêu cầu âm thanh của người dùng nếu có và **nguồn: Epidemic (mặc định) hay free** nếu người dùng chọn; đọc thêm `skills/military/SOUND.md`). Nó viết `plan/mix.json` + `plan/sfx/C01.json` và tự trộn, song song với A2/B; không chờ nó.
 
 ### Bước A2 — Subagent dựng mô hình 3D song song, Agent chính vẽ hình 2D dùng chung (khoá xong mới sang Bước B)
 - **Không gối Bước B khi chưa khoá xong Bước A2** (để đồng bộ tuyệt đối tỉ lệ/chi tiết giữa 2D và 3D, không đụng `src/parts/`).
@@ -78,7 +80,7 @@ Video ngắn là một chương `C01` (`new.py` đã tạo `plan/chapters/C01.js
 - Tool chạy song song an toàn: `check.py` lần chính xác cây `import` / khoá `CUE` / asset của từng cảnh và mô hình (sửa 1 part hay chạy `build.py` không làm mất cache của cảnh không liên quan), giữ cache `tsc` incremental riêng trong `.build/check/`, hạ `--scale` khớp đúng kích thước ô kiểm hình và điều tiết tối đa 4 tiến trình Chrome render đồng thời.
 
 ### Bước C — Agent chính ráp & kiểm
-Ghi `"sfx"` vào `C01.json` theo mốc subagent báo → `audio.py` → `build.py --strict` (phải sạch lỗi) → `check.py <id>` → tự xem sheet, sửa hoặc giao lại cảnh hỏng. *(Khi sửa lỗi hình ảnh thuần `.tsx` ở vòng kiểm mà không đổi `plan/mix.json` hay `"sfx"`, không chạy lại `audio.py` — chỉ chạy `build.py --strict` rồi `check.py`).*
+Mốc sự kiện subagent dựng cảnh báo khác mốc trong `plan/sfx/C01.json` → sửa `at` (hoặc báo agent âm thanh nếu nó còn chạy) → `audio.py` (đọc `.build/sound_report.txt`, mục ⚠) → `build.py --strict` (phải sạch lỗi) → `check.py <id>` → tự xem sheet, sửa hoặc giao lại cảnh hỏng. *(Khi sửa lỗi hình ảnh thuần `.tsx` ở vòng kiểm mà không đổi mốc, `plan/mix.json` hay `plan/sfx/`, không chạy lại `audio.py` — chỉ chạy `build.py --strict` rồi `check.py`).*
 
 ## 4. Tư duy đạo diễn
 - Mỗi cảnh thuần 2D hoặc thuần 3D (cảnh 3D chỉ được đè `<Label>` HTML). Xen kẽ theo nội dung: sơ đồ, mặt cắt, bản đồ,
@@ -106,7 +108,8 @@ Ghi `"sfx"` vào `C01.json` theo mốc subagent báo → `audio.py` → `build.p
 
 ## 7. Chữ & âm thanh
 - Chữ: mặc định không. Chỉ `<Label>` (`@skill/military/label`) cho số hoặc tên riêng voice đang đọc khi hình không tự nói được; tối đa 1 nhãn trên màn hình. Không tự viết component chữ / nhãn khác, không đổi kiểu `Label`.
-- `"sfx"` trong `plan/chapters/C01.json`: 1–2 tiếng mỗi cảnh, đúng sự kiện vật lý lớn nhất, `at` lấy đúng giây trong code (CUE). Dạng tổng hợp
-  `{"at":3.7,"synth":"cannon"}` (cannon mg burst rocket boom whoosh tick chime thud whir prop) hoặc file `{"at":3.7,"asset":"a050","volume":0.9}`.
-- `plan/mix.json`: nhạc `{"synth": {pad, root, hits, bass, hats, riser}}` và/hoặc tài sản `{"asset":"a040","from":0,"volume":0.4}`; `volume.music`, `volume.sfx` là mức chung.
-- Ưu tiên dùng media người dùng đã đưa vào (`assets/`, `library/`).
+- Âm thanh do **agent âm thanh** làm (Bước A1 ý 5) theo `skills/sound-design/SKILL.md` + công thức quân sự `skills/military/SOUND.md`:
+  một bài nhạc thật dựng theo kịch bản, SFX nhiều lớp ở các mốc lớn, tiếng nền, tự kiểm lời rõ / đúng mốc / loa điện thoại.
+  Ghi `plan/mix.json` (`"version": 2`) và `plan/sfx/C01.json`; `"sfx"` trong `plan/chapters/C01.json` để trống. Giọng đọc giữ nguyên bản.
+- **Yêu cầu âm thanh của người dùng đứng trên mọi mặc định** (chép nguyên văn vào prompt agent âm thanh và `"_user"` trong mix.json).
+- Ưu tiên dùng media người dùng đã đưa vào (`assets/`, `library/`). Nhạc / SFX tổng hợp (`synth`) chỉ là đường lùi khi không có mạng.

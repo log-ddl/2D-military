@@ -1,0 +1,1776 @@
+{
+ "es:11208793-8676-418e-b0ef-43c63aa206b7": {
+  "source": "epidemic",
+  "id": "11208793-8676-418e-b0ef-43c63aa206b7",
+  "title": "Bullets, Ricochet, Metal, Big, Slow",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Bullets-Ricochet-Metal-Big-Slow_11208793.wav",
+  "queries": [],
+  "dur": 1.87,
+  "peak": 0.4,
+  "segs": [
+   [
+    0.03,
+    1.22
+   ]
+  ],
+  "low": 36,
+  "max_db": -6.2
+ },
+ "es:16141f3c-b916-4982-a563-acb934277344": {
+  "source": "epidemic",
+  "id": "16141f3c-b916-4982-a563-acb934277344",
+  "title": "Vehicles, Military, WW2, Tank, Matilda Mark II 1939, Approach, Pass By, Close",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Vehicles-Military-WW2-Tank-Matilda-Mark-_16141f3c.wav",
+  "queries": [],
+  "dur": 54.71,
+  "peak": 25.84,
+  "segs": [
+   [
+    8.54,
+    8.78
+   ],
+   [
+    9.11,
+    37.04
+   ],
+   [
+    37.48,
+    37.68
+   ],
+   [
+    38.06,
+    38.26
+   ]
+  ],
+  "low": 41,
+  "max_db": -0.0
+ },
+ "es:1b216648-ab2e-4c96-81ea-7a18252126ba": {
+  "source": "epidemic",
+  "id": "1b216648-ab2e-4c96-81ea-7a18252126ba",
+  "title": "Explosions, Real, Heavy, Large, Outdoors, Echo 03",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Explosions-Real-Heavy-Large-Outdoors-Ech_1b216648.wav",
+  "queries": [],
+  "dur": 5.82,
+  "peak": 0.07,
+  "segs": [
+   [
+    0.06,
+    0.5
+   ]
+  ],
+  "low": 77,
+  "max_db": -6.8
+ },
+ "es:3949e823-1d2c-43ac-a963-9566976f6f99": {
+  "source": "epidemic",
+  "id": "3949e823-1d2c-43ac-a963-9566976f6f99",
+  "title": "Rocket Launcher, Fire, Shoot, Hiss, No Explosion 04",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Rocket-Launcher-Fire-Shoot-Hiss-No-Explo_3949e823.wav",
+  "queries": [],
+  "dur": 9.75,
+  "peak": 0.2,
+  "segs": [
+   [
+    0.03,
+    5.76
+   ]
+  ],
+  "low": 15,
+  "max_db": -8.7
+ },
+ "es:63839014-e1e4-4822-8b33-5ec889b5b92b": {
+  "source": "epidemic",
+  "id": "63839014-e1e4-4822-8b33-5ec889b5b92b",
+  "title": "Metal, Friction, Container, Massive, Creaking, Growling, Stress, Resonating",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Metal-Friction-Container-Massive-Creakin_63839014.wav",
+  "queries": [],
+  "dur": 14.3,
+  "peak": 12.22,
+  "segs": [
+   [
+    0.0,
+    13.75
+   ]
+  ],
+  "low": 14,
+  "max_db": -8.2
+ },
+ "es:9f496626-bdaf-4aa4-95b0-5db57d204fcb": {
+  "source": "epidemic",
+  "id": "9f496626-bdaf-4aa4-95b0-5db57d204fcb",
+  "title": "UI, Alert, Notification, Confirm, Locked In",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/UI-Alert-Notification-Confirm-Locked-In_9f496626.wav",
+  "queries": [],
+  "dur": 1.26,
+  "peak": 0.07,
+  "segs": [
+   [
+    0.0,
+    0.24
+   ]
+  ],
+  "low": 0,
+  "max_db": -13.2
+ },
+ "es:a55cc627-0171-4995-8a1d-03bab0826b30": {
+  "source": "epidemic",
+  "id": "a55cc627-0171-4995-8a1d-03bab0826b30",
+  "title": "UI, Data, Tactical Tracking Console, Targeting, Calculating",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/UI-Data-Tactical-Tracking-Console-Target_a55cc627.wav",
+  "queries": [],
+  "dur": 27.93,
+  "peak": 12.12,
+  "segs": [
+   [
+    0.01,
+    27.84
+   ]
+  ],
+  "low": 0,
+  "max_db": -4.9
+ },
+ "es:b28ad95a-bc03-4aa6-95f1-1f2d6355ee04": {
+  "source": "epidemic",
+  "id": "b28ad95a-bc03-4aa6-95f1-1f2d6355ee04",
+  "title": "Guns, Artillery, Missile, Fly By, Huge Missile",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Artillery-Missile-Fly-By-Huge-Missi_b28ad95a.wav",
+  "queries": [],
+  "dur": 7.33,
+  "peak": 2.55,
+  "segs": [
+   [
+    1.04,
+    5.03
+   ]
+  ],
+  "low": 13,
+  "max_db": 2.4
+ },
+ "es:c0ec4fde-6148-45b3-90a5-e415eadf94c2": {
+  "source": "epidemic",
+  "id": "c0ec4fde-6148-45b3-90a5-e415eadf94c2",
+  "title": "Explosions, Real, Large, Multiple Transients, Outdoors, Echo, Close 02",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Explosions-Real-Large-Multiple-Transient_c0ec4fde.wav",
+  "queries": [],
+  "dur": 5.82,
+  "peak": 0.11,
+  "segs": [
+   [
+    0.1,
+    0.58
+   ]
+  ],
+  "low": 72,
+  "max_db": -4.8
+ },
+ "es:c1186870-acf2-46c5-b07d-6980533319a9": {
+  "source": "epidemic",
+  "id": "c1186870-acf2-46c5-b07d-6980533319a9",
+  "title": "Wind, Moderate, Constant Tone, Desolate, Cold, Antartica 01",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Wind-Moderate-Constant-Tone-Desolate-Col_c1186870.wav",
+  "queries": [],
+  "dur": 81.22,
+  "peak": 56.09,
+  "segs": [
+   [
+    0.03,
+    81.32
+   ]
+  ],
+  "low": 34,
+  "max_db": -17.3
+ },
+ "es:c62201fb-be8d-4eab-957a-c8a1ef2788bd": {
+  "source": "epidemic",
+  "id": "c62201fb-be8d-4eab-957a-c8a1ef2788bd",
+  "title": "Ambience, Warfare, Battlefield, Modern, Distant, Low Intensity 01",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Ambience-Warfare-Battlefield-Modern-Dist_c62201fb.wav",
+  "queries": [],
+  "dur": 127.79,
+  "peak": 11.92,
+  "segs": [
+   [
+    0.05,
+    47.94
+   ],
+   [
+    48.67,
+    79.46
+   ],
+   [
+    79.84,
+    117.72
+   ],
+   [
+    118.52,
+    118.65
+   ],
+   [
+    118.94,
+    121.54
+   ]
+  ],
+  "low": 98,
+  "max_db": -0.2
+ },
+ "es:c6df5552-92d7-46cc-a378-6b015e0706fb": {
+  "source": "epidemic",
+  "id": "c6df5552-92d7-46cc-a378-6b015e0706fb",
+  "title": "Guns, Cannon, Grenade Launcher, Thump, Single Shots",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Cannon-Grenade-Launcher-Thump-Singl_c6df5552.wav",
+  "queries": [],
+  "dur": 13.41,
+  "peak": 0.04,
+  "segs": [
+   [
+    0.0,
+    1.68
+   ],
+   [
+    2.41,
+    2.48
+   ],
+   [
+    3.9,
+    4.62
+   ],
+   [
+    7.42,
+    8.1
+   ],
+   [
+    10.43,
+    11.27
+   ],
+   [
+    11.6,
+    11.86
+   ]
+  ],
+  "low": 33,
+  "max_db": -7.9
+ },
+ "es:dcec8499-a1da-43b9-ab1a-31dd9b6a57ee": {
+  "source": "epidemic",
+  "id": "dcec8499-a1da-43b9-ab1a-31dd9b6a57ee",
+  "title": "Vehicles, Military, Tank, T-72, Cannon Shot, Mechanical, Close 05",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Vehicles-Military-Tank-T-72-Cannon-Shot-_dcec8499.wav",
+  "queries": [
+   "tank cannon"
+  ],
+  "dur": 10.13,
+  "peak": 0.51,
+  "segs": [
+   [
+    0.01,
+    3.67
+   ],
+   [
+    3.93,
+    4.2
+   ]
+  ],
+  "low": 74,
+  "max_db": 2.8,
+  "notes": "pháo T-72 bắn cận, thu thật, có tiếng cơ cấu; đỉnh 0.51, đuôi tới 3.7, tiếng máy 3.9–4.2"
+ },
+ "es:e46aca33-20d9-4acf-b7dc-d916b968591c": {
+  "source": "epidemic",
+  "id": "e46aca33-20d9-4acf-b7dc-d916b968591c",
+  "title": "Vehicles, Military, Tank, BMP 1, 37, Exterior, Normal Movement, Stop, Tracks",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Vehicles-Military-Tank-BMP-1-37-Exterior_e46aca33.wav",
+  "queries": [],
+  "dur": 44.67,
+  "peak": 23.55,
+  "segs": [
+   [
+    0.11,
+    41.79
+   ]
+  ],
+  "low": 19,
+  "max_db": -8.8
+ },
+ "es:fdf323ac-2956-4175-81cc-d7da618674e8": {
+  "source": "epidemic",
+  "id": "fdf323ac-2956-4175-81cc-d7da618674e8",
+  "title": "Mechanical, Hydraulic, Industrial Machine, Robot Arm, Single Movement",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Mechanical-Hydraulic-Industrial-Machine-_fdf323ac.wav",
+  "queries": [],
+  "dur": 1.39,
+  "peak": 0.91,
+  "segs": [
+   [
+    0.01,
+    1.36
+   ]
+  ],
+  "low": 62,
+  "max_db": -10.6
+ },
+ "fs:165394": {
+  "source": "freesound",
+  "id": "165394",
+  "title": "Heavy Machine Gun",
+  "author": "ShawnyBoy",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/165394/",
+  "url": "https://cdn.freesound.org/previews/165/165394_2989529-hq.mp3",
+  "downloads": 21276,
+  "rating": 4.3,
+  "votes": 125,
+  "desc": "Heavy machine gun burst.",
+  "file": "library/sfx/dl/fs_165394_Heavy-Machine-Gun.mp3",
+  "queries": [],
+  "dur": 3.08,
+  "peak": 0.27,
+  "segs": [
+   [
+    0.0,
+    2.29
+   ]
+  ],
+  "low": 54,
+  "max_db": 4.7
+ },
+ "fs:177556": {
+  "source": "freesound",
+  "id": "177556",
+  "title": "massive explosion",
+  "author": "Hugofski",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/177556/",
+  "url": "https://cdn.freesound.org/previews/177/177556_1423336-hq.mp3",
+  "file": "library/sfx/dl/fs_177556_massive-explosion.mp3",
+  "queries": [],
+  "dur": 18.0,
+  "peak": 7.78,
+  "segs": [
+   [
+    5.37,
+    5.56
+   ],
+   [
+    7.56,
+    12.55
+   ]
+  ],
+  "low": 87,
+  "max_db": 3.3,
+  "notes": "nổ rất lớn: cú nổ ở 7.6, đuôi tới ~15; trước 7.4 là rền nhỏ"
+ },
+ "fs:211683": {
+  "source": "freesound",
+  "id": "211683",
+  "title": "control_room.wav",
+  "author": "Diboz",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/211683/",
+  "url": "https://cdn.freesound.org/previews/211/211683_3930831-hq.mp3",
+  "file": "library/sfx/dl/fs_211683_control_room-wav.mp3",
+  "queries": [],
+  "dur": 64.62,
+  "peak": 22.39,
+  "segs": [
+   [
+    0.0,
+    64.76
+   ]
+  ],
+  "low": 90,
+  "max_db": -6.1,
+  "notes": "ù phòng điều khiển (nền phòng kỹ thuật)"
+ },
+ "fs:221528": {
+  "source": "freesound",
+  "id": "221528",
+  "title": "Glass Break",
+  "author": "unfa",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/221528/",
+  "url": "https://cdn.freesound.org/previews/221/221528_1038806-hq.mp3",
+  "downloads": 34468,
+  "rating": 4.5,
+  "votes": 236,
+  "file": "library/sfx/dl/fs_221528_Glass-Break.mp3",
+  "queries": [],
+  "dur": 1.91,
+  "peak": 0.34,
+  "segs": [
+   [
+    0.33,
+    0.71
+   ]
+  ],
+  "low": 19,
+  "max_db": 3.2
+ },
+ "fs:234782": {
+  "source": "freesound",
+  "id": "234782",
+  "title": "Steam/hiss",
+  "author": "wubitog",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/234782/",
+  "url": "https://cdn.freesound.org/previews/234/234782_3501487-hq.mp3",
+  "file": "library/sfx/dl/fs_234782_Steam-hiss.mp3",
+  "queries": [],
+  "dur": 1.47,
+  "peak": 0.63,
+  "segs": [
+   [
+    0.07,
+    1.35
+   ]
+  ],
+  "low": 0,
+  "max_db": 1.8,
+  "notes": "xì hơi / áp suất ngắn"
+ },
+ "fs:249298": {
+  "source": "freesound",
+  "id": "249298",
+  "title": "rpg launcher three shots wav",
+  "author": "",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/249298/",
+  "url": "",
+  "file": "library/sfx/dl/fs_249298_rpg-launcher-three-shots-wav.mp3",
+  "queries": [],
+  "dur": 11.35,
+  "peak": 7.9,
+  "segs": [
+   [
+    0.1,
+    2.24
+   ],
+   [
+    3.96,
+    6.18
+   ],
+   [
+    7.89,
+    9.87
+   ]
+  ],
+  "low": 7,
+  "max_db": 2.3,
+  "notes": "ống phóng RPG ngoài trời: 3 phát (0.1, 4.0, 7.8), mỗi phát ~2.4 s"
+ },
+ "fs:255111": {
+  "source": "freesound",
+  "id": "255111",
+  "title": "Cinematic_Boom_Rhapsodize.wav",
+  "author": "rhapsodize",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/255111/",
+  "url": "https://cdn.freesound.org/previews/255/255111_2472317-hq.mp3",
+  "file": "library/sfx/dl/fs_255111_Cinematic_Boom_Rhapsodize-wav.mp3",
+  "queries": [],
+  "dur": 7.73,
+  "peak": 0.29,
+  "segs": [
+   [
+    0.0,
+    3.38
+   ]
+  ],
+  "low": 97,
+  "max_db": 1.3,
+  "notes": "boom điện ảnh trầm, đuôi dài"
+ },
+ "fs:257877": {
+  "source": "freesound",
+  "id": "257877",
+  "title": "Short Wave Radio Noise 4",
+  "author": "zmobie",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/257877/",
+  "url": "https://cdn.freesound.org/previews/257/257877_3262745-hq.mp3",
+  "downloads": 1110,
+  "rating": 4.9,
+  "votes": 25,
+  "desc": "Noisy morse code sounds recorded from shortwave radio static through the University of Twente wideba",
+  "file": "library/sfx/dl/fs_257877_Short-Wave-Radio-Noise-4.mp3",
+  "queries": [],
+  "dur": 29.87,
+  "peak": 6.22,
+  "segs": [
+   [
+    0.0,
+    29.93
+   ]
+  ],
+  "low": 0,
+  "max_db": -2.9
+ },
+ "fs:264031": {
+  "source": "freesound",
+  "id": "264031",
+  "title": "low mid afar explosion 1 wav",
+  "author": "",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/264031/",
+  "url": "",
+  "file": "library/sfx/dl/fs_264031_low-mid-afar-explosion-1-wav.mp3",
+  "queries": [],
+  "dur": 7.21,
+  "peak": 0.05,
+  "segs": [
+   [
+    0.0,
+    3.15
+   ]
+  ],
+  "low": 6,
+  "max_db": 1.3,
+  "notes": "nổ xa tầm trung, đuôi dài"
+ },
+ "fs:320788": {
+  "source": "freesound",
+  "id": "320788",
+  "title": "distant explosions",
+  "author": "Kostrava",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/320788/",
+  "url": "https://cdn.freesound.org/previews/320/320788_1134415-hq.mp3",
+  "downloads": 5781,
+  "rating": 4.8,
+  "votes": 77,
+  "desc": "distant explosions coming in and fade out",
+  "file": "library/sfx/dl/fs_320788_distant-explosions.mp3",
+  "queries": [
+   "distant explosions"
+  ],
+  "dur": 64.0,
+  "peak": 30.64,
+  "segs": [
+   [
+    3.31,
+    4.25
+   ],
+   [
+    6.03,
+    10.09
+   ],
+   [
+    11.65,
+    13.0
+   ],
+   [
+    14.6,
+    19.41
+   ],
+   [
+    19.69,
+    19.75
+   ],
+   [
+    20.08,
+    20.32
+   ],
+   [
+    21.21,
+    41.41
+   ],
+   [
+    42.13,
+    48.68
+   ],
+   [
+    51.43,
+    53.3
+   ],
+   [
+    53.74,
+    56.18
+   ],
+   [
+    56.57,
+    61.25
+   ]
+  ],
+  "low": 92,
+  "max_db": 1.5,
+  "notes": "nổ xa lẻ tẻ (nền giao tranh), dễ rối"
+ },
+ "fs:329800": {
+  "source": "freesound",
+  "id": "329800",
+  "title": "t26_moving_01.wav",
+  "author": "greatmganga",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/329800/",
+  "url": "https://cdn.freesound.org/previews/329/329800_1204841-hq.mp3",
+  "file": "library/sfx/dl/fs_329800_t26_moving_01-wav.mp3",
+  "queries": [],
+  "dur": 14.36,
+  "peak": 4.33,
+  "segs": [
+   [
+    0.0,
+    14.38
+   ]
+  ],
+  "low": 51,
+  "max_db": 2.8,
+  "notes": "xe xích lăn (T-26), nền chạy dài: đoạn 7.2–11.6 đều; dùng norm rms"
+ },
+ "fs:353907": {
+  "source": "freesound",
+  "id": "353907",
+  "title": "Shovel_dirt.wav",
+  "author": "dr19",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/353907/",
+  "url": "https://cdn.freesound.org/previews/353/353907_5984825-hq.mp3",
+  "downloads": 2336,
+  "rating": 4.9,
+  "votes": 34,
+  "file": "library/sfx/dl/fs_353907_Shovel_dirt-wav.mp3",
+  "queries": [
+   "flag flapping shovel dirt"
+  ],
+  "dur": 9.05,
+  "peak": 6.99,
+  "segs": [
+   [
+    0.02,
+    1.71
+   ],
+   [
+    3.07,
+    4.34
+   ],
+   [
+    4.98,
+    5.15
+   ],
+   [
+    5.41,
+    5.66
+   ],
+   [
+    6.97,
+    7.05
+   ],
+   [
+    7.33,
+    7.63
+   ],
+   [
+    7.89,
+    8.14
+   ],
+   [
+    8.42,
+    8.6
+   ],
+   [
+    8.88,
+    8.94
+   ]
+  ],
+  "low": 90,
+  "max_db": 1.3
+ },
+ "fs:366091": {
+  "source": "freesound",
+  "id": "366091",
+  "title": "Huge Explosion Part 1 - Shockwave",
+  "author": "bevibeldesign",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/366091/",
+  "url": "https://cdn.freesound.org/previews/366/366091_4557960-hq.mp3",
+  "downloads": 5416,
+  "rating": 4.9,
+  "votes": 85,
+  "file": "library/sfx/dl/fs_366091_Huge-Explosion-Part-1-Shockwave.mp3",
+  "queries": [
+   "explosion"
+  ],
+  "dur": 2.86,
+  "peak": 2.57,
+  "segs": [
+   [
+    0.1,
+    2.74
+   ]
+  ],
+  "low": 81,
+  "max_db": 3.0
+ },
+ "fs:383903": {
+  "source": "freesound",
+  "id": "383903",
+  "title": "Reverse Crash Cymbal Projection",
+  "author": "deleted_user_7146007",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/383903/",
+  "url": "https://cdn.freesound.org/previews/383/383903_7146007-hq.mp3",
+  "file": "library/sfx/dl/fs_383903_Reverse-Crash-Cymbal-Projection.mp3",
+  "queries": [],
+  "dur": 8.92,
+  "peak": 8.44,
+  "segs": [
+   [
+    5.58,
+    8.63
+   ]
+  ],
+  "low": 1,
+  "max_db": 3.2,
+  "notes": "reverse crash cymbal: phần dâng 5.6–8.6 (dẫn vào cú lớn, align end)"
+ },
+ "fs:39071": {
+  "source": "freesound",
+  "id": "39071",
+  "title": "heavy.burst.wav",
+  "author": "alienbomb",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/39071/",
+  "url": "https://cdn.freesound.org/previews/39/39071_8842-hq.mp3",
+  "downloads": 15083,
+  "rating": 4.3,
+  "votes": 242,
+  "desc": "Stereo wav 44k/16 - sampling done using MPC2000XL from several projects edited and cut in wavelab, p",
+  "file": "library/sfx/dl/fs_39071_heavy-burst-wav.mp3",
+  "queries": [],
+  "dur": 0.92,
+  "peak": 0.13,
+  "segs": [
+   [
+    0.0,
+    0.73
+   ]
+  ],
+  "low": 42,
+  "max_db": 0.8
+ },
+ "fs:406197": {
+  "source": "freesound",
+  "id": "406197",
+  "title": "door metal big heavy close kinda slam thud echo offmic.wav",
+  "author": "kyles",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/406197/",
+  "url": "https://cdn.freesound.org/previews/406/406197_612689-hq.mp3",
+  "file": "library/sfx/dl/fs_406197_door-metal-big-heavy-close-kinda-slam-th.mp3",
+  "queries": [],
+  "dur": 2.96,
+  "peak": 0.34,
+  "segs": [
+   [
+    0.09,
+    1.85
+   ]
+  ],
+  "low": 36,
+  "max_db": -2.0,
+  "notes": "cửa thép nặng đóng sập, có vang"
+ },
+ "fs:412171": {
+  "source": "freesound",
+  "id": "412171",
+  "title": "Air Raid Siren Alarm",
+  "author": "Poligonstudio",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/412171/",
+  "url": "https://cdn.freesound.org/previews/412/412171_7383104-hq.mp3",
+  "downloads": 17301,
+  "rating": 4.6,
+  "votes": 203,
+  "desc": "High quality Air Raid Siren Sound FX. You can donate me here: https://www.paypal.com/cgi-bin/webscr?",
+  "file": "library/sfx/dl/fs_412171_Air-Raid-Siren-Alarm.mp3",
+  "queries": [],
+  "dur": 122.45,
+  "peak": 41.26,
+  "segs": [
+   [
+    0.05,
+    111.06
+   ],
+   [
+    111.44,
+    111.61
+   ]
+  ],
+  "low": 2,
+  "max_db": -4.0
+ },
+ "fs:428073": {
+  "source": "freesound",
+  "id": "428073",
+  "title": "Sub Drop Smooth.wav",
+  "author": "newagesoup",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/428073/",
+  "url": "https://cdn.freesound.org/previews/428/428073_4067257-hq.mp3",
+  "file": "library/sfx/dl/fs_428073_Sub-Drop-Smooth-wav.mp3",
+  "queries": [],
+  "dur": 3.76,
+  "peak": 0.6,
+  "segs": [
+   [
+    0.05,
+    3.58
+   ]
+  ],
+  "low": 100,
+  "max_db": 1.1,
+  "notes": "sub drop mượt, chỉ trầm"
+ },
+ "fs:431206": {
+  "source": "freesound",
+  "id": "431206",
+  "title": "Airplane Flyby",
+  "author": "oscaraudiogeek",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/431206/",
+  "url": "https://cdn.freesound.org/previews/431/431206_5117035-hq.mp3",
+  "downloads": 2973,
+  "rating": 4.6,
+  "votes": 43,
+  "file": "library/sfx/dl/fs_431206_Airplane-Flyby.mp3",
+  "queries": [],
+  "dur": 15.85,
+  "peak": 6.03,
+  "segs": [
+   [
+    0.35,
+    15.38
+   ]
+  ],
+  "low": 11,
+  "max_db": -0.3
+ },
+ "fs:440164": {
+  "source": "freesound",
+  "id": "440164",
+  "title": "Double Prop plane",
+  "author": "Mozfoo",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/440164/",
+  "url": "https://cdn.freesound.org/previews/440/440164_8708205-hq.mp3",
+  "downloads": 1441,
+  "rating": 4.9,
+  "votes": 36,
+  "desc": "Double propeller airplane flying through the air. Can be looped.",
+  "file": "library/sfx/dl/fs_440164_Double-Prop-plane.mp3",
+  "queries": [],
+  "dur": 159.98,
+  "peak": 54.72,
+  "segs": [
+   [
+    0.0,
+    160.34
+   ]
+  ],
+  "low": 72,
+  "max_db": 2.9
+ },
+ "fs:441373": {
+  "source": "freesound",
+  "id": "441373",
+  "title": "Heavy Artillery Shot",
+  "author": "",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/441373/",
+  "url": "",
+  "file": "library/sfx/dl/fs_441373_Heavy-Artillery-Shot.mp3",
+  "queries": [],
+  "dur": 0.51,
+  "peak": 0.0,
+  "segs": [
+   [
+    0.0,
+    0.41
+   ]
+  ],
+  "low": 25,
+  "max_db": -2.7,
+  "notes": "cú pháo / va nặng rất ngắn, đầu sắc"
+ },
+ "fs:447809": {
+  "source": "freesound",
+  "id": "447809",
+  "title": "Light Rain and Thunder.wav",
+  "author": "florianreichelt",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/447809/",
+  "url": "https://cdn.freesound.org/previews/447/447809_6253486-hq.mp3",
+  "downloads": 1248,
+  "rating": 4.8,
+  "votes": 26,
+  "file": "library/sfx/dl/fs_447809_Light-Rain-and-Thunder-wav.mp3",
+  "queries": [],
+  "dur": 63.48,
+  "peak": 5.68,
+  "segs": [
+   [
+    0.0,
+    63.62
+   ]
+  ],
+  "low": 43,
+  "max_db": -10.8
+ },
+ "fs:448002": {
+  "source": "freesound",
+  "id": "448002",
+  "title": "cannon mp3",
+  "author": "",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/448002/",
+  "url": "",
+  "file": "library/sfx/dl/fs_448002_cannon-mp3.mp3",
+  "queries": [],
+  "dur": 5.36,
+  "peak": 0.31,
+  "segs": [
+   [
+    0.02,
+    2.51
+   ]
+  ],
+  "low": 34,
+  "max_db": 3.3,
+  "notes": "pháo bắn (mô phỏng), đuôi ~3 s"
+ },
+ "fs:457013": {
+  "source": "freesound",
+  "id": "457013",
+  "title": "Propeller.wav",
+  "author": "DylanTheFish",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/457013/",
+  "url": "https://cdn.freesound.org/previews/457/457013_7482766-hq.mp3",
+  "downloads": 2686,
+  "rating": 4.8,
+  "votes": 46,
+  "file": "library/sfx/dl/fs_457013_Propeller-wav.mp3",
+  "queries": [],
+  "dur": 22.73,
+  "peak": 14.32,
+  "segs": [
+   [
+    0.0,
+    22.78
+   ]
+  ],
+  "low": 77,
+  "max_db": -1.3
+ },
+ "fs:45933": {
+  "source": "freesound",
+  "id": "45933",
+  "title": "air_raid.R.wav",
+  "author": "torn.rugged.audio.35",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/45933/",
+  "url": "https://cdn.freesound.org/previews/45/45933_279089-hq.mp3",
+  "downloads": 6807,
+  "rating": 4.1,
+  "votes": 81,
+  "desc": "the classic air raid siren with a little delay on it.",
+  "file": "library/sfx/dl/fs_45933_air_raid-R-wav.mp3",
+  "queries": [],
+  "dur": 7.03,
+  "peak": 0.28,
+  "segs": [
+   [
+    0.26,
+    6.13
+   ]
+  ],
+  "low": 0,
+  "max_db": -9.7
+ },
+ "fs:459981": {
+  "source": "freesound",
+  "id": "459981",
+  "title": "Strong Wind",
+  "author": "florianreichelt",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/459981/",
+  "url": "https://cdn.freesound.org/previews/459/459981_6253486-hq.mp3",
+  "downloads": 9535,
+  "rating": 4.7,
+  "votes": 161,
+  "file": "library/sfx/dl/fs_459981_Strong-Wind.mp3",
+  "queries": [],
+  "dur": 43.53,
+  "peak": 28.23,
+  "segs": [
+   [
+    3.38,
+    4.74
+   ],
+   [
+    9.06,
+    10.26
+   ],
+   [
+    14.52,
+    16.5
+   ],
+   [
+    20.55,
+    21.96
+   ],
+   [
+    27.49,
+    29.09
+   ],
+   [
+    32.86,
+    34.66
+   ],
+   [
+    39.99,
+    41.62
+   ]
+  ],
+  "low": 10,
+  "max_db": 2.8
+ },
+ "fs:511418": {
+  "source": "freesound",
+  "id": "511418",
+  "title": "Data Reveal Sound",
+  "author": "Sky_Motion",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/511418/",
+  "url": "https://cdn.freesound.org/previews/511/511418_7935195-hq.mp3",
+  "file": "library/sfx/dl/fs_511418_Data-Reveal-Sound.mp3",
+  "queries": [],
+  "dur": 2.31,
+  "peak": 1.09,
+  "segs": [
+   [
+    0.11,
+    2.27
+   ]
+  ],
+  "low": 0,
+  "max_db": -18.9,
+  "notes": "UI hiện dữ liệu; đoạn 0.9–2.3"
+ },
+ "fs:521377": {
+  "source": "freesound",
+  "id": "521377",
+  "title": "Rocket Launch",
+  "author": "",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/521377/",
+  "url": "",
+  "file": "library/sfx/dl/fs_521377_Rocket-Launch.mp3",
+  "queries": [],
+  "dur": 1.41,
+  "peak": 0.1,
+  "segs": [
+   [
+    0.0,
+    0.96
+   ]
+  ],
+  "low": 52,
+  "max_db": -4.4,
+  "notes": "phóng rocket nhỏ, ngắn"
+ },
+ "fs:523089": {
+  "source": "freesound",
+  "id": "523089",
+  "title": "Explosion 1",
+  "author": "magnuswaker",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/523089/",
+  "url": "https://cdn.freesound.org/previews/523/523089_11537497-hq.mp3",
+  "file": "library/sfx/dl/fs_523089_Explosion-1.mp3",
+  "queries": [],
+  "dur": 1.24,
+  "peak": 0.18,
+  "segs": [
+   [
+    0.0,
+    1.2
+   ]
+  ],
+  "low": 82,
+  "max_db": 0.4,
+  "notes": "nổ ngắn gọn 1.2 s"
+ },
+ "fs:531862": {
+  "source": "freesound",
+  "id": "531862",
+  "title": "Seismic Slam",
+  "author": "magnuswaker",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/531862/",
+  "url": "https://cdn.freesound.org/previews/531/531862_11537497-hq.mp3",
+  "file": "library/sfx/dl/fs_531862_Seismic-Slam.mp3",
+  "queries": [],
+  "dur": 3.81,
+  "peak": 0.32,
+  "segs": [
+   [
+    0.0,
+    1.3
+   ]
+  ],
+  "low": 85,
+  "max_db": 3.2,
+  "notes": "cú dằn / va nặng xuống đất, nhiều trầm"
+ },
+ "fs:560510": {
+  "source": "freesound",
+  "id": "560510",
+  "title": "Explosion_Debris_Short_Stereo.wav",
+  "author": "Nox_Sound",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/560510/",
+  "url": "https://cdn.freesound.org/previews/560/560510_9250976-hq.mp3",
+  "file": "library/sfx/dl/fs_560510_Explosion_Debris_Short_Stereo-wav.mp3",
+  "queries": [],
+  "dur": 13.5,
+  "peak": 3.05,
+  "segs": [
+   [
+    0.01,
+    1.37
+   ],
+   [
+    3.02,
+    5.78
+   ],
+   [
+    8.03,
+    10.79
+   ]
+  ],
+  "low": 73,
+  "max_db": 0.8,
+  "notes": "gói nổ + mảnh vụn: 3 cụm 0–1.4, 3.0–5.8, 8.0–10.8"
+ },
+ "fs:562198": {
+  "source": "freesound",
+  "id": "562198",
+  "title": "snd_metal_smash.wav",
+  "author": "gristi",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/562198/",
+  "url": "https://cdn.freesound.org/previews/562/562198_12618935-hq.mp3",
+  "file": "library/sfx/dl/fs_562198_snd_metal_smash-wav.mp3",
+  "queries": [],
+  "dur": 1.67,
+  "peak": 0.07,
+  "segs": [
+   [
+    0.01,
+    1.15
+   ]
+  ],
+  "low": 4,
+  "max_db": 3.2,
+  "notes": "kim loại đập vỡ, sáng, ngắn"
+ },
+ "fs:563765": {
+  "source": "freesound",
+  "id": "563765",
+  "title": "Fire Auto - car on fire",
+  "author": "florianreichelt",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/563765/",
+  "url": "https://cdn.freesound.org/previews/563/563765_6253486-hq.mp3",
+  "file": "library/sfx/dl/fs_563765_Fire-Auto-car-on-fire.mp3",
+  "queries": [],
+  "dur": 18.13,
+  "peak": 8.54,
+  "segs": [
+   [
+    0.01,
+    18.14
+   ]
+  ],
+  "low": 81,
+  "max_db": -2.8,
+  "notes": "xe cháy, lửa liên tục; nền chạy dài"
+ },
+ "fs:620099": {
+  "source": "freesound",
+  "id": "620099",
+  "title": "Field ambience 01.wav",
+  "author": "szelestamas",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/620099/",
+  "url": "https://cdn.freesound.org/previews/620/620099_13130621-hq.mp3",
+  "file": "library/sfx/dl/fs_620099_Field-ambience-01-wav.mp3",
+  "queries": [],
+  "dur": 114.48,
+  "peak": 25.88,
+  "segs": [
+   [
+    0.02,
+    114.18
+   ]
+  ],
+  "low": 90,
+  "max_db": -23.2,
+  "notes": "gió đồng trống, cỏ khô (nền ngoài trời)"
+ },
+ "fs:640204": {
+  "source": "freesound",
+  "id": "640204",
+  "title": "Heavy Metal Thud on Ground",
+  "author": "",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/640204/",
+  "url": "",
+  "file": "library/sfx/dl/fs_640204_Heavy-Metal-Thud-on-Ground.mp3",
+  "queries": [],
+  "dur": 0.75,
+  "peak": 0.2,
+  "segs": [
+   [
+    0.18,
+    0.51
+   ]
+  ],
+  "low": 86,
+  "max_db": 2.4,
+  "notes": "vật kim loại nặng rơi xuống đất, ngắn"
+ },
+ "fs:647712": {
+  "source": "freesound",
+  "id": "647712",
+  "title": "Braam",
+  "author": "unfa",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/647712/",
+  "url": "https://cdn.freesound.org/previews/647/647712_1038806-hq.mp3",
+  "file": "library/sfx/dl/fs_647712_Braam.mp3",
+  "queries": [],
+  "dur": 10.0,
+  "peak": 0.55,
+  "segs": [
+   [
+    0.01,
+    3.31
+   ]
+  ],
+  "low": 83,
+  "max_db": 1.7,
+  "notes": "braam điện ảnh (bước ngoặt lớn)"
+ },
+ "fs:648614": {
+  "source": "freesound",
+  "id": "648614",
+  "title": "Cinematic Woosh SFX-009.wav",
+  "author": "AudioPapkin",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/648614/",
+  "url": "https://cdn.freesound.org/previews/648/648614_8698658-hq.mp3",
+  "file": "library/sfx/dl/fs_648614_Cinematic-Woosh-SFX-009-wav.mp3",
+  "queries": [],
+  "dur": 4.46,
+  "peak": 1.85,
+  "segs": [
+   [
+    0.86,
+    3.59
+   ]
+  ],
+  "low": 86,
+  "max_db": 2.0,
+  "notes": "whoosh điện ảnh có trầm; hp 80"
+ },
+ "fs:671306": {
+  "source": "freesound",
+  "id": "671306",
+  "title": "Cinematic Hit Bass (title)",
+  "author": "xkeril",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/671306/",
+  "url": "https://cdn.freesound.org/previews/671/671306_13504080-hq.mp3",
+  "file": "library/sfx/dl/fs_671306_Cinematic-Hit-Bass-title.mp3",
+  "queries": [],
+  "dur": 7.5,
+  "peak": 0.08,
+  "segs": [
+   [
+    0.0,
+    3.82
+   ]
+  ],
+  "low": 92,
+  "max_db": -3.9,
+  "notes": "hit trầm điện ảnh có vang (lớp sub cho cú lớn); 0–2.5 đủ"
+ },
+ "fs:677833": {
+  "source": "freesound",
+  "id": "677833",
+  "title": "Tiny Hawk 2 short flight.wav",
+  "author": "Sadiquecat",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/677833/",
+  "url": "https://cdn.freesound.org/previews/677/677833_5287430-hq.mp3",
+  "file": "library/sfx/dl/fs_677833_Tiny-Hawk-2-short-flight-wav.mp3",
+  "queries": [],
+  "dur": 45.24,
+  "peak": 10.03,
+  "segs": [
+   [
+    0.0,
+    45.24
+   ]
+  ],
+  "low": 4,
+  "max_db": -1.8,
+  "notes": "FPV drone nhỏ (Tiny Hawk) bay thật; đoạn 8–13 dày nhất"
+ },
+ "fs:698696": {
+  "source": "freesound",
+  "id": "698696",
+  "title": "Comet, Asteroid or Rocket",
+  "author": "IENBA",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/698696/",
+  "url": "https://cdn.freesound.org/previews/698/698696_9616576-hq.mp3",
+  "file": "library/sfx/dl/fs_698696_Comet-Asteroid-or-Rocket.mp3",
+  "queries": [],
+  "dur": 14.0,
+  "peak": 2.21,
+  "segs": [
+   [
+    0.27,
+    12.51
+   ]
+  ],
+  "low": 45,
+  "max_db": -2.8,
+  "notes": "vật bay qua / bay xa (sao chổi, tên lửa), thân đều 1–11 s; nhiều trầm → hp 80"
+ },
+ "fs:701104": {
+  "source": "freesound",
+  "id": "701104",
+  "title": "Whoosh stereo light (transition)",
+  "author": "xkeril",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/701104/",
+  "url": "https://cdn.freesound.org/previews/701/701104_13504080-hq.mp3",
+  "file": "library/sfx/dl/fs_701104_Whoosh-stereo-light-transition.mp3",
+  "queries": [],
+  "dur": 2.32,
+  "peak": 0.5,
+  "segs": [
+   [
+    0.29,
+    0.73
+   ]
+  ],
+  "low": 0,
+  "max_db": -3.6,
+  "notes": "whoosh stereo nhẹ (chuyển cảnh)"
+ },
+ "fs:701647": {
+  "source": "freesound",
+  "id": "701647",
+  "title": "Fabric Flapping",
+  "author": "IENBA",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/701647/",
+  "url": "https://cdn.freesound.org/previews/701/701647_9616576-hq.mp3",
+  "downloads": 5257,
+  "rating": 4.8,
+  "votes": 112,
+  "file": "library/sfx/dl/fs_701647_Fabric-Flapping.mp3",
+  "queries": [
+   "flag flapping shovel dirt"
+  ],
+  "dur": 13.75,
+  "peak": 10.0,
+  "segs": [
+   [
+    0.14,
+    13.02
+   ]
+  ],
+  "low": 2,
+  "max_db": -5.8
+ },
+ "fs:730959": {
+  "source": "freesound",
+  "id": "730959",
+  "title": "Heavy Whoosh",
+  "author": "",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/730959/",
+  "url": "",
+  "file": "library/sfx/dl/fs_730959_Heavy-Whoosh.mp3",
+  "queries": [],
+  "dur": 26.58,
+  "peak": 18.06,
+  "segs": [
+   [
+    1.15,
+    2.6
+   ],
+   [
+    6.88,
+    7.96
+   ],
+   [
+    12.23,
+    14.24
+   ],
+   [
+    17.42,
+    19.61
+   ]
+  ],
+  "low": 3,
+  "max_db": -0.6,
+  "notes": "gói whoosh nặng: 4 cú ở 0.8–4.6, 6.8–10, 11.8–16, 17–22 (đỉnh 1.4, 7.0, 12.7, 18.0); nhiều trầm → hp 80"
+ },
+ "fs:859535": {
+  "source": "freesound",
+  "id": "859535",
+  "title": "Alien Bio Scan - Scanner UI SFX - Short",
+  "author": "TommasoMotteran",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/859535/",
+  "url": "https://cdn.freesound.org/previews/859/859535_18681946-hq.mp3",
+  "file": "library/sfx/dl/fs_859535_Alien-Bio-Scan-Scanner-UI-SFX-Short.mp3",
+  "queries": [],
+  "dur": 3.0,
+  "peak": 2.08,
+  "segs": [
+   [
+    0.0,
+    2.31
+   ]
+  ],
+  "low": 11,
+  "max_db": -14.0,
+  "notes": "tiếng quét UI sci-fi (thay radar khi cần nhấn)"
+ },
+ "mk:1194": {
+  "source": "mixkit",
+  "id": "1194",
+  "title": "Rough sea waves loop",
+  "author": "Mixkit",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/ocean/",
+  "url": "https://assets.mixkit.co/active_storage/sfx/1194/1194-preview.mp3",
+  "tags": [
+   "waves",
+   "sea",
+   "ocean"
+  ],
+  "file": "library/sfx/dl/mk_1194_Rough-sea-waves-loop.mp3",
+  "queries": [],
+  "dur": 70.84,
+  "peak": 9.62,
+  "segs": [
+   [
+    0.0,
+    70.99
+   ]
+  ],
+  "low": 11,
+  "max_db": 1.3
+ },
+ "mk:1200": {
+  "source": "mixkit",
+  "id": "1200",
+  "title": "Windy sea loop",
+  "author": "Mixkit",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/ocean/",
+  "url": "https://assets.mixkit.co/active_storage/sfx/1200/1200-preview.mp3",
+  "tags": [
+   "wind",
+   "sea",
+   "ocean"
+  ],
+  "file": "library/sfx/dl/mk_1200_Windy-sea-loop.mp3",
+  "queries": [],
+  "dur": 30.39,
+  "peak": 21.65,
+  "segs": [
+   [
+    0.0,
+    30.46
+   ]
+  ],
+  "low": 30,
+  "max_db": 0.4
+ },
+ "mk:1248": {
+  "source": "mixkit",
+  "id": "1248",
+  "title": "Heavy rain on car glass interior",
+  "author": "Mixkit",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/glass/",
+  "url": "https://assets.mixkit.co/active_storage/sfx/1248/1248-preview.mp3",
+  "tags": [
+   "rain",
+   "car",
+   "glass"
+  ],
+  "file": "library/sfx/dl/mk_1248_Heavy-rain-on-car-glass-interior.mp3",
+  "queries": [],
+  "dur": 39.63,
+  "peak": 18.53,
+  "segs": [
+   [
+    0.0,
+    39.72
+   ]
+  ],
+  "low": 10,
+  "max_db": 1.3
+ },
+ "mk:1923": {
+  "source": "mixkit",
+  "id": "1923",
+  "title": "Hard shovel stab",
+  "author": "Mixkit",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/shovel/",
+  "url": "https://assets.mixkit.co/active_storage/sfx/1923/1923-preview.mp3",
+  "tags": [
+   "garden",
+   "tools"
+  ],
+  "file": "library/sfx/dl/mk_1923_Hard-shovel-stab.mp3",
+  "queries": [
+   "flag flapping shovel dirt"
+  ],
+  "dur": 0.44,
+  "peak": 0.12,
+  "segs": [
+   [
+    0.1,
+    0.34
+   ]
+  ],
+  "low": 4,
+  "max_db": -5.1
+ },
+ "mk:2390": {
+  "source": "mixkit",
+  "id": "2390",
+  "title": "Rain and thunder storm",
+  "author": "Mixkit",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/rain/",
+  "url": "https://assets.mixkit.co/active_storage/sfx/2390/2390-preview.mp3",
+  "tags": [
+   "storm",
+   "rain",
+   "nature",
+   "thunder"
+  ],
+  "file": "library/sfx/dl/mk_2390_Rain-and-thunder-storm.mp3",
+  "queries": [],
+  "dur": 29.0,
+  "peak": 1.95,
+  "segs": [
+   [
+    0.9,
+    17.14
+   ],
+   [
+    17.42,
+    17.72
+   ],
+   [
+    18.02,
+    18.42
+   ],
+   [
+    18.67,
+    19.24
+   ],
+   [
+    19.58,
+    19.83
+   ]
+  ],
+  "low": 52,
+  "max_db": 1.5
+ },
+ "mk:2782": {
+  "source": "mixkit",
+  "id": "2782",
+  "title": "Epic impact afar explosion",
+  "author": "Mixkit",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/explosion/",
+  "url": "https://assets.mixkit.co/active_storage/sfx/2782/2782-preview.mp3",
+  "tags": [
+   "battle",
+   "gun",
+   "impact",
+   "explosion",
+   "war",
+   "warfare"
+  ],
+  "file": "library/sfx/dl/mk_2782_Epic-impact-afar-explosion.mp3",
+  "queries": [
+   "explosion"
+  ],
+  "dur": 4.53,
+  "peak": 0.39,
+  "segs": [
+   [
+    0.0,
+    3.09
+   ]
+  ],
+  "low": 48,
+  "max_db": 3.2
+ },
+ "mk:759": {
+  "source": "mixkit",
+  "id": "759",
+  "title": "Glass break with hammer thud",
+  "author": "Mixkit",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/glass/",
+  "url": "https://assets.mixkit.co/active_storage/sfx/759/759-preview.mp3",
+  "tags": [
+   "thud",
+   "falling",
+   "break",
+   "glass"
+  ],
+  "file": "library/sfx/dl/mk_759_Glass-break-with-hammer-thud.mp3",
+  "queries": [],
+  "dur": 1.44,
+  "peak": 0.02,
+  "segs": [
+   [
+    0.01,
+    0.46
+   ]
+  ],
+  "low": 54,
+  "max_db": 4.6
+ },
+ "mk:990": {
+  "source": "mixkit",
+  "id": "990",
+  "title": "Vintage warning alarm",
+  "author": "Mixkit",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/alarm/",
+  "url": "https://assets.mixkit.co/active_storage/sfx/990/990-preview.mp3",
+  "tags": [
+   "alarm"
+  ],
+  "file": "library/sfx/dl/mk_990_Vintage-warning-alarm.mp3",
+  "queries": [],
+  "dur": 8.0,
+  "peak": 1.4,
+  "segs": [
+   [
+    0.0,
+    0.51
+   ],
+   [
+    1.0,
+    1.51
+   ],
+   [
+    2.0,
+    2.51
+   ],
+   [
+    3.01,
+    3.51
+   ],
+   [
+    4.01,
+    4.52
+   ],
+   [
+    5.01,
+    5.52
+   ],
+   [
+    6.01,
+    6.52
+   ],
+   [
+    7.01,
+    7.52
+   ]
+  ],
+  "low": 6,
+  "max_db": 2.6
+ }
+}

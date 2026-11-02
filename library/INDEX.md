@@ -1,6 +1,6 @@
 # Thư viện media dùng chung
 
-Bạn bỏ file vào đây; agent chỉ đọc. Dự án dùng bằng đường dẫn tương đối, ví dụ:
+Bạn bỏ file vào đây; agent chỉ đọc. Ngoại lệ: `sfx/dl/`, `music/dl/` và `sfx/INDEX.json`, `music/INDEX.json` do `core/tools/sound_lib.py` ghi (tải từ Freesound CC0 / Mixkit, kèm nguồn và license). Dự án dùng bằng đường dẫn tương đối, ví dụ:
 - cảnh: `media('images/m109_side.jpg')`
 - `audio/sound.json`: `{"t": 3.7, "src": "sfx/cannon_01.wav"}`
 - `audio/music.json`: `{"tracks": [{"src": "music/tense_01.mp3", "at": 0, "vol": 0.4, "duck": 0.5}]}`

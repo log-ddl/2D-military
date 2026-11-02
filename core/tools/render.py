@@ -39,8 +39,12 @@ def mix_audio(pdir, video, out, props, vol, seconds):
     if props['sfx'] and vol['sfx']:
         tracks.append((pub / 'sfx.wav', vol['sfx']))
     inputs = [x for f, _ in tracks for x in ('-i', str(f))]
-    chains = ''.join(f'[{i + 1}:a]volume={v}[a{i}];' for i, (_, v) in enumerate(tracks))
-    mix = ''.join(f'[a{i}]' for i in range(len(tracks))) + f'amix=inputs={len(tracks)}:normalize=0:duration=longest[aout]'
+    master = pub / 'master.json'   # audio.py bản mới: track stereo + nén nhẹ + chuẩn -14 LUFS + limiter sau khi cộng
+    # voice mono → nhân đôi sang 2 kênh (để ffmpeg tự đổi thì mỗi kênh bị hạ 3 dB, lệch mức đã đo)
+    up = 'pan=stereo|c0=c0|c1=c0,' if master.exists() else ''
+    chains = ''.join(f'[{i + 1}:a]{up if i == 0 else ""}volume={v}[a{i}];' for i, (_, v) in enumerate(tracks))
+    mix = ''.join(f'[a{i}]' for i in range(len(tracks))) + f'amix=inputs={len(tracks)}:normalize=0:duration=longest'
+    mix += (f",{json.loads(master.read_text())['filter']}[aout]" if master.exists() else '[aout]')
     cmd = ['ffmpeg', '-y', '-v', 'error', '-i', str(video), *inputs, '-filter_complex', chains + mix,
            '-map', '0:v', '-map', '[aout]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '320k', '-t', f'{seconds:.3f}',
            '-movflags', '+faststart', str(out)]

@@ -32,7 +32,8 @@ Mỗi base có đủ `props` để chương phát triển tiếp (trạng thái,
 |---|---|---|---|---|---|---|
 
 ## 6. Âm nhạc
-- Nhạc nền cả phim (synth / tài sản), đổi không khí ở chương nào:
+- Yêu cầu âm thanh của người dùng (nguyên văn, đứng trên mọi mặc định):
+- Đường cảm xúc theo đoạn (hook / giải thích / cao trào / kết) → agent âm thanh dựng nhạc theo đó (`skills/sound-design/SKILL.md`):
 
 ## 7. Đề xuất bổ sung base từ các chương
 | Chương | Đề xuất | Quyết định |
