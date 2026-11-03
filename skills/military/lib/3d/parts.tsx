@@ -1,9 +1,10 @@
-// Bộ phận cơ khí dùng chung để dựng phương tiện: bánh xe, dải xích chạy được, đinh tán.
+// Bộ phận cơ khí & thước tỷ lệ dùng chung để dựng phương tiện: bánh xe, dải xích chạy được, đinh tán, thước đo phối cảnh 3D, người chuẩn tỷ lệ.
 // Đây là linh kiện, không phải mô hình hoàn chỉnh — mỗi video tự dựng phương tiện của mình từ các linh kiện này.
 import React, { useLayoutEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
-import { lathe, rbox } from './geom';
+import { lathe, loft, rbox } from './geom';
 import { plain } from './materials';
+import { FONT } from '../theme';
 
 /** Bánh xe nằm trong mặt X–Y (trục quay Z). `spin` = góc quay (rad) — truyền quãng đường / r để bánh lăn đúng. */
 export const Wheel: React.FC<{ r: number; width: number; spin?: number; tire?: string; rim?: string; bolts?: number; position?: [number, number, number] }> = ({
@@ -101,5 +102,202 @@ export const Rivets: React.FC<{ points: [number, number, number][]; r?: number; 
     <instancedMesh ref={ref} args={[undefined, plain(color, 0.5, 0.5), points.length]}>
       <sphereGeometry args={[r, 6, 4]} />
     </instancedMesh>
+  );
+};
+
+export type Measure3DProps = {
+  /** Điểm đầu mút trái [x, y, z] trong không gian 3D. */
+  from: [number, number, number];
+  /** Điểm đầu mút phải [x, y, z] trong không gian 3D. */
+  to: [number, number, number];
+  /** Số đo ngắn gọn (vd: '16.26 m / 53.3 ft'). */
+  text: string;
+  /** Màu thanh gióng & chữ (mặc định đỏ cam kỹ thuật '#f06858'). */
+  color?: string;
+  /** Vector hướng lên của chữ (mặc định [0, 1, 0]). */
+  up?: [number, number, number];
+  /** Chiều cao vạch chặn hai đầu (m). */
+  tickSize?: number;
+  /** Độ dày thanh kích thước (m). */
+  thickness?: number;
+  /** Chiều cao chữ trong không gian 3D (m). */
+  fontSize?: number;
+  /** Tiến trình mở thanh 0..1 (dùng với useSpring / prog). */
+  progress?: number;
+};
+
+/**
+ * Thước đo kích thước nằm trực tiếp trong phối cảnh 3D (`|——— 16.26 m ———|`),
+ * tự biến dạng phối cảnh cùng phương tiện và đọc xuôi chiều từ cả hai phía camera.
+ */
+export const Measure3D: React.FC<Measure3DProps> = ({
+  from,
+  to,
+  text,
+  color = '#f06858',
+  up = [0, 1, 0],
+  tickSize = 0.65,
+  thickness = 0.085,
+  fontSize = 0.82,
+  progress = 1,
+}) => {
+  const p = Math.max(0, Math.min(1, progress));
+
+  const basis = useMemo(() => {
+    const a = new THREE.Vector3(...from);
+    const b = new THREE.Vector3(...to);
+    const mid = a.clone().add(b).multiplyScalar(0.5);
+    const len = a.distanceTo(b);
+    if (len < 1e-4) return null;
+    const dir = b.clone().sub(a).divideScalar(len);
+    let u = new THREE.Vector3(...up).normalize();
+    if (Math.abs(dir.dot(u)) > 0.98) {
+      u = Math.abs(dir.z) < 0.9 ? new THREE.Vector3(0, 0, 1) : new THREE.Vector3(1, 0, 0);
+    }
+    const normal = new THREE.Vector3().crossVectors(dir, u).normalize();
+    const orthoUp = new THREE.Vector3().crossVectors(normal, dir).normalize();
+    const m = new THREE.Matrix4().makeBasis(dir, orthoUp, normal);
+    const quat = new THREE.Quaternion().setFromRotationMatrix(m);
+    return { mid, len, quat };
+  }, [from[0], from[1], from[2], to[0], to[1], to[2], up[0], up[1], up[2]]);
+
+  const labelTex = useMemo(() => {
+    const hPx = 240;
+    const c = document.createElement('canvas');
+    c.width = 1024;
+    c.height = hPx;
+    let ctx = c.getContext('2d')!;
+    const fontSpec = `700 136px ${FONT}`;
+    ctx.font = fontSpec;
+    const wPx = Math.max(256, Math.ceil(ctx.measureText(text).width + 96));
+    c.width = wPx;
+    c.height = hPx;
+    ctx = c.getContext('2d')!;
+    ctx.clearRect(0, 0, wPx, hPx);
+    ctx.font = fontSpec;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = color;
+    ctx.fillText(text, wPx / 2, hPx * 0.52);
+    const tex = new THREE.CanvasTexture(c);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = 8;
+    tex.needsUpdate = true;
+    return { tex, aspect: wPx / hPx };
+  }, [text, color]);
+
+  const barMat = useMemo(
+    () => new THREE.MeshBasicMaterial({ color, toneMapped: false }),
+    [color],
+  );
+
+  if (!basis || p <= 0.002) return null;
+
+  const span = basis.len * p;
+  const planeH = fontSize * 1.65;
+  const planeW = planeH * labelTex.aspect;
+  const textOpacity = Math.max(0, Math.min(1, (p - 0.22) / 0.55));
+  const textY = thickness * 0.5 + fontSize * 0.72;
+
+  return (
+    <group position={[basis.mid.x, basis.mid.y, basis.mid.z]} quaternion={basis.quat} userData={{ noShadow: true }}>
+      <mesh material={barMat}>
+        <boxGeometry args={[span, thickness, thickness * 0.65]} />
+      </mesh>
+      <mesh position={[-span / 2, 0, 0]} material={barMat}>
+        <boxGeometry args={[thickness * 1.15, tickSize, thickness * 0.65]} />
+      </mesh>
+      <mesh position={[span / 2, 0, 0]} material={barMat}>
+        <boxGeometry args={[thickness * 1.15, tickSize, thickness * 0.65]} />
+      </mesh>
+      {textOpacity > 0.005 && (
+        <group position={[0, textY, 0]}>
+          <mesh position={[0, 0, 0.002]}>
+            <planeGeometry args={[planeW, planeH]} />
+            <meshBasicMaterial
+              map={labelTex.tex}
+              transparent
+              opacity={textOpacity}
+              depthWrite={false}
+              toneMapped={false}
+              side={THREE.FrontSide}
+            />
+          </mesh>
+          <mesh position={[0, 0, -0.002]} rotation={[0, Math.PI, 0]}>
+            <planeGeometry args={[planeW, planeH]} />
+            <meshBasicMaterial
+              map={labelTex.tex}
+              transparent
+              opacity={textOpacity}
+              depthWrite={false}
+              toneMapped={false}
+              side={THREE.FrontSide}
+            />
+          </mesh>
+        </group>
+      )}
+    </group>
+  );
+};
+
+/** Hình người chuẩn tỷ lệ (mặc định cao 1.78 m) đặt cạnh khí tài để đối chiếu quy mô trực quan. */
+export const ScaleHuman: React.FC<{
+  position?: [number, number, number];
+  rotationY?: number;
+  height?: number;
+  color?: string;
+}> = ({ position = [0, 0, 0], rotationY = 0, height = 1.78, color = '#6eb4f0' }) => {
+  const s = height / 1.78;
+  const mat = useMemo(() => plain(color, 0.62, 0.05), [color]);
+  const torsoG = useMemo(() => {
+    const g = loft(
+      [
+        { x: 0.88, rz: 0.145, ry: 0.095, n: 2.4 },
+        { x: 1.08, rz: 0.135, ry: 0.09, n: 2.3 },
+        { x: 1.34, rz: 0.205, ry: 0.115, n: 2.5 },
+        { x: 1.44, rz: 0.18, ry: 0.1, n: 2.2 },
+      ],
+      { radialSeg: 20, subdiv: 2 },
+    ).clone();
+    g.rotateZ(Math.PI / 2);
+    return g;
+  }, []);
+
+  return (
+    <group position={position} rotation={[0, rotationY, 0]} scale={[s, s, s]}>
+      <mesh geometry={torsoG} material={mat} castShadow receiveShadow />
+      {/* Đầu & cổ */}
+      <mesh position={[0, 1.49, 0]} material={mat} castShadow>
+        <cylinderGeometry args={[0.052, 0.058, 0.09, 14]} />
+      </mesh>
+      <mesh position={[0, 1.64, 0]} scale={[0.92, 1.16, 0.98]} material={mat} castShadow>
+        <sphereGeometry args={[0.105, 18, 14]} />
+      </mesh>
+      {/* Hai chân */}
+      {[-1, 1].map((side) => (
+        <group key={side} position={[0, 0, side * 0.095]}>
+          <mesh position={[0, 0.67, 0]} rotation={[side * 0.02, 0, 0]} material={mat} castShadow>
+            <capsuleGeometry args={[0.068, 0.34, 6, 12]} />
+          </mesh>
+          <mesh position={[0, 0.26, 0]} material={mat} castShadow>
+            <capsuleGeometry args={[0.054, 0.34, 6, 12]} />
+          </mesh>
+          <mesh position={[0.04, 0.035, 0]} material={mat} castShadow>
+            <boxGeometry args={[0.22, 0.07, 0.095]} />
+          </mesh>
+        </group>
+      ))}
+      {/* Hai tay */}
+      {[-1, 1].map((side) => (
+        <group key={`arm${side}`} position={[0, 1.38, side * 0.225]} rotation={[side * 0.04, 0, side * -0.09]}>
+          <mesh position={[0, -0.15, 0]} material={mat} castShadow>
+            <capsuleGeometry args={[0.046, 0.23, 6, 10]} />
+          </mesh>
+          <mesh position={[0.015, -0.42, 0]} rotation={[0, 0, 0.06]} material={mat} castShadow>
+            <capsuleGeometry args={[0.038, 0.22, 6, 10]} />
+          </mesh>
+        </group>
+      ))}
+    </group>
   );
 };

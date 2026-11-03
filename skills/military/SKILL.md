@@ -90,14 +90,10 @@ Mốc sự kiện subagent dựng cảnh báo khác mốc trong `plan/sfx/C01.js
 - Màu, ánh sáng, nền theo thiết kế mỹ thuật của chính video (STORY.md), không theo một khuôn chung.
 
 ## 5. Chất lượng 3D (bắt buộc)
-- **Mô hình tự dựng, đủ chi tiết:** lấy kích thước thật (m) và biên dạng nhìn ngang/trên của phương tiện; dựng bằng
-  `extrude` (thân, tháp pháo theo biên dạng thật, không phải hộp trơn; đường cong mũi/vòm lấy đủ điểm mượt ≥16–20 điểm), `lathe` (nòng có hãm giật, đạn), `rbox`, `Wheel`, `Track`,
-  `Rivets`, `pipe`; thêm chi tiết nhận diện (nắp, kính tiềm vọng, thùng đồ, móc kéo, xích chạy). Mỗi mô hình có bộ phận
-  chuyển động tách riêng qua props (góc nâng nòng, xoay tháp, giật nòng, `travel`). Kiểm 4 góc bằng `--part` trước khi dùng.
-- **Vật liệu & tỉ lệ UV:** `paint()` có ngụy trang/mòn/bẩn cho thân; `plain()` cho cao su, kính, kim loại. Không dùng một màu phẳng cho cả xe. Lưu ý `extrude` / `extrudeTop` tính UV theo đơn vị mét thật (`1 m = 1 UV`, khác `lathe`/`rbox` là `0..1`) nên mảng thân lớn dựng bằng `extrude` đặt `repeat: 0.35–0.5` để vân sơn không bị đốm vụn.
-- **Bối cảnh:** `<Stage>` (bóng đổ, ánh sáng môi trường, hậu kỳ) chỉnh theo giờ trong ngày của cảnh; địa hình bằng
-  `heightField` + `add` riêng (đồi, đường, bãi phẳng chỗ đặt xe), `Scatter` cây/đá/bụi; không dùng mặt phẳng trơn hay khối cầu bóp làm đồi.
-- **Hiệu ứng & góc máy:** `Explosion`, `MuzzleBlast`, `DustTrail`, `Trail` — không dùng quả cầu trong suốt làm vụ nổ. Tránh đặt quỹ đạo `Cam` đi xuyên trùng dọc theo vector kéo dài của `<Trail>` đầu cánh/đạn để vệt khói không bị chiếu suy biến thành vạch thẳng đứng.
+- **Mô hình tự dựng đúng khối 3 chiều, đủ chi tiết:** lấy kích thước thật (m) của phương tiện; chọn đúng công cụ tạo khối theo hình học ngoài đời — dùng `loft` cho thân biến thiên mặt cắt (máy bay, tàu chiến, tàu ngầm, tháp pháo đúc, vỏ động cơ, mũi tên lửa), `sweep` + `airfoil` cho cánh/chân vịt/ống dẫn cong có thuôn và xoắn, `lathe` / `revolve` (tiện kín hoặc mở góc cắt giải phẫu) cho nòng/đạn/tuabin, `extrude` cho vách/khung phẳng sườn, kết hợp `shell`, `rbox`, `Wheel`, `Track`, `Rivets`, `pipe`. Không đùn cả thân khí động học thành khối gạch phẳng hai sườn. Mỗi mô hình tách bộ phận chuyển động qua props (góc nâng, xoay tháp, nghiêng động cơ, mở khoang, `travel`, chế độ mổ xẻ cơ khí). Kiểm 4 góc bằng `--part` trước khi dùng.
+- **Vật liệu & tỉ lệ UV khớp chủng loại:** chọn đúng chất liệu trong `materials.ts` theo khí tài của kịch bản — `armorPlate()` cho giáp thép đúc/cán lục quân, `panelPaint()` cho vỏ ghép tấm rãnh & đinh tán (không quân, hải quân, tên lửa, radar — không bôi ngụy trang loang lổ lên vỏ máy bay/tàu trừ khi kịch bản yêu cầu), `machined()` cho chi tiết cơ khí tiện/phay, `glass()` cho kính buồng lái/quang học, `ghost()` hoặc `clipMat()` + `clipPlane()` khi mổ xẻ cấu tạo bên trong, `paint()` / `plain()` cho các bề mặt còn lại. Không dùng một màu phẳng cho cả phương tiện; mảng `extrude` lớn đặt `repeat: 0.35–0.5`.
+- **Bối cảnh bám sát kịch bản (`STORY.md`):** `<Stage>` tự sinh phản chiếu môi trường theo `sky` + `sun`; chọn nền đúng nội dung cảnh: mặt đất tự nhiên dùng `heightField` + `Terrain` + `Scatter`; biển/sông dùng `Water` (có `wakes`); sân bay, đường nhựa, boong tàu hoặc không gian kỹ thuật/sa bàn sạch dùng `Surface` (`runway`/`asphalt`/`deck`/`studio`); đặt `<ContactShadow>` dưới phương tiện trên mặt đất/sàn để bám nền vững chãi.
+- **Hiệu ứng & góc máy:** dùng `Explosion`, `MuzzleBlast`, `JetPlume` (luồng phản lực/tên lửa), `RotorBlur` (cánh quạt/chân vịt quay nhanh), `SmokeColumn`, `DustTrail`, `Trail` — không dùng quả cầu trơn làm vụ nổ. Tránh đặt quỹ đạo `Cam` đi xuyên trùng dọc theo vector kéo dài của `<Trail>` đầu cánh/đạn để vệt khói không bị chiếu suy biến thành vạch thẳng đứng.
 - Cảnh 3D hiển thị sớm 0.2 s và chồng chuyển cảnh 0.4 s: khung đầu đã phải đầy đủ.
 
 ## 6. Chất lượng 2D
@@ -107,7 +103,7 @@ Mốc sự kiện subagent dựng cảnh báo khác mốc trong `plan/sfx/C01.js
 - Hiệu ứng `Blast2D`, `Muzzle2D`, `Puff2D`; quỹ đạo `arcPath` + `drawOn`.
 
 ## 7. Chữ & âm thanh
-- Chữ: mặc định không. Chỉ `<Label>` (`@skill/military/label`) cho số hoặc tên riêng voice đang đọc khi hình không tự nói được; tối đa 1 nhãn trên màn hình. Không tự viết component chữ / nhãn khác, không đổi kiểu `Label`.
+- Chữ: **mặc định không có chữ** (85–90% cảnh 3D để hình ảnh tự kể chuyện; cấm treo biển tiêu đề góc khung kiểu hộp UI). Chỉ khi thật sự cần nêu một kích thước hoặc định danh kỹ thuật ngắn (1–3 từ / con số) mà hình không tự nói được: dùng `<Measure3D>` (`@skill/military/3d/parts`) cho kích thước phối cảnh 3D, hoặc chữ không khung `<Label>` / đường gióng mảnh `<Callout>` (`@skill/military/label`). Cấm tự viết thẻ `<text>` SVG hay ép `fontFamily` / khung hộp tự chế trong cảnh.
 - Âm thanh do **agent âm thanh** làm (Bước A1 ý 5) theo `skills/sound-design/SKILL.md` + công thức quân sự `skills/military/SOUND.md`:
   một bài nhạc thật dựng theo kịch bản, SFX nhiều lớp ở các mốc lớn, tiếng nền, tự kiểm lời rõ / đúng mốc / loa điện thoại.
   Ghi `plan/mix.json` (`"version": 2`) và `plan/sfx/C01.json`; `"sfx"` trong `plan/chapters/C01.json` để trống. Giọng đọc giữ nguyên bản.

@@ -4,7 +4,10 @@
 import { loadFont } from '@remotion/google-fonts/SpaceGrotesk';
 import { mix } from '@core/time';
 
-export const { fontFamily: FONT } = loadFont('normal', { weights: ['500', '700'], subsets: ['latin'] });
+export const { fontFamily: FONT } = loadFont('normal', {
+  weights: ['500', '600', '700'],
+  subsets: ['latin', 'latin-ext', 'vietnamese'],
+});
 
 export const D = {
   // Viền & Bề mặt sáng

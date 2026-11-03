@@ -312,6 +312,19 @@ def shoot_ranges(pdir: Path, proj: dict, tl: dict, jobs: list, full: bool):
 
 # ---------------------------------------------------------------- cảnh cô lập
 
+def warn_scene_typography(pdir: Path, sids: list):
+    """Nhắc nhở khi cảnh tự viết thẻ <text> hoặc ép fontFamily riêng ngoài component nhãn chuẩn."""
+    for sid in sids:
+        src = pdir / 'src/scenes' / f'{sid}.tsx'
+        if not src.is_file():
+            continue
+        code = src.read_text()
+        raw_txt = len(re.findall(r'<text\b', code))
+        raw_font = len(re.findall(r'\bfontFamily\s*:', code))
+        if raw_txt or raw_font:
+            print(f'  ⚠ [chữ] {sid}.tsx: có {raw_txt} thẻ <text> / {raw_font} fontFamily tự viết — ưu tiên dùng component nhãn chuẩn của skill để đồng bộ chữ toàn kênh')
+
+
 def shoot_scenes(pdir: Path, proj: dict, want: list, n: int, cols: int, width: int, force: bool, full: bool):
     tl = timeline(pdir)
     by = {s['id']: s for s in tl['scenes']}
@@ -321,6 +334,7 @@ def shoot_scenes(pdir: Path, proj: dict, want: list, n: int, cols: int, width: i
         s = by[sid]
         if (s['type'] == 'code' or s.get('overlay')) and not (pdir / 'src/scenes' / f'{sid}.tsx').exists():
             sys.exit(f'chưa có file src/scenes/{sid}.tsx')
+    warn_scene_typography(pdir, want)
     sync_cues(pdir)
 
     fps, w, h = proj['fps'], proj['width'], proj['height']

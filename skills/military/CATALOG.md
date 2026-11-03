@@ -15,7 +15,7 @@ mô hình và bối cảnh (`src/parts/`) bằng các công cụ dưới đây. 
 | Import | Dùng cho |
 |---|---|
 | `theme`: `D`, `FONT`, `skyColors(h)` | Bảng màu mặc định, font, màu trời theo giờ |
-| `label`: `Label` | `t, text, x, y, from, until, size, bg, fg` — nhãn số / tên riêng bật lò xo |
+| `label`: `Label`, `Callout` | `Label`: `t, text, x, y, from, until, size, fg` · `Callout`: `t, text, at, to, from, until, fg, lineColor` — chữ không khung & đường gióng mảnh 1.35px thống nhất toàn kênh |
 | `3d/turntable`: `turntable(C, {size, center})` | `export const preview = turntable(F16, { size: 15 })` trong `src/parts/F16.tsx` |
 
 ## 2D — `@skill/military/2d/*`
@@ -35,22 +35,17 @@ mô hình và bối cảnh (`src/parts/`) bằng các công cụ dưới đây. 
 ## 3D — `@skill/military/3d/*`
 | Import | Props chính | Ghi chú |
 |---|---|---|
-| `stage`: `Stage` | `sky[3], sun, sunIntensity, shadowArea, shadowCenter, fog, env, ambient, exposure, post` | Canvas + trời + nắng có bóng + ánh sáng môi trường + hậu kỳ (AO, bloom, ACES, vignette). `post={false}` khi thử nhanh |
-| `stage`: `Cam` | `pos, look, fov, roll` | Camera; nội suy pos/look bằng `prog()` |
-| `geom`: `extrude(pts,depth,bevel)` | biên dạng nhìn ngang X–Y | Thân xe, tháp pháo, càng — vẽ theo tỉ lệ thật (m) |
-| `geom`: `extrudeTop(pts,h)`, `lathe(profile,seg)`, `rbox(w,h,d,r)`, `pipe(pts,r)`, `merge`, `mat4` | | Mặt bằng; nòng/đạn (dọc +X); hộp vát; ống; gộp geometry |
-| `materials`: `paint({color, camo[], camoScale, wear, dirt, roughness, metalness, repeat, seed})` | | Sơn quân sự có loang, mòn, bẩn (texture tự sinh, cache) |
-| `materials`: `plain(color, rough, metal)`, `grain()`, `fbm`, `vnoise` | | Vật liệu trơn; hạt chi tiết; noise tất định |
-| `parts`: `Wheel` | `r, width, spin, tire, rim, bolts, position` | Bánh xe (trục Z); `spin = quãng đường / r` |
-| `parts`: `Track` | `xFront, xRear, rFront, rRear, width, travel` | Dải xích chạy theo `travel` (m) |
-| `parts`: `Rivets` | `points, r` | Đinh tán instanced |
-| `terrain`: `heightField({seed, amp, scale, flats, add})`, `ridgeX(x0,h,w)` | | Hàm độ cao; `add` = hình dạng riêng do cảnh viết |
-| `terrain`: `Terrain` | `h, size, seg, center, colors{low,high,rock,dry}` | Lưới đất màu theo độ cao/độ dốc, nhận bóng |
-| `terrain`: `Scatter` | `kind: pine/broadleaf/bush/rock, count, area, h, seed, scale, avoid, tint` | Rải cây/đá bám đất, mỗi cá thể khác nhau |
-| `fx`: `Explosion` | `t, at, pos, size, smokeLife` | Chớp + cầu lửa + mảnh + vòng bụi + cột khói |
-| `fx`: `MuzzleBlast` | `t, at, pos, dir, size` | Lửa + khói đầu nòng |
-| `fx`: `DustTrail` | `t, from, to, path(t), rate` | Bụi sau xe chạy |
-| `fx`: `Trail`, `ballistic`, `ballisticPoints` | | Vệt quỹ đạo phát sáng; điểm parabol 3D |
+| `stage`: `Stage` | `sky[3], sun, sunIntensity, shadowArea, shadowCenter, fog, env, ambient, exposure, post{bloom, bloomThreshold, ao, dof}` | Canvas + trời + nắng có bóng + PMREM động theo trời/nắng + hậu kỳ HDR (`bloomThreshold=1.2`). `post={false}` khi thử nhanh |
+| `stage`: `Cam`, `ContactShadow` | `Cam`: `pos, look, fov, roll` · `ContactShadow`: `center, size, reach, opacity, blur, h?` | Camera nội suy bằng `prog()`; bóng tiếp xúc gầm chống bay lơ lửng |
+| `geom`: `loft(stations, opts)` | `stations: {x, rz?, ry?, y?, z?, n?, twist?, pts?}[]` | Nối mượt đa mặt cắt biến thiên dọc `+X` (thân máy bay, tàu chiến, tàu ngầm, tháp pháo đúc, vỏ động cơ, mũi tên lửa) |
+| `geom`: `sweep(profile, curvePts, opts)`, `airfoil(chord, thick?, camber?)` | `opts: {steps, taper, twist, caps}` | Quét tiết diện 2D dọc đường cong 3D có thu phóng/xoắn (cánh máy bay, cánh quạt, chân vịt, ống dẫn) + biên dạng NACA |
+| `geom`: `extrude(pts,depth,bevel)`, `extrudeTop(pts,h)`, `lathe(profile,seg)`, `revolve(profile,seg,arc)`, `shell(geo,thick)`, `clipPlane(normal,offset)`, `rbox`, `pipe`, `merge`, `mat4` | | Đùn phẳng; tiện tròn / tiện mở góc giải phẫu (`revolve`); tạo độ dày vỏ (`shell`); mặt phẳng cắt cơ khí (`clipPlane`) |
+| `materials`: `paint(o)`, `armorPlate(o)`, `panelPaint(o)`, `machined(o)` | | Sơn ngụy trang; thép giáp đúc sần (`armorPlate`); vỏ ghép tấm rãnh + đinh tán (`panelPaint`); kim loại tiện phay xước (`machined`) |
+| `materials`: `glass(o)`, `ghost(color?, opacity?)`, `clipMat(mat, planes)`, `plain`, `grain`, `fbm`, `vnoise` | | Kính quang học vật lý (`glass`); vỏ mờ X-ray Fresnel (`ghost`) & cắt mặt phẳng (`clipMat`) lộ cơ khí bên trong |
+| `parts`: `Wheel`, `Track`, `Rivets`, `Measure3D`, `ScaleHuman` | `Wheel`: `r, width, spin` · `Track`: `xFront, xRear, rFront, rRear, width, travel` · `Measure3D`: `from, to, text, color, progress` · `ScaleHuman`: `position, height` | Bánh xe, dải xích, đinh tán, thước đo kích thước nằm trong phối cảnh 3D (`Measure3D`), hình người chuẩn tỷ lệ 1.78m (`ScaleHuman`) |
+| `terrain`: `heightField`, `ridgeX`, `Terrain`, `Scatter` | `Scatter`: `kind: pine/broadleaf/bush/rock` | Địa hình tự nhiên + tán cây có chiều sâu AO |
+| `terrain`: `Water`, `Surface` | `Water`: `t, waveHeight, wakes[]` · `Surface`: `kind: runway/concrete/asphalt/deck/studio, cyclorama?` | Mặt biển động có sóng Gerstner & vệt rẽ nước (`Water`); đường băng, bê tông, boong tàu, sàn studio/sa bàn (`Surface`) |
+| `fx`: `Explosion`, `MuzzleBlast`, `JetPlume`, `RotorBlur`, `SmokeColumn`, `DustTrail`, `Trail`, `ballistic`, `ballisticPoints` | | Cầu lửa bức xạ nhiệt + xung kích; luồng phản lực vân Mach (`JetPlume`); đĩa mờ quay (`RotorBlur`); cột cháy khói (`SmokeColumn`) |
 
 ## Quy tắc
 - Mọi thứ tất định theo `t` và seed: không state, không `Math.random`.
