@@ -26,7 +26,7 @@ projects/<id>/
 **Độc lập tuyệt đối:** không đọc, không chép, không tham khảo code của dự án khác trong `projects/`. Chỉ dùng lại qua
 `core/kit`, `skills/military/lib` và `library/`. Muốn biết API thì đọc `CATALOG.md` và tài liệu Remotion (`remotion/docs/`) / three.js.
 Không tải mô hình 3D hay hình ảnh từ ngoài: mô hình tự dựng; ảnh thật chỉ lấy từ tài sản người dùng bỏ vào (`assets/`, `library/`).
-Nhạc / SFX: theo `skills/sound-design/SKILL.md` — kho `library/` rồi Freesound CC0 / Mixkit qua `core/tools/sound_lib.py` (agent chỉ ghi vào `library/*/dl/`).
+Nhạc / SFX: theo `skills/sound-design/SKILL.md` — Epidemic Sound (MCP, mặc định) hoặc kho `library/` / Freesound CC0 / Mixkit qua `core/tools/sound_lib.py` (agent chỉ ghi vào `library/*/dl/`, `library/*/epidemic/` và `INDEX.json`).
 
 ## 2. Lệnh (chạy từ gốc repo; lệnh nào cũng chỉ đụng projects/<id>)
 
@@ -60,7 +60,7 @@ Video ngắn là một chương `C01` (`new.py` đã tạo `plan/chapters/C01.js
 3. Viết mảng `scenes` trong `plan/chapters/C01.json`: `{"id":"C01S01","from":0,"to":26.2,"type":"code","transition":"fade"}`
    — cảnh liền mạch (`from` = `to` cảnh trước, phủ đúng chương), `transition` của cảnh k là cú chuyển VÀO cảnh k: `fade` (mặc định), `slide:from-right`, `wipe:from-left`, `flip:from-top`, `clockWipe`.
 4. Viết `src/cues/C01.ts` (`export const CUE = {...} as const`: mọi mốc sự kiện đặt tên theo cảnh `c01_s03_fire`) và bảng màu/ánh sáng dùng chung `src/design/` (chỉ màu và ánh sáng; chữ dùng `<Label>`, xem mục 7).
-5. **Gọi ngay 1 subagent âm thanh chạy nền** (prompt theo `skills/sound-design/SKILL.md` mục 4, kèm nguyên văn yêu cầu âm thanh của người dùng nếu có và **nguồn: Epidemic (mặc định) hay free** nếu người dùng chọn; đọc thêm `skills/military/SOUND.md`). Nó viết `plan/mix.json` + `plan/sfx/C01.json` và tự trộn, song song với A2/B; không chờ nó.
+5. **Gọi ngay 1 subagent nhạc nền chạy nền** (prompt theo `skills/sound-design/SKILL.md` mục 4 — Pha 1, kèm nguyên văn yêu cầu âm thanh của người dùng nếu có và **nguồn: Epidemic (mặc định) hay free** nếu người dùng chọn; đọc thêm `skills/military/SOUND.md`). Nó viết `plan/mix.json` (nhạc + `stages` + `amb`) song song với A2/B; không chờ nó. **Chưa làm SFX ở bước này** — SFX chỉ chạy ở Bước C sau khi đã có code cảnh `.tsx` thực tế.
 
 ### Bước A2 — Subagent dựng mô hình 3D song song, Agent chính vẽ hình 2D dùng chung (khoá xong mới sang Bước B)
 - **Không gối Bước B khi chưa khoá xong Bước A2** (để đồng bộ tuyệt đối tỉ lệ/chi tiết giữa 2D và 3D, không đụng `src/parts/`).
@@ -79,8 +79,8 @@ Video ngắn là một chương `C01` (`new.py` đã tạo `plan/chapters/C01.js
   5. **Tự kiểm hình bắt buộc:** vòng 1 gọi `python3 core/tools/check.py <id> --scene C01Sxx,C01Syy`; từ vòng sửa thứ 2 trở đi **chỉ gọi riêng cảnh vừa sửa** (`check.py <id> --scene C01Syy`) để không render lại cảnh đã đạt → đọc ảnh `out/checks/scenes/C01Sxx.png`, sửa ít nhất một vòng (bố cục, độ rõ chủ thể, khung trống, chữ đè, lỗi hình). Báo lại: đã kiểm gì, còn gì chưa ổn, mốc giây các sự kiện lớn cho SFX.
 - Tool chạy song song an toàn: `check.py` lần chính xác cây `import` / khoá `CUE` / asset của từng cảnh và mô hình (sửa 1 part hay chạy `build.py` không làm mất cache của cảnh không liên quan), giữ cache `tsc` incremental riêng trong `.build/check/`, hạ `--scale` khớp đúng kích thước ô kiểm hình và điều tiết tối đa 4 tiến trình Chrome render đồng thời.
 
-### Bước C — Agent chính ráp & kiểm
-Mốc sự kiện subagent dựng cảnh báo khác mốc trong `plan/sfx/C01.json` → sửa `at` (hoặc báo agent âm thanh nếu nó còn chạy) → `audio.py` (đọc `.build/sound_report.txt`, mục ⚠) → `build.py --strict` (phải sạch lỗi) → `check.py <id>` → tự xem sheet, sửa hoặc giao lại cảnh hỏng. *(Khi sửa lỗi hình ảnh thuần `.tsx` ở vòng kiểm mà không đổi mốc, `plan/mix.json` hay `plan/sfx/`, không chạy lại `audio.py` — chỉ chạy `build.py --strict` rồi `check.py`).*
+### Bước C — Dựng SFX từ `.tsx`, ráp & kiểm
+Ngay khi các subagent Bước B dựng xong `src/scenes/C01S*.tsx`: gọi **subagent SFX** (theo `skills/sound-design/SKILL.md` mục 4 — Pha 2 + `skills/military/SOUND.md`) đọc trực tiếp mọi `src/scenes/C01S*.tsx` để viết `plan/sfx/C01.json` khớp từng mốc `<Explosion`/`<MuzzleBlast`/va chạm và khoảng chuyển động `prog(t, a, b)` trên hình → chạy `.venv/bin/python core/tools/audio.py <id>` (tự kiểm cả bảng đối chiếu `.tsx` mục 5 lẫn `.build/sound_report.txt`, mục ⚠) → `build.py --strict` (phải sạch lỗi) → `check.py <id>` → tự xem sheet, sửa hoặc giao lại cảnh hỏng. *(Khi sửa lỗi hình ảnh thuần `.tsx` ở vòng kiểm mà không đổi mốc nổ/chuyển động, `plan/mix.json` hay `plan/sfx/`, không chạy lại `audio.py` — chỉ chạy `build.py --strict` rồi `check.py`; nếu sửa `.tsx` làm đổi mốc sự kiện thì cập nhật `plan/sfx/C01.json` và chạy lại `audio.py`).*
 
 ## 4. Tư duy đạo diễn
 - Mỗi cảnh thuần 2D hoặc thuần 3D (cảnh 3D chỉ được đè `<Label>` HTML). Xen kẽ theo nội dung: sơ đồ, mặt cắt, bản đồ,
@@ -104,8 +104,6 @@ Mốc sự kiện subagent dựng cảnh báo khác mốc trong `plan/sfx/C01.js
 
 ## 7. Chữ & âm thanh
 - Chữ: **mặc định không có chữ** (85–90% cảnh 3D để hình ảnh tự kể chuyện; cấm treo biển tiêu đề góc khung kiểu hộp UI). Chỉ khi thật sự cần nêu một kích thước hoặc định danh kỹ thuật ngắn (1–3 từ / con số) mà hình không tự nói được: dùng `<Measure3D>` (`@skill/military/3d/parts`) cho kích thước phối cảnh 3D, hoặc chữ không khung `<Label>` / đường gióng mảnh `<Callout>` (`@skill/military/label`). Cấm tự viết thẻ `<text>` SVG hay ép `fontFamily` / khung hộp tự chế trong cảnh.
-- Âm thanh do **agent âm thanh** làm (Bước A1 ý 5) theo `skills/sound-design/SKILL.md` + công thức quân sự `skills/military/SOUND.md`:
-  một bài nhạc thật dựng theo kịch bản, SFX nhiều lớp ở các mốc lớn, tiếng nền, tự kiểm lời rõ / đúng mốc / loa điện thoại.
-  Ghi `plan/mix.json` (`"version": 2`) và `plan/sfx/C01.json`; `"sfx"` trong `plan/chapters/C01.json` để trống. Giọng đọc giữ nguyên bản.
+- Âm thanh tách 2 pha theo `skills/sound-design/SKILL.md` + công thức quân sự `skills/military/SOUND.md`: **agent nhạc nền** (Bước A1 ý 5) dựng `plan/mix.json` (`"version": 2`, nhạc + `stages` + `amb` liền mạch), **agent SFX** (Bước C, sau khi có `.tsx`) đọc thẳng `src/scenes/*.tsx` ghi `plan/sfx/C01.json` khớp từng chuyển động/vụ nổ rồi tự kiểm lời rõ / khớp hình / không đứt tiếng / loa điện thoại. `"sfx"` trong `plan/chapters/C01.json` để trống. Giọng đọc giữ nguyên bản.
 - **Yêu cầu âm thanh của người dùng đứng trên mọi mặc định** (chép nguyên văn vào prompt agent âm thanh và `"_user"` trong mix.json).
 - Ưu tiên dùng media người dùng đã đưa vào (`assets/`, `library/`). Nhạc / SFX tổng hợp (`synth`) chỉ là đường lùi khi không có mạng.

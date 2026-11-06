@@ -386,7 +386,8 @@ def shoot_scenes(pdir: Path, proj: dict, want: list, n: int, cols: int, width: i
     if not dirty:
         return
 
-    errs = sync_assets(pdir, all_aids)
+    have_aids = {k for k, a in reg.items() if a.get('status') == 'have' and a.get('file') and (pdir / 'assets' / a['file']).is_file()}
+    errs = sync_assets(pdir, all_aids | have_aids)
     if errs:
         sys.exit('THIẾU tài sản: ' + '; '.join(errs))
 
@@ -477,7 +478,8 @@ def shoot_parts(pdir: Path, proj: dict, raw: str, width: int, force: bool, full:
     if not dirty:
         return
 
-    errs = sync_assets(pdir, all_aids)
+    have_aids = {k for k, a in reg.items() if a.get('status') == 'have' and a.get('file') and (pdir / 'assets' / a['file']).is_file()}
+    errs = sync_assets(pdir, all_aids | have_aids)
     if errs:
         sys.exit('THIẾU tài sản: ' + '; '.join(errs))
 

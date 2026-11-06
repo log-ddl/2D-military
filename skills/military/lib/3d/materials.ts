@@ -337,7 +337,9 @@ export const ghost = (color = '#7cc4e8', opacity = 0.18, rimPower = 2.4): THREE.
       varying vec3 vViewDir;
       void main() {
         #include <clipping_planes_fragment>
-        float ndv = abs(dot(normalize(vNormalW), normalize(vViewDir)));
+        vec3 nW = length(vNormalW) > 1e-5 ? normalize(vNormalW) : vec3(0.0, 1.0, 0.0);
+        vec3 vD = length(vViewDir) > 1e-5 ? normalize(vViewDir) : vec3(0.0, 0.0, 1.0);
+        float ndv = abs(dot(nW, vD));
         float fres = pow(clamp(1.0 - ndv, 0.0, 1.0), uRim);
         float a = clamp(uOpacity * 0.45 + fres * min(0.92, uOpacity * 3.4), 0.02, 0.95);
         vec3 col = mix(uColor * 0.65, uColor * 1.45 + vec3(0.18), fres);

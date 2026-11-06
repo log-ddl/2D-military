@@ -176,12 +176,11 @@ def asset_refs(pdir: Path, files=None) -> dict:
     for f in files if files is not None else (pdir / 'src').rglob('*.ts*'):
         if f.is_file():
             rf = f.resolve()
-            where = f.stem if f.parent.name == 'scenes' else (
-                str(rf.relative_to(src_root)) if src_root in rf.parents else (
-                    str(rf.relative_to(ROOT)) if ROOT in rf.parents else f.name
-                )
-            )
-            for a in re.findall(r"asset(?:Info)?\(\s*['\"](a\d{3,})['\"]\s*\)", f.read_text()):
+            if not rf.is_relative_to(src_root):
+                continue
+            where = f.stem if f.parent.name == 'scenes' else str(rf.relative_to(src_root))
+            code = re.sub(r'//[^\n]*|/\*[\s\S]*?\*/', '', f.read_text())
+            for a in re.findall(r"asset(?:Info)?\(\s*['\"](a\d{3,})['\"]\s*\)", code):
                 refs.setdefault(a, []).append(where)
     return refs
 

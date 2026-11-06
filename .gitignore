@@ -26,3 +26,7 @@ old_exports/
 # hệ điều hành, editor
 .DS_Store
 .claude/
+
+# cache BlenderKit (có API key) và mô hình tải về
+.cache/
+bk_cache/

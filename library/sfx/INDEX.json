@@ -369,6 +369,56 @@
   "low": 62,
   "max_db": -10.6
  },
+ "fs:104883": {
+  "source": "freesound",
+  "id": "104883",
+  "title": "Afterburner sound.wav",
+  "author": "StoneyJ",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/104883/",
+  "url": "https://cdn.freesound.org/previews/104/104883_1786799-hq.mp3",
+  "downloads": 2781,
+  "rating": 4.4,
+  "votes": 39,
+  "desc": "This is a USAF F-4 Phantom fighter from taxi, to engine run-up and then full afterburner takeoff.",
+  "file": "library/sfx/dl/fs_104883_Afterburner-sound-wav.mp3",
+  "queries": [],
+  "dur": 39.78,
+  "peak": 9.51,
+  "segs": [
+   [
+    0.09,
+    39.78
+   ]
+  ],
+  "low": 12,
+  "max_db": -8.2
+ },
+ "fs:123253": {
+  "source": "freesound",
+  "id": "123253",
+  "title": "MechanicalClamp.wav",
+  "author": "Skullsmasha",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/123253/",
+  "url": "https://cdn.freesound.org/previews/123/123253_2236755-hq.mp3",
+  "downloads": 15910,
+  "rating": 4.6,
+  "votes": 146,
+  "desc": "Heavy mechanical clamping mechanism.",
+  "file": "library/sfx/dl/fs_123253_MechanicalClamp-wav.mp3",
+  "queries": [],
+  "dur": 4.69,
+  "peak": 2.81,
+  "segs": [
+   [
+    0.03,
+    3.72
+   ]
+  ],
+  "low": 65,
+  "max_db": 3.5
+ },
  "fs:165394": {
   "source": "freesound",
   "id": "165394",
@@ -655,6 +705,51 @@
   "max_db": 1.5,
   "notes": "nổ xa lẻ tẻ (nền giao tranh), dễ rối"
  },
+ "fs:322021": {
+  "source": "freesound",
+  "id": "322021",
+  "title": "Servo motor",
+  "author": "Burningmonkey",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/322021/",
+  "url": "https://cdn.freesound.org/previews/322/322021_813260-hq.mp3",
+  "downloads": 1505,
+  "rating": 4.5,
+  "votes": 18,
+  "desc": "This is a recording of a servo motor sweeping. Make to use it on your projects!",
+  "file": "library/sfx/dl/fs_322021_Servo-motor.mp3",
+  "queries": [],
+  "dur": 8.73,
+  "peak": 3.46,
+  "segs": [
+   [
+    0.16,
+    1.0
+   ],
+   [
+    1.75,
+    2.71
+   ],
+   [
+    3.27,
+    4.06
+   ],
+   [
+    4.63,
+    5.16
+   ],
+   [
+    5.96,
+    6.68
+   ],
+   [
+    7.57,
+    8.75
+   ]
+  ],
+  "low": 1,
+  "max_db": -14.6
+ },
  "fs:329800": {
   "source": "freesound",
   "id": "329800",
@@ -858,6 +953,31 @@
   ],
   "low": 2,
   "max_db": -4.0
+ },
+ "fs:413312": {
+  "source": "freesound",
+  "id": "413312",
+  "title": "Afterburner",
+  "author": "TiesWijnen",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/413312/",
+  "url": "https://cdn.freesound.org/previews/413/413312_1511977-hq.mp3",
+  "downloads": 1057,
+  "rating": 4.8,
+  "votes": 25,
+  "desc": "Turbojet engine afterburner.",
+  "file": "library/sfx/dl/fs_413312_Afterburner.mp3",
+  "queries": [],
+  "dur": 6.05,
+  "peak": 0.09,
+  "segs": [
+   [
+    0.02,
+    5.67
+   ]
+  ],
+  "low": 52,
+  "max_db": -6.5
  },
  "fs:428073": {
   "source": "freesound",
@@ -1160,6 +1280,31 @@
   "low": 82,
   "max_db": 0.4,
   "notes": "nổ ngắn gọn 1.2 s"
+ },
+ "fs:528561": {
+  "source": "freesound",
+  "id": "528561",
+  "title": "Soft UI Button Click",
+  "author": "Jummit",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/528561/",
+  "url": "https://cdn.freesound.org/previews/528/528561_10360410-hq.mp3",
+  "downloads": 4784,
+  "rating": 4.8,
+  "votes": 80,
+  "desc": "A soft sci fi button click. Can also be used as a hover sound. Made in Audacity.",
+  "file": "library/sfx/dl/fs_528561_Soft-UI-Button-Click.mp3",
+  "queries": [],
+  "dur": 0.24,
+  "peak": 0.0,
+  "segs": [
+   [
+    0.0,
+    0.07
+   ]
+  ],
+  "low": 8,
+  "max_db": -12.9
  },
  "fs:531862": {
   "source": "freesound",
@@ -1593,6 +1738,81 @@
   "low": 10,
   "max_db": 1.3
  },
+ "mk:1467": {
+  "source": "mixkit",
+  "id": "1467",
+  "title": "Cinematic laser swoosh",
+  "author": "Mixkit",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/laser/",
+  "url": "https://assets.mixkit.co/active_storage/sfx/1467/1467-preview.mp3",
+  "tags": [
+   "swoosh",
+   "cinematic",
+   "laser"
+  ],
+  "file": "library/sfx/dl/mk_1467_Cinematic-laser-swoosh.mp3",
+  "queries": [],
+  "dur": 1.35,
+  "peak": 0.32,
+  "segs": [
+   [
+    0.19,
+    0.63
+   ]
+  ],
+  "low": 22,
+  "max_db": 2.0
+ },
+ "mk:1489": {
+  "source": "mixkit",
+  "id": "1489",
+  "title": "Air woosh",
+  "author": "Mixkit",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/air/",
+  "url": "https://assets.mixkit.co/active_storage/sfx/1489/1489-preview.mp3",
+  "tags": [
+   "woosh",
+   "whoosh"
+  ],
+  "file": "library/sfx/dl/mk_1489_Air-woosh.mp3",
+  "queries": [],
+  "dur": 2.32,
+  "peak": 0.71,
+  "segs": [
+   [
+    0.16,
+    1.26
+   ]
+  ],
+  "low": 56,
+  "max_db": 1.4
+ },
+ "mk:1577": {
+  "source": "mixkit",
+  "id": "1577",
+  "title": "Jet airplane engine taking off",
+  "author": "Mixkit",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/jet/",
+  "url": "https://assets.mixkit.co/active_storage/sfx/1577/1577-preview.mp3",
+  "tags": [
+   "airport"
+  ],
+  "file": "library/sfx/dl/mk_1577_Jet-airplane-engine-taking-off.mp3",
+  "queries": [],
+  "dur": 10.81,
+  "peak": 1.68,
+  "segs": [
+   [
+    0.04,
+    10.29
+   ]
+  ],
+  "low": 8,
+  "max_db": 1.5
+ },
  "mk:1923": {
   "source": "mixkit",
   "id": "1923",
@@ -1619,6 +1839,33 @@
   ],
   "low": 4,
   "max_db": -5.1
+ },
+ "mk:2133": {
+  "source": "mixkit",
+  "id": "2133",
+  "title": "Technological futuristic hum",
+  "author": "Mixkit",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/hum/",
+  "url": "https://assets.mixkit.co/active_storage/sfx/2133/2133-preview.mp3",
+  "tags": [
+   "hum",
+   "technology",
+   "high tech",
+   "buzzer"
+  ],
+  "file": "library/sfx/dl/mk_2133_Technological-futuristic-hum.mp3",
+  "queries": [],
+  "dur": 6.0,
+  "peak": 0.61,
+  "segs": [
+   [
+    0.2,
+    4.27
+   ]
+  ],
+  "low": 92,
+  "max_db": -2.3
  },
  "mk:2390": {
   "source": "mixkit",
@@ -1693,6 +1940,32 @@
   ],
   "low": 48,
   "max_db": 3.2
+ },
+ "mk:2858": {
+  "source": "mixkit",
+  "id": "2858",
+  "title": "Gear metallic lock sound",
+  "author": "Mixkit",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/click/",
+  "url": "https://assets.mixkit.co/active_storage/sfx/2858/2858-preview.mp3",
+  "tags": [
+   "lock",
+   "metal",
+   "click"
+  ],
+  "file": "library/sfx/dl/mk_2858_Gear-metallic-lock-sound.mp3",
+  "queries": [],
+  "dur": 1.1,
+  "peak": 0.22,
+  "segs": [
+   [
+    0.03,
+    0.3
+   ]
+  ],
+  "low": 0,
+  "max_db": 1.0
  },
  "mk:759": {
   "source": "mixkit",

@@ -3,20 +3,20 @@
 Cách làm chung: `skills/sound-design/SKILL.md`. File này **không phải bảng tra**: mọi quyết định âm thanh bắt đầu từ kịch bản
 của chính video này. Đây là kiến thức để đọc kịch bản quân sự ra âm thanh cho đúng.
 
-## 1. Đọc kịch bản trước, tiếng sau
-Đọc `plan/STORY.md`, `plan/chapters/CNN.md` (cột góc máy, diễn biến, khớp từ nào), lời đọc từng câu (`voice_map.md` / `CNN.voice.md`).
-Với **từng đoạn** trả lời trước khi nghĩ tới file nào:
+## 1. Đọc kịch bản và code cảnh `.tsx` trước, tiếng sau
+Nhạc nền đọc `plan/STORY.md`, `plan/chapters/CNN.md`, lời đọc từng câu (`voice_map.md` / `CNN.voice.md`).
+**SFX bắt buộc đọc thêm trực tiếp `src/scenes/CNNSxx.tsx`** để lấy chính xác mốc `<Explosion`, `<MuzzleBlast`, `bump` và khoảng chuyển động `prog(t, a, b)` trên hình.
+Với **từng đoạn / từng cảnh** trả lời trước khi nghĩ tới file nào:
 1. **Đoạn này kể gì, người xem cần cảm thấy gì?** (câu hỏi gây tò mò · lập luận lạnh · căng dần · cú sốc · lời giải nhẹ nhõm).
-   Nhạc đi theo đường này; SFX phục vụ ý của câu đang đọc, không phục vụ mọi chuyển động trên hình.
-2. **Hình đang là gì?** Chiến trường hiện thực (3D, footage) · mặt cắt / phòng kỹ thuật · sơ đồ, bản đồ 2D · HUD số liệu.
-   Mỗi loại một ngôn ngữ tiếng (mục 2).
+   Nhạc đi theo đường này; SFX phục vụ đúng sự kiện đang hiện trên hình, không đặt mù theo từ vựng của lời đọc.
+2. **Hình thực tế trong `.tsx` đang là gì?** Chiến trường hiện thực (3D `Terrain`/`Water`, footage) · mặt cắt / phòng kỹ thuật (`cutaway`, hangar, `studio`) · sơ đồ, bản đồ 2D SVG · HUD số liệu.
+   Mỗi loại một ngôn ngữ tiếng (mục 2) — kể cả lời đọc đang nói từ "nổ", "rơi", "sóng xung kích" mà hình là sơ đồ 2D thì cũng **cấm** dùng tiếng nổ chiến trường hiện thực.
 3. **Máy quay ở đâu?** Cận hay xa, trong hay ngoài xe, POV ai, vật đi qua máy hay đi xa máy → quyết định chất tiếng (mục 3).
-4. **Lời đang nói gì đúng lúc đó?** Câu đang chứa ý chính → tiếng nhỏ hoặc không có; tiếng lớn đặt ở khoảng nghỉ hoặc đúng từ
-   mang sự kiện (vd "**bắn**", "**kích nổ**"). Từ mang sự kiện có mốc trong voice / CUE.
-5. **Có cần tiếng không?** Không phải mốc nào cũng cần. Im lặng ngay trước cú lớn nhất có lực hơn mọi lớp tiếng.
+4. **Hành động là điểm tức thời hay khoảng kéo dài?** Nổ / va chạm / bắn → điểm `at` (`align: "peak"`, đủ cả các cú nổ phụ trong `.tsx`). Động cơ, cánh quạt, xe lăn xích, xoay cánh, hạ bửng → khoảng `[t_đầu, t_cuối]` (`align: "start"`, `loop_to` phủ trọn khoảng chuyển động, không cắt mẩu 3 s rồi ngắt ngang).
+5. **Lời đang nói gì & có cần tiếng không?** Câu đang chứa ý chính → tiếng nhỏ hoặc nhường lời; im lặng ngay trước cú lớn nhất có lực hơn mọi lớp tiếng.
 
-Ghi kết quả thành bảng "khoảnh khắc âm thanh" trong báo cáo: mốc · hình · lời · cần gì (im / nền / tiếng chính / nhạc nhấn) ·
-mô tả tiếng (nguồn âm, chất liệu, khoảng cách, dài bao lâu, đầu sắc hay dâng, đuôi). **Rồi mới tìm**, bằng mô tả đó.
+Ghi kết quả thành bảng "khoảnh khắc âm thanh" trong báo cáo: cảnh · mốc `at` hoặc `[t_đầu, t_cuối]` từ `.tsx` · loại hình · cần gì ·
+mô tả tiếng (nguồn âm, chất liệu, khoảng cách, `align`, độ dài, đầu, đuôi). **Rồi mới tìm**, bằng mô tả đó.
 
 ## 2. Ngôn ngữ tiếng theo loại hình
 - **Chiến trường hiện thực:** tiếng thật, nặng, có khoảng cách và vang địa hình. Một tiếng chính mỗi lúc; nền gió / đất.
@@ -38,9 +38,10 @@ mô tả tiếng (nguồn âm, chất liệu, khoảng cách, dài bao lâu, đ�
 - **Nổ hầm đạn, nổ lớn:** dâng (hút khí) → cú nổ nhiều tầng (đập + thân + trầm) → đuôi dài (mảnh vụn rơi, lửa, nổ phụ lẻ tẻ).
 - **Xe xích:** động cơ diesel trầm + tiếng xích lạch cạch kim loại; xe nặng qua gờ = thịch + kẽo kẹt thân.
 - **Radar, hệ thống điện tử:** thường *không có tiếng thật* với người đứng ngoài → nếu kịch bản cần nhấn, dùng tiếng thiết kế
-  nhẹ (quét, khoá mục tiêu), đừng giả như tiếng thật.
+  nhẹ (quét, khoá mục tiêu, `align: "start"`), đừng giả như tiếng thật.
+- **Đúng chất liệu bề mặt & cơ cấu (cấm gắn sai nguồn âm):** lao xuống biển/sông phải có tiếng nước tung bọt lớn (splash/plunge), không dùng nổ đất khô; nứt cánh composite / gãy bánh răng thép phải là tiếng rạn xé sợi / nghiến vỡ kim loại, không dùng tiếng đập kính; khớp nối cơ khí trên không không dùng tiếng đóng cửa sắt có vang phòng; máy bay cánh quạt / turboprop / trực thăng đang bay trên hình phải có lớp cánh quạt chạy suốt khoảng bay (`align: "start"`, `loop_to`), không chêm mẩu ngắn rồi tắt.
 Mô tả tìm kiếm ghép **nguồn âm + hành động + khoảng cách / chất liệu**: "tank cannon shot distant", "metal armor impact heavy close",
-"rocket launch whoosh away", "fpv drone fly by". Với Epidemic, tên SFX dạng "Vehicles, Military, Tank, …" — tìm cả theo loại xe / vũ khí.
+"rocket launch whoosh away", "fpv drone fly by", "turboprop aircraft flyby", "water impact large splash". Với Epidemic, tên SFX dạng "Vehicles, Military, …" — tìm đúng chủng loại khí tài / bề mặt va chạm.
 
 ## 4. Nhạc cho thể loại này (chọn theo đường cảm xúc của kịch bản, không theo thói quen)
 - Thường hợp: cinematic / orchestral hybrid có trống rõ, giọng thứ, nhịp vừa (khoảng 80–110 BPM), có cú hit mở, đoạn thưa, cú kết thật.
