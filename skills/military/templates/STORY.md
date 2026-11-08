@@ -13,12 +13,13 @@ Voice: `assets/voice/voice.mp3`, tổng {duration} s. Mốc luôn là giây toà
 - Bảng màu & ánh sáng 3D (sky, sun, exposure, sương, hậu kỳ) theo từng giờ trong ngày:
 - Ngôn ngữ camera chung:
 - Kiểu bản đồ / sơ đồ chung (nét, chữ, ký hiệu quân sự):
+- Vị trí gắn Logo Kênh 3D (vách nhà chứa / mặt sàn studio / sơn stencil đuôi hoặc thân khí tài — `@skill/military/3d/brand`):
 - Media người dùng sẽ dùng (mã trong `assets/ASSETS.json` hoặc `library/`):
 
 ## 3. Base dùng chung (`src/parts/`, khoá trước khi chia chương)
 Mỗi base có đủ `props` để chương phát triển tiếp (trạng thái, cấu hình, ngụy trang, phụ kiện) mà không sửa base.
 
-| Tên / Component | File đích | 3D/2D | Kích thước thật (m) / nguồn | Props / bộ phận chuyển động / biến thể qua props | Dùng ở chương | Trạng thái |
+| Tên / Component | File đích | 3D/2D | Kích thước thật (m) / nguồn (`bk-rig` / `bk-actor` / `bk-prop` / `code-3d`) | Props / bộ phận chuyển động / biến thể qua props | Dùng ở chương | Trạng thái |
 |---|---|---|---|---|---|---|
 
 ## 4. Quy ước xuyên phim

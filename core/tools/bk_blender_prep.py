@@ -9,40 +9,42 @@ import tempfile
 from pathlib import Path
 
 import bpy
+import numpy as np
 from mathutils import Euler, Matrix, Vector
 from mathutils.bvhtree import BVHTree
 
 
 def parse_args():
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else []
+
     def get(k, d=None):
         return argv[argv.index(k) + 1] if k in argv and argv.index(k) + 1 < len(argv) else d
+
     return {
         'src': get('--src'),
         'out': get('--out'),
         'inspect': get('--inspect'),
+        'inspect_parts': '--inspect-parts' in argv,
         'role': get('--role', 'hero'),
         'front': get('--front', 'auto'),
         'up': get('--up', 'auto'),
         'ground': get('--ground', 'bottom'),
         'target_len': float(get('--target-len')) if get('--target-len') else None,
+        'length_x': float(get('--length')) if get('--length') else None,
+        'height_y': float(get('--height')) if get('--height') else None,
         'decimate': float(get('--decimate')) if get('--decimate') else None,
+        'rig': get('--rig'),
+        'keep_nodes': '--keep-nodes' in argv,
+        'recolor': get('--recolor'),
         'report': get('--report'),
     }
 
 
 def load_source(src_path: str):
-    bpy.ops.wm.read_factory_settings(use_empty=True)
     ext = Path(src_path).suffix.lower()
     if ext == '.blend':
-        with bpy.data.libraries.load(src_path, link=False) as (data_from, data_to):
-            data_to.objects = list(data_from.objects)
+        bpy.ops.wm.open_mainfile(filepath=src_path)
         scene = bpy.context.scene
-        for obj in data_to.objects:
-            if obj is not None and obj.name not in scene.collection.objects:
-                scene.collection.objects.link(obj)
-        bpy.context.view_layer.update()
-        # Giải phóng các collection instance nếu asset đóng gói dạng instance
         for obj in list(scene.objects):
             if obj.instance_type == 'COLLECTION' and obj.instance_collection:
                 bpy.ops.object.select_all(action='DESELECT')
@@ -54,6 +56,7 @@ def load_source(src_path: str):
                 except Exception:
                     pass
     else:
+        bpy.ops.wm.read_factory_settings(use_empty=True)
         bpy.ops.import_scene.gltf(filepath=src_path)
     bpy.context.view_layer.update()
 
@@ -63,24 +66,33 @@ def world_bbox(objs):
     mx = Vector((-1e18, -1e18, -1e18))
     ok = False
     for o in objs:
-        for corner in o.bound_box:
-            w = o.matrix_world @ Vector(corner)
-            mn.x, mn.y, mn.z = min(mn.x, w.x), min(mn.y, w.y), min(mn.z, w.z)
-            mx.x, mx.y, mx.z = max(mx.x, w.x), max(mx.y, w.y), max(mx.z, w.z)
-            ok = True
+        if o.type == 'MESH' and o.data and len(o.data.vertices) > 0:
+            mw = o.matrix_world
+            for v in o.data.vertices:
+                w = mw @ v.co
+                mn.x, mn.y, mn.z = min(mn.x, w.x), min(mn.y, w.y), min(mn.z, w.z)
+                mx.x, mx.y, mx.z = max(mx.x, w.x), max(mx.y, w.y), max(mx.z, w.z)
+                ok = True
+        else:
+            for corner in o.bound_box:
+                w = o.matrix_world @ Vector(corner)
+                mn.x, mn.y, mn.z = min(mn.x, w.x), min(mn.y, w.y), min(mn.z, w.z)
+                mx.x, mx.y, mx.z = max(mx.x, w.x), max(mx.y, w.y), max(mx.z, w.z)
+                ok = True
     return (mn, mx) if ok else (Vector((0, 0, 0)), Vector((0, 0, 0)))
 
 
-def clean_meshes():
+def clean_meshes(exclude_prefixes=()):
     scene = bpy.context.scene
-    # Xoá đèn, camera, empty rác hoặc vật thể ẩn render
-    for o in list(scene.objects):
+    for o in list(bpy.data.objects):
+        if o.name.startswith(tuple(exclude_prefixes)):
+            bpy.data.objects.remove(o, do_unlink=True)
+            continue
         if o.type not in ('MESH', 'CURVE', 'SURFACE', 'FONT', 'EMPTY'):
             bpy.data.objects.remove(o, do_unlink=True)
         elif o.hide_render:
             bpy.data.objects.remove(o, do_unlink=True)
 
-    # Chuyển curve/surface sang mesh nếu có
     for o in list(scene.objects):
         if o.type in ('CURVE', 'SURFACE', 'FONT'):
             bpy.ops.object.select_all(action='DESELECT')
@@ -93,7 +105,6 @@ def clean_meshes():
 
     meshes = [o for o in scene.objects if o.type == 'MESH' and len(o.data.polygons) > 0]
     if len(meshes) > 1:
-        # Loại bỏ tấm nền / backdrop khổng lồ thường đi kèm file .blend mẫu
         sizes = []
         for o in meshes:
             mn, mx = world_bbox([o])
@@ -110,80 +121,292 @@ def clean_meshes():
     return [o for o in scene.objects if o.type == 'MESH' and len(o.data.polygons) > 0]
 
 
-def make_parent_normalized(meshes, front: str, up: str, ground: str, target_len):
-    # Ngắt parent cũ nhưng giữ nguyên ma trận thế giới để xoay đồng nhất
-    bpy.ops.object.select_all(action='DESELECT')
+def bake_world_normalized_to_vertices(
+    meshes, front: str, up: str, ground: str, target_len, ground_prefixes=(), length_x=None, height_y=None
+):
+    """Đưa toàn bộ mesh về hệ trục chuẩn Blender (+X mũi, +Z đỉnh, -Y mạn phải -> glTF +X mũi, +Y đỉnh, +Z phải)
+    và nướng thẳng ma trận vào đỉnh lưới để mọi Empty khớp xoay có rotation (0, 0, 0) đồng nhất."""
+    for o in list(bpy.data.objects):
+        if o.type == 'EMPTY':
+            bpy.data.objects.remove(o, do_unlink=True)
+
     for o in meshes:
         mw = o.matrix_world.copy()
         o.parent = None
-        o.matrix_world = mw
-    for o in list(bpy.context.scene.objects):
-        if o.type == 'EMPTY':
-            bpy.data.objects.remove(o, do_unlink=True)
-    bpy.context.view_layer.update()
+        o.matrix_world = Matrix.Identity(4)
+        o.data = o.data.copy()
+        o.data.transform(mw)
+        o.data.update()
 
     mn, mx = world_bbox(meshes)
     dim = mx - mn
 
-    # Trong Blender trước khi xuất glTF (export_yup=True):
-    # Blender +X -> Three.js +X (mũi hướng trước)
-    # Blender +Z -> Three.js +Y (hướng lên trên)
-    # Blender -Y -> Three.js +Z (mạn phải)
     ax_map = {
         '+X': Vector((1, 0, 0)), '-X': Vector((-1, 0, 0)),
         '+Y': Vector((0, 1, 0)), '-Y': Vector((0, -1, 0)),
         '+Z': Vector((0, 0, 1)), '-Z': Vector((0, 0, -1)),
     }
-    if up == 'auto':
-        up_vec = Vector((0, 0, 1))
-    else:
-        up_vec = ax_map[up]
-
+    up_vec = Vector((0, 0, 1)) if up == 'auto' else ax_map[up]
     if front == 'auto':
-        # Trục ngang dài nhất làm trục thân (+X hay -Y); mặc định BlenderKit hay quay mặt về -Y hoặc +Y
-        if dim.y >= dim.x * 1.08:
-            front_vec = Vector((0, -1, 0))
-        else:
-            front_vec = Vector((1, 0, 0))
+        front_vec = Vector((0, -1, 0)) if dim.y >= dim.x * 1.08 else Vector((1, 0, 0))
     else:
         front_vec = ax_map[front]
 
-    # Dựng ma trận cơ sở trực chuẩn đưa (front_vec -> +X_bl, up_vec -> +Z_bl)
     f = front_vec.normalized()
     u = (up_vec - f * up_vec.dot(f)).normalized()
     if u.length < 1e-4:
         u = Vector((0, 0, 1)) if abs(f.z) < 0.9 else Vector((0, 1, 0))
         u = (u - f * u.dot(f)).normalized()
-    # Hệ toạ độ phải của Blender: X_bl cross Y_bl = Z_bl => Y_bl = Z_bl cross X_bl = u cross f
     y_bl = u.cross(f).normalized()
-    # Ta muốn v_new = R @ v_old sao cho R @ f = (1,0,0), R @ y_bl = (0,1,0), R @ u = (0,0,1)
-    rot3 = Matrix((f, y_bl, u))  # hàng là f, y_bl, u => R @ f = (1,0,0)!
-    rot4 = rot3.to_4x4()
+    rot4 = Matrix((f, y_bl, u)).to_4x4()
 
     for o in meshes:
-        o.matrix_world = rot4 @ o.matrix_world
-    bpy.context.view_layer.update()
+        o.data.transform(rot4)
+        o.data.update()
 
     mn, mx = world_bbox(meshes)
     dim = mx - mn
-    cur_len = max(dim.x, dim.y, dim.z, 1e-5)
-    scale = (target_len / cur_len) if target_len else 1.0
+    if length_x:
+        scale = length_x / max(dim.x, 1e-5)
+    elif height_y:
+        scale = height_y / max(dim.z, 1e-5)
+    elif target_len:
+        scale = target_len / max(dim.x, dim.y, dim.z, 1e-5)
+    else:
+        scale = 1.0
     if abs(scale - 1.0) > 1e-5:
         s4 = Matrix.Diagonal((scale, scale, scale, 1.0))
         for o in meshes:
-            o.matrix_world = s4 @ o.matrix_world
-        bpy.context.view_layer.update()
+            o.data.transform(s4)
+            o.data.update()
         mn, mx = world_bbox(meshes)
-        dim = mx - mn
+
+    g_objs = [o for o in meshes if ground_prefixes and o.name.startswith(tuple(ground_prefixes))]
+    g_mn, _ = world_bbox(g_objs) if g_objs else (mn, mx)
 
     cx = 0.5 * (mn.x + mx.x)
     cy = 0.5 * (mn.y + mx.y)
-    cz = mn.z if ground == 'bottom' else 0.5 * (mn.z + mx.z)
+    cz = g_mn.z if ground == 'bottom' else 0.5 * (mn.z + mx.z)
     shift = Matrix.Translation(Vector((-cx, -cy, -cz)))
     for o in meshes:
-        o.matrix_world = shift @ o.matrix_world
+        o.data.transform(shift)
+        o.data.update()
+
     bpy.context.view_layer.update()
     return world_bbox(meshes)
+
+
+def gltf_to_blender(pt):
+    """Đổi toạ độ glTF [x, y, z] (+X mũi, +Y cao, +Z phải) sang Blender [x, -z, y]."""
+    return Vector((float(pt[0]), -float(pt[2]), float(pt[1])))
+
+
+def blender_to_gltf(v: Vector):
+    """Đổi toạ độ Blender (x, y, z) sang glTF [x, z, -y]."""
+    return [round(v.x, 4), round(v.z, 4), round(-v.y, 4)]
+
+
+def inspect_parts_summary(meshes, mn: Vector, mx: Vector):
+    dim = mx - mn
+    mats = []
+    for m in bpy.data.materials:
+        imgs = []
+        if m.node_tree:
+            for n in m.node_tree.nodes:
+                if n.type == 'TEX_IMAGE' and n.image:
+                    imgs.append(f"{n.image.name}({n.image.size[0]}x{n.image.size[1]},packed={bool(n.image.packed_file)})")
+        mats.append({'name': m.name, 'textures': imgs})
+
+    rows = []
+    for o in sorted(meshes, key=lambda x: len(x.data.polygons), reverse=True):
+        omn, omx = world_bbox([o])
+        rows.append({
+            'name': o.name,
+            'faces': len(o.data.polygons),
+            'gltf_min': blender_to_gltf(omn),
+            'gltf_max': blender_to_gltf(omx),
+            'gltf_center': blender_to_gltf(0.5 * (omn + omx)),
+        })
+
+    out = {
+        'mesh_count': len(meshes),
+        'total_faces': sum(r['faces'] for r in rows),
+        'gltf_dimensions_m': {'length_x': round(dim.x, 4), 'height_y': round(dim.z, 4), 'width_z': round(dim.y, 4)},
+        'materials': mats,
+        'meshes': rows,
+    }
+    print('=== BK INSPECT PARTS ===')
+    print(json.dumps(out, ensure_ascii=False, indent=2))
+    return out
+
+
+def _match_mesh_name(obj_name: str, patterns) -> bool:
+    import fnmatch
+    for pat in patterns:
+        if '*' in pat or '?' in pat or '[' in pat:
+            if fnmatch.fnmatch(obj_name, pat):
+                return True
+        elif obj_name.startswith(pat):
+            return True
+    return False
+
+
+def build_rig_hierarchy(meshes, rig_spec: dict):
+    """Dựng cây Empty khớp động theo rig.json (hỗ trợ cả mảng "pivots": [...] và map "joints": {...}):
+    {
+      "pivots": [
+        {"name": "WingPivot", "parent": null, "pivot_from": ["trousailes_"], "pivot_mode": "center", "meshes": ["aile_"]},
+        {"name": "NacellePivotR", "parent": "WingPivot", "pivot": [1.1, 3.11, 7.09], "meshes": ["moteurD*"]}
+      ],
+      "rest_group": "Fuselage"
+    }
+    """
+    col = bpy.context.scene.collection
+
+    def make_empty(name: str, loc_bl: Vector, parent=None):
+        e = bpy.data.objects.new(name, None)
+        col.objects.link(e)
+        e.location = loc_bl
+        if parent is not None:
+            e.parent = parent
+            e.matrix_parent_inverse = parent.matrix_world.inverted()
+        bpy.context.view_layer.update()
+        return e
+
+    def attach(objs, parent):
+        bpy.context.view_layer.update()
+        inv = parent.matrix_world.inverted()
+        for o in objs:
+            o.data.transform(inv)
+            o.data.update()
+            o.parent = parent
+            o.location = (0.0, 0.0, 0.0)
+            o.rotation_euler = (0.0, 0.0, 0.0)
+            o.scale = (1.0, 1.0, 1.0)
+
+    root_name = rig_spec.get('root_name', 'RigRoot')
+    root = make_empty(root_name, Vector((0.0, 0.0, 0.0)), None)
+    nodes = {root_name: root, None: root, '': root}
+    pivots_out = {}
+    assigned = set()
+
+    pivot_list = list(rig_spec.get('pivots', []))
+    if not pivot_list and isinstance(rig_spec.get('joints'), dict):
+        for jname, jcfg in rig_spec['joints'].items():
+            item = dict(jcfg)
+            item['name'] = jname
+            pivot_list.append(item)
+
+    for p in pivot_list:
+        nm = p['name']
+        par = nodes.get(p.get('parent'), root)
+        if 'pivot' in p and p['pivot'] is not None:
+            loc_bl = gltf_to_blender(p['pivot'])
+        else:
+            prefs = tuple(p.get('pivot_from') or p.get('meshes') or ())
+            ref_objs = [o for o in meshes if prefs and _match_mesh_name(o.name, prefs)]
+            pmn, pmx = world_bbox(ref_objs if ref_objs else meshes)
+            mode = p.get('pivot_mode', 'center')
+            cx = pmx.x if mode == 'front_edge' else (pmn.x if mode == 'rear_edge' else 0.5 * (pmn.x + pmx.x))
+            cy = 0.5 * (pmn.y + pmx.y)
+            cz = pmn.z if mode == 'bottom_center' else 0.5 * (pmn.z + pmx.z)
+            loc_bl = Vector((cx, cy, cz))
+
+        emp = make_empty(nm, loc_bl, par)
+        nodes[nm] = emp
+        pivots_out[nm] = blender_to_gltf(loc_bl)
+
+        mprefs = tuple(p.get('meshes') or ())
+        if mprefs:
+            hit = [o for o in meshes if o not in assigned and _match_mesh_name(o.name, mprefs)]
+            assigned.update(hit)
+            attach(hit, emp)
+
+    rest = [o for o in meshes if o not in assigned]
+    if rest:
+        rest_grp = make_empty(rig_spec.get('rest_group', 'Body'), Vector((0.0, 0.0, 0.0)), root)
+        attach(rest, rest_grp)
+    return pivots_out
+
+
+def replace_image_safely(old_img, new_pixels_rgba_bottom_up, new_name: str, td: Path):
+    """Lưu ảnh PNG ra đĩa rồi nạp lại làm datablock mới để glTF exporter của Blender 5.x không đọc nhầm packed_file cũ."""
+    h, w, _ = new_pixels_rgba_bottom_up.shape
+    tmp_img = bpy.data.images.new(f'_tmp_{new_name}', width=w, height=h, alpha=True)
+    tmp_img.pixels[:] = new_pixels_rgba_bottom_up.ravel().tolist()
+    out_png = td / f'{new_name}.png'
+    tmp_img.filepath_raw = str(out_png)
+    tmp_img.file_format = 'PNG'
+    tmp_img.save()
+    bpy.data.images.remove(tmp_img)
+
+    fresh = bpy.data.images.load(str(out_png))
+    for mat in bpy.data.materials:
+        if not mat.node_tree:
+            continue
+        for node in mat.node_tree.nodes:
+            if node.type == 'TEX_IMAGE' and node.image == old_img:
+                node.image = fresh
+    return fresh
+
+
+def apply_laplace_recolor(hex_color: str, td: Path) -> int:
+    """Đổi các mảng sơn dân sự loè loẹt (vàng/đỏ/cam bão hoà cao) sang màu sơn quân sự `hex_color`
+    mà vẫn bảo toàn độ chuyển bóng AO, khung kính tối và lốp/kim loại trung tính."""
+    hc = hex_color.lstrip('#')
+    tr = int(hc[0:2], 16) / 255.0
+    tg = int(hc[2:4], 16) / 255.0
+    tb = int(hc[4:6], 16) / 255.0
+    # Đổi sRGB mục tiêu sang tuyến tính xấp xỉ để nhân với trường độ sáng AO
+    lr, lg, lb = tr ** 2.2, tg ** 2.2, tb ** 2.2
+    avg_l = max(1e-3, 0.299 * lr + 0.587 * lg + 0.114 * lb)
+    cr, cg, cb = lr / avg_l, lg / avg_l, lb / avg_l
+
+    count = 0
+    used_imgs = set()
+    for mat in bpy.data.materials:
+        if not mat.node_tree:
+            continue
+        for n in mat.node_tree.nodes:
+            if n.type == 'TEX_IMAGE' and n.image and n.image.size[0] >= 256:
+                used_imgs.add(n.image)
+
+    for idx, img in enumerate(list(used_imgs)):
+        w, h = img.size[0], img.size[1]
+        arr = np.array(img.pixels[:], dtype=np.float32).reshape((h, w, 4))
+        r, g, b = arr[:, :, 0], arr[:, :, 1], arr[:, :, 2]
+        lum = 0.299 * r + 0.587 * g + 0.114 * b
+        chroma = np.maximum(np.maximum(r, g), b) - np.minimum(np.minimum(r, g), b)
+
+        vivid = chroma > 0.16
+        if int(vivid.sum()) < (w * h) // 40:
+            continue
+
+        # Giữ nguyên chi tiết tối (khung kính, lốp xe, hốc xả, cánh quạt đen)
+        keep_dark = (lum < 0.22) & (chroma < 0.14)
+        target_lum = np.clip(avg_l * (lum / max(0.25, float(np.median(lum[vivid])))), avg_l * 0.55, min(0.92, avg_l * 1.28))
+        neutral_lum = np.clip(lum, 0.04, 0.92)
+        shade = np.where(vivid, target_lum, neutral_lum * (avg_l / max(0.35, float(np.median(lum))))).astype(np.float32)
+
+        # Làm mượt ranh giới sắc độ cao (ví dụ vạch đỏ/cam giáp vàng) bằng 40 vòng khuếch tán nhẹ
+        stripe = (r - g) > 0.16
+        if stripe.any():
+            shade[stripe] = avg_l
+            for _ in range(40):
+                avg4 = 0.25 * (
+                    np.roll(shade, 1, axis=0) + np.roll(shade, -1, axis=0)
+                    + np.roll(shade, 1, axis=1) + np.roll(shade, -1, axis=1)
+                )
+                shade[stripe] = avg4[stripe]
+
+        out = arr.copy()
+        paint_mask = ~keep_dark
+        out[paint_mask, 0] = np.clip(shade[paint_mask] * cr, 0.0, 1.0)
+        out[paint_mask, 1] = np.clip(shade[paint_mask] * cg, 0.0, 1.0)
+        out[paint_mask, 2] = np.clip(shade[paint_mask] * cb, 0.0, 1.0)
+        replace_image_safely(img, out, f'recolor_{idx}_{img.name.split(".")[0]}', td)
+        count += 1
+    return count
 
 
 def apply_selective_decimate(meshes, role: str, custom_ratio):
@@ -193,12 +416,11 @@ def apply_selective_decimate(meshes, role: str, custom_ratio):
         if role == 'bg':
             ratio = 0.28
         elif role == 'hero':
-            ratio = min(1.0, 45000.0 / total_before) if total_before > 52000 else 1.0
+            ratio = min(1.0, 55000.0 / total_before) if total_before > 65000 else 1.0
         else:
             ratio = 1.0
 
     if ratio < 0.98:
-        # Đảm bảo không dùng chung mesh data trước khi áp modifier
         for o in meshes:
             if o.data.users > 1:
                 o.data = o.data.copy()
@@ -219,8 +441,8 @@ def apply_selective_decimate(meshes, role: str, custom_ratio):
     return total_before, total_after, ratio
 
 
-def bake_procedural_materials_if_needed(meshes):
-    """Nếu vật liệu dùng node thủ tục phức tạp không có ảnh Base Color, tự nướng nhanh sang PBR Image Texture."""
+def bake_procedural_materials_if_needed(meshes, td: Path):
+    """Nếu vật liệu dùng node thủ tục phức tạp không có ảnh Base Color, tự nướng sang PBR Image Texture trên đĩa."""
     baked_count = 0
     visited = set()
     has_procedural = []
@@ -229,7 +451,7 @@ def bake_procedural_materials_if_needed(meshes):
             continue
         for slot in o.material_slots:
             mat = slot.material
-            if not mat or not mat.use_nodes or mat.name in visited:
+            if not mat or not mat.node_tree or mat.name in visited:
                 continue
             visited.add(mat.name)
             bsdf = next((n for n in mat.node_tree.nodes if n.type == 'BSDF_PRINCIPLED'), None)
@@ -237,7 +459,6 @@ def bake_procedural_materials_if_needed(meshes):
                 continue
             bc_in = bsdf.inputs.get('Base Color')
             if bc_in and bc_in.is_linked:
-                # Kiểm tra xem có node TEX_IMAGE nào trong cây nối vào Base Color không
                 has_img = any(n.type == 'TEX_IMAGE' and n.image is not None for n in mat.node_tree.nodes)
                 if not has_img:
                     has_procedural.append((o, mat, bsdf))
@@ -249,10 +470,10 @@ def bake_procedural_materials_if_needed(meshes):
     scene.render.engine = 'CYCLES'
     scene.cycles.device = 'CPU'
     scene.cycles.samples = 8
-    for o, mat, bsdf in has_procedural[:6]:
+    for idx, (o, mat, bsdf) in enumerate(has_procedural[:6]):
         try:
             nt = mat.node_tree
-            img = bpy.data.images.new(f'bk_bake_{mat.name}', width=512, height=512, alpha=False)
+            img = bpy.data.images.new(f'bk_bake_{idx}', width=1024, height=1024, alpha=False)
             tex_node = nt.nodes.new('ShaderNodeTexImage')
             tex_node.image = img
             for n in nt.nodes:
@@ -260,7 +481,6 @@ def bake_procedural_materials_if_needed(meshes):
             tex_node.select = True
             nt.nodes.active = tex_node
 
-            # Nối tạm Base Color sang Emission để bake màu gốc chuẩn không phụ thuộc đèn
             bc_link = bsdf.inputs['Base Color'].links[0].from_socket
             emit = nt.nodes.new('ShaderNodeEmission')
             nt.links.new(bc_link, emit.inputs['Color'])
@@ -274,7 +494,13 @@ def bake_procedural_materials_if_needed(meshes):
             o.select_set(True)
             bpy.context.view_layer.objects.active = o
             bpy.ops.object.bake(type='EMIT', margin=4, use_clear=True)
-            img.pack()
+
+            out_png = td / f'baked_{idx}.png'
+            img.filepath_raw = str(out_png)
+            img.file_format = 'PNG'
+            img.save()
+            fresh = bpy.data.images.load(str(out_png))
+            tex_node.image = fresh
 
             if old_surf:
                 nt.links.new(old_surf, out_node.inputs['Surface'])
@@ -289,14 +515,11 @@ def bake_procedural_materials_if_needed(meshes):
 def bvh_stats(meshes):
     deps = bpy.context.evaluated_depsgraph_get()
     trees = 0
-    min_clear = 1e9
     for o in meshes[:12]:
         try:
             tree = BVHTree.FromObject(o, deps)
-            trees += 1
-            loc, norm, idx, dist = tree.find_nearest(Vector((50.0, 0.0, 10.0)))
-            if dist is not None:
-                min_clear = min(min_clear, dist)
+            if tree:
+                trees += 1
         except Exception:
             pass
     return trees
@@ -309,15 +532,18 @@ def render_inspect_sheet(meshes, mn: Vector, mx: Vector, inspect_path: str):
     center = 0.5 * (mn + mx)
     span = max(dim.x, dim.y, dim.z, 0.5)
 
-    # Đặt mũi tên đỏ ở đúng đầu +X để kiểm hướng mặt trước tuyệt đối không nhầm
-    bpy.ops.mesh.primitive_cone_add(vertices=16, radius1=span * 0.045, radius2=0.0, depth=span * 0.14,
-                                    location=(mx.x + span * 0.09, 0.0, center.z),
-                                    rotation=(0.0, math.pi / 2, 0.0))
+    bpy.ops.mesh.primitive_cone_add(
+        vertices=16,
+        radius1=span * 0.045,
+        radius2=0.0,
+        depth=span * 0.14,
+        location=(mx.x + span * 0.09, 0.0, center.z),
+        rotation=(0.0, math.pi / 2, 0.0),
+    )
     marker = bpy.context.active_object
     marker.name = '_BK_Front_PlusX_Marker'
     mmat = bpy.data.materials.new('_BK_Red')
-    mmat.use_nodes = True
-    bsdf = mmat.node_tree.nodes.get('Principled BSDF')
+    bsdf = mmat.node_tree.nodes.get('Principled BSDF') if mmat.node_tree else None
     if bsdf:
         bsdf.inputs['Base Color'].default_value = (1.0, 0.12, 0.08, 1.0)
         if 'Emission Color' in bsdf.inputs:
@@ -325,7 +551,6 @@ def render_inspect_sheet(meshes, mn: Vector, mx: Vector, inspect_path: str):
             bsdf.inputs['Emission Strength'].default_value = 1.5
     marker.data.materials.append(mmat)
 
-    # Đèn kiểm
     light_data = bpy.data.lights.new(name='_BK_Sun', type='SUN')
     light_data.energy = 3.8
     light_obj = bpy.data.objects.new(name='_BK_Sun', object_data=light_data)
@@ -334,8 +559,7 @@ def render_inspect_sheet(meshes, mn: Vector, mx: Vector, inspect_path: str):
 
     if not scene.world:
         scene.world = bpy.data.worlds.new('_BK_World')
-    scene.world.use_nodes = True
-    bg = scene.world.node_tree.nodes.get('Background')
+    bg = scene.world.node_tree.nodes.get('Background') if scene.world.node_tree else None
     if bg:
         bg.inputs[0].default_value = (0.16, 0.19, 0.23, 1.0)
         bg.inputs[1].default_value = 1.1
@@ -346,9 +570,7 @@ def render_inspect_sheet(meshes, mn: Vector, mx: Vector, inspect_path: str):
     scene.collection.objects.link(cam_obj)
     scene.camera = cam_obj
 
-    # Ưu tiên EEVEE trên Blender 5.x, fallback sang WORKBENCH nếu môi trường headless không mở được GPU
-    engines = ['BLENDER_EEVEE', 'BLENDER_WORKBENCH', 'CYCLES']
-    for eng in engines:
+    for eng in ('BLENDER_EEVEE', 'BLENDER_WORKBENCH', 'CYCLES'):
         try:
             scene.render.engine = eng
             break
@@ -379,7 +601,6 @@ def render_inspect_sheet(meshes, mn: Vector, mx: Vector, inspect_path: str):
         bpy.ops.render.render(write_still=True)
         shots.append(fp)
 
-    # Xoá đồ kiểm trước khi xuất glb
     for tmp_obj in (marker, light_obj, cam_obj):
         bpy.data.objects.remove(tmp_obj, do_unlink=True)
 
@@ -393,36 +614,63 @@ def render_inspect_sheet(meshes, mn: Vector, mx: Vector, inspect_path: str):
 
 def main():
     args = parse_args()
+    rig_spec = json.loads(Path(args['rig']).read_text()) if args['rig'] else None
+    exclude = tuple(rig_spec.get('exclude_prefixes', ())) if rig_spec else ()
+    ground_prefs = tuple(rig_spec.get('ground_prefixes', ())) if rig_spec else ()
+
     load_source(args['src'])
-    meshes = clean_meshes()
+    meshes = clean_meshes(exclude)
     if not meshes:
         raise RuntimeError(f"Không tìm thấy mesh hợp lệ trong {args['src']}")
 
-    mn, mx = make_parent_normalized(meshes, args['front'], args['up'], args['ground'], args['target_len'])
-    faces_before, faces_after, ratio = apply_selective_decimate(meshes, args['role'], args['decimate'])
-    baked = bake_procedural_materials_if_needed(meshes)
-    bvh_count = bvh_stats(meshes)
+    mn, mx = bake_world_normalized_to_vertices(
+        meshes,
+        args['front'],
+        args['up'],
+        args['ground'],
+        args['target_len'],
+        ground_prefs,
+        args['length_x'],
+        args['height_y'],
+    )
 
-    dim = mx - mn
-    # Lưu ý: sau khi xuất glTF (Y-up): length(+X) = dim.x, height(+Y) = dim.z, width(Z) = dim.y
-    gltf_dim = {'length_x': round(dim.x, 4), 'height_y': round(dim.z, 4), 'width_z': round(dim.y, 4)}
-    part_names = [o.name for o in meshes[:40]]
+    if args['inspect_parts']:
+        rep = inspect_parts_summary(meshes, mn, mx)
+        if args['report']:
+            Path(args['report']).write_text(json.dumps(rep, ensure_ascii=False, indent=2))
+        return
 
-    if args['inspect']:
-        render_inspect_sheet(meshes, mn, mx, args['inspect'])
+    with tempfile.TemporaryDirectory(prefix='bk_tex_') as td_str:
+        td = Path(td_str)
+        faces_before, faces_after, ratio = apply_selective_decimate(meshes, args['role'], args['decimate'])
+        baked = bake_procedural_materials_if_needed(meshes, td)
+        recolored = apply_laplace_recolor(args['recolor'], td) if args['recolor'] else 0
+        bvh_count = bvh_stats(meshes)
 
-    if args['out']:
-        bpy.ops.export_scene.gltf(
-            filepath=args['out'],
-            export_format='GLB',
-            export_yup=True,
-            export_apply=True,
-            export_texcoords=True,
-            export_normals=True,
-            export_materials='EXPORT',
-            export_image_format='JPEG',
-            export_jpeg_quality=86,
-        )
+        pivots_out = {}
+        preserve_tree = bool(rig_spec or args['keep_nodes'])
+        if rig_spec:
+            pivots_out = build_rig_hierarchy(meshes, rig_spec)
+
+        dim = mx - mn
+        gltf_dim = {'length_x': round(dim.x, 4), 'height_y': round(dim.z, 4), 'width_z': round(dim.y, 4)}
+        part_names = [o.name for o in meshes[:50]]
+
+        if args['inspect']:
+            render_inspect_sheet(meshes, mn, mx, args['inspect'])
+
+        if args['out']:
+            bpy.ops.export_scene.gltf(
+                filepath=args['out'],
+                export_format='GLB',
+                export_yup=True,
+                export_apply=not preserve_tree,
+                export_texcoords=True,
+                export_normals=True,
+                export_materials='EXPORT',
+                export_image_format='WEBP',
+                export_image_quality=91,
+            )
 
     rep = {
         'src': args['src'],
@@ -432,6 +680,7 @@ def main():
         'faces_after': faces_after,
         'decimate_ratio': round(ratio, 4),
         'baked_materials': baked,
+        'recolored_textures': recolored,
         'bvh_trees_verified': bvh_count,
         'gltf_dimensions_m': gltf_dim,
         'gltf_bounds_m': {
@@ -439,13 +688,15 @@ def main():
             'y': [round(mn.z, 4), round(mx.z, 4)],
             'z': [round(-mx.y, 4), round(-mn.y, 4)],
         },
+        'pivots_gltf': pivots_out,
         'mesh_count': len(meshes),
         'sample_meshes': part_names,
     }
     if args['report']:
         Path(args['report']).write_text(json.dumps(rep, ensure_ascii=False, indent=2))
     print(f"[bk-prep] OK role={args['role']} faces={faces_before}->{faces_after} (ratio={ratio:.2f}) "
-          f"dim(X,Y,Z)={gltf_dim['length_x']}x{gltf_dim['height_y']}x{gltf_dim['width_z']}m baked={baked}")
+          f"dim(X,Y,Z)={gltf_dim['length_x']}x{gltf_dim['height_y']}x{gltf_dim['width_z']}m "
+          f"baked={baked} recolor={recolored} pivots={len(pivots_out)}")
 
 
 if __name__ == '__main__':

@@ -1,0 +1,191 @@
+{
+  "base_uuid": "d60976b1-a13b-40b3-8721-859fd3efec5b",
+  "armature_name": "rig",
+  "strip_objects": ["rifle", "tac_50"],
+  "default_prop_cache": "m4_carbine",
+  "ref_fbx": "Rifle_Aiming_Idle__c9c84492.fbx",
+  "prop_mount": {
+    "mesh_name": "M4_Rifle_Mesh",
+    "sling_butt_offset": [-0.115, 0.205, 0.165],
+    "sling_dir": [0.34, 0.04, -0.94],
+    "sling_up": [0.10, 0.99, 0.08],
+    "muzzle_len": 0.845,
+    "muzzle_up": 0.036,
+    "grip_local": [0.018, 0.225, -0.072],
+    "fore_local": [-0.020, 0.482, -0.020],
+    "local_matrix": [
+      [0.0, -1.0, 0.0, 0.0],
+      [1.0,  0.0, 0.0, 0.405],
+      [0.0,  0.0, 1.0, -0.188],
+      [0.0,  0.0, 0.0, 1.0]
+    ]
+  },
+  "inspect_clips": [
+    { "clip": "Rifle_Aim_Idle",      "fbx": "Rifle_Aiming_Idle__c9c84492.fbx", "mode": "two_hand",  "frame": 10 },
+    { "clip": "Rifle_Run_Aim",       "fbx": "Rifle_Run__c9c814a0.fbx",         "mode": "two_hand",  "frame": 8 },
+    { "clip": "Rifle_Reload_Crouch", "fbx": "Reload__c9c86923.fbx",            "mode": "reload_rh", "frame": 96 },
+    { "clip": "Kneeling_Pointing",   "fbx": "Kneeling_Pointing__c9c8555f.fbx", "mode": "slung",     "frame": 60 }
+  ],
+  "presets": {
+    "desert": {
+      "description": "Bộ binh xung kích Sa mạc (Desert Tan / Coyote) giữ nguyên giáp bả vai hạng nặng"
+    },
+    "woodland": {
+      "description": "Trinh sát / Bộ binh nhẹ Rừng rậm (NATO M81 Woodland 4 màu + giáp Ranger Olive gọn nhẹ)",
+      "strip_islands": [
+        { "mesh": "pokets", "abs_x_gt": 0.26, "z_gt": 1.20 }
+      ],
+      "materials": {
+        "body ": {
+          "mode": "camo4",
+          "mask": "warm_cloth",
+          "ref_lum": 0.365,
+          "colors": [
+            [0.33, 0.39, 0.25],
+            [0.19, 0.27, 0.17],
+            [0.31, 0.25, 0.18],
+            [0.14, 0.15, 0.13]
+          ]
+        },
+        "HELMET": {
+          "mode": "tint",
+          "mask": "warm_gear",
+          "strength": 0.88,
+          "scale": [0.62, 0.74, 0.56]
+        },
+        "pokets ": {
+          "mode": "tint",
+          "mask": "warm_gear",
+          "strength": 0.88,
+          "scale": [0.62, 0.74, 0.56]
+        },
+        "boots": {
+          "mode": "tint",
+          "mask": "all",
+          "scale": [0.52, 0.54, 0.48]
+        },
+        "GLOVES": {
+          "mode": "tint",
+          "mask": "all",
+          "scale": [0.52, 0.54, 0.48]
+        }
+      }
+    },
+    "multicam": {
+      "description": "Đặc nhiệm MultiCam hiện đại (vải pha Xám rêu / Cát ấm / Nâu đất + mũ giáp Coyote Olive)",
+      "strip_islands": [
+        { "mesh": "pokets", "abs_x_gt": 0.26, "z_gt": 1.20 }
+      ],
+      "materials": {
+        "body ": {
+          "mode": "camo4",
+          "mask": "warm_cloth",
+          "freq_scale": 1.25,
+          "ref_lum": 0.37,
+          "colors": [
+            [0.48, 0.46, 0.35],
+            [0.34, 0.39, 0.27],
+            [0.42, 0.33, 0.24],
+            [0.22, 0.20, 0.16]
+          ]
+        },
+        "HELMET": {
+          "mode": "tint",
+          "mask": "warm_gear",
+          "strength": 0.75,
+          "scale": [0.82, 0.78, 0.62]
+        },
+        "pokets ": {
+          "mode": "tint",
+          "mask": "warm_gear",
+          "strength": 0.75,
+          "scale": [0.78, 0.76, 0.60]
+        }
+      }
+    },
+    "urban": {
+      "description": "Đặc nhiệm Đô thị / Đêm (Rằn ri Xám đá / Xanh than / Đen chiến thuật, gỡ giáp vai)",
+      "strip_islands": [
+        { "mesh": "pokets", "abs_x_gt": 0.26, "z_gt": 1.20 }
+      ],
+      "materials": {
+        "body ": {
+          "mode": "camo4",
+          "mask": "warm_cloth",
+          "freq_scale": 1.15,
+          "ref_lum": 0.38,
+          "colors": [
+            [0.28, 0.31, 0.35],
+            [0.18, 0.21, 0.26],
+            [0.36, 0.38, 0.41],
+            [0.11, 0.12, 0.14]
+          ]
+        },
+        "HELMET": {
+          "mode": "tint",
+          "mask": "warm_gear",
+          "strength": 0.92,
+          "scale": [0.36, 0.38, 0.42]
+        },
+        "pokets ": {
+          "mode": "tint",
+          "mask": "warm_gear",
+          "strength": 0.92,
+          "scale": [0.34, 0.36, 0.40]
+        },
+        "boots": {
+          "mode": "tint",
+          "mask": "all",
+          "scale": [0.38, 0.40, 0.43]
+        },
+        "GLOVES": {
+          "mode": "tint",
+          "mask": "all",
+          "scale": [0.38, 0.40, 0.43]
+        }
+      }
+    },
+    "arctic": {
+      "description": "Bộ binh Bắc Cực / Mùa đông tuyết trắng (Rằn ri Trắng tuyết / Xám băng / Xanh đá)",
+      "strip_islands": [
+        { "mesh": "pokets", "abs_x_gt": 0.26, "z_gt": 1.20 }
+      ],
+      "materials": {
+        "body ": {
+          "mode": "camo4",
+          "mask": "warm_cloth",
+          "freq_scale": 0.9,
+          "ref_lum": 0.34,
+          "colors": [
+            [0.78, 0.80, 0.83],
+            [0.58, 0.62, 0.66],
+            [0.42, 0.46, 0.50],
+            [0.25, 0.28, 0.31]
+          ]
+        },
+        "HELMET": {
+          "mode": "tint",
+          "mask": "warm_gear",
+          "strength": 0.86,
+          "scale": [1.35, 1.38, 1.42]
+        },
+        "pokets ": {
+          "mode": "tint",
+          "mask": "warm_gear",
+          "strength": 0.82,
+          "scale": [0.76, 0.80, 0.84]
+        },
+        "boots": {
+          "mode": "tint",
+          "mask": "all",
+          "scale": [0.44, 0.46, 0.49]
+        },
+        "GLOVES": {
+          "mode": "tint",
+          "mask": "all",
+          "scale": [0.46, 0.48, 0.52]
+        }
+      }
+    }
+  }
+}

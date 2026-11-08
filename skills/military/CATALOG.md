@@ -6,9 +6,10 @@ mô hình và bối cảnh (`src/parts/`) bằng các công cụ dưới đây. 
 ## core — chung mọi skill (`@core/…`)
 | Import | Dùng cho |
 |---|---|
-| `@core/time`: `useT()`, `useSpring(t,at)`, `prog(t,a,b,ease?)`, `lerp`, `bump(t,a,d)`, `rnd(seed)`, `mix(hexA,hexB,p)`, `deg` | Giây voice tuyệt đối, lò xo, nội suy, ngẫu nhiên tất định |
+| `@core/time`: `useT()`, `useSpring(t,at)`, `prog(t,a,b,ease?)`, `lerp`, `bump(t,a,d)`, `rnd(seed)`, `mix(hexA,hexB,p)`, `rad(deg)`, `deg(rad)` | Giây voice tuyệt đối, lò xo, nội suy; **`rad(d)` đổi độ→radian cho 3D**, `deg(r)` đổi radian→độ cho SVG |
 | `@core/frame`: `useSize()` → `{W,H,SAFE}`, `Layer`, `handheld(t,amp,seed)` | Kích thước khung theo project.json, SVG toàn khung, rung máy |
 | `@core/asset`: `asset('a012')`, `assetInfo('a012')` | Tài sản theo mã trong ASSETS.json (gọi trong component) |
+| `@core/brand`: `brandLogoUrl()`, `brandConfig()` | URL logo kênh & cấu hình màu/độ mờ từ `library/brand/` (tự đồng bộ sang `.build/public/brand/`) |
 | `@core/preview`: `type Preview` | `export const preview` của part |
 
 ## military — chủ đề (`@skill/military/…`)
@@ -36,10 +37,13 @@ mô hình và bối cảnh (`src/parts/`) bằng các công cụ dưới đây. 
 | Import | Props chính | Ghi chú |
 |---|---|---|
 | `stage`: `Stage` | `sky[3], sun, sunIntensity, shadowArea, shadowCenter, fog, env, ambient, exposure, post{bloom, bloomThreshold, ao, dof}` | Canvas + trời + nắng có bóng + PMREM động theo trời/nắng + hậu kỳ HDR (`bloomThreshold=1.2`). `post={false}` khi thử nhanh |
-| `stage`: `Cam`, `ContactShadow` | `Cam`: `pos, look, fov, roll` · `ContactShadow`: `center, size, reach, opacity, blur, h?` | Camera nội suy bằng `prog()`; bóng tiếp xúc gầm chống bay lơ lửng |
+| `stage`: `Cam`, `ContactShadow` | `Cam`: `pos, look, fov, roll` · `ContactShadow`: `center, size, reach, opacity, blur, h?` | Camera nội suy bằng `prog()`; bóng tiếp xúc gầm chống bay lơ lửng (hỗ trợ cả `SkinnedMesh` động) |
+| `actor`: `Soldier3D`, `RifleMuzzleFlash`, `SOLDIER_CLIP_SPEEDS` | `t, skinSrc, animSrc, clip, onceFrom?, blendTo?, speed?, phase?, position, yaw, showWeapon?, fireAt?, burstRounds?` | Lính bộ binh PBR 67 xương dùng chung kho mocap Mixamo; tự pha giật vai & chớp lửa đầu nòng `muzzle_socket` theo `fireAt`; `SOLDIER_CLIP_SPEEDS` khớp vận tốc mặt đất chống trượt chân |
 | `camera`: `SplineCam`, `sampleSplineRig` | `keyframes: {at?, pos, look, lens?, roll?}[]`, `t?`, `u?`, `clearance=0.65`, `minY=0.45` | Camera mặc định: đường cong mượt `CatmullRomCurve3` + đổi tiêu cự `lens` (mm) + quét `BVHTree` chống đâm xuyên vật thể |
 | `bvh`: `BVHTree` | `BVHTree.fromScene(obj)`, `findNearest(pos, maxDist)` | Cây phân hoạch tam giác đo khoảng cách gần nhất để trượt tránh va chạm |
-| `gltf`: `GltfPart` | `src, position, rotation, scale, noCollide?, clipPlanes?, cutRimColor?, cutRimWidth?, cutRimBoost?, ghostCutawayOpacity?` | Nạp mô hình `.glb` (Blender/BlenderKit) an toàn `delayRender`, hỗ trợ mổ xẻ liền mạch viền laser HDR + bóng kính `ghost` |
+| `gltf`: `GltfPart` | `src, position, rotation, scale, noCollide?, clipPlanes?, cutRimColor?, cutRimWidth?, cutRimBoost?, ghostCutawayOpacity?, children?` | Nạp `.glb` an toàn `delayRender`; hỗ trợ cắt mặt phẳng động kèm viền laser HDR + bóng kính `ghost` |
+| `gltf`: `GltfRig` | `src, position, rotation, scale, noCollide?, joints?, ghostNodes?, cutaway?, ghostColor?, ghostMaxOpacity?, children={(root)=>…}` | Khí tài `.glb` nhiều khớp động (`joints: { Node: { rot, pos, posOffset, scale, visible, castShadow } }`) + mổ xẻ X-Ray mượt theo nhóm vỏ (`ghostNodes` + `cutaway`) |
+| `brand`: `BrandWallMark`, `BrandDecal`, `BrandPlate`, `BrandMark2D` | `BrandWallMark`: `position, rotation, width, tint, opacity, backingPlate` · `BrandDecal`: `target, position, normal, roll, size, tint, opacity, wear` · `BrandPlate`: `position, rotation, width` | Gắn Logo Kênh tự nhiên trong thế giới 3D: vách nhà chứa/sàn studio (`BrandWallMark`), sơn stencil ôm cong lưới 3D (`BrandDecal`), bảng kim loại khắc nổi (`BrandPlate`), dấu sơ đồ 2D (`BrandMark2D`) |
 | `geom`: `loft(stations, opts)` | `stations: {x, rz?, ry?, y?, z?, n?, twist?, pts?}[]` | Nối mượt đa mặt cắt biến thiên dọc `+X` (thân máy bay, tàu chiến, tàu ngầm, tháp pháo đúc, vỏ động cơ, mũi tên lửa) |
 | `geom`: `sweep(profile, curvePts, opts)`, `airfoil(chord, thick?, camber?)` | `opts: {steps, taper, twist, caps}` | Quét tiết diện 2D dọc đường cong 3D có thu phóng/xoắn (cánh máy bay, cánh quạt, chân vịt, ống dẫn) + biên dạng NACA |
 | `geom`: `extrude(pts,depth,bevel)`, `extrudeTop(pts,h)`, `lathe(profile,seg)`, `revolve(profile,seg,arc)`, `shell(geo,thick)`, `clipPlane(normal,offset)`, `rbox`, `pipe`, `merge`, `mat4` | | Đùn phẳng; tiện tròn / tiện mở góc giải phẫu (`revolve`); tạo độ dày vỏ (`shell`); mặt phẳng cắt cơ khí (`clipPlane`) |
@@ -57,3 +61,15 @@ mô hình và bối cảnh (`src/parts/`) bằng các công cụ dưới đây. 
 - **Filter SVG trong `<Cam2D>`:** tránh gắn `filter="url(#glow)"` trực tiếp lên đường chéo dài bên trong nhóm đang `scale` của `<Cam2D>` (dễ dính lỗi cắt ô filter của Chromium); ưu tiên vẽ nét kép (halo mờ bản rộng + lõi sáng) hoặc đặt `<Defs2D>` ngoài lớp zoom.
 - **Góc `Cam` 3D với `<Trail>`:** tránh đặt quỹ đạo `Cam` đi xuyên trùng dọc theo vector kéo dài của `<Trail>` đầu cánh/đạn để vệt khói không bị chiếu suy biến thành vạch thẳng đứng trên khung hình.
 - Công cụ nào thiếu → viết trong `src/parts/` của dự án. Chỉ chuyển lên `skills/military/lib` khi người dùng đồng ý, kèm cập nhật bảng này.
+
+## CLI kho 3D BlenderKit & Blender nền (`core/tools/bk.py`)
+- `python3 core/tools/bk.py search "<q1>" ["<q2>" ...] [-n 8] [-j 6] [--free]` — tìm nhiều từ khoá song song trên BlenderKit (hỗ trợ cả Full Plan qua `BLENDERKIT_API_KEY`).
+- `python3 core/tools/bk.py fetch <uuid1> [<uuid2>:bg ...] [-j 6] [--res 2K|1K|0.5K|bg] [--thumb] [--force-res]` — tải song song nhiều mô hình vào `bk_cache/` dùng chung mọi dự án (mặc định bỏ qua thumbnail, tái sử dụng bản đã có trong cache, hậu tố `:bg` ưu tiên gói nhẹ 1K/0.5K cho đạo cụ nền).
+- `python3 core/tools/bk.py inspect-parts <uuid1> [<uuid2> ...] [-j 4]` — mở Blender nền song song liệt kê toàn bộ tên mesh, số mặt, hộp bao chuẩn glTF `[x, y, z]`, vật liệu & độ phân giải texture.
+- `python3 core/tools/bk.py prep <uuid_hoặc_blend> <đích.glb> [--role hero|prop|bg] [--length M | --height M] [--forward +X|-X|+Y|-Y] [--rig rig.json] [--recolor "#6b737b"] [--save-cache <slug>]` — chuẩn hoá hướng mũi `+X`, đáy `Y=0`, tạo cây khớp Empty xoay chuẩn (`--rig`), đổi màu sơn giữ AO (`--recolor`), nén ảnh WebP và xuất `.glb`.
+- `python3 core/tools/bk.py prep-actor <uuid_hoặc_blend> <đích.glb> [--preset skills/military/presets/infantry_uniforms.json:<desert|woodland|multicam|urban|arctic>] [--prop <vũ_khí.glb> | --no-prop] [--save-cache <slug>] [--inspect <sheet.png>]` — tuỳ biến trang phục mô-đun (gỡ giáp vai/túi phụ, đổi rằn ri 4 màu `camo4` hoặc nhuộm `tint` giữ nguyên nếp vải/AO/Normal) và chuẩn hoá khung 67 xương Mixamo (`+X` forward, đế giày `Y=0`, gắn vũ khí lên `weapon_mount` + `muzzle_socket`).
+- `python3 core/tools/bk.py list-prepped` — liệt kê các bản `.glb` (khí tài, nhân vật, gói mocap) đã chuẩn hoá sẵn trong `bk_cache/prepped/`.
+
+## CLI kho hoạt cảnh Mixamo (`core/tools/mocap.py`)
+- `python3 core/tools/mocap.py search "<từ khoá 1>" ["<từ khoá 2>" ...] [-n 20]` — tra nhanh `mixamo/manifest.csv` (2.446 clip quang học; tuyệt đối không quét trực tiếp các file `.fbx`).
+- `python3 core/tools/mocap.py pack --out <anims.glb> --spec <clips.json> [--base-rig <slug_hoặc_meta.json>] [--report <speeds.json>] [--save-cache <slug>]` — đóng gói danh sách clip `.fbx` sang 1 file `.glb` (`NLA_TRACKS`) nhẹ dùng chung cho mọi biến thể quân phục, tự đo `speed_mps`, khử trôi ngang `Hips` thành `In-Place` và căn chuẩn 2 tay cầm súng (`two_hand`, `reload_rh`, `grenade_lh`, `slung`). Bộ 24 clip chiến đấu mẫu: `skills/military/presets/mixamo_combat_clips.json`.

@@ -26,7 +26,7 @@ import tempfile
 import time
 from pathlib import Path
 
-from common import (KIT, SKILLS, assets, asset_refs, comp_id, ensure_bundle, load, need, opt, remotion, save_json,
+from common import (KIT, LIBRARY, SKILLS, assets, asset_refs, comp_id, ensure_bundle, load, need, opt, remotion, save_json,
                     scene_spec_ts, sync_assets, sync_cues, timeline, tsc, write_if_changed, write_tsconfig)
 
 MAX_PARALLEL_RENDERS = 4
@@ -180,6 +180,9 @@ def trace_deps(start: Path, pdir: Path):
             if nxt == cues_idx or nxt == cues_dir:
                 continue
             stack.append(nxt)
+    brand_kit = (KIT / 'brand.ts').resolve()
+    if brand_kit in seen and (LIBRARY / 'brand').is_dir():
+        seen.update(f.resolve() for f in (LIBRARY / 'brand').iterdir() if f.is_file() and f.name != '.DS_Store')
     if all_cues and cues_dir.is_dir():
         seen.update(f.resolve() for f in cues_dir.glob('*.ts') if f.stem != 'index')
     return seen, cue_keys, all_cues

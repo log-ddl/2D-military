@@ -30,3 +30,7 @@ old_exports/
 # cache BlenderKit (có API key) và mô hình tải về
 .cache/
 bk_cache/
+*.lock
+
+# thư viện động tác Mixamo tải về (1.3GB, không phát tán lại)
+mixamo/

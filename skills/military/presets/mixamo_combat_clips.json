@@ -1,0 +1,38 @@
+{
+  "description": "24 hoạt cảnh mocap quang học chiến đấu & chỉ huy quân sự tuyển chọn từ mixamo/manifest.csv",
+  "prop_mount": {
+    "sling_butt_offset": [-0.115, 0.205, 0.165],
+    "sling_dir": [0.34, 0.04, -0.94],
+    "sling_up": [0.10, 0.99, 0.08],
+    "muzzle_len": 0.845,
+    "muzzle_up": 0.036,
+    "grip_local": [0.018, 0.225, -0.072],
+    "fore_local": [-0.020, 0.482, -0.020]
+  },
+  "clips": [
+    { "clip": "Rifle_Aim_Idle",      "fbx": "Rifle_Aiming_Idle__c9c84492.fbx",     "mode": "two_hand" },
+    { "clip": "Rifle_Low_Idle",      "fbx": "Rifle_Idle__c9cd4f94.fbx",            "mode": "two_hand" },
+    { "clip": "Rifle_Look_Idle",     "fbx": "Rifle_Idle__c9cd5052.fbx",            "mode": "two_hand" },
+    { "clip": "Rifle_Walk_Aim",      "fbx": "Walking__c9c84e7b.fbx",               "mode": "two_hand" },
+    { "clip": "Rifle_Walk_Patrol",   "fbx": "Walk_With_Rifle__c9cc1182.fbx",       "mode": "two_hand" },
+    { "clip": "Rifle_Walk_Fire",     "fbx": "Firing_Rifle__c9c92f55.fbx",          "mode": "two_hand" },
+    { "clip": "Rifle_Crouch_Idle",   "fbx": "Idle_Crouching_Aiming__c9ceac02.fbx", "mode": "two_hand" },
+    { "clip": "Rifle_Kneel_Idle",    "fbx": "Rifle_Kneel_Idle__c9cd79d4.fbx",      "mode": "two_hand" },
+    { "clip": "Rifle_Crouch_Walk",   "fbx": "Crouch_Walking__c9c92c49.fbx",        "mode": "two_hand" },
+    { "clip": "Rifle_Crouch_Fire",   "fbx": "Fire_Rifle__c9c86f03.fbx",            "mode": "two_hand" },
+    { "clip": "Rifle_Stand_Fire",    "fbx": "Firing_Rifle__c9c863fe.fbx",          "mode": "two_hand" },
+    { "clip": "Rifle_Run",           "fbx": "Run_Forward__c9ce8798.fbx",           "mode": "two_hand" },
+    { "clip": "Rifle_Run_Aim",       "fbx": "Rifle_Run__c9c814a0.fbx",             "mode": "two_hand" },
+    { "clip": "Rifle_Sprint",        "fbx": "Sprint_Forward__c9ce86d8.fbx",        "mode": "two_hand" },
+    { "clip": "Rifle_Strafe_Left",   "fbx": "Strafe_Left__c9c874fa.fbx",           "mode": "two_hand" },
+    { "clip": "Rifle_Strafe_Right",  "fbx": "Strafe_Right__c9c86113.fbx",          "mode": "two_hand" },
+    { "clip": "Rifle_Reload_Crouch", "fbx": "Reload__c9c86923.fbx",                "mode": "reload_rh" },
+    { "clip": "Rifle_Dive_Roll",     "fbx": "Dive_Roll__c9c88244.fbx",             "mode": "two_hand" },
+    { "clip": "Rifle_Prone_Crawl",   "fbx": "Prone_Forward__c9c878a5.fbx",         "mode": "two_hand" },
+    { "clip": "Rifle_Prone_Fire",    "fbx": "Prone_Firing_Rifle__c9c85afc.fbx",    "mode": "two_hand" },
+    { "clip": "Rifle_Throw_Grenade", "fbx": "Throw_Grenade__c9c86b60.fbx",         "mode": "grenade_lh" },
+    { "clip": "Rifle_Cover_Idle",    "fbx": "Taking_Cover_Idle__c9ca807d.fbx",     "mode": "two_hand" },
+    { "clip": "Kneeling_Pointing",   "fbx": "Kneeling_Pointing__c9c8555f.fbx",     "mode": "slung" },
+    { "clip": "Salute",              "fbx": "Salute__c9cb0ab6.fbx",                "mode": "slung" }
+  ]
+}

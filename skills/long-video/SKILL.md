@@ -30,7 +30,7 @@ src/cues/index.ts             SINH TỰ ĐỘNG gộp src/cues/*.ts — cấm s�
 src/parts/…                   base dùng chung (Agent chính + subagent mô hình), khoá trước khi chia chương
 src/parts/CNN_<Tên>.tsx       biến thể 2D / 3D riêng chương NN (planner chương NN), 3D kiểm bằng --part
 src/scenes/CNNSxx.tsx         mỗi file một cảnh, id dạng C03S05 (chương 03, cảnh 05)
-plan/sfx/CNN.json             {"sfx":[...]} SFX của chương NN, do agent SFX (skills/sound-design) viết; audio.py gộp
+plan/sfx/CNN_*.json           {"sfx":[...]} SFX của chương NN (chia tối đa 4 lát cắt CNN_1..CNN_4.json chạy song song); audio.py tự gộp
 ```
 
 Lệnh thêm:
@@ -48,12 +48,11 @@ hiện một khung giữ chỗ.
 
 1. `new.py`, `ingest.py`, `asr.py` như skill chính. Xem `assets/ASSETS.json` và `library/`.
 2. Đọc **toàn bộ** `plan/voice_map.md` (mốc theo câu là đủ để chia chương; chi tiết từng từ để cho planner chương).
-3. Liệt kê **mọi** khí tài, phương tiện, nhân vật, địa danh / bản đồ, hiệu ứng **xuất hiện ở hơn một chỗ** trong cả phim. Có thể gọi
-   1 subagent tra kích thước thật song song.
+3. Liệt kê **mọi** khí tài, phương tiện, đạo cụ môi trường, nhân vật, địa danh / bản đồ, hiệu ứng **xuất hiện ở hơn một chỗ** trong cả phim. Kiểm tra `bk.py list-prepped` (`bk_cache/prepped/`) và có thể gọi 1 subagent tra kích thước thật + tìm mã UUID BlenderKit (`bk.py search`) song song.
 4. Chia chương **theo ý**, không theo đồng hồ: mỗi chương trả lời một câu hỏi, thường 3–6 phút; ranh giới ở chỗ nghỉ `‖` hoặc
    chỗ đổi ý. Đặt mốc chương trùng `from`/`to` của câu.
-5. Viết `plan/STORY.md` theo template: lập luận, **thiết kế mỹ thuật chung**, **bảng base** (file đích, kích thước mét thật 1:1,
-   chữ ký `props` đủ rộng cho các biến thể chương sẽ cần: hư hỏng, cháy, ngụy trang, cấu hình đạn/giáp, phụ kiện), quy ước tên,
+5. Viết `plan/STORY.md` theo template: lập luận, **thiết kế mỹ thuật chung** (gồm cả vị trí gắn Logo Kênh 3D xuyên phim), **bảng base** (file đích, kích thước mét thật 1:1, nguồn `bk-rig` / `bk-actor` / `bk-prop` / `code-3d`,
+   chữ ký `props` đủ rộng cho các biến thể chương sẽ cần: hư hỏng, cháy, ngụy trang, quân trang các phe + gói mocap Mixamo dùng chung, mổ xẻ X-Ray, cấu hình đạn/giáp, phụ kiện), quy ước tên,
    bảng chương có trạng thái đầu/cuối, bảng theo dõi.
 6. Viết khung `plan/chapters/CNN.json` cho mọi chương (`"scenes": []`; `new.py` đã tạo `C01` phủ cả voice: sửa `to` của nó), chạy `asr.py <id> --chapters`.
 7. `src/design/` (bảng màu / ánh sáng). `plan/mix.json` để agent nhạc viết (mục 4). Xoá `src/cues/C01.ts` mẫu nếu chưa dùng,
@@ -63,7 +62,8 @@ hiện một khung giữ chỗ.
 ## 3. Base (khoá xong mới sang plan chương)
 
 Như Bước A2 của skill chính, nhưng cho cả phim:
-- Mô hình 3D: 2–5 subagent song song, mỗi cái 1–2 file `src/parts/<Tên>.tsx`, tự kiểm `check.py --part`. Nhiều mô
+- Kho 3D dùng chung: gộp tìm kiếm (`bk.py search "q1" "q2" … -j 6` / `mocap.py search`), tải hàng loạt song song (`bk.py fetch <hero_id> <bg_id>:bg … -j 6`), soi gộp (`bk.py inspect-parts … -j 4`) và chuẩn hoá song song bằng Blender dòng lệnh nền (`bk.py prep ... --save-cache <slug>`, `bk.py prep-actor ... --save-cache <slug>`, `mocap.py pack ... --save-cache <slug>`) cho toàn bộ khí tài chính, quân phục các phe & đạo cụ lặp lại nhiều chương, đưa vào `projects/<id>/input/` → `ingest.py <id>` trước khi giao bọc `parts/`.
+- Mô hình 3D: 2–5 subagent song song, mỗi cái 1–2 file `src/parts/<Tên>.tsx` (bọc `<GltfRig>` / `<GltfPart>`, gắn `<BrandDecal>` nếu là khí tài chính, dựng lõi cơ khí giải phẫu bên trong), tự kiểm `check.py --part`. Nhiều mô
   hình thì chạy nhiều đợt.
 - Hình chiếu 2D đồng bộ với 3D, địa hình / bản đồ / ký hiệu dùng chung: Agent chính vẽ (hoặc giao subagent khi quá nhiều, mỗi
   subagent một nhóm file riêng).
@@ -109,7 +109,7 @@ Cập nhật cột Dựng ngay khi một chương đủ cảnh (và mở ngay ki
 
 1. Ngay khi một chương `CNN` vừa dựng đủ cảnh `src/scenes/CNNS*.tsx`, chạy `python3 core/tools/build.py <id>` rồi **gọi song song 2 subagent cho chương `CNN`** trong lúc các chương sau vẫn đang dựng:
    - **1 subagent kiểm hình** (`check.py <id> --chapter CNN` — tự cắt lát đúng các cảnh trong khoảng kiểm và tắt giải mã `voice.mp3`, không phụ thuộc `audio.py`): xem ảnh, đối chiếu `CNN.md` và chuẩn chất lượng của skill chính; báo cảnh hỏng kèm lý do. Không sửa code.
-   - **1 subagent SFX của chương `CNN`** (`skills/sound-design/SKILL.md` mục 4 — Pha 2 + `skills/<skill>/SOUND.md`): đọc trực tiếp toàn bộ `src/scenes/CNNS*.tsx` của chương đó để ghi `plan/sfx/CNN.json` khớp chính xác mọi mốc `<Explosion`/`<MuzzleBlast`/va chạm và khoảng chuyển động `prog(t, a, b)` trên hình (chưa gọi `audio.py` khi các chương khác chưa xong).
+   - **1–4 subagent SFX chạy song song của chương `CNN`** (tối đa 4 subagent SFX hoạt động đồng thời theo `skills/sound-design/SKILL.md` mục 4 — Pha 2 + `skills/<skill>/SOUND.md`): chia các cảnh `src/scenes/CNNS*.tsx` của chương đó thành các cụm để ghi `plan/sfx/CNN_1.json`..`CNN_4.json` khớp chính xác mọi mốc `<Explosion`/`<MuzzleBlast`/va chạm và khoảng chuyển động `prog(t, a, b)` trên hình (không tự viết script giả lập trộn âm trên RAM; chưa gọi `audio.py` khi các chương khác chưa xong).
 2. Khi toàn bộ cảnh đã dựng xong, agent nhạc và mọi agent SFX chương đã báo xong (nếu có cảnh dựng lại làm đổi mốc sự kiện thì cập nhật `plan/sfx/CNN.json` cảnh đó) → chạy `.venv/bin/python core/tools/audio.py <id>` (kiểm chéo `.tsx` mục 5 `sound-design` + đọc `.build/sound_report.txt`) → `python3 core/tools/build.py <id> --strict` sạch lỗi.
 3. Agent chính: `check.py <id> --seams`, xem mọi `out/checks/seams/*.png` (gom toàn bộ chỗ nối trong 1 lần chụp cắt lát: liền mạch, không giật màu / ánh sáng vô lý, trạng thái khớp).
 4. Cảnh hỏng → giao lại subagent dựng cảnh đó kèm ghi chú. **Khi sửa lỗi hình ảnh thuần `.tsx` mà không đổi `plan/mix.json` hay `plan/sfx/*.json` (`"sfx"`), KHÔNG chạy lại `audio.py`** — chỉ chạy `python3 core/tools/build.py <id> --strict` rồi chụp lại đúng `--chapter CNN` / `--seams` bị ảnh hưởng. Cập nhật cột Kiểm.

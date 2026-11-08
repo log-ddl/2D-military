@@ -276,6 +276,7 @@ export const ContactShadow: React.FC<ContactShadowProps> = ({
         void main() {
           #include <begin_vertex>
           #include <morphtarget_vertex>
+          #include <skinbase_vertex>
           #include <skinning_vertex>
           vec4 wp = modelMatrix * vec4(transformed, 1.0);
           #ifdef USE_INSTANCING

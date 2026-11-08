@@ -43,12 +43,12 @@ File Epidemic thuộc gói trả phí của người dùng: **không chia sẻ r
 6. Chỉ tải những gì sẽ dùng (bài đã chọn + stem, SFX đã chọn). MCP không báo phí / hạn mức; tải thử nhiều thì hỏi người dùng trước.
 
 ```
-python3 core/tools/sound_lib.py search "metal impact" [-n 8] [--max 3] [--online]     SFX
-python3 core/tools/sound_lib.py search "dark cinematic" --music --online               nhạc
-.venv/bin/python core/tools/sound_lib.py get <khoá_fs_hoặc_mk> --query "metal impact"  tải → đo → INDEX.json
-.venv/bin/python core/tools/sound_probe.py <khoá_hoặc_file>                            dur, đỉnh @giây, cụm tiếng (segs), % trầm
-.venv/bin/python core/tools/sound_probe.py <khoá_hoặc_file> --music [--grid 86-118]    tempo, giọng, CÚ HIT, cú kết, dB mỗi giây
-.venv/bin/python core/tools/audio.py <id>                                              trộn + tự kiểm → .build/sound_report.txt
+python3 core/tools/sound_lib.py search "metal impact" "jet flyby" [-n 8] [--max 3] [-j 4] [--online]   SFX (gộp nhiều từ khoá chạy song song)
+python3 core/tools/sound_lib.py search "dark cinematic" --music --online                               nhạc
+.venv/bin/python core/tools/sound_lib.py get fs:123 mk:456 [-j 6] --query "metal impact"               tải song song → đo → INDEX.json
+.venv/bin/python core/tools/sound_probe.py <khoá_hoặc_file>                                            dur, đỉnh @giây, cụm tiếng (segs), % trầm
+.venv/bin/python core/tools/sound_probe.py <khoá_hoặc_file> --music [--grid 86-118]                    tempo, giọng, CÚ HIT, cú kết, dB mỗi giây
+.venv/bin/python core/tools/audio.py <id>                                                              trộn + tự kiểm → .build/sound_report.txt
 ```
 Không nghe được thì chọn theo dấu vết người nghe để lại: nhiều lượt tải **và** nhiều người chấm (★4.4 với 380 phiếu hơn ★4.9 với 6 phiếu);
 mô tả của người thu (nguồn âm thật, thiết bị) gần với nghe nhất; loại clip có mô tả khác nguồn âm cần; **luôn chạy `sound_probe` xem `dur`, `peak` và `segs`** trước khi cắt đặt (để không chọn nhầm gói nhiều phát liên tiếp hoặc đặt sai `align`). Tìm bằng tiếng Anh, tả **nguồn âm + chất liệu** ("heavy metal door slam"), không tả cảm xúc chung chung.
@@ -99,20 +99,24 @@ Ghi thành bảng **khoảnh khắc âm thanh** (cảnh · mốc `at` hoặc kho
 - **Tiếng nền (`"amb"`) liền mạch, không đứt quãng:** mỗi không gian một lớp nhỏ (gió biển, đồng trống, ù phòng kỹ thuật) đổi theo cảnh. **Bắt buộc kiểm `dur` của file `amb`:** vì `audio.py` không tự loop `amb`, nếu khoảng `[from, to]` cần phủ dài hơn `dur` của file gốc (vd cảnh 120 s mà file dài 30 s), **phải chia thành các mảnh nối tiếp gối chồng nhau 1.5–2 s** với `"fadeIn": 1.5, "fadeOut": 1.5` (vd `[0, 29.5]`, `[28.0, 57.5]`…), tuyệt đối không để `in + (to - from) > dur` làm đứt phựt nền sang im lặng!
 - `"stages"`: không gian vang theo đoạn (`out` ngoài trời / `room` trong phòng / `dry` cho sơ đồ 2D sạch).
 
-## 4. Tách hai pha: Agent Nhạc chạy sớm, Agent SFX chạy sau khi có `.tsx`
-Không gộp làm SFX trước khi dựng cảnh (làm mù trước khi có `.tsx` chắc chắn lệch mốc hình và bỏ sót sự kiện):
+## 4. Tách hai pha: Agent Nhạc chạy sớm, Tối đa 4 Agent SFX chạy song song sau khi có `.tsx`
+Không gộp làm SFX trước khi dựng cảnh (làm mù trước khi có `.tsx` chắc chắn lệch mốc hình và bỏ sót sự kiện), và **không dồn cả chương dài cho 1 agent SFX đơn luồng**:
 - **Pha 1 — Agent Nhạc (`plan/mix.json`, chạy song song với dựng mô hình/cảnh):** gọi ngay sau khi khoá `plan/STORY.md` và `plan/chapters/CNN.md` + `.json`. Chỉ tạo/sửa `plan/mix.json` (`stages`, `music`, `music_db`, `amb`, `options`, `trim`) và tải nhạc/nền qua `sound_lib.py`. Kiểm kỹ mọi mảnh `music` và `amb` có `in + (to - from) ≤ dur`.
-- **Pha 2 — Agent SFX (`plan/sfx/CNN.json`, chỉ chạy SAU KHI chương đã dựng xong `src/scenes/CNNSxx.tsx`):**
-  - Video ngắn (1 chương): gọi ngay đầu Bước C sau khi các subagent Bước B viết xong `src/scenes/C01S*.tsx`.
-  - Video dài (nhiều chương): gọi **cuốn chiếu theo chương** — hễ chương `CNN` vừa dựng đủ `src/scenes/CNNS*.tsx` thì gọi ngay 1 subagent SFX cho chương đó (chạy song song với subagent kiểm hình chương `CNN` và dựng hình các chương sau).
+- **Pha 2 — Tối đa 4 Agent SFX chạy song song (`plan/sfx/CNN_1.json` … `CNN_4.json`, chỉ chạy SAU KHI có `src/scenes/CNNSxx.tsx`):**
+  - `common.py` tự động gộp mọi file `plan/sfx/*.json` theo thứ tự bảng chữ cái và `audio.py` sắp xếp lại theo `at`, đồng thời `sound_lib.py` đã có khoá `flock` đa tiến trình trên `INDEX.json` nên **nhiều subagent SFX có thể tải WAV và ghi file song song 100% an toàn**.
+  - **Video ngắn (1 chương `C01`) hoặc 1 chương nhiều cảnh:** chia các cảnh `src/scenes/CNNS*.tsx` thành **tối đa 4 cụm cảnh liền kề chạy song song** (khớp đúng 2–4 nhóm dựng cảnh ở Bước B: mỗi subagent `k` phụ trách 2–3 cảnh và ghi riêng vào `plan/sfx/CNN_k.json`, vd `C01_1.json` cho `S01–S03`, `C01_2.json` cho `S04–S06`, `C01_3.json` cho `S07–S08`, `C01_4.json` cho `S09–S10`).
+  - **Video dài (nhiều chương):** gọi **cuốn chiếu song song tối đa 4 subagent SFX cùng lúc** (mỗi subagent phụ trách 1 chương hoặc 1 nửa chương dài `plan/sfx/CNN_1.json`, `CNN_2.json`).
 
-Prompt giao việc cho **Agent SFX** BẮT BUỘC có:
-1. Đọc: file này, `skills/<skill>/SOUND.md`, `plan/STORY.md`, `plan/chapters/CNN.md` + `.json`, `plan/voice_map.md` (hoặc `CNN.voice.md`), `src/cues/CNN.ts`, **toàn bộ file `src/scenes/CNNS*.tsx` của chương được giao**, **yêu cầu âm thanh của người dùng** (chép nguyên văn), **nguồn: `epidemic` hay `free`** (mặc định `epidemic`).
-2. Chỉ được tạo/sửa: `plan/sfx/CNN.json` của chương mình, `library/*/dl/` + `library/*/epidemic/` + `INDEX.json` (qua `sound_lib.py`). Không sửa `plan/mix.json`, `plan/chapters/`, `src/`, giọng; không gọi `build.py`, `render.py`.
-3. Làm: đọc kỹ từng `src/scenes/CNNSxx.tsx` → lập bảng khoảnh khắc âm thanh khớp chính xác mốc nổ/va chạm (`<Explosion`, `<MuzzleBlast`, `bump`) và khoảng chuyển động `[t_đầu, t_cuối]` (`prog`) + loại khung hình (3D hiện thực / cắt lớp / 2D) → tìm đúng nguồn âm (Epidemic trước khi `"source": "epidemic"`, không lấy file sai chất liệu trong kho) → tải → `sound_probe` kiểm `dur`/`peak`/`segs` → viết `plan/sfx/CNN.json` đúng `align`, `loop_to`, `fi`/`fo`.
-4. Báo lại: bảng đối chiếu từng cảnh (`CNNSxx`: sự kiện trong `.tsx` ↔ `at` / `loop_to` / khoá file + `align` trong JSON), danh sách file mới tải, xác nhận không lặp quá trần và không có lớp bị cắt cụt.
+Prompt giao việc cho **mỗi Agent SFX (`k = 1..4`)** BẮT BUỘC có:
+1. Đọc: file này, `skills/<skill>/SOUND.md`, `plan/STORY.md`, `plan/chapters/CNN.md` + `.json`, `plan/voice_map.md` (hoặc `CNN.voice.md`), `src/cues/CNN.ts`, **chỉ đọc các file `src/scenes/CNNSxx.tsx` thuộc cụm cảnh được giao**, **yêu cầu âm thanh của người dùng** (chép nguyên văn), **nguồn: `epidemic` hay `free`** (mặc định `epidemic`).
+2. Chỉ được tạo/sửa: **duy nhất file lát cắt của mình** `plan/sfx/CNN_k.json` (hoặc `plan/sfx/CNN.json` nếu cả chương chỉ có ≤3 cảnh), `library/*/dl/` + `library/*/epidemic/` + `INDEX.json` (qua `sound_lib.py`). Không sửa file của nhóm khác, `plan/mix.json`, `plan/chapters/`, `src/`, giọng; không gọi `build.py`, `audio.py`, `render.py`.
+3. **Cấm tự viết script Python mô phỏng trộn âm trên RAM:** subagent chỉ làm đúng 3 bước nhanh gọn:
+   - Đọc kỹ các `src/scenes/CNNSxx.tsx` được giao → lập bảng khoảnh khắc âm thanh khớp chính xác mốc nổ/va chạm (`<Explosion`, `<MuzzleBlast`, `bump`) và khoảng chuyển động `[t_đầu, t_cuối]` (`prog`) + loại khung hình (3D hiện thực / cắt lớp / 2D).
+   - Kiểm kho `sound_lib.py search "..." --epidemic` trước (dùng lại ngay nếu đã có đúng chất liệu) → thiếu mới tìm & tải từ Epidemic MCP → `sound_probe` kiểm `dur`/`peak`/`segs`.
+   - Viết `plan/sfx/CNN_k.json` với khoá gốc `"sfx": [...]`, đúng `align`, `loop_to`/`trim`, `fi`/`fo` và đặt `gain` chuẩn theo khung tham chiếu (`0.12–0.26` cho súng/va chạm thường lúc có lời, `0.32–0.42` cho cơ khí cận cảnh, `0.65–0.85` cho cú nổ chính có `"duck": 6..7`, `1.0–1.4` cho nền `norm: "rms"`, `0.07–0.11` cho UI bản đồ 2D). Mọi bước đo lường & cân chỉnh tổng thể để `audio.py` của Agent chính xử lý một lần.
+4. Báo lại: bảng đối chiếu từng cảnh được giao (`CNNSxx`: sự kiện trong `.tsx` ↔ `at` / `loop_to` / khoá file + `align` trong JSON), danh sách file mới tải, xác nhận không lặp quá trần và không có lớp tràn sang cảnh của nhóm khác.
 
-Khi cả `plan/mix.json` và mọi `plan/sfx/CNN.json` đã xong: chạy `.venv/bin/python core/tools/audio.py <id>` → đọc `.build/sound_report.txt` + kiểm chéo mục 5 → sửa ít nhất 1 vòng tới khi đạt hết. Nếu vòng kiểm hình sau đó sửa `.tsx` làm đổi mốc nổ/chuyển động của cảnh nào thì cập nhật lại `plan/sfx/CNN.json` cảnh đó rồi chạy lại `audio.py <id>`; sửa hình thuần `.tsx` không đổi mốc thì không cần chạy lại.
+Khi `plan/mix.json` và tất cả các subagent SFX (`plan/sfx/*.json`) đã xong: Agent chính chạy `.venv/bin/python core/tools/audio.py <id>` (chỉ mất ~20 giây) → đọc `.build/sound_report.txt` + kiểm chéo mục 5 → chỉnh trực tiếp `plan/sfx/CNN_k.json` nếu có cảnh báo `⚠`. Nếu vòng kiểm hình sau đó sửa `.tsx` làm đổi mốc nổ/chuyển động của cảnh nào thì chỉ cập nhật lại đúng file `plan/sfx/CNN_k.json` chứa cảnh đó rồi chạy lại `audio.py <id>`; sửa hình thuần `.tsx` không đổi mốc thì không cần chạy lại.
 
 ## 5. Tự kiểm — kiểm chéo `.tsx` + `.build/sound_report.txt` (đạt cả hai mới giao)
 Lưu ý: `.build/sound_report.txt` chỉ đo mức tín hiệu và so đỉnh sóng với chính số `at` ghi trong JSON (hễ để `align: "peak"` thì báo cáo luôn in `+0 ms` kể cả khi lệch hình 3 giây hay gắn nhầm tiếng đại bác vào sơ đồ 2D!). Vì vậy bắt buộc kiểm đủ hai tầng:
@@ -140,7 +144,7 @@ plan/mix.json
  "amb": [{"key": "es:<uuid_wind_dur80s>", "in": 0, "from": 0, "to": 25.7, "gain": 0.35, "fadeIn": 0.8, "fadeOut": 0.8, "hp": 120}],
  "options": {"word_dodge": false, "beat_snap": false}, "trim": {"music": 0, "sfx": 0}, "volume": {"music": 1, "sfx": 1}}
 
-plan/sfx/C01.json
+plan/sfx/C01_1.json (tối đa 4 file lát cắt C01_1.json .. C01_4.json chạy song song, tự động gộp bởi common.py)
 {"sfx": [
   {"at": 0.0, "name": "c01_s01_rotor_hover_to_cruise", "layers": [
      {"key": "es:<uuid_turboprop_loop>", "align": "start", "norm": "rms", "loop_to": 25.5, "gain": 1.3, "fi": 0.6, "fo": 1.0}]},

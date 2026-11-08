@@ -1,4 +1,265 @@
 {
+ "es:00805e58-d67a-4c32-8520-21d7a7c10806": {
+  "source": "epidemic",
+  "id": "00805e58-d67a-4c32-8520-21d7a7c10806",
+  "title": "Guns, Handle, Rifle, Magazine, Unload",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Handle-Rifle-Magazine-Unload_00805e58.wav",
+  "queries": [],
+  "dur": 5.37,
+  "peak": 1.3,
+  "segs": [
+   [
+    0.0,
+    0.33
+   ],
+   [
+    1.29,
+    1.57
+   ],
+   [
+    2.46,
+    2.84
+   ],
+   [
+    3.68,
+    3.92
+   ],
+   [
+    4.89,
+    5.15
+   ]
+  ],
+  "low": 0,
+  "max_db": -3.6
+ },
+ "es:021864d6-49f9-4d97-a035-ed094503f89c": {
+  "source": "epidemic",
+  "id": "021864d6-49f9-4d97-a035-ed094503f89c",
+  "title": "Guns, Handle, Rifle, Magazine, Load",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Handle-Rifle-Magazine-Load_021864d6.wav",
+  "queries": [],
+  "dur": 3.6,
+  "peak": 3.3,
+  "segs": [
+   [
+    0.0,
+    0.21
+   ],
+   [
+    1.1,
+    1.35
+   ],
+   [
+    2.21,
+    2.35
+   ],
+   [
+    3.28,
+    3.42
+   ]
+  ],
+  "low": 0,
+  "max_db": -3.4
+ },
+ "es:06e1bad7-5969-4312-81a1-1a25b2910d14": {
+  "source": "epidemic",
+  "id": "06e1bad7-5969-4312-81a1-1a25b2910d14",
+  "title": "Guns, Automatic, Semi-Automatic Rifle, Burst",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-Semi-Automatic-Rifle-Burs_06e1bad7.wav",
+  "queries": [],
+  "dur": 3.46,
+  "peak": 0.73,
+  "segs": [
+   [
+    0.0,
+    1.03
+   ]
+  ],
+  "low": 41,
+  "max_db": 4.7
+ },
+ "es:0b9548b9-04bb-47ae-b4eb-0a3eaa22ddc3": {
+  "source": "epidemic",
+  "id": "0b9548b9-04bb-47ae-b4eb-0a3eaa22ddc3",
+  "title": "Guns, Automatic, M16. Burst, 4 Shots, Bridge",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-M16-Burst-4-Shots-Bridge_0b9548b9.wav",
+  "queries": [],
+  "dur": 1.79,
+  "peak": 0.15,
+  "segs": [
+   [
+    0.07,
+    0.39
+   ]
+  ],
+  "low": 15,
+  "max_db": -2.0
+ },
+ "es:0d3f8e6d-b2db-472d-ad2b-6952d94017eb": {
+  "source": "epidemic",
+  "id": "0d3f8e6d-b2db-472d-ad2b-6952d94017eb",
+  "title": "Guns, Automatic, General Machinegun, Burst Fire, Shoot, Reverberant 02",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-General-Machinegun-Burst-_0d3f8e6d.wav",
+  "queries": [],
+  "dur": 6.55,
+  "peak": 1.97,
+  "segs": [
+   [
+    0.0,
+    4.62
+   ]
+  ],
+  "low": 10,
+  "max_db": -9.8
+ },
+ "es:0dab85e9-38ac-45b0-a77d-3ac058a577b0": {
+  "source": "epidemic",
+  "id": "0dab85e9-38ac-45b0-a77d-3ac058a577b0",
+  "title": "Bullets, By, Flyby, Fast, Multiple",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Bullets-By-Flyby-Fast-Multiple_0dab85e9.wav",
+  "queries": [],
+  "dur": 9.82,
+  "peak": 0.15,
+  "segs": [
+   [
+    0.05,
+    0.21
+   ],
+   [
+    0.93,
+    1.04
+   ],
+   [
+    1.69,
+    1.83
+   ],
+   [
+    2.64,
+    2.87
+   ],
+   [
+    3.52,
+    3.68
+   ],
+   [
+    4.51,
+    4.68
+   ],
+   [
+    5.5,
+    5.73
+   ],
+   [
+    6.77,
+    6.9
+   ],
+   [
+    7.75,
+    7.88
+   ],
+   [
+    8.64,
+    8.77
+   ],
+   [
+    9.53,
+    9.63
+   ]
+  ],
+  "low": 13,
+  "max_db": -5.2
+ },
+ "es:0f2c97b0-5dad-4798-bf9d-c11b79909325": {
+  "source": "epidemic",
+  "id": "0f2c97b0-5dad-4798-bf9d-c11b79909325",
+  "title": "Guns, Misc, Hand Grenade, Pin Pull",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Misc-Hand-Grenade-Pin-Pull_0f2c97b0.wav",
+  "queries": [],
+  "dur": 1.14,
+  "peak": 0.8,
+  "segs": [
+   [
+    0.78,
+    0.89
+   ]
+  ],
+  "low": 0,
+  "max_db": -9.4
+ },
+ "es:0f9cf846-9865-48eb-9011-b17c1507696a": {
+  "source": "epidemic",
+  "id": "0f9cf846-9865-48eb-9011-b17c1507696a",
+  "title": "Footsteps, Human, Layer, Snow, Sprint, Close",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Footsteps-Human-Layer-Snow-Sprint-Close_0f9cf846.wav",
+  "queries": [],
+  "dur": 13.24,
+  "peak": 0.71,
+  "segs": [
+   [
+    0.49,
+    12.06
+   ],
+   [
+    12.32,
+    13.27
+   ]
+  ],
+  "low": 1,
+  "max_db": -12.9
+ },
+ "es:10b6dfca-75c8-4fac-a65b-75afbf566f48": {
+  "source": "epidemic",
+  "id": "10b6dfca-75c8-4fac-a65b-75afbf566f48",
+  "title": "Vehicles, Military, Tank, T-72, Exterior, Engine Idle, 1200 Rpm, Close",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Vehicles-Military-Tank-T-72-Exterior-Eng_10b6dfca.wav",
+  "queries": [],
+  "dur": 59.95,
+  "peak": 27.26,
+  "segs": [
+   [
+    0.0,
+    60.08
+   ]
+  ],
+  "low": 75,
+  "max_db": -1.6
+ },
  "es:11208793-8676-418e-b0ef-43c63aa206b7": {
   "source": "epidemic",
   "id": "11208793-8676-418e-b0ef-43c63aa206b7",
@@ -53,6 +314,35 @@
   "low": 41,
   "max_db": -0.0
  },
+ "es:1adb4a68-dfd8-4101-955d-47b81eaf20a7": {
+  "source": "epidemic",
+  "id": "1adb4a68-dfd8-4101-955d-47b81eaf20a7",
+  "title": "Equipment, Tactical, Foley Set Tactical Vest, Grab 02",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Equipment-Tactical-Foley-Set-Tactical-Ve_1adb4a68.wav",
+  "queries": [],
+  "dur": 2.79,
+  "peak": 0.01,
+  "segs": [
+   [
+    0.0,
+    0.17
+   ],
+   [
+    0.95,
+    1.12
+   ],
+   [
+    2.11,
+    2.42
+   ]
+  ],
+  "low": 9,
+  "max_db": 1.1
+ },
  "es:1b216648-ab2e-4c96-81ea-7a18252126ba": {
   "source": "epidemic",
   "id": "1b216648-ab2e-4c96-81ea-7a18252126ba",
@@ -73,6 +363,289 @@
   ],
   "low": 77,
   "max_db": -6.8
+ },
+ "es:1b37d8d1-4201-4875-a525-01ced7bcca30": {
+  "source": "epidemic",
+  "id": "1b37d8d1-4201-4875-a525-01ced7bcca30",
+  "title": "Air, Hiss, Steam, Mist, Smoke, Gas, Release, Long, Medium 01",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Air-Hiss-Steam-Mist-Smoke-Gas-Release-Lo_1b37d8d1.wav",
+  "queries": [],
+  "dur": 32.97,
+  "peak": 11.85,
+  "segs": [
+   [
+    2.5,
+    29.75
+   ]
+  ],
+  "low": 0,
+  "max_db": 0.7
+ },
+ "es:1d2e2e8a-0ffa-4172-982f-1537202154c4": {
+  "source": "epidemic",
+  "id": "1d2e2e8a-0ffa-4172-982f-1537202154c4",
+  "title": "User Interface, Data, Transfer, Processing, Scanning",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/User-Interface-Data-Transfer-Processing-_1d2e2e8a.wav",
+  "queries": [],
+  "dur": 4.6,
+  "peak": 2.26,
+  "segs": [
+   [
+    0.0,
+    4.45
+   ]
+  ],
+  "low": 0,
+  "max_db": -20.6
+ },
+ "es:1dfca119-e786-4a4e-9a48-2dfe4d94d598": {
+  "source": "epidemic",
+  "id": "1dfca119-e786-4a4e-9a48-2dfe4d94d598",
+  "title": "Vehicles, Military, Tank, T-72, Cannon Shot, Close 02",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Vehicles-Military-Tank-T-72-Cannon-Shot-_1dfca119.wav",
+  "queries": [],
+  "dur": 8.66,
+  "peak": 0.07,
+  "segs": [
+   [
+    0.0,
+    2.83
+   ],
+   [
+    3.28,
+    3.48
+   ]
+  ],
+  "low": 78,
+  "max_db": 2.7
+ },
+ "es:1f0ecf0d-a83b-4ad3-88f2-1a0c83e0fd41": {
+  "source": "epidemic",
+  "id": "1f0ecf0d-a83b-4ad3-88f2-1a0c83e0fd41",
+  "title": "Guns, Automatic, General Machinegun, Burst Fire, Shoot, Reverberant 01",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-General-Machinegun-Burst-_1f0ecf0d.wav",
+  "queries": [],
+  "dur": 7.49,
+  "peak": 5.53,
+  "segs": [
+   [
+    0.0,
+    1.51
+   ],
+   [
+    2.6,
+    5.94
+   ]
+  ],
+  "low": 11,
+  "max_db": -11.1
+ },
+ "es:26cf2a6e-54a8-4069-85ab-2f0495de67eb": {
+  "source": "epidemic",
+  "id": "26cf2a6e-54a8-4069-85ab-2f0495de67eb",
+  "title": "Snow, Movement, Body Fall, Footsteps, Impact 04",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Snow-Movement-Body-Fall-Footsteps-Impact_26cf2a6e.wav",
+  "queries": [],
+  "dur": 2.65,
+  "peak": 1.4,
+  "segs": [
+   [
+    0.31,
+    1.78
+   ]
+  ],
+  "low": 2,
+  "max_db": -12.5
+ },
+ "es:27f15491-7102-460e-b104-fab684743e0f": {
+  "source": "epidemic",
+  "id": "27f15491-7102-460e-b104-fab684743e0f",
+  "title": "Vehicles, Military, Tank, T-72, Cannon Shot, Distant 02",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Vehicles-Military-Tank-T-72-Cannon-Shot-_27f15491.wav",
+  "queries": [],
+  "dur": 5.84,
+  "peak": 0.19,
+  "segs": [
+   [
+    0.0,
+    2.01
+   ]
+  ],
+  "low": 89,
+  "max_db": 1.5
+ },
+ "es:2f68844c-98c3-4951-99f1-1081b0f31557": {
+  "source": "epidemic",
+  "id": "2f68844c-98c3-4951-99f1-1081b0f31557",
+  "title": "Guns, Automatic, Assault Rifle, HK416, Long Bursts",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-Assault-Rifle-HK416-Long-_2f68844c.wav",
+  "queries": [],
+  "dur": 12.27,
+  "peak": 7.31,
+  "segs": [
+   [
+    0.13,
+    1.11
+   ],
+   [
+    3.42,
+    4.4
+   ],
+   [
+    6.96,
+    8.54
+   ]
+  ],
+  "low": 52,
+  "max_db": -2.8
+ },
+ "es:33198064-4d58-4445-a50b-79e6c1fd342a": {
+  "source": "epidemic",
+  "id": "33198064-4d58-4445-a50b-79e6c1fd342a",
+  "title": "Guns, Automatic, Distant Multiple Burst, Big",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-Distant-Multiple-Burst-Bi_33198064.wav",
+  "queries": [],
+  "dur": 7.87,
+  "peak": 0.27,
+  "segs": [
+   [
+    0.02,
+    1.37
+   ],
+   [
+    3.86,
+    5.08
+   ]
+  ],
+  "low": 3,
+  "max_db": 0.5
+ },
+ "es:3559980b-ce58-4fd0-b9f3-1aa5c1347926": {
+  "source": "epidemic",
+  "id": "3559980b-ce58-4fd0-b9f3-1aa5c1347926",
+  "title": "Bullets, Impact, Snow, Dry",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Bullets-Impact-Snow-Dry_3559980b.wav",
+  "queries": [],
+  "dur": 7.31,
+  "peak": 4.95,
+  "segs": [
+   [
+    0.02,
+    0.27
+   ],
+   [
+    0.97,
+    1.22
+   ],
+   [
+    2.03,
+    2.27
+   ],
+   [
+    3.0,
+    3.27
+   ],
+   [
+    3.93,
+    4.16
+   ],
+   [
+    4.87,
+    5.09
+   ],
+   [
+    5.93,
+    6.2
+   ],
+   [
+    6.92,
+    7.22
+   ]
+  ],
+  "low": 19,
+  "max_db": -1.1
+ },
+ "es:389237d0-9105-4e8e-bb9a-b4efc8ac65e8": {
+  "source": "epidemic",
+  "id": "389237d0-9105-4e8e-bb9a-b4efc8ac65e8",
+  "title": "Metal, Movement, Metal Bar, Small, Roll, Hard Ground 02",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Metal-Movement-Metal-Bar-Small-Roll-Hard_389237d0.wav",
+  "queries": [],
+  "dur": 1.82,
+  "peak": 0.27,
+  "segs": [
+   [
+    0.09,
+    1.45
+   ]
+  ],
+  "low": 1,
+  "max_db": -5.4
+ },
+ "es:393ee980-2c49-45f0-8ed8-025c0efa81ff": {
+  "source": "epidemic",
+  "id": "393ee980-2c49-45f0-8ed8-025c0efa81ff",
+  "title": "Swooshes, Whoosh, Airy, Soft Wind, Breeze, Variations",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Swooshes-Whoosh-Airy-Soft-Wind-Breeze-Va_393ee980.wav",
+  "queries": [],
+  "dur": 6.97,
+  "peak": 4.86,
+  "segs": [
+   [
+    0.51,
+    3.07
+   ],
+   [
+    4.23,
+    5.6
+   ]
+  ],
+  "low": 83,
+  "max_db": -6.0
  },
  "es:3949e823-1d2c-43ac-a963-9566976f6f99": {
   "source": "epidemic",
@@ -95,6 +668,423 @@
   "low": 15,
   "max_db": -8.7
  },
+ "es:39890de5-c4e9-431b-90d1-b60f2a9c1d61": {
+  "source": "epidemic",
+  "id": "39890de5-c4e9-431b-90d1-b60f2a9c1d61",
+  "title": "Equipment, Tactical, Soldier, Gear, Rattle, Movement, Light",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Equipment-Tactical-Soldier-Gear-Rattle-M_39890de5.wav",
+  "queries": [],
+  "dur": 9.6,
+  "peak": 5.08,
+  "segs": [
+   [
+    0.04,
+    0.36
+   ],
+   [
+    0.73,
+    1.11
+   ],
+   [
+    1.55,
+    1.99
+   ],
+   [
+    2.38,
+    2.69
+   ],
+   [
+    3.21,
+    3.72
+   ],
+   [
+    4.08,
+    4.45
+   ],
+   [
+    4.92,
+    5.53
+   ],
+   [
+    5.93,
+    6.33
+   ],
+   [
+    6.87,
+    7.26
+   ],
+   [
+    7.89,
+    8.42
+   ],
+   [
+    8.84,
+    9.16
+   ]
+  ],
+  "low": 6,
+  "max_db": -9.1
+ },
+ "es:3bde9fe4-158c-4015-bc11-9ff3ccd05115": {
+  "source": "epidemic",
+  "id": "3bde9fe4-158c-4015-bc11-9ff3ccd05115",
+  "title": "Explosion, Real, Hand Grenade, Snap Crackle",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Explosion-Real-Hand-Grenade-Snap-Crackle_3bde9fe4.wav",
+  "queries": [],
+  "dur": 7.45,
+  "peak": 5.11,
+  "segs": [
+   [
+    0.0,
+    0.93
+   ],
+   [
+    2.74,
+    3.46
+   ],
+   [
+    5.1,
+    5.92
+   ]
+  ],
+  "low": 77,
+  "max_db": 0.4
+ },
+ "es:3c174e64-a272-4d45-8b55-cc4f2dc10c6d": {
+  "source": "epidemic",
+  "id": "3c174e64-a272-4d45-8b55-cc4f2dc10c6d",
+  "title": "Explosions, Designed, Indoor Blast",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Explosions-Designed-Indoor-Blast_3c174e64.wav",
+  "queries": [],
+  "dur": 16.09,
+  "peak": 9.21,
+  "segs": [
+   [
+    0.06,
+    1.74
+   ],
+   [
+    3.0,
+    5.08
+   ],
+   [
+    6.27,
+    8.17
+   ],
+   [
+    9.13,
+    11.14
+   ],
+   [
+    12.34,
+    15.12
+   ]
+  ],
+  "low": 81,
+  "max_db": -10.5
+ },
+ "es:40c6f0f8-6434-4e71-94eb-4983a2b19d05": {
+  "source": "epidemic",
+  "id": "40c6f0f8-6434-4e71-94eb-4983a2b19d05",
+  "title": "Snow, Impact, Clod, Drop, Impact, Break, Variations 04",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Snow-Impact-Clod-Drop-Impact-Break-Varia_40c6f0f8.wav",
+  "queries": [],
+  "dur": 7.96,
+  "peak": 0.05,
+  "segs": [
+   [
+    0.01,
+    0.16
+   ],
+   [
+    1.37,
+    1.57
+   ],
+   [
+    3.24,
+    3.57
+   ],
+   [
+    3.84,
+    4.21
+   ],
+   [
+    4.88,
+    5.58
+   ],
+   [
+    6.39,
+    7.17
+   ]
+  ],
+  "low": 43,
+  "max_db": 1.1
+ },
+ "es:418724fb-f4b0-4bb9-affa-83c3a05495c6": {
+  "source": "epidemic",
+  "id": "418724fb-f4b0-4bb9-affa-83c3a05495c6",
+  "title": "Guns, Mechanism, Assault Rifle, Reload",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Mechanism-Assault-Rifle-Reload_418724fb.wav",
+  "queries": [],
+  "dur": 1.92,
+  "peak": 1.41,
+  "segs": [
+   [
+    0.22,
+    0.49
+   ],
+   [
+    0.74,
+    1.51
+   ]
+  ],
+  "low": 1,
+  "max_db": -0.2
+ },
+ "es:42d1ddce-568e-4fca-83fe-d9953039ace0": {
+  "source": "epidemic",
+  "id": "42d1ddce-568e-4fca-83fe-d9953039ace0",
+  "title": "Destruction, Crash & Debris, Stones Falling On Concrete Exterior Perspective, Debris, Rubble 03",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Destruction-Crash-Debris-Stones-Falling-_42d1ddce.wav",
+  "queries": [],
+  "dur": 2.49,
+  "peak": 0.61,
+  "segs": [
+   [
+    0.17,
+    2.03
+   ]
+  ],
+  "low": 0,
+  "max_db": -10.2
+ },
+ "es:49350e02-27e0-4a6c-88f6-49d7bdb00c40": {
+  "source": "epidemic",
+  "id": "49350e02-27e0-4a6c-88f6-49d7bdb00c40",
+  "title": "Guns, Automatic, Machine Gun, Browning M2, Shots, Bursts 04",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-Machine-Gun-Browning-M2-S_49350e02.wav",
+  "queries": [],
+  "dur": 15.43,
+  "peak": 4.41,
+  "segs": [
+   [
+    0.07,
+    1.12
+   ],
+   [
+    3.43,
+    4.99
+   ],
+   [
+    7.53,
+    9.34
+   ],
+   [
+    11.81,
+    12.86
+   ]
+  ],
+  "low": 25,
+  "max_db": 3.4
+ },
+ "es:4ae18a88-f498-49ac-b218-05ad18b3947f": {
+  "source": "epidemic",
+  "id": "4ae18a88-f498-49ac-b218-05ad18b3947f",
+  "title": "Guns, Automatic, M16, Burst, 3 Shots, Field, Open",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-M16-Burst-3-Shots-Field-O_4ae18a88.wav",
+  "queries": [],
+  "dur": 1.67,
+  "peak": 0.23,
+  "segs": [
+   [
+    0.15,
+    0.38
+   ]
+  ],
+  "low": 38,
+  "max_db": -1.1
+ },
+ "es:541745e8-d3f3-4975-a33b-806be036857f": {
+  "source": "epidemic",
+  "id": "541745e8-d3f3-4975-a33b-806be036857f",
+  "title": "Fire, Burst, Cinematic, Impact, Flames Escaping",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Fire-Burst-Cinematic-Impact-Flames-Escap_541745e8.wav",
+  "queries": [],
+  "dur": 6.0,
+  "peak": 0.46,
+  "segs": [
+   [
+    0.01,
+    5.64
+   ]
+  ],
+  "low": 81,
+  "max_db": 2.0
+ },
+ "es:576f00e2-3419-402c-b9a1-f9ebc046072c": {
+  "source": "epidemic",
+  "id": "576f00e2-3419-402c-b9a1-f9ebc046072c",
+  "title": "User Interface, Data, Scan, Analyze",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/User-Interface-Data-Scan-Analyze_576f00e2.wav",
+  "queries": [],
+  "dur": 6.97,
+  "peak": 6.03,
+  "segs": [
+   [
+    0.6,
+    1.96
+   ],
+   [
+    3.25,
+    4.73
+   ],
+   [
+    5.62,
+    6.76
+   ]
+  ],
+  "low": 18,
+  "max_db": -6.0
+ },
+ "es:5b68160f-bc38-4840-bf82-49f8a14d25d8": {
+  "source": "epidemic",
+  "id": "5b68160f-bc38-4840-bf82-49f8a14d25d8",
+  "title": "Guns, Mechanism, Rifle, Cock 01",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Mechanism-Rifle-Cock-01_5b68160f.wav",
+  "queries": [],
+  "dur": 4.42,
+  "peak": 3.18,
+  "segs": [
+   [
+    0.02,
+    0.34
+   ],
+   [
+    0.65,
+    0.73
+   ],
+   [
+    2.36,
+    2.85
+   ],
+   [
+    3.17,
+    3.27
+   ],
+   [
+    3.67,
+    3.93
+   ]
+  ],
+  "low": 0,
+  "max_db": -2.0
+ },
+ "es:5c4fb5c3-e8f3-4484-a53d-c965a65b99c8": {
+  "source": "epidemic",
+  "id": "5c4fb5c3-e8f3-4484-a53d-c965a65b99c8",
+  "title": "Metal, Movement, Small Object, Clink 11",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Metal-Movement-Small-Object-Clink-11_5c4fb5c3.wav",
+  "queries": [],
+  "dur": 2.05,
+  "peak": 0.0,
+  "segs": [],
+  "low": 0,
+  "max_db": -5.0
+ },
+ "es:5da05bfa-cf24-4c62-886e-f6ae0017e0e7": {
+  "source": "epidemic",
+  "id": "5da05bfa-cf24-4c62-886e-f6ae0017e0e7",
+  "title": "Footsteps, Human, Layer, Snow, Jog, Run, Close",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Footsteps-Human-Layer-Snow-Jog-Run-Close_5da05bfa.wav",
+  "queries": [],
+  "dur": 20.88,
+  "peak": 14.74,
+  "segs": [
+   [
+    0.28,
+    13.83
+   ],
+   [
+    14.09,
+    20.82
+   ]
+  ],
+  "low": 1,
+  "max_db": -17.1
+ },
+ "es:619f14e4-2bf5-4dec-886b-9cf0bde54011": {
+  "source": "epidemic",
+  "id": "619f14e4-2bf5-4dec-886b-9cf0bde54011",
+  "title": "Guns, Automatic, M16, Long Burst 01",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-M16-Long-Burst-01_619f14e4.wav",
+  "queries": [],
+  "dur": 2.7,
+  "peak": 0.12,
+  "segs": [
+   [
+    0.03,
+    1.26
+   ]
+  ],
+  "low": 3,
+  "max_db": -12.2
+ },
  "es:63839014-e1e4-4822-8b33-5ec889b5b92b": {
   "source": "epidemic",
   "id": "63839014-e1e4-4822-8b33-5ec889b5b92b",
@@ -115,6 +1105,436 @@
   ],
   "low": 14,
   "max_db": -8.2
+ },
+ "es:640ead81-4a79-4410-8418-2f24da03618e": {
+  "source": "epidemic",
+  "id": "640ead81-4a79-4410-8418-2f24da03618e",
+  "title": "Fire, Burning, Flame, Large Burst 01",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Fire-Burning-Flame-Large-Burst-01_640ead81.wav",
+  "queries": [],
+  "dur": 4.67,
+  "peak": 0.74,
+  "segs": [
+   [
+    0.06,
+    4.47
+   ]
+  ],
+  "low": 91,
+  "max_db": -3.0
+ },
+ "es:66203e5f-94f3-4d8e-a73c-99a39a5d58ad": {
+  "source": "epidemic",
+  "id": "66203e5f-94f3-4d8e-a73c-99a39a5d58ad",
+  "title": "Metal, Impact, Item, Metal Stick, Drop On Snow, Impact 03",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Metal-Impact-Item-Metal-Stick-Drop-On-Sn_66203e5f.wav",
+  "queries": [],
+  "dur": 0.63,
+  "peak": 0.01,
+  "segs": [
+   [
+    0.0,
+    0.13
+   ]
+  ],
+  "low": 46,
+  "max_db": -5.3
+ },
+ "es:6795270a-9313-4856-8aef-da788ce2780b": {
+  "source": "epidemic",
+  "id": "6795270a-9313-4856-8aef-da788ce2780b",
+  "title": "Marker Pen, Draw Line On Cardboard Sheet 03",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Marker-Pen-Draw-Line-On-Cardboard-Sheet-_6795270a.wav",
+  "queries": [],
+  "dur": 1.61,
+  "peak": 0.05,
+  "segs": [
+   [
+    0.03,
+    1.58
+   ]
+  ],
+  "low": 55,
+  "max_db": -3.3
+ },
+ "es:71c7c237-bf74-4c5b-8f6d-a015b1e2b3e8": {
+  "source": "epidemic",
+  "id": "71c7c237-bf74-4c5b-8f6d-a015b1e2b3e8",
+  "title": "Guns, Handle, Automatic Rifle, Insert And Remove Magazine 02",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Handle-Automatic-Rifle-Insert-And-R_71c7c237.wav",
+  "queries": [],
+  "dur": 7.24,
+  "peak": 7.02,
+  "segs": [
+   [
+    0.06,
+    0.24
+   ],
+   [
+    0.82,
+    1.36
+   ],
+   [
+    2.13,
+    2.35
+   ],
+   [
+    2.74,
+    3.17
+   ],
+   [
+    4.15,
+    4.24
+   ],
+   [
+    4.82,
+    5.12
+   ],
+   [
+    5.91,
+    5.99
+   ],
+   [
+    6.64,
+    7.06
+   ]
+  ],
+  "low": 0,
+  "max_db": 1.2
+ },
+ "es:79c6587c-18b0-4691-8612-a338e9389504": {
+  "source": "epidemic",
+  "id": "79c6587c-18b0-4691-8612-a338e9389504",
+  "title": "Guns, Automatic, Machine Gun, Auto, Heavy, Shot, Multiple",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-Machine-Gun-Auto-Heavy-Sh_79c6587c.wav",
+  "queries": [],
+  "dur": 3.82,
+  "peak": 1.84,
+  "segs": [
+   [
+    0.0,
+    2.22
+   ]
+  ],
+  "low": 80,
+  "max_db": -1.3
+ },
+ "es:7c4ae63a-5be3-4b2b-b2fc-08bfd5e3da98": {
+  "source": "epidemic",
+  "id": "7c4ae63a-5be3-4b2b-b2fc-08bfd5e3da98",
+  "title": "Fire, Burning, Fire, Crackles",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Fire-Burning-Fire-Crackles_7c4ae63a.wav",
+  "queries": [],
+  "dur": 34.5,
+  "peak": 31.86,
+  "segs": [
+   [
+    0.0,
+    34.56
+   ]
+  ],
+  "low": 0,
+  "max_db": -10.6
+ },
+ "es:7efbde18-bb65-4f0f-aeb2-c9cfe317917d": {
+  "source": "epidemic",
+  "id": "7efbde18-bb65-4f0f-aeb2-c9cfe317917d",
+  "title": "Bullets, By, Flyby, Airy, Singles",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Bullets-By-Flyby-Airy-Singles_7efbde18.wav",
+  "queries": [],
+  "dur": 16.58,
+  "peak": 3.62,
+  "segs": [
+   [
+    0.04,
+    0.12
+   ],
+   [
+    1.14,
+    1.2
+   ],
+   [
+    2.26,
+    2.34
+   ],
+   [
+    3.4,
+    3.68
+   ],
+   [
+    4.67,
+    4.75
+   ],
+   [
+    5.8,
+    5.88
+   ],
+   [
+    7.98,
+    8.15
+   ],
+   [
+    10.07,
+    10.14
+   ],
+   [
+    16.31,
+    16.39
+   ]
+  ],
+  "low": 1,
+  "max_db": -1.2
+ },
+ "es:844f57e0-db47-4ea9-b712-8757b37ef151": {
+  "source": "epidemic",
+  "id": "844f57e0-db47-4ea9-b712-8757b37ef151",
+  "title": "User Interface, Click, Button, Short, Soft, Click, Mid, Dry, Woody",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/User-Interface-Click-Button-Short-Soft-C_844f57e0.wav",
+  "queries": [],
+  "dur": 2.72,
+  "peak": 0.0,
+  "segs": [
+   [
+    0.0,
+    0.28
+   ],
+   [
+    1.26,
+    1.53
+   ]
+  ],
+  "low": 0,
+  "max_db": -6.4
+ },
+ "es:8c82ec27-80fb-4cac-a77e-e1fd0435ce13": {
+  "source": "epidemic",
+  "id": "8c82ec27-80fb-4cac-a77e-e1fd0435ce13",
+  "title": "Explosion, Real, Hand Grenade, Tight Punch",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Explosion-Real-Hand-Grenade-Tight-Punch_8c82ec27.wav",
+  "queries": [],
+  "dur": 11.09,
+  "peak": 8.16,
+  "segs": [
+   [
+    0.04,
+    0.77
+   ],
+   [
+    2.54,
+    3.42
+   ],
+   [
+    5.63,
+    6.37
+   ],
+   [
+    8.04,
+    9.03
+   ]
+  ],
+  "low": 79,
+  "max_db": -6.6
+ },
+ "es:8e0196e1-b5c8-4271-8985-ca5db0d7f80b": {
+  "source": "epidemic",
+  "id": "8e0196e1-b5c8-4271-8985-ca5db0d7f80b",
+  "title": "Equipment, Tactical, Foley Set Tactical Vest, Grab, Loose 02",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Equipment-Tactical-Foley-Set-Tactical-Ve_8e0196e1.wav",
+  "queries": [],
+  "dur": 4.04,
+  "peak": 1.64,
+  "segs": [
+   [
+    0.07,
+    0.88
+   ],
+   [
+    1.59,
+    2.32
+   ],
+   [
+    3.08,
+    3.83
+   ]
+  ],
+  "low": 1,
+  "max_db": -0.2
+ },
+ "es:93505bfe-e95d-4b5f-96aa-508d405b7013": {
+  "source": "epidemic",
+  "id": "93505bfe-e95d-4b5f-96aa-508d405b7013",
+  "title": "Swooshes, Swish, Short, Bright, Fast, Flyby",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Swooshes-Swish-Short-Bright-Fast-Flyby_93505bfe.wav",
+  "queries": [],
+  "dur": 0.99,
+  "peak": 0.51,
+  "segs": [
+   [
+    0.37,
+    0.78
+   ]
+  ],
+  "low": 0,
+  "max_db": -6.5
+ },
+ "es:962e2399-8a0f-43bb-b823-2ea46b0a4734": {
+  "source": "epidemic",
+  "id": "962e2399-8a0f-43bb-b823-2ea46b0a4734",
+  "title": "Bullets, Impact, Dirt, Dry",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Bullets-Impact-Dirt-Dry_962e2399.wav",
+  "queries": [],
+  "dur": 7.03,
+  "peak": 2.93,
+  "segs": [
+   [
+    0.04,
+    0.16
+   ],
+   [
+    1.04,
+    1.17
+   ],
+   [
+    1.98,
+    2.11
+   ],
+   [
+    2.87,
+    3.02
+   ],
+   [
+    3.81,
+    3.95
+   ],
+   [
+    4.68,
+    4.88
+   ],
+   [
+    5.69,
+    5.86
+   ],
+   [
+    6.66,
+    6.82
+   ]
+  ],
+  "low": 37,
+  "max_db": 2.6
+ },
+ "es:98592ab5-61fe-40d8-8d7c-e17d093ab043": {
+  "source": "epidemic",
+  "id": "98592ab5-61fe-40d8-8d7c-e17d093ab043",
+  "title": "Guns, Automatic, Gunshots, Machine Gun, Burst, Distant",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-Gunshots-Machine-Gun-Burs_98592ab5.wav",
+  "queries": [],
+  "dur": 6.63,
+  "peak": 3.77,
+  "segs": [
+   [
+    0.01,
+    2.18
+   ],
+   [
+    2.85,
+    4.35
+   ],
+   [
+    5.19,
+    5.69
+   ]
+  ],
+  "low": 12,
+  "max_db": -9.2
+ },
+ "es:9dc3f412-3ea0-47cb-981e-a66a0b6a7b98": {
+  "source": "epidemic",
+  "id": "9dc3f412-3ea0-47cb-981e-a66a0b6a7b98",
+  "title": "Explosions, Real, Heavy Blasts, Stone Rubble Debris",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Explosions-Real-Heavy-Blasts-Stone-Rubbl_9dc3f412.wav",
+  "queries": [],
+  "dur": 20.58,
+  "peak": 16.73,
+  "segs": [
+   [
+    0.02,
+    2.38
+   ],
+   [
+    2.68,
+    2.81
+   ],
+   [
+    6.22,
+    8.03
+   ],
+   [
+    11.56,
+    13.53
+   ],
+   [
+    16.32,
+    18.68
+   ]
+  ],
+  "low": 70,
+  "max_db": -0.6
  },
  "es:9f496626-bdaf-4aa4-95b0-5db57d204fcb": {
   "source": "epidemic",
@@ -137,6 +1557,68 @@
   "low": 0,
   "max_db": -13.2
  },
+ "es:9f76f0f2-0cc1-44f4-b1e4-a673573582fe": {
+  "source": "epidemic",
+  "id": "9f76f0f2-0cc1-44f4-b1e4-a673573582fe",
+  "title": "Objects, Writing, Marker Pen, Draw Line On Cardboard Sheet",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Objects-Writing-Marker-Pen-Draw-Line-On-_9f76f0f2.wav",
+  "queries": [],
+  "dur": 0.96,
+  "peak": 0.14,
+  "segs": [
+   [
+    0.06,
+    0.87
+   ]
+  ],
+  "low": 7,
+  "max_db": -0.6
+ },
+ "es:a53bc308-a076-4cd3-a07b-89cda997bf0b": {
+  "source": "epidemic",
+  "id": "a53bc308-a076-4cd3-a07b-89cda997bf0b",
+  "title": "Snow, Impact, On Snow, Small",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Snow-Impact-On-Snow-Small_a53bc308.wav",
+  "queries": [],
+  "dur": 8.83,
+  "peak": 6.39,
+  "segs": [
+   [
+    0.05,
+    0.14
+   ],
+   [
+    1.61,
+    1.69
+   ],
+   [
+    3.34,
+    3.51
+   ],
+   [
+    4.84,
+    4.94
+   ],
+   [
+    6.37,
+    6.8
+   ],
+   [
+    7.82,
+    8.08
+   ]
+  ],
+  "low": 1,
+  "max_db": -6.8
+ },
  "es:a55cc627-0171-4995-8a1d-03bab0826b30": {
   "source": "epidemic",
   "id": "a55cc627-0171-4995-8a1d-03bab0826b30",
@@ -158,6 +1640,92 @@
   "low": 0,
   "max_db": -4.9
  },
+ "es:a64fde52-81c0-49a2-97ca-5ea8ff008240": {
+  "source": "epidemic",
+  "id": "a64fde52-81c0-49a2-97ca-5ea8ff008240",
+  "title": "Wind, General, Heavy Wind, Cold, Deep Gusts, Mountain",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Wind-General-Heavy-Wind-Cold-Deep-Gusts-_a64fde52.wav",
+  "queries": [
+   "arctic wind cold outdoors desolate"
+  ],
+  "dur": 176.51,
+  "peak": 125.16,
+  "segs": [
+   [
+    0.29,
+    176.74
+   ]
+  ],
+  "low": 42,
+  "max_db": -5.4
+ },
+ "es:a668b47a-ec0d-426b-bdb0-5ada824d89f1": {
+  "source": "epidemic",
+  "id": "a668b47a-ec0d-426b-bdb0-5ada824d89f1",
+  "title": "Snow, Movement, Rolling, Slow",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Snow-Movement-Rolling-Slow_a668b47a.wav",
+  "queries": [],
+  "dur": 5.47,
+  "peak": 1.57,
+  "segs": [
+   [
+    0.02,
+    4.11
+   ]
+  ],
+  "low": 1,
+  "max_db": -15.9
+ },
+ "es:a6f46e7d-fe7c-4d10-97f5-d6393cd34cca": {
+  "source": "epidemic",
+  "id": "a6f46e7d-fe7c-4d10-97f5-d6393cd34cca",
+  "title": "Objects, Office, Office Supplies, Stapler, Loading Mechanism, Release",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Objects-Office-Office-Supplies-Stapler-L_a6f46e7d.wav",
+  "queries": [],
+  "dur": 0.5,
+  "peak": 0.27,
+  "segs": [
+   [
+    0.1,
+    0.34
+   ]
+  ],
+  "low": 21,
+  "max_db": 1.6
+ },
+ "es:ae8f1882-aa34-4d41-93df-4c59e0cd6488": {
+  "source": "epidemic",
+  "id": "ae8f1882-aa34-4d41-93df-4c59e0cd6488",
+  "title": "Snow, Movement, Body Fall, Footsteps, Impact 05",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Snow-Movement-Body-Fall-Footsteps-Impact_ae8f1882.wav",
+  "queries": [],
+  "dur": 3.67,
+  "peak": 1.28,
+  "segs": [
+   [
+    0.2,
+    3.17
+   ]
+  ],
+  "low": 3,
+  "max_db": -13.9
+ },
  "es:b28ad95a-bc03-4aa6-95f1-1f2d6355ee04": {
   "source": "epidemic",
   "id": "b28ad95a-bc03-4aa6-95f1-1f2d6355ee04",
@@ -178,6 +1746,80 @@
   ],
   "low": 13,
   "max_db": 2.4
+ },
+ "es:b357da00-f710-413c-a00d-8815a7cc2704": {
+  "source": "epidemic",
+  "id": "b357da00-f710-413c-a00d-8815a7cc2704",
+  "title": "Guns, Automatic, Assault Rifle, M14, Short Bursts",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-Assault-Rifle-M14-Short-B_b357da00.wav",
+  "queries": [],
+  "dur": 11.61,
+  "peak": 0.6,
+  "segs": [
+   [
+    0.31,
+    1.39
+   ],
+   [
+    6.65,
+    7.69
+   ]
+  ],
+  "low": 42,
+  "max_db": -3.8
+ },
+ "es:b8e27608-ab15-4af5-804e-2085dd5e94a8": {
+  "source": "epidemic",
+  "id": "b8e27608-ab15-4af5-804e-2085dd5e94a8",
+  "title": "Guns, Handle, Automatic Rifle, Insert And Remove Magazine 01",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Handle-Automatic-Rifle-Insert-And-R_b8e27608.wav",
+  "queries": [],
+  "dur": 7.31,
+  "peak": 7.12,
+  "segs": [
+   [
+    0.01,
+    0.16
+   ],
+   [
+    0.76,
+    1.23
+   ],
+   [
+    2.03,
+    2.16
+   ],
+   [
+    2.59,
+    3.17
+   ],
+   [
+    3.93,
+    4.04
+   ],
+   [
+    4.64,
+    5.13
+   ],
+   [
+    5.89,
+    6.22
+   ],
+   [
+    6.73,
+    7.17
+   ]
+  ],
+  "low": 0,
+  "max_db": -0.5
  },
  "es:c0ec4fde-6148-45b3-90a5-e415eadf94c2": {
   "source": "epidemic",
@@ -220,6 +1862,77 @@
   ],
   "low": 34,
   "max_db": -17.3
+ },
+ "es:c27102b5-f2f4-4e0e-8b7d-5e486ffe6d9d": {
+  "source": "epidemic",
+  "id": "c27102b5-f2f4-4e0e-8b7d-5e486ffe6d9d",
+  "title": "Guns, Automatic, Assault Rifle, Burst, Short, Close, Reverberant",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-Assault-Rifle-Burst-Short_c27102b5.wav",
+  "queries": [],
+  "dur": 1.52,
+  "peak": 0.14,
+  "segs": [
+   [
+    0.0,
+    0.68
+   ]
+  ],
+  "low": 3,
+  "max_db": -10.5
+ },
+ "es:c4d595c7-a6d2-478a-b0e8-a3b3bd2624b6": {
+  "source": "epidemic",
+  "id": "c4d595c7-a6d2-478a-b0e8-a3b3bd2624b6",
+  "title": "Guns, Automatic, Heavy Machinegun, Burst Fire, Shoot, Reverberant 01",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-Heavy-Machinegun-Burst-Fi_c4d595c7.wav",
+  "queries": [],
+  "dur": 6.4,
+  "peak": 4.3,
+  "segs": [
+   [
+    0.02,
+    1.33
+   ],
+   [
+    2.03,
+    3.45
+   ],
+   [
+    4.18,
+    5.5
+   ]
+  ],
+  "low": 31,
+  "max_db": -6.3
+ },
+ "es:c5340682-70ee-460f-b27e-e7bc395acd5d": {
+  "source": "epidemic",
+  "id": "c5340682-70ee-460f-b27e-e7bc395acd5d",
+  "title": "Vehicles, Military, Tank, BMP 1, 18, Interior, Turret Rotate, Mechanical, Close 01",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Vehicles-Military-Tank-BMP-1-18-Interior_c5340682.wav",
+  "queries": [],
+  "dur": 37.42,
+  "peak": 21.89,
+  "segs": [
+   [
+    0.44,
+    36.95
+   ]
+  ],
+  "low": 22,
+  "max_db": -6.9
  },
  "es:c62201fb-be8d-4eab-957a-c8a1ef2788bd": {
   "source": "epidemic",
@@ -299,6 +2012,348 @@
   "low": 33,
   "max_db": -7.9
  },
+ "es:c8d7156d-16ae-43db-97a6-fa1ebd3c2bbf": {
+  "source": "epidemic",
+  "id": "c8d7156d-16ae-43db-97a6-fa1ebd3c2bbf",
+  "title": "Equipment, Tactical, Military Uniform, Combat Gear, Heavy, Movement, Walk, Close",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Equipment-Tactical-Military-Uniform-Comb_c8d7156d.wav",
+  "queries": [],
+  "dur": 18.88,
+  "peak": 14.35,
+  "segs": [
+   [
+    0.21,
+    6.0
+   ],
+   [
+    6.26,
+    7.1
+   ],
+   [
+    7.35,
+    9.78
+   ],
+   [
+    10.04,
+    11.37
+   ],
+   [
+    11.62,
+    12.43
+   ],
+   [
+    12.69,
+    14.03
+   ],
+   [
+    14.32,
+    14.51
+   ],
+   [
+    14.8,
+    17.67
+   ],
+   [
+    17.96,
+    18.84
+   ]
+  ],
+  "low": 9,
+  "max_db": -1.6
+ },
+ "es:c9d24a38-100e-4ff3-8fb2-ccad540f16cf": {
+  "source": "epidemic",
+  "id": "c9d24a38-100e-4ff3-8fb2-ccad540f16cf",
+  "title": "Guns, Mechanism, Semi Automatic Rifle, WW2, Cock, Charging Handle, Fast 01",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Mechanism-Semi-Automatic-Rifle-WW2-_c9d24a38.wav",
+  "queries": [],
+  "dur": 2.5,
+  "peak": 2.35,
+  "segs": [
+   [
+    0.01,
+    0.37
+   ],
+   [
+    1.03,
+    1.4
+   ],
+   [
+    2.05,
+    2.39
+   ]
+  ],
+  "low": 0,
+  "max_db": -4.1
+ },
+ "es:ca1bdfd6-81f7-4de0-b995-8e010fccd3db": {
+  "source": "epidemic",
+  "id": "ca1bdfd6-81f7-4de0-b995-8e010fccd3db",
+  "title": "Vehicles, Military, Tank, T-72, Cannon Shot, Close 09",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Vehicles-Military-Tank-T-72-Cannon-Shot-_ca1bdfd6.wav",
+  "queries": [],
+  "dur": 8.3,
+  "peak": 0.11,
+  "segs": [
+   [
+    0.02,
+    3.33
+   ]
+  ],
+  "low": 68,
+  "max_db": 2.6
+ },
+ "es:cf1f1d9e-4537-43d4-bf74-8560074ad3dc": {
+  "source": "epidemic",
+  "id": "cf1f1d9e-4537-43d4-bf74-8560074ad3dc",
+  "title": "Metal, Impact, Grenade Launcher Canister, Bounce",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Metal-Impact-Grenade-Launcher-Canister-B_cf1f1d9e.wav",
+  "queries": [],
+  "dur": 13.93,
+  "peak": 0.16,
+  "segs": [
+   [
+    0.0,
+    1.41
+   ],
+   [
+    3.0,
+    4.19
+   ],
+   [
+    4.58,
+    5.05
+   ],
+   [
+    6.1,
+    7.38
+   ],
+   [
+    7.66,
+    7.78
+   ],
+   [
+    9.58,
+    12.36
+   ]
+  ],
+  "low": 19,
+  "max_db": 2.2
+ },
+ "es:cf26344d-a422-40ea-ac55-f55ea139b315": {
+  "source": "epidemic",
+  "id": "cf26344d-a422-40ea-ac55-f55ea139b315",
+  "title": "Footsteps, Human, Layer, Snow, Walk, Close",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Footsteps-Human-Layer-Snow-Walk-Close_cf26344d.wav",
+  "queries": [],
+  "dur": 27.18,
+  "peak": 5.11,
+  "segs": [
+   [
+    0.24,
+    7.49
+   ],
+   [
+    7.74,
+    12.13
+   ],
+   [
+    12.43,
+    15.28
+   ],
+   [
+    15.56,
+    16.9
+   ],
+   [
+    17.16,
+    17.7
+   ],
+   [
+    17.95,
+    18.42
+   ],
+   [
+    18.76,
+    19.99
+   ],
+   [
+    20.32,
+    20.81
+   ],
+   [
+    21.09,
+    21.66
+   ],
+   [
+    21.92,
+    22.58
+   ],
+   [
+    22.85,
+    23.31
+   ],
+   [
+    23.65,
+    25.05
+   ]
+  ],
+  "low": 1,
+  "max_db": -20.5
+ },
+ "es:d113ba0d-8924-4a26-9835-244b32ac5f97": {
+  "source": "epidemic",
+  "id": "d113ba0d-8924-4a26-9835-244b32ac5f97",
+  "title": "Guns, Automatic, Heavy Machinegun, Burst Fire, Shoot, Reverberant 02",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-Heavy-Machinegun-Burst-Fi_d113ba0d.wav",
+  "queries": [],
+  "dur": 2.76,
+  "peak": 0.16,
+  "segs": [
+   [
+    0.02,
+    1.85
+   ]
+  ],
+  "low": 29,
+  "max_db": -9.0
+ },
+ "es:d12b22cc-8577-4913-8186-21db68e35a20": {
+  "source": "epidemic",
+  "id": "d12b22cc-8577-4913-8186-21db68e35a20",
+  "title": "Vehicles, Military, Tank, T-72, Cannon Shot, Distant 04",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Vehicles-Military-Tank-T-72-Cannon-Shot-_d12b22cc.wav",
+  "queries": [],
+  "dur": 6.65,
+  "peak": 0.19,
+  "segs": [
+   [
+    0.0,
+    2.02
+   ]
+  ],
+  "low": 82,
+  "max_db": 2.7
+ },
+ "es:d16baf9a-5927-4e7d-9064-f0eaea86f78b": {
+  "source": "epidemic",
+  "id": "d16baf9a-5927-4e7d-9064-f0eaea86f78b",
+  "title": "Bullets, Impact, Dirt, Sloshy",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Bullets-Impact-Dirt-Sloshy_d16baf9a.wav",
+  "queries": [],
+  "dur": 6.85,
+  "peak": 4.06,
+  "segs": [
+   [
+    0.19,
+    0.51
+   ],
+   [
+    2.04,
+    2.77
+   ],
+   [
+    3.99,
+    4.71
+   ],
+   [
+    6.1,
+    6.36
+   ]
+  ],
+  "low": 22,
+  "max_db": -1.7
+ },
+ "es:d2d521ea-4ac8-454c-960a-6c36ade291b9": {
+  "source": "epidemic",
+  "id": "d2d521ea-4ac8-454c-960a-6c36ade291b9",
+  "title": "Guns, Automatic, Machine Gun, M249, Distant, Long Bursts",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-Machine-Gun-M249-Distant-_d2d521ea.wav",
+  "queries": [],
+  "dur": 14.4,
+  "peak": 0.37,
+  "segs": [
+   [
+    0.03,
+    6.18
+   ],
+   [
+    6.45,
+    9.73
+   ],
+   [
+    10.4,
+    11.98
+   ]
+  ],
+  "low": 4,
+  "max_db": -0.7
+ },
+ "es:d7473fe7-ec96-4505-80b3-8811d1e38332": {
+  "source": "epidemic",
+  "id": "d7473fe7-ec96-4505-80b3-8811d1e38332",
+  "title": "Guns, Automatic, Assault Rifle, HK G36, Short Bursts",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-Assault-Rifle-HK-G36-Shor_d7473fe7.wav",
+  "queries": [],
+  "dur": 8.47,
+  "peak": 5.9,
+  "segs": [
+   [
+    1.07,
+    1.5
+   ],
+   [
+    3.25,
+    3.76
+   ],
+   [
+    5.89,
+    6.59
+   ]
+  ],
+  "low": 40,
+  "max_db": -1.2
+ },
  "es:dcec8499-a1da-43b9-ab1a-31dd9b6a57ee": {
   "source": "epidemic",
   "id": "dcec8499-a1da-43b9-ab1a-31dd9b6a57ee",
@@ -327,6 +2382,81 @@
   "max_db": 2.8,
   "notes": "pháo T-72 bắn cận, thu thật, có tiếng cơ cấu; đỉnh 0.51, đuôi tới 3.7, tiếng máy 3.9–4.2"
  },
+ "es:de510bcb-df30-4cfe-87f8-47deb0ed4044": {
+  "source": "epidemic",
+  "id": "de510bcb-df30-4cfe-87f8-47deb0ed4044",
+  "title": "Guns, Automatic, Assault Rifle, HK416, Short Bursts",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-Assault-Rifle-HK416-Short_de510bcb.wav",
+  "queries": [],
+  "dur": 5.46,
+  "peak": 2.59,
+  "segs": [
+   [
+    0.24,
+    0.73
+   ],
+   [
+    2.58,
+    3.06
+   ]
+  ],
+  "low": 57,
+  "max_db": -3.5
+ },
+ "es:e2b6cec4-8591-438e-9158-d9fc2d44f7fd": {
+  "source": "epidemic",
+  "id": "e2b6cec4-8591-438e-9158-d9fc2d44f7fd",
+  "title": "Guns, Automatic, Assault Rifle, HK G36, Long Bursts",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-Assault-Rifle-HK-G36-Long_e2b6cec4.wav",
+  "queries": [],
+  "dur": 11.6,
+  "peak": 4.33,
+  "segs": [
+   [
+    0.27,
+    1.31
+   ],
+   [
+    4.25,
+    5.78
+   ],
+   [
+    7.45,
+    8.84
+   ]
+  ],
+  "low": 38,
+  "max_db": -3.2
+ },
+ "es:e314ce13-30ed-46e9-81dc-436bc913060b": {
+  "source": "epidemic",
+  "id": "e314ce13-30ed-46e9-81dc-436bc913060b",
+  "title": "Snow, Movement, Body Fall, Footsteps, Impact 03",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Snow-Movement-Body-Fall-Footsteps-Impact_e314ce13.wav",
+  "queries": [],
+  "dur": 2.56,
+  "peak": 1.29,
+  "segs": [
+   [
+    0.26,
+    2.24
+   ]
+  ],
+  "low": 1,
+  "max_db": -16.5
+ },
  "es:e46aca33-20d9-4acf-b7dc-d916b968591c": {
   "source": "epidemic",
   "id": "e46aca33-20d9-4acf-b7dc-d916b968591c",
@@ -347,6 +2477,279 @@
   ],
   "low": 19,
   "max_db": -8.8
+ },
+ "es:e59ce0b0-6fa0-4cc9-a968-8864b68bb223": {
+  "source": "epidemic",
+  "id": "e59ce0b0-6fa0-4cc9-a968-8864b68bb223",
+  "title": "Destruction, Crash & Debris, Wrecking Ball Hitting Wall, Heavy Impact, Breaking Wall, Stone Debris",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Destruction-Crash-Debris-Wrecking-Ball-H_e59ce0b0.wav",
+  "queries": [],
+  "dur": 23.81,
+  "peak": 5.31,
+  "segs": [
+   [
+    0.47,
+    3.38
+   ],
+   [
+    5.19,
+    7.21
+   ],
+   [
+    8.69,
+    11.9
+   ],
+   [
+    14.09,
+    17.39
+   ],
+   [
+    17.83,
+    17.92
+   ],
+   [
+    19.89,
+    22.77
+   ]
+  ],
+  "low": 29,
+  "max_db": -2.6
+ },
+ "es:e839fbe7-ec8a-4746-a228-e4c6171b5567": {
+  "source": "epidemic",
+  "id": "e839fbe7-ec8a-4746-a228-e4c6171b5567",
+  "title": "Guns, Automatic, M16, Burst, 3 Shots",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-M16-Burst-3-Shots_e839fbe7.wav",
+  "queries": [],
+  "dur": 1.18,
+  "peak": 0.09,
+  "segs": [
+   [
+    0.09,
+    0.34
+   ]
+  ],
+  "low": 4,
+  "max_db": -2.4
+ },
+ "es:eb238a94-20fd-47da-93ce-8326e07411bc": {
+  "source": "epidemic",
+  "id": "eb238a94-20fd-47da-93ce-8326e07411bc",
+  "title": "Explosions, Designed, Moderate Size, Nearby Glass Debris, Distant Boom",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Explosions-Designed-Moderate-Size-Nearby_eb238a94.wav",
+  "queries": [],
+  "dur": 4.0,
+  "peak": 0.32,
+  "segs": [
+   [
+    0.0,
+    1.92
+   ]
+  ],
+  "low": 78,
+  "max_db": -9.7
+ },
+ "es:edb48511-5297-46fe-853d-90b55f80195d": {
+  "source": "epidemic",
+  "id": "edb48511-5297-46fe-853d-90b55f80195d",
+  "title": "Equipment, Tactical, Soldier, Gear, Rattle, Movement, Medium",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Equipment-Tactical-Soldier-Gear-Rattle-M_edb48511.wav",
+  "queries": [],
+  "dur": 8.85,
+  "peak": 4.93,
+  "segs": [
+   [
+    0.01,
+    0.45
+   ],
+   [
+    1.0,
+    1.5
+   ],
+   [
+    1.9,
+    2.52
+   ],
+   [
+    2.94,
+    3.41
+   ],
+   [
+    3.85,
+    4.36
+   ],
+   [
+    4.8,
+    5.27
+   ],
+   [
+    5.7,
+    6.23
+   ],
+   [
+    6.58,
+    7.01
+   ],
+   [
+    7.55,
+    7.89
+   ],
+   [
+    8.28,
+    8.68
+   ]
+  ],
+  "low": 4,
+  "max_db": -4.2
+ },
+ "es:ee8d4b95-fd97-4f18-8a56-8a2d996c757a": {
+  "source": "epidemic",
+  "id": "ee8d4b95-fd97-4f18-8a56-8a2d996c757a",
+  "title": "Guns, Automatic, Assault Rifle, Burst Fire, Distant, Reverberant",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-Assault-Rifle-Burst-Fire-_ee8d4b95.wav",
+  "queries": [],
+  "dur": 8.6,
+  "peak": 5.66,
+  "segs": [
+   [
+    0.01,
+    1.9
+   ],
+   [
+    2.54,
+    4.56
+   ],
+   [
+    5.59,
+    7.65
+   ]
+  ],
+  "low": 1,
+  "max_db": -6.6
+ },
+ "es:f040a2a4-0570-4a43-bcdb-d0afee3ccdc5": {
+  "source": "epidemic",
+  "id": "f040a2a4-0570-4a43-bcdb-d0afee3ccdc5",
+  "title": "Swooshes, Whoosh, Softs",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Swooshes-Whoosh-Softs_f040a2a4.wav",
+  "queries": [],
+  "dur": 2.48,
+  "peak": 0.29,
+  "segs": [
+   [
+    0.06,
+    0.63
+   ],
+   [
+    1.56,
+    2.05
+   ]
+  ],
+  "low": 94,
+  "max_db": -7.0
+ },
+ "es:f099f27a-002e-4640-b469-08dfcfb1e560": {
+  "source": "epidemic",
+  "id": "f099f27a-002e-4640-b469-08dfcfb1e560",
+  "title": "Metal, Impact, Rod, Hollow, Short, Drop On Concrete",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Metal-Impact-Rod-Hollow-Short-Drop-On-Co_f099f27a.wav",
+  "queries": [],
+  "dur": 3.47,
+  "peak": 0.13,
+  "segs": [
+   [
+    0.0,
+    0.75
+   ],
+   [
+    1.18,
+    1.85
+   ],
+   [
+    2.24,
+    3.12
+   ]
+  ],
+  "low": 0,
+  "max_db": -12.6
+ },
+ "es:fb0df9c5-0a56-48bc-b875-b0b6a8be11c5": {
+  "source": "epidemic",
+  "id": "fb0df9c5-0a56-48bc-b875-b0b6a8be11c5",
+  "title": "Footsteps, Human, Layer, Snow, Sprint, Distant",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Footsteps-Human-Layer-Snow-Sprint-Distan_fb0df9c5.wav",
+  "queries": [],
+  "dur": 13.24,
+  "peak": 0.71,
+  "segs": [
+   [
+    0.51,
+    12.07
+   ],
+   [
+    12.32,
+    13.27
+   ]
+  ],
+  "low": 1,
+  "max_db": -17.7
+ },
+ "es:fde11e40-68a3-4b46-b987-e6ae070cf6dd": {
+  "source": "epidemic",
+  "id": "fde11e40-68a3-4b46-b987-e6ae070cf6dd",
+  "title": "Explosions, Real, Boom, Distant Explosion, Low, Muffled 03",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Explosions-Real-Boom-Distant-Explosion-L_fde11e40.wav",
+  "queries": [],
+  "dur": 9.13,
+  "peak": 4.79,
+  "segs": [
+   [
+    0.01,
+    2.83
+   ],
+   [
+    4.2,
+    6.99
+   ]
+  ],
+  "low": 89,
+  "max_db": 1.6
  },
  "es:fdf323ac-2956-4175-81cc-d7da618674e8": {
   "source": "epidemic",
@@ -1118,6 +3521,30 @@
   "max_db": 3.3,
   "notes": "pháo bắn (mô phỏng), đuôi ~3 s"
  },
+ "fs:453476": {
+  "source": "freesound",
+  "id": "453476",
+  "title": "motor industrial turbine large fan blades spin sorta.flac",
+  "author": "kyles",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/453476/",
+  "url": "https://cdn.freesound.org/previews/453/453476_612689-hq.mp3",
+  "downloads": 217,
+  "votes": 0,
+  "desc": "motor industrial turbine large fan blades spin sorta.flac",
+  "file": "library/sfx/dl/fs_453476_motor-industrial-turbine-large-fan-blade.mp3",
+  "queries": [],
+  "dur": 43.78,
+  "peak": 21.71,
+  "segs": [
+   [
+    0.0,
+    43.87
+   ]
+  ],
+  "low": 32,
+  "max_db": -4.4
+ },
  "fs:457013": {
   "source": "freesound",
   "id": "457013",
@@ -1328,6 +3755,31 @@
   "max_db": 3.2,
   "notes": "cú dằn / va nặng xuống đất, nhiều trầm"
  },
+ "fs:536809": {
+  "source": "freesound",
+  "id": "536809",
+  "title": "Jet.ogg",
+  "author": "egomassive",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/536809/",
+  "url": "https://cdn.freesound.org/previews/536/536809_1415754-hq.mp3",
+  "downloads": 801,
+  "rating": 4.7,
+  "votes": 19,
+  "desc": "A modern jet fighter screams by Original recording: \"Ps_Fast_Flighby\" by Laribum, cc-0",
+  "file": "library/sfx/dl/fs_536809_Jet-ogg.mp3",
+  "queries": [],
+  "dur": 7.15,
+  "peak": 0.45,
+  "segs": [
+   [
+    0.13,
+    6.22
+   ]
+  ],
+  "low": 2,
+  "max_db": -3.6
+ },
  "fs:560510": {
   "source": "freesound",
   "id": "560510",
@@ -1401,6 +3853,32 @@
   "low": 81,
   "max_db": -2.8,
   "notes": "xe cháy, lửa liên tục; nền chạy dài"
+ },
+ "fs:584179": {
+  "source": "freesound",
+  "id": "584179",
+  "title": "Radar",
+  "author": "unfa",
+  "license": "CC0 (Freesound)",
+  "page": "https://freesound.org/s/584179/",
+  "url": "https://cdn.freesound.org/previews/584/584179_1038806-hq.mp3",
+  "downloads": 819,
+  "rating": 4.8,
+  "votes": 40,
+  "file": "library/sfx/dl/fs_584179_Radar.mp3",
+  "queries": [
+   "radar ping"
+  ],
+  "dur": 1.42,
+  "peak": 0.01,
+  "segs": [
+   [
+    0.0,
+    0.27
+   ]
+  ],
+  "low": 0,
+  "max_db": -2.8
  },
  "fs:620099": {
   "source": "freesound",
@@ -1812,6 +4290,108 @@
   ],
   "low": 8,
   "max_db": 1.5
+ },
+ "mk:1580": {
+  "source": "mixkit",
+  "id": "1580",
+  "title": "Fast jet engine flying over",
+  "author": "Mixkit",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/jet/",
+  "url": "https://assets.mixkit.co/active_storage/sfx/1580/1580-preview.mp3",
+  "tags": [
+   "airport"
+  ],
+  "file": "library/sfx/dl/mk_1580_Fast-jet-engine-flying-over.mp3",
+  "queries": [],
+  "dur": 16.27,
+  "peak": 7.75,
+  "segs": [
+   [
+    1.02,
+    11.86
+   ]
+  ],
+  "low": 5,
+  "max_db": 1.3
+ },
+ "mk:1583": {
+  "source": "mixkit",
+  "id": "1583",
+  "title": "Futuristic radar ping",
+  "author": "Mixkit",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/radar-ping/",
+  "url": "https://assets.mixkit.co/active_storage/sfx/1583/1583-preview.mp3",
+  "tags": [
+   "airport",
+   "horror"
+  ],
+  "file": "library/sfx/dl/mk_1583_Futuristic-radar-ping.mp3",
+  "queries": [
+   "radar ping"
+  ],
+  "dur": 2.21,
+  "peak": 0.33,
+  "segs": [
+   [
+    0.01,
+    1.15
+   ]
+  ],
+  "low": 0,
+  "max_db": -12.8
+ },
+ "mk:1587": {
+  "source": "mixkit",
+  "id": "1587",
+  "title": "Jet plane flying rumble",
+  "author": "Mixkit",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/jet/",
+  "url": "https://assets.mixkit.co/active_storage/sfx/1587/1587-preview.mp3",
+  "tags": [
+   "flying",
+   "airport"
+  ],
+  "file": "library/sfx/dl/mk_1587_Jet-plane-flying-rumble.mp3",
+  "queries": [],
+  "dur": 14.1,
+  "peak": 10.56,
+  "segs": [
+   [
+    0.12,
+    14.01
+   ]
+  ],
+  "low": 88,
+  "max_db": -2.3
+ },
+ "mk:1720": {
+  "source": "mixkit",
+  "id": "1720",
+  "title": "Space rocket full power turbine",
+  "author": "Mixkit",
+  "license": "Mixkit Sound Effects Free License",
+  "page": "https://mixkit.co/free-sound-effects/turbine/",
+  "url": "https://assets.mixkit.co/active_storage/sfx/1720/1720-preview.mp3",
+  "tags": [
+   "rocket",
+   "static",
+   "white noise"
+  ],
+  "file": "library/sfx/dl/mk_1720_Space-rocket-full-power-turbine.mp3",
+  "queries": [],
+  "dur": 9.42,
+  "peak": 7.39,
+  "segs": [
+   [
+    0.1,
+    9.39
+   ]
+  ],
+  "low": 44,
+  "max_db": 0.5
  },
  "mk:1923": {
   "source": "mixkit",

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Kho âm thanh dùng chung: tìm → tải → đo → ghi danh mục. Mọi dự án dùng lại, càng làm càng ít phải tải.
 
-    python3 core/tools/sound_lib.py search "<từ khoá tiếng Anh>" [--music] [--max 5] [-n 8] [--online]
-    .venv/bin/python core/tools/sound_lib.py get fs:123 mk:456 [--music]      tải về library/<sfx|music>/dl/, đo, ghi INDEX.json
+    python3 core/tools/sound_lib.py search "<q1>" ["<q2>" ...] [--music] [--max 5] [-n 8] [-j 4] [--online]
+    .venv/bin/python core/tools/sound_lib.py get fs:123 mk:456 [-j 6] [--music]   tải song song về library/<sfx|music>/dl/, đo, ghi INDEX.json
     .venv/bin/python core/tools/sound_lib.py scan                             đưa file người dùng tự bỏ vào library/ vào danh mục
     python3 core/tools/sound_lib.py show fs:123                      xem bản ghi
     .venv/bin/python core/tools/sound_lib.py add es:<uuid>[:drums] --url "<link MCP>" [--music] --title "…" --author "…" [--stem drums]
@@ -15,15 +15,25 @@ Khoá: fs:<id> Freesound · mk:<id> Mixkit SFX · mkm:<id> Mixkit nhạc · lib:
 Epidemic (trả phí theo gói, KHÔNG chia sẻ file) chỉ dùng khi người dùng chọn: search thêm --epidemic mới thấy trong kho.
 Danh mục: library/sfx/INDEX.json, library/music/INDEX.json (vào git); file âm thanh không vào git. Cần ffmpeg; đo cần numpy (.venv).
 """
+from __future__ import annotations
+import fcntl
 import html
 import json
+import os
 import re
 import sys
+import threading
 import time
 import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
+from contextlib import contextmanager
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from common import prefer_ipv4  # noqa: E402
+
+prefer_ipv4()
 
 ROOT = Path(__file__).resolve().parents[2]
 LIB = ROOT / 'library'
@@ -33,34 +43,62 @@ AUDIO = ('.mp3', '.wav', '.ogg', '.flac', '.m4a', '.aif', '.aiff')
 LICENSE = {'fs': 'CC0 (Freesound)', 'mk': 'Mixkit Sound Effects Free License', 'mkm': 'Mixkit Stock Music Free License'}
 
 
-# ---------------------------------------------------------------- mạng (lịch sự: giãn cách mỗi host, lùi khi 429)
-_last = {}
+# ---------------------------------------------------------------- mạng (IPv4 ưu tiên, giãn cách nhẹ trang tìm kiếm, tải CDN song song)
+_last: dict[str, float] = {}
+_host_locks: dict[str, threading.Lock] = {}
+_meta_lock = threading.Lock()
 
 
-def fetch(url, timeout=60, tries=4):
-    host = urllib.parse.urlparse(url).netloc
-    for n in range(tries):
-        wait = 1.2 - (time.time() - _last.get(host, 0))
+def _throttle_host(host: str, gap: float = 0.35):
+    with _meta_lock:
+        lk = _host_locks.setdefault(host, threading.Lock())
+    with lk:
+        wait = gap - (time.time() - _last.get(host, 0))
         if wait > 0:
             time.sleep(wait)
         _last[host] = time.time()
+
+
+def fetch(url, timeout=30, tries=3, throttle=True):
+    host = urllib.parse.urlparse(url).netloc
+    for n in range(tries):
+        if throttle:
+            _throttle_host(host)
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=timeout) as r:
                 return r.read()
         except urllib.error.HTTPError as e:
             if e.code == 429 and n < tries - 1:
-                time.sleep(5 * 2 ** n)
+                time.sleep(3 * 2 ** n)
                 continue
             raise
         except OSError:
             if n == tries - 1:
                 raise
-            time.sleep(2 + n)
+            time.sleep(1 + n)
 
 
-# ---------------------------------------------------------------- danh mục
+# ---------------------------------------------------------------- danh mục (khoá file đa tiến trình cho 4 subagent SFX chạy song song)
 def index_path(kind):
     return LIB / kind / 'INDEX.json'
+
+
+@contextmanager
+def _file_lock(lock_file: Path):
+    lock_file.parent.mkdir(parents=True, exist_ok=True)
+    with open(lock_file, 'a+') as lf:
+        fcntl.flock(lf.fileno(), fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            fcntl.flock(lf.fileno(), fcntl.LOCK_UN)
+
+
+def _atomic_write(path: Path, text: str):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_name(f'.tmp_{os.getpid()}_{threading.get_ident()}_{path.name}')
+    tmp.write_text(text)
+    os.replace(tmp, path)
 
 
 def load_index(kind):
@@ -72,8 +110,20 @@ def load_index(kind):
 
 def save_index(kind, idx):
     p = index_path(kind)
-    p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(json.dumps(dict(sorted(idx.items())), ensure_ascii=False, indent=1))
+    _atomic_write(p, json.dumps(dict(sorted(idx.items())), ensure_ascii=False, indent=1))
+
+
+def update_index(kind, updates: dict):
+    """Đọc mới + gộp + ghi nguyên tử dưới khoá flock để nhiều subagent gọi add/get cùng lúc không ghi đè mất mục của nhau."""
+    if not updates:
+        return
+    with _file_lock(LIB / kind / '.index.lock'):
+        idx = load_index(kind)
+        for k, val in updates.items():
+            old_q = idx.get(k, {}).get('queries', [])
+            new_q = list(dict.fromkeys(old_q + val.get('queries', [])))
+            idx[k] = {**idx.get(k, {}), **val, **({'queries': new_q} if new_q else {})}
+        save_index(kind, idx)
 
 
 def find(key):
@@ -85,15 +135,19 @@ def find(key):
 
 
 def _cache(rows=None):
-    try:
-        c = json.loads(CACHE.read_text())
-    except (OSError, ValueError):
-        c = {}
     if rows:
-        c.update({r['key']: r for r in rows})
-        CACHE.parent.mkdir(parents=True, exist_ok=True)
-        CACHE.write_text(json.dumps(c, ensure_ascii=False))
-    return c
+        with _file_lock(CACHE.parent / '.cache.lock'):
+            try:
+                c = json.loads(CACHE.read_text())
+            except (OSError, ValueError):
+                c = {}
+            c.update({r['key']: r for r in rows})
+            _atomic_write(CACHE, json.dumps(c, ensure_ascii=False))
+            return c
+    try:
+        return json.loads(CACHE.read_text())
+    except (OSError, ValueError):
+        return {}
 
 
 # ---------------------------------------------------------------- nguồn
@@ -182,14 +236,18 @@ def search(q, kind='sfx', n=8, max_dur=None, online=False, epidemic=False):
     if epidemic:    # Epidemic tìm online bằng MCP (SearchRecordings / SearchSoundEffects), ở đây chỉ xem kho
         return rows[:n]
     if online or len(rows) < n:
-        lists = []
-        for fn in (search_freesound, search_mixkit):
+        def _safe_src(fn):
             try:
-                lists.append(fn(q, kind))
+                return fn(q, kind)
             except OSError as e:
                 print(f'  ({fn.__name__}: {e})', file=sys.stderr)
+                return []
+
+        with ThreadPoolExecutor(2) as ex:
+            lists = [lst for lst in ex.map(_safe_src, (search_freesound, search_mixkit)) if lst]
         found = [r for grp in zip(*[l + [None] * (max(map(len, lists)) - len(l)) for l in lists]) for r in grp if r] if lists else []
-        _cache(found)
+        with _meta_lock:
+            _cache(found)
         have = {r['key'] for r in rows}
         rows += [r for r in found if r['key'] not in have]
     if max_dur:
@@ -202,39 +260,46 @@ def slug(s):
     return re.sub(r'[^\w]+', '-', s).strip('-')[:40]
 
 
-def get(keys, kind, query=''):
+def get(keys, kind, query='', jobs=6):
     sys.path.insert(0, str(Path(__file__).parent))
     import sound_probe as sp
     idx, cache = load_index(kind), _cache()
     out = LIB / kind / 'dl'
     out.mkdir(parents=True, exist_ok=True)
+    idx_lock = threading.Lock()
+    updates: dict = {}
 
     def one(key):
-        if key in idx and (ROOT / idx[key]['file']).exists():
-            if query and query not in idx[key].setdefault('queries', []):
-                idx[key]['queries'].append(query)
-            return key, 'đã có'
+        with idx_lock:
+            if key in idx and (ROOT / idx[key]['file']).exists():
+                if query and query not in idx[key].get('queries', []):
+                    updates[key] = {**idx[key], 'queries': idx[key].get('queries', []) + [query]}
+                return key, 'đã có'
         r = cache.get(key)
         if not r:
             return key, 'LỖI: chưa search ra khoá này'
         dst = out / f"{key.replace(':', '_')}_{slug(r['title'])}{Path(urllib.parse.urlparse(r['url']).path).suffix or '.mp3'}"
         if not dst.exists():
-            data = fetch(r['url'], timeout=300)
+            data = fetch(r['url'], timeout=90, throttle=False)
             if len(data) < 2000 or data[:15].lstrip().startswith(b'<'):
                 return key, 'LỖI: không phải file âm thanh'
-            dst.write_bytes(data)
+            tmp = dst.with_name(f'.tmp_{os.getpid()}_{threading.get_ident()}_{dst.name}')
+            tmp.write_bytes(data)
+            tmp.replace(dst)
         x = sp.decode(dst)
         a = sp.analyze_music(x) if kind == 'music' else sp.analyze_sfx(x)
         if kind == 'music':
             a.pop('energy')
         e = {k: r.get(k) for k in ('source', 'id', 'title', 'author', 'license', 'page', 'url', 'downloads', 'rating', 'votes', 'desc', 'tags')}
-        idx[key] = {**{k: v for k, v in e.items() if v not in (None, '', [])}, 'file': str(dst.relative_to(ROOT)),
-                    'queries': [query] if query else [], **a}
+        with idx_lock:
+            updates[key] = {**{k: v for k, v in e.items() if v not in (None, '', [])}, 'file': str(dst.relative_to(ROOT)),
+                            'queries': [query] if query else [], **a}
         return key, f"{a['dur']} s" + (f" · ~{a['bpm']} BPM {a['key']}" if kind == 'music' else f" · đỉnh @{a['peak']} s")
 
-    with ThreadPoolExecutor(3) as ex:
+    workers = max(1, min(jobs, len(keys))) if keys else 1
+    with ThreadPoolExecutor(workers) as ex:
         res = list(ex.map(lambda k: _safe(one, k), keys))
-    save_index(kind, idx)
+    update_index(kind, updates)
     for k, msg in res:
         print(f'  {k:12s} {msg}')
 
@@ -274,24 +339,39 @@ def add(key, kind, url, title, author='', stem=None, query=''):
     import sound_probe as sp
     if not key.startswith(('es:', 'es-edit:')):
         sys.exit('khoá Epidemic dạng es:<uuid>, es:<uuid>:drums, es-edit:<editId>')
-    idx = load_index(kind)
     out = LIB / kind / 'epidemic'
     out.mkdir(parents=True, exist_ok=True)
     ext = Path(urllib.parse.urlparse(url).path).suffix or '.wav'
     dst = out / f"{slug(title)}{'_' + stem.upper() if stem else ''}_{key.split(':')[1][:8]}{ext}"
     if not dst.exists():
-        data = fetch(url, timeout=600)
+        data = fetch(url, timeout=180, throttle=False)
         if len(data) < 2000 or data[:15].lstrip().startswith(b'<'):
             sys.exit('link không trả file âm thanh (hết hạn? lấy lại link bằng MCP)')
-        dst.write_bytes(data)
+        tmp = dst.with_name(f'.tmp_{os.getpid()}_{threading.get_ident()}_{dst.name}')
+        tmp.write_bytes(data)
+        tmp.replace(dst)
     x = sp.decode(dst)
     a = sp.analyze_music(x) if kind == 'music' else sp.analyze_sfx(x)
     a.pop('energy', None)
-    idx[key] = {'source': 'epidemic', 'id': key.split(':')[1], 'title': title, 'author': author, 'stem': stem or 'full',
-                'license': 'Epidemic Sound (theo gói đăng ký — không chia sẻ file)', 'page': 'https://www.epidemicsound.com/',
-                'file': str(dst.relative_to(ROOT)), 'queries': [query] if query else [], **a}
-    save_index(kind, idx)
+    entry = {'source': 'epidemic', 'id': key.split(':')[1], 'title': title, 'author': author, 'stem': stem or 'full',
+             'license': 'Epidemic Sound (theo gói đăng ký — không chia sẻ file)', 'page': 'https://www.epidemicsound.com/',
+             'file': str(dst.relative_to(ROOT)), 'queries': [query] if query else [], **a}
+    update_index(kind, {key: entry})
     print(f"  {key}  {dst.relative_to(ROOT)}  {a['dur']} s" + (f" · ~{a['bpm']} BPM {a['key']} · cú kết {a['end_hit']}" if kind == 'music' else f" · đỉnh @{a['peak']} s"))
+
+
+def _pos_args(argv):
+    val_flags = {'-n', '--max', '-j', '--query', '--url', '--title', '--author', '--stem'}
+    out, i = [], 0
+    while i < len(argv):
+        if argv[i] in val_flags:
+            i += 2
+        elif argv[i].startswith('-'):
+            i += 1
+        else:
+            out.append(argv[i])
+            i += 1
+    return out
 
 
 def main():
@@ -301,15 +381,24 @@ def main():
     kind = 'music' if '--music' in a else 'sfx'
     opt = lambda k, d: type(d)(a[a.index(k) + 1]) if k in a else d
     if a[0] == 'search':
-        rows = search(a[1], kind, n=opt('-n', 8), max_dur=opt('--max', 0.0) or None, online='--online' in a, epidemic='--epidemic' in a)
-        for r in rows:
-            where = 'KHO' if r.get('file') else r.get('source', '')
-            print('\t'.join([r['key'], where, r['title'][:46], f"{r.get('dur', '?')}s", r.get('stats', ''),
-                             (r.get('desc') or ' '.join(r.get('tags', [])))[:70]]))
-        if not rows:
-            print('(không có)')
+        qs = _pos_args(a[1:])
+        if not qs:
+            sys.exit('search cần ít nhất 1 từ khoá')
+        n, max_d, onl, epi = opt('-n', 8), opt('--max', 0.0) or None, '--online' in a, '--epidemic' in a
+        jobs = max(1, min(opt('-j', 4), len(qs)))
+        fn = lambda q: (q, search(q, kind, n=n, max_dur=max_d, online=onl, epidemic=epi))
+        groups = [fn(qs[0])] if jobs == 1 else list(ThreadPoolExecutor(jobs).map(fn, qs))
+        for idx_q, (q, rows) in enumerate(groups):
+            if len(qs) > 1:
+                print((f'\n' if idx_q else '') + f'=== {q} ===')
+            for r in rows:
+                where = 'KHO' if r.get('file') else r.get('source', '')
+                print('\t'.join([r['key'], where, r['title'][:46], f"{r.get('dur', '?')}s", r.get('stats', ''),
+                                 (r.get('desc') or ' '.join(r.get('tags', [])))[:70]]))
+            if not rows:
+                print('(không có)')
     elif a[0] == 'get':
-        get([k for k in a[1:] if ':' in k], kind, query=opt('--query', ''))
+        get([k for k in _pos_args(a[1:]) if ':' in k], kind, query=opt('--query', ''), jobs=opt('-j', 6))
     elif a[0] == 'add':
         if '--url' not in a or '--title' not in a:
             sys.exit('add cần --url "<link>" và --title "<tên>"')

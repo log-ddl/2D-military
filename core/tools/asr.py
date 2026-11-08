@@ -12,12 +12,17 @@ Ghi:
 Model: deepdml/faster-whisper-large-v3-turbo-ct2 (đã có trong ~/.cache/huggingface).
 """
 import json
+import os
 import re
 import subprocess
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from common import prefer_ipv4  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[2]
+MODEL_ID = 'deepdml/faster-whisper-large-v3-turbo-ct2'
 PAUSE = 0.45  # giây; khoảng ngắt dài hơn mức này được đánh dấu
 
 
@@ -25,6 +30,22 @@ def probe(path):
     out = subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', str(path)],
                          capture_output=True, text=True).stdout.strip()
     return float(out) if out else 0.0
+
+
+def load_whisper(online: bool = False):
+    prefer_ipv4()
+    from faster_whisper import WhisperModel
+    if not online:
+        prev = os.environ.get('HF_HUB_OFFLINE')
+        os.environ['HF_HUB_OFFLINE'] = '1'
+        try:
+            return WhisperModel(MODEL_ID, device='cpu', compute_type='int8', local_files_only=True)
+        except Exception:
+            if prev is None:
+                os.environ.pop('HF_HUB_OFFLINE', None)
+            else:
+                os.environ['HF_HUB_OFFLINE'] = prev
+    return WhisperModel(MODEL_ID, device='cpu', compute_type='int8', local_files_only=False)
 
 
 def main():
@@ -37,8 +58,7 @@ def main():
     voice = Path(a[a.index('--voice') + 1]) if '--voice' in a else pdir / 'assets/voice/voice.mp3'
     if not voice.exists():
         sys.exit(f'không thấy voice: {voice}')
-    from faster_whisper import WhisperModel
-    m = WhisperModel('deepdml/faster-whisper-large-v3-turbo-ct2', device='cpu', compute_type='int8')
+    m = load_whisper(online='--online' in a)
     segs, info = m.transcribe(str(voice), word_timestamps=True, vad_filter=True, language=None)
     out = []
     for s in segs:

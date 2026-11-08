@@ -138,7 +138,8 @@ def timeline(pdir: Path) -> dict:
             'chapters': [{k: c[k] for k in ('id', 'from', 'to') if k in c} | {'title': c.get('title', '')} for c in chs],
             'scenes': scenes,
             'sfx': [x for c in chs for x in c.get('sfx') or []]
-                   + [x for f in sorted((pdir / 'plan/sfx').glob('*.json')) for x in load(f).get('sfx', [])],
+                   + [x for f in sorted((pdir / 'plan/sfx').glob('*.json'))
+                      for d in [load(f)] for x in (d.get('sfx') or d.get('events') or [])],
             'volume': {'music': 0.4, 'sfx': 0.5} | {k: v for k, v in mix_volume(pdir).items() if k in ('music', 'sfx')}}
 
 
@@ -198,8 +199,49 @@ def link_file(src: Path, dst: Path):
     os.replace(tmp, dst)
 
 
+def sync_brand(pdir: Path) -> dict:
+    """Đồng bộ logo kênh dùng chung từ library/brand/ vào .build/public/brand/."""
+    bdir = LIBRARY / 'brand'
+    cfg = {
+        'name': 'CHANNEL',
+        'darkTint': '#14181f',
+        'lightTint': '#e8eef5',
+        'stencilOpacity': 0.46,
+        'wallOpacity': 0.92,
+    }
+    if (bdir / 'brand.json').is_file():
+        try:
+            cfg.update({k: v for k, v in load(bdir / 'brand.json').items() if v is not None})
+        except Exception:
+            pass
+
+    candidates = [
+        ('logo.png', False),
+        ('logo.webp', False),
+        ('logo.svg', False),
+        ('logo_placeholder.png', True),
+        ('logo_placeholder.svg', True),
+    ]
+    chosen, is_ph = None, True
+    for fname, ph in candidates:
+        fp = bdir / fname
+        if fp.is_file():
+            chosen, is_ph = fp, ph
+            break
+
+    if chosen is not None:
+        rel_pub = f'brand/{chosen.name}'
+        link_file(chosen, pdir / '.build/public' / rel_pub)
+        cfg['file'] = rel_pub
+        cfg['isPlaceholder'] = is_ph
+    else:
+        cfg['file'] = 'brand/logo_placeholder.png'
+        cfg['isPlaceholder'] = True
+    return cfg
+
+
 def sync_assets(pdir: Path, ids) -> list:
-    """Đưa các tài sản `ids` vào .build/public/assets/ và ghi .build/assets.ts. Trả về danh sách lỗi."""
+    """Đưa các tài sản `ids` + logo kênh vào .build/public/ và ghi .build/assets.ts. Trả về danh sách lỗi."""
     reg, errs, table = assets(pdir), [], {}
     for i in sorted(set(ids)):
         a = reg.get(i)
@@ -213,10 +255,15 @@ def sync_assets(pdir: Path, ids) -> list:
         pub = f'assets/{i}{f.suffix.lower()}'
         link_file(f, pdir / '.build/public' / pub)
         table[i] = {'file': pub, 'kind': a['kind']} | {k: a[k] for k in ('width', 'height', 'duration', 'tags') if a.get(k)}
-    write_if_changed(pdir / '.build/assets.ts',
-                     '// SINH TỰ ĐỘNG bởi core/tools — sổ tài sản cho asset(). Import đầu tiên trong entry.\n'
-                     "import { registerAssets } from '@core/asset';\n\n"
-                     f'registerAssets({json.dumps(table, ensure_ascii=False, indent=2)});\n')
+    brand_spec = sync_brand(pdir)
+    write_if_changed(
+        pdir / '.build/assets.ts',
+        '// SINH TỰ ĐỘNG bởi core/tools — sổ tài sản cho asset() & brandLogoUrl(). Import đầu tiên trong entry.\n'
+        "import { registerAssets } from '@core/asset';\n"
+        "import { registerBrand } from '@core/brand';\n\n"
+        f'registerAssets({json.dumps(table, ensure_ascii=False, indent=2)});\n'
+        f'registerBrand({json.dumps(brand_spec, ensure_ascii=False, indent=2)});\n',
+    )
     return errs
 
 
@@ -269,7 +316,7 @@ def ensure_bundle(pdir: Path) -> str:
         fcntl.flock(lf.fileno(), fcntl.LOCK_EX)
         stamp = bdir / '.stamp'
         watch = [pdir / 'src', pdir / '.build/entry.tsx', pdir / '.build/Video.tsx', pdir / '.build/assets.ts',
-                 pdir / '.build/public/assets', KIT, *skill_libs().values()]
+                 pdir / '.build/public/assets', LIBRARY / 'brand', KIT, *skill_libs().values()]
         mt = max_mtime(watch)
         if stamp.exists() and (bdir / 'index.html').exists() and stamp.stat().st_mtime >= mt:
             return str(bdir)
@@ -324,3 +371,24 @@ def scene_spec_ts(s: dict, comp: str, w: int, h: int):
         f.append(f"move: '{s.get('move', 'zoom-in')}'")
     f.append(f'transition: {expr}')
     return '{ ' + ', '.join(f) + ' }', imp
+
+
+_IPV4_PATCHED = False
+
+
+def prefer_ipv4():
+    """Ưu tiên IPv4 trong socket.getaddrinfo để tránh treo timeout 30–75s khi mạng gãy IPv6; vẫn giữ IPv6 nếu host chỉ có AAAA."""
+    global _IPV4_PATCHED
+    if _IPV4_PATCHED or os.environ.get('ALLOW_IPV6') == '1':
+        return
+    import socket
+    orig_getaddrinfo = socket.getaddrinfo
+
+    def _ipv4_first(host, port, family=0, type=0, proto=0, flags=0):
+        res = orig_getaddrinfo(host, port, family, type, proto, flags)
+        v4 = [r for r in res if r[0] == socket.AF_INET]
+        return v4 if v4 else res
+
+    socket.getaddrinfo = _ipv4_first
+    _IPV4_PATCHED = True
+

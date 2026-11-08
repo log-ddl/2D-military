@@ -28,6 +28,8 @@ export const bump = (t: number, a: number, d: number) => { const p = (t - a) / d
 export const rnd = (s: number) => { const x = Math.sin(s * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 /** Radian → độ: dùng cho SVG rotate. */
 export const deg = (r: number) => (r * 180) / Math.PI;
+/** Độ → radian: dùng cho góc xoay Three.js 3D (Euler / trục khớp). */
+export const rad = (d: number) => (d * Math.PI) / 180;
 
 /** Pha hai màu hex. */
 export function mix(a: string, b: string, p = 0.5): string {
