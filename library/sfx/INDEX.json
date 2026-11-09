@@ -1,4 +1,25 @@
 {
+ "es:0063b70b-3cee-4c8b-8166-89ea6afc12f3": {
+  "source": "epidemic",
+  "id": "0063b70b-3cee-4c8b-8166-89ea6afc12f3",
+  "title": "Weather, Thunder, Loud Clap Lightning Strike",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Weather-Thunder-Loud-Clap-Lightning-Stri_0063b70b.wav",
+  "queries": [],
+  "dur": 10.62,
+  "peak": 0.14,
+  "segs": [
+   [
+    0.12,
+    2.69
+   ]
+  ],
+  "low": 11,
+  "max_db": -5.0
+ },
  "es:00805e58-d67a-4c32-8520-21d7a7c10806": {
   "source": "epidemic",
   "id": "00805e58-d67a-4c32-8520-21d7a7c10806",
@@ -36,6 +57,31 @@
   "low": 0,
   "max_db": -3.6
  },
+ "es:01dcfda6-9ca9-4797-8a9a-be07719f1117": {
+  "source": "epidemic",
+  "id": "01dcfda6-9ca9-4797-8a9a-be07719f1117",
+  "title": "Communications, Telemetry, Telegraph, Tone, Morse",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Communications-Telemetry-Telegraph-Tone-_01dcfda6.wav",
+  "queries": [],
+  "dur": 7.0,
+  "peak": 0.24,
+  "segs": [
+   [
+    0.0,
+    2.31
+   ],
+   [
+    3.13,
+    6.73
+   ]
+  ],
+  "low": 0,
+  "max_db": -13.9
+ },
  "es:021864d6-49f9-4d97-a035-ed094503f89c": {
   "source": "epidemic",
   "id": "021864d6-49f9-4d97-a035-ed094503f89c",
@@ -68,6 +114,157 @@
   ],
   "low": 0,
   "max_db": -3.4
+ },
+ "es:02fe985e-bf0e-46f0-8e87-cdc294b0e14e": {
+  "source": "epidemic",
+  "id": "02fe985e-bf0e-46f0-8e87-cdc294b0e14e",
+  "title": "Doors, Metal, Thin, Hatch, Open & Close, Squeak, Small Impacts, Light Rattle, Slide 01, Sanken",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Doors-Metal-Thin-Hatch-Open-Close-Squeak_02fe985e.wav",
+  "queries": [],
+  "dur": 34.86,
+  "peak": 17.54,
+  "segs": [
+   [
+    0.3,
+    1.6
+   ],
+   [
+    1.89,
+    2.12
+   ],
+   [
+    2.76,
+    4.58
+   ],
+   [
+    4.99,
+    5.24
+   ],
+   [
+    6.84,
+    7.07
+   ],
+   [
+    7.52,
+    12.86
+   ],
+   [
+    14.31,
+    15.11
+   ],
+   [
+    15.4,
+    21.85
+   ],
+   [
+    23.05,
+    23.11
+   ],
+   [
+    23.51,
+    26.69
+   ],
+   [
+    27.57,
+    29.51
+   ],
+   [
+    31.11,
+    31.2
+   ]
+  ],
+  "low": 50,
+  "max_db": -6.4
+ },
+ "es:04473e22-d69c-45d2-ac73-9a04a454dfd7": {
+  "source": "epidemic",
+  "id": "04473e22-d69c-45d2-ac73-9a04a454dfd7",
+  "title": "Footsteps, Human, Boots, Concrete, Walk, Close",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Footsteps-Human-Boots-Concrete-Walk-Clos_04473e22.wav",
+  "queries": [],
+  "dur": 16.5,
+  "peak": 15.99,
+  "segs": [
+   [
+    0.74,
+    0.89
+   ],
+   [
+    1.43,
+    1.57
+   ],
+   [
+    2.08,
+    2.24
+   ],
+   [
+    2.71,
+    2.83
+   ],
+   [
+    3.33,
+    3.44
+   ],
+   [
+    3.97,
+    4.08
+   ],
+   [
+    4.58,
+    4.71
+   ],
+   [
+    5.21,
+    5.32
+   ],
+   [
+    5.83,
+    6.0
+   ],
+   [
+    6.45,
+    6.6
+   ],
+   [
+    7.05,
+    7.21
+   ],
+   [
+    7.67,
+    7.8
+   ]
+  ],
+  "low": 13,
+  "max_db": -13.6
+ },
+ "es:0657ed56-1292-4a5c-bd2e-7fbd5bcfe7eb": {
+  "source": "epidemic",
+  "id": "0657ed56-1292-4a5c-bd2e-7fbd5bcfe7eb",
+  "title": "Machines, Industrial, Piston Sound",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Machines-Industrial-Piston-Sound_0657ed56.wav",
+  "queries": [],
+  "dur": 60.96,
+  "peak": 28.92,
+  "segs": [
+   [
+    0.02,
+    61.07
+   ]
+  ],
+  "low": 11,
+  "max_db": -13.2
  },
  "es:06e1bad7-5969-4312-81a1-1a25b2910d14": {
   "source": "epidemic",
@@ -110,6 +307,35 @@
   ],
   "low": 15,
   "max_db": -2.0
+ },
+ "es:0c4a0c10-aedf-4cb4-bab1-a8d59ba23646": {
+  "source": "epidemic",
+  "id": "0c4a0c10-aedf-4cb4-bab1-a8d59ba23646",
+  "title": "Guns, Automatic, Gunshots, Machine Gun, Burst 05",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-Gunshots-Machine-Gun-Burs_0c4a0c10.wav",
+  "queries": [],
+  "dur": 9.7,
+  "peak": 6.46,
+  "segs": [
+   [
+    0.0,
+    0.51
+   ],
+   [
+    1.47,
+    3.44
+   ],
+   [
+    4.64,
+    8.09
+   ]
+  ],
+  "low": 0,
+  "max_db": 1.4
  },
  "es:0d3f8e6d-b2db-472d-ad2b-6952d94017eb": {
   "source": "epidemic",
@@ -214,6 +440,27 @@
   "low": 0,
   "max_db": -9.4
  },
+ "es:0f5317d5-20ac-4c42-89b1-db9411f61175": {
+  "source": "epidemic",
+  "id": "0f5317d5-20ac-4c42-89b1-db9411f61175",
+  "title": "Air, Hiss, Aerosol, Spray, Run Out",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Air-Hiss-Aerosol-Spray-Run-Out_0f5317d5.wav",
+  "queries": [],
+  "dur": 6.26,
+  "peak": 0.16,
+  "segs": [
+   [
+    0.04,
+    6.1
+   ]
+  ],
+  "low": 1,
+  "max_db": -6.2
+ },
  "es:0f9cf846-9865-48eb-9011-b17c1507696a": {
   "source": "epidemic",
   "id": "0f9cf846-9865-48eb-9011-b17c1507696a",
@@ -260,6 +507,27 @@
   "low": 75,
   "max_db": -1.6
  },
+ "es:110e555c-528c-43e3-a8f6-e7f601246209": {
+  "source": "epidemic",
+  "id": "110e555c-528c-43e3-a8f6-e7f601246209",
+  "title": "Machines, Hvac, Boiler, Hiss",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Machines-Hvac-Boiler-Hiss_110e555c.wav",
+  "queries": [],
+  "dur": 25.26,
+  "peak": 18.36,
+  "segs": [
+   [
+    0.02,
+    25.23
+   ]
+  ],
+  "low": 34,
+  "max_db": -11.7
+ },
  "es:11208793-8676-418e-b0ef-43c63aa206b7": {
   "source": "epidemic",
   "id": "11208793-8676-418e-b0ef-43c63aa206b7",
@@ -280,6 +548,90 @@
   ],
   "low": 36,
   "max_db": -6.2
+ },
+ "es:11efaaaf-48c5-40cc-a553-ef3ee09f63d0": {
+  "source": "epidemic",
+  "id": "11efaaaf-48c5-40cc-a553-ef3ee09f63d0",
+  "title": "Ice, Break, Crack, Crispy, Close Up 04",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Ice-Break-Crack-Crispy-Close-Up-04_11efaaaf.wav",
+  "queries": [],
+  "dur": 2.5,
+  "peak": 1.04,
+  "segs": [
+   [
+    0.54,
+    1.81
+   ]
+  ],
+  "low": 0,
+  "max_db": 0.7
+ },
+ "es:13b7ce0a-5537-44ba-a992-0733362455c2": {
+  "source": "epidemic",
+  "id": "13b7ce0a-5537-44ba-a992-0733362455c2",
+  "title": "Wood, Break, Panel, Plywood, Bend, Splinter, Snap 01",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Wood-Break-Panel-Plywood-Bend-Splinter-S_13b7ce0a.wav",
+  "queries": [],
+  "dur": 4.77,
+  "peak": 1.45,
+  "segs": [
+   [
+    0.44,
+    4.54
+   ]
+  ],
+  "low": 8,
+  "max_db": -1.2
+ },
+ "es:1540efa0-1994-43c9-9a36-ac3f4311ff0a": {
+  "source": "epidemic",
+  "id": "1540efa0-1994-43c9-9a36-ac3f4311ff0a",
+  "title": "Ice, Break, Ice Cracking, Push 01",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Ice-Break-Ice-Cracking-Push-01_1540efa0.wav",
+  "queries": [],
+  "dur": 7.5,
+  "peak": 4.19,
+  "segs": [
+   [
+    0.09,
+    7.24
+   ]
+  ],
+  "low": 2,
+  "max_db": 2.2
+ },
+ "es:158e8b10-2b3d-4966-a5e6-4fa79968ca7e": {
+  "source": "epidemic",
+  "id": "158e8b10-2b3d-4966-a5e6-4fa79968ca7e",
+  "title": "Ceramics, Impact, Bowl, Down On Dish",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Ceramics-Impact-Bowl-Down-On-Dish_158e8b10.wav",
+  "queries": [],
+  "dur": 0.93,
+  "peak": 0.33,
+  "segs": [
+   [
+    0.03,
+    0.53
+   ]
+  ],
+  "low": 2,
+  "max_db": 2.4
  },
  "es:16141f3c-b916-4982-a563-acb934277344": {
   "source": "epidemic",
@@ -313,6 +665,80 @@
   ],
   "low": 41,
   "max_db": -0.0
+ },
+ "es:16a003d7-b270-4b32-90fc-afef0a94baf6": {
+  "source": "epidemic",
+  "id": "16a003d7-b270-4b32-90fc-afef0a94baf6",
+  "title": "Ice, Break, Crack, Crispy, Close Up 03",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Ice-Break-Crack-Crispy-Close-Up-03_16a003d7.wav",
+  "queries": [],
+  "dur": 4.17,
+  "peak": 1.39,
+  "segs": [
+   [
+    0.56,
+    3.48
+   ]
+  ],
+  "low": 0,
+  "max_db": -2.2
+ },
+ "es:19d1fdd4-cffb-4282-9d49-69ff0b9e5a90": {
+  "source": "epidemic",
+  "id": "19d1fdd4-cffb-4282-9d49-69ff0b9e5a90",
+  "title": "Vehicles, Mechanism, Mercedes W108 1970, Car Seat, Adjust",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Vehicles-Mechanism-Mercedes-W108-1970-Ca_19d1fdd4.wav",
+  "queries": [],
+  "dur": 14.69,
+  "peak": 10.8,
+  "segs": [
+   [
+    0.05,
+    1.04
+   ],
+   [
+    2.07,
+    2.82
+   ],
+   [
+    3.1,
+    3.28
+   ],
+   [
+    4.31,
+    5.18
+   ],
+   [
+    6.03,
+    6.81
+   ],
+   [
+    8.17,
+    9.02
+   ],
+   [
+    9.92,
+    11.01
+   ],
+   [
+    11.97,
+    12.9
+   ],
+   [
+    13.68,
+    14.35
+   ]
+  ],
+  "low": 56,
+  "max_db": -6.0
  },
  "es:1adb4a68-dfd8-4101-955d-47b81eaf20a7": {
   "source": "epidemic",
@@ -385,6 +811,113 @@
   "low": 0,
   "max_db": 0.7
  },
+ "es:1b418bac-dd66-49d8-aef0-23dc53e90dbe": {
+  "source": "epidemic",
+  "id": "1b418bac-dd66-49d8-aef0-23dc53e90dbe",
+  "title": "Vehicles, Military, WW2, Truck, Reverse, Onboard Driving, Various Speed",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Vehicles-Military-WW2-Truck-Reverse-Onbo_1b418bac.wav",
+  "queries": [],
+  "dur": 141.6,
+  "peak": 109.33,
+  "segs": [
+   [
+    0.01,
+    141.91
+   ]
+  ],
+  "low": 22,
+  "max_db": 0.6
+ },
+ "es:1c1aee2a-b5fc-4b3e-9c4b-39792b046b41": {
+  "source": "epidemic",
+  "id": "1c1aee2a-b5fc-4b3e-9c4b-39792b046b41",
+  "title": "Vehicles, Brake, Car, Approach, Dirt, Gravel, Skid, Stop, Fast",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Vehicles-Brake-Car-Approach-Dirt-Gravel-_1c1aee2a.wav",
+  "queries": [],
+  "dur": 3.84,
+  "peak": 2.06,
+  "segs": [
+   [
+    1.1,
+    3.25
+   ]
+  ],
+  "low": 16,
+  "max_db": -1.6
+ },
+ "es:1cdcb4c7-3e45-4519-8b0a-0768eb5b0dee": {
+  "source": "epidemic",
+  "id": "1cdcb4c7-3e45-4519-8b0a-0768eb5b0dee",
+  "title": "Footsteps, Human, Shoes, Concrete Walk",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Footsteps-Human-Shoes-Concrete-Walk_1cdcb4c7.wav",
+  "queries": [],
+  "dur": 15.31,
+  "peak": 8.17,
+  "segs": [
+   [
+    0.06,
+    0.3
+   ],
+   [
+    0.6,
+    0.77
+   ],
+   [
+    1.12,
+    1.31
+   ],
+   [
+    1.65,
+    1.88
+   ],
+   [
+    2.22,
+    2.37
+   ],
+   [
+    2.63,
+    2.94
+   ],
+   [
+    3.3,
+    3.51
+   ],
+   [
+    3.79,
+    3.95
+   ],
+   [
+    4.33,
+    4.48
+   ],
+   [
+    4.87,
+    5.54
+   ],
+   [
+    5.88,
+    6.07
+   ],
+   [
+    6.36,
+    6.55
+   ]
+  ],
+  "low": 34,
+  "max_db": 0.3
+ },
  "es:1d2e2e8a-0ffa-4172-982f-1537202154c4": {
   "source": "epidemic",
   "id": "1d2e2e8a-0ffa-4172-982f-1537202154c4",
@@ -456,6 +989,238 @@
   "low": 11,
   "max_db": -11.1
  },
+ "es:2029c943-f274-42ba-8d4e-077b4c5d954d": {
+  "source": "epidemic",
+  "id": "2029c943-f274-42ba-8d4e-077b4c5d954d",
+  "title": "Weather, Thunder, Tropical, Distant Thunder, Cracking Thunder 04",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Weather-Thunder-Tropical-Distant-Thunder_2029c943.wav",
+  "queries": [],
+  "dur": 9.88,
+  "peak": 0.72,
+  "segs": [
+   [
+    0.47,
+    3.72
+   ],
+   [
+    4.0,
+    4.32
+   ],
+   [
+    4.85,
+    4.93
+   ],
+   [
+    7.32,
+    7.46
+   ],
+   [
+    8.49,
+    8.7
+   ]
+  ],
+  "low": 88,
+  "max_db": 0.9
+ },
+ "es:205c0d5e-20a0-4258-8d82-d3b130f7d350": {
+  "source": "epidemic",
+  "id": "205c0d5e-20a0-4258-8d82-d3b130f7d350",
+  "title": "Weather, Storm, Thunderstorm, Rain, Field, Illinois, USA 02",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Weather-Storm-Thunderstorm-Rain-Field-Il_205c0d5e.wav",
+  "queries": [],
+  "dur": 172.88,
+  "peak": 52.32,
+  "segs": [
+   [
+    0.01,
+    6.82
+   ],
+   [
+    7.13,
+    13.18
+   ],
+   [
+    13.58,
+    20.65
+   ],
+   [
+    20.98,
+    24.11
+   ],
+   [
+    24.61,
+    40.52
+   ],
+   [
+    42.52,
+    43.97
+   ],
+   [
+    44.48,
+    44.66
+   ],
+   [
+    45.12,
+    45.25
+   ],
+   [
+    45.52,
+    45.94
+   ],
+   [
+    46.19,
+    47.11
+   ],
+   [
+    50.63,
+    70.34
+   ],
+   [
+    70.95,
+    71.1
+   ]
+  ],
+  "low": 26,
+  "max_db": -2.5
+ },
+ "es:2144aa74-396b-4a83-9d23-29b52b783f34": {
+  "source": "epidemic",
+  "id": "2144aa74-396b-4a83-9d23-29b52b783f34",
+  "title": "Machines, Industrial, Lift, Factory Elevator, Rattle, Lifting, Servo",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Machines-Industrial-Lift-Factory-Elevato_2144aa74.wav",
+  "queries": [],
+  "dur": 13.42,
+  "peak": 1.48,
+  "segs": [
+   [
+    0.27,
+    13.28
+   ]
+  ],
+  "low": 45,
+  "max_db": -5.8
+ },
+ "es:214eed5c-d898-45c4-9127-f3bdd616dc75": {
+  "source": "epidemic",
+  "id": "214eed5c-d898-45c4-9127-f3bdd616dc75",
+  "title": "Vehicles, Tire, Car, Driving, Focus On Wheel, Gravel, Grass",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Vehicles-Tire-Car-Driving-Focus-On-Wheel_214eed5c.wav",
+  "queries": [],
+  "dur": 69.81,
+  "peak": 50.39,
+  "segs": [
+   [
+    0.09,
+    69.85
+   ]
+  ],
+  "low": 44,
+  "max_db": -3.0
+ },
+ "es:2213ab40-5924-450c-83fa-7ba97ffdd0a2": {
+  "source": "epidemic",
+  "id": "2213ab40-5924-450c-83fa-7ba97ffdd0a2",
+  "title": "Bendy Pole, Light, Stretch, Bend, Creak 05",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Bendy-Pole-Light-Stretch-Bend-Creak-05_2213ab40.wav",
+  "queries": [],
+  "dur": 3.44,
+  "peak": 2.3,
+  "segs": [
+   [
+    0.11,
+    3.26
+   ]
+  ],
+  "low": 1,
+  "max_db": -1.0
+ },
+ "es:2367bf33-49f9-448b-87af-da9829858515": {
+  "source": "epidemic",
+  "id": "2367bf33-49f9-448b-87af-da9829858515",
+  "title": "Aircraft, Prop, Airfield, Propeller, Runway 01",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Aircraft-Prop-Airfield-Propeller-Runway-_2367bf33.wav",
+  "queries": [],
+  "dur": 80.81,
+  "peak": 59.0,
+  "segs": [
+   [
+    0.0,
+    80.98
+   ]
+  ],
+  "low": 46,
+  "max_db": -3.2
+ },
+ "es:245f96ba-f339-4682-8ad0-45c76f132ce1": {
+  "source": "epidemic",
+  "id": "245f96ba-f339-4682-8ad0-45c76f132ce1",
+  "title": "Ceramics, Handle, Porcelain Bowl, Place Down On Porcelain, Friction",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Ceramics-Handle-Porcelain-Bowl-Place-Dow_245f96ba.wav",
+  "queries": [],
+  "dur": 3.82,
+  "peak": 2.68,
+  "segs": [
+   [
+    0.29,
+    1.01
+   ],
+   [
+    2.67,
+    3.12
+   ]
+  ],
+  "low": 5,
+  "max_db": -8.4
+ },
+ "es:24e58189-c000-4763-86df-875b07ff0837": {
+  "source": "epidemic",
+  "id": "24e58189-c000-4763-86df-875b07ff0837",
+  "title": "Vehicles, Tire, Car, Approach On Gravel, Slow, Tire Grit",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Vehicles-Tire-Car-Approach-On-Gravel-Slo_24e58189.wav",
+  "queries": [],
+  "dur": 16.12,
+  "peak": 7.45,
+  "segs": [
+   [
+    0.27,
+    15.3
+   ]
+  ],
+  "low": 17,
+  "max_db": -7.9
+ },
  "es:26cf2a6e-54a8-4069-85ab-2f0495de67eb": {
   "source": "epidemic",
   "id": "26cf2a6e-54a8-4069-85ab-2f0495de67eb",
@@ -477,6 +1242,68 @@
   "low": 2,
   "max_db": -12.5
  },
+ "es:2735e5ec-5cbb-4934-af3f-9b0d6931bde3": {
+  "source": "epidemic",
+  "id": "2735e5ec-5cbb-4934-af3f-9b0d6931bde3",
+  "title": "Aircraft, Prop, Commercial, Propeller, Pass Low, External",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Aircraft-Prop-Commercial-Propeller-Pass-_2735e5ec.wav",
+  "queries": [],
+  "dur": 30.28,
+  "peak": 14.55,
+  "segs": [
+   [
+    2.88,
+    30.24
+   ]
+  ],
+  "low": 42,
+  "max_db": 2.7
+ },
+ "es:2780bad6-f927-4dac-895e-992bc996c904": {
+  "source": "epidemic",
+  "id": "2780bad6-f927-4dac-895e-992bc996c904",
+  "title": "Alarms, Bell, Fire Alarm Buzzer Inside Box, Schoeps",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Alarms-Bell-Fire-Alarm-Buzzer-Inside-Box_2780bad6.wav",
+  "queries": [],
+  "dur": 20.36,
+  "peak": 9.56,
+  "segs": [
+   [
+    0.82,
+    4.84
+   ],
+   [
+    5.16,
+    6.6
+   ],
+   [
+    7.03,
+    11.8
+   ],
+   [
+    15.08,
+    15.68
+   ],
+   [
+    16.79,
+    17.69
+   ],
+   [
+    18.98,
+    20.0
+   ]
+  ],
+  "low": 71,
+  "max_db": -13.5
+ },
  "es:27f15491-7102-460e-b104-fab684743e0f": {
   "source": "epidemic",
   "id": "27f15491-7102-460e-b104-fab684743e0f",
@@ -497,6 +1324,93 @@
   ],
   "low": 89,
   "max_db": 1.5
+ },
+ "es:291d5908-a9fb-4157-9310-2af9463ce4fa": {
+  "source": "epidemic",
+  "id": "291d5908-a9fb-4157-9310-2af9463ce4fa",
+  "title": "Guns, Artillery, Designed, Mortar, 120mm, Distant 04",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Artillery-Designed-Mortar-120mm-Dis_291d5908.wav",
+  "queries": [],
+  "dur": 5.76,
+  "peak": 0.18,
+  "segs": [
+   [
+    0.01,
+    1.92
+   ]
+  ],
+  "low": 95,
+  "max_db": -2.0
+ },
+ "es:295c3109-05b3-4383-9dd8-4291de28995c": {
+  "source": "epidemic",
+  "id": "295c3109-05b3-4383-9dd8-4291de28995c",
+  "title": "Sports, Misc, Paragliding, Take Off, Inflate, Short, Rustle, Slight Wind 02",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Sports-Misc-Paragliding-Take-Off-Inflate_295c3109.wav",
+  "queries": [],
+  "dur": 19.79,
+  "peak": 0.92,
+  "segs": [
+   [
+    0.09,
+    2.4
+   ],
+   [
+    2.76,
+    3.52
+   ],
+   [
+    3.81,
+    4.09
+   ],
+   [
+    4.35,
+    4.46
+   ],
+   [
+    4.81,
+    5.16
+   ],
+   [
+    5.42,
+    6.03
+   ],
+   [
+    6.74,
+    6.8
+   ]
+  ],
+  "low": 4,
+  "max_db": -1.8
+ },
+ "es:2bf3d2ff-05d7-42c6-a019-808a3e0190e9": {
+  "source": "epidemic",
+  "id": "2bf3d2ff-05d7-42c6-a019-808a3e0190e9",
+  "title": "Guns, Artillery, Designed, Mortar, 120mm, Distant 02",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Artillery-Designed-Mortar-120mm-Dis_2bf3d2ff.wav",
+  "queries": [],
+  "dur": 6.85,
+  "peak": 0.02,
+  "segs": [
+   [
+    0.01,
+    2.1
+   ]
+  ],
+  "low": 96,
+  "max_db": -2.0
  },
  "es:2f68844c-98c3-4951-99f1-1081b0f31557": {
   "source": "epidemic",
@@ -526,6 +1440,102 @@
   ],
   "low": 52,
   "max_db": -2.8
+ },
+ "es:3130cb67-f2c8-4356-a245-bde2725cad3a": {
+  "source": "epidemic",
+  "id": "3130cb67-f2c8-4356-a245-bde2725cad3a",
+  "title": "Scifi, Machine, Scanning Device, High Tech",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Scifi-Machine-Scanning-Device-High-Tech_3130cb67.wav",
+  "queries": [],
+  "dur": 9.3,
+  "peak": 0.18,
+  "segs": [
+   [
+    0.02,
+    8.05
+   ]
+  ],
+  "low": 0,
+  "max_db": -13.2
+ },
+ "es:3297dd2d-1f6c-45e8-9c9a-283f34f161b5": {
+  "source": "epidemic",
+  "id": "3297dd2d-1f6c-45e8-9c9a-283f34f161b5",
+  "title": "User Interface, Click, UI Buttons, Ping, Select",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/User-Interface-Click-UI-Buttons-Ping-Sel_3297dd2d.wav",
+  "queries": [],
+  "dur": 1.06,
+  "peak": 0.05,
+  "segs": [
+   [
+    0.0,
+    0.47
+   ]
+  ],
+  "low": 0,
+  "max_db": -20.3
+ },
+ "es:32dfa4a8-f2d9-4a0e-8642-e1218c634514": {
+  "source": "epidemic",
+  "id": "32dfa4a8-f2d9-4a0e-8642-e1218c634514",
+  "title": "Mechanical, Pulley, Hoist, Metal Pulleys, Chains, Noisy",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Mechanical-Pulley-Hoist-Metal-Pulleys-Ch_32dfa4a8.wav",
+  "queries": [],
+  "dur": 14.26,
+  "peak": 6.28,
+  "segs": [
+   [
+    0.05,
+    14.02
+   ]
+  ],
+  "low": 2,
+  "max_db": -8.8
+ },
+ "es:32fe7b2c-42d2-45de-bd30-a3931b0a4765": {
+  "source": "epidemic",
+  "id": "32fe7b2c-42d2-45de-bd30-a3931b0a4765",
+  "title": "Bullets, Impact, Hit, Metal 01",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Bullets-Impact-Hit-Metal-01_32fe7b2c.wav",
+  "queries": [],
+  "dur": 8.36,
+  "peak": 7.13,
+  "segs": [
+   [
+    0.15,
+    0.57
+   ],
+   [
+    2.44,
+    2.9
+   ],
+   [
+    4.56,
+    4.99
+   ],
+   [
+    7.06,
+    7.58
+   ]
+  ],
+  "low": 23,
+  "max_db": 1.4
  },
  "es:33198064-4d58-4445-a50b-79e6c1fd342a": {
   "source": "epidemic",
@@ -601,6 +1611,80 @@
   "low": 19,
   "max_db": -1.1
  },
+ "es:35688891-4dac-4cbc-be04-4a3f1e8ab5f0": {
+  "source": "epidemic",
+  "id": "35688891-4dac-4cbc-be04-4a3f1e8ab5f0",
+  "title": "Aircraft, Military, Fighter Plane, Pass Overhead, Long",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Aircraft-Military-Fighter-Plane-Pass-Ove_35688891.wav",
+  "queries": [],
+  "dur": 91.18,
+  "peak": 15.03,
+  "segs": [
+   [
+    0.04,
+    73.51
+   ],
+   [
+    73.84,
+    75.96
+   ],
+   [
+    76.37,
+    76.62
+   ],
+   [
+    77.08,
+    80.16
+   ],
+   [
+    80.43,
+    82.24
+   ],
+   [
+    84.24,
+    84.54
+   ],
+   [
+    85.29,
+    86.12
+   ],
+   [
+    86.43,
+    86.83
+   ],
+   [
+    88.08,
+    88.77
+   ]
+  ],
+  "low": 19,
+  "max_db": -9.2
+ },
+ "es:36adf2c3-9f56-45a8-84f7-6d9f251fa71f": {
+  "source": "epidemic",
+  "id": "36adf2c3-9f56-45a8-84f7-6d9f251fa71f",
+  "title": "Scifi, Weapon, Laser Beam, Long, Loop",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Scifi-Weapon-Laser-Beam-Long-Loop_36adf2c3.wav",
+  "queries": [],
+  "dur": 2.0,
+  "peak": 1.58,
+  "segs": [
+   [
+    0.0,
+    2.0
+   ]
+  ],
+  "low": 90,
+  "max_db": -12.2
+ },
  "es:389237d0-9105-4e8e-bb9a-b4efc8ac65e8": {
   "source": "epidemic",
   "id": "389237d0-9105-4e8e-bb9a-b4efc8ac65e8",
@@ -621,6 +1705,48 @@
   ],
   "low": 1,
   "max_db": -5.4
+ },
+ "es:38a49746-9e79-4c5f-a99b-844be21c5b6b": {
+  "source": "epidemic",
+  "id": "38a49746-9e79-4c5f-a99b-844be21c5b6b",
+  "title": "Cloth, Flap, Single Flap, Soft",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Cloth-Flap-Single-Flap-Soft_38a49746.wav",
+  "queries": [],
+  "dur": 2.04,
+  "peak": 0.61,
+  "segs": [
+   [
+    0.29,
+    1.09
+   ]
+  ],
+  "low": 58,
+  "max_db": -11.2
+ },
+ "es:3934b4b3-7293-4384-9c8c-0aae468b3ece": {
+  "source": "epidemic",
+  "id": "3934b4b3-7293-4384-9c8c-0aae468b3ece",
+  "title": "Aircraft, Prop, Small Propeller Plane, Single Engine",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Aircraft-Prop-Small-Propeller-Plane-Sing_3934b4b3.wav",
+  "queries": [],
+  "dur": 101.44,
+  "peak": 75.13,
+  "segs": [
+   [
+    0.09,
+    101.59
+   ]
+  ],
+  "low": 29,
+  "max_db": -6.4
  },
  "es:393ee980-2c49-45f0-8ed8-025c0efa81ff": {
   "source": "epidemic",
@@ -795,6 +1921,242 @@
   "low": 81,
   "max_db": -10.5
  },
+ "es:3ca7f2c9-c896-4f68-9ad7-d5c997b6a233": {
+  "source": "epidemic",
+  "id": "3ca7f2c9-c896-4f68-9ad7-d5c997b6a233",
+  "title": "Guns, Artillery, Designed, Mortar, 120mm, Distant 01",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Artillery-Designed-Mortar-120mm-Dis_3ca7f2c9.wav",
+  "queries": [],
+  "dur": 8.45,
+  "peak": 0.03,
+  "segs": [
+   [
+    0.01,
+    1.72
+   ]
+  ],
+  "low": 90,
+  "max_db": -3.4
+ },
+ "es:3d428ea9-17af-4da1-aa9d-9f90782ad969": {
+  "source": "epidemic",
+  "id": "3d428ea9-17af-4da1-aa9d-9f90782ad969",
+  "title": "Guns, Artillery, Cannon, Fire, Distant",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Artillery-Cannon-Fire-Distant_3d428ea9.wav",
+  "queries": [],
+  "dur": 6.85,
+  "peak": 0.06,
+  "segs": [
+   [
+    0.02,
+    3.61
+   ]
+  ],
+  "low": 55,
+  "max_db": -0.3
+ },
+ "es:3d6b63cb-87f5-4b62-b1d9-f0f6d0064f7d": {
+  "source": "epidemic",
+  "id": "3d6b63cb-87f5-4b62-b1d9-f0f6d0064f7d",
+  "title": "Electricity, Sparks, Welding, Spark, Metal, Heat, Burn, Grind, Arc, Flame, Industrial 01",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Electricity-Sparks-Welding-Spark-Metal-H_3d6b63cb.wav",
+  "queries": [],
+  "dur": 18.47,
+  "peak": 1.14,
+  "segs": [
+   [
+    0.46,
+    2.8
+   ],
+   [
+    4.2,
+    6.58
+   ],
+   [
+    7.82,
+    9.02
+   ],
+   [
+    10.04,
+    11.57
+   ],
+   [
+    13.11,
+    14.83
+   ],
+   [
+    16.06,
+    17.94
+   ]
+  ],
+  "low": 1,
+  "max_db": -1.8
+ },
+ "es:3e4148db-4cab-4287-9135-58724fdb7bd2": {
+  "source": "epidemic",
+  "id": "3e4148db-4cab-4287-9135-58724fdb7bd2",
+  "title": "Ambience, Industrial, Industrial Building Hum, Generator, Room Tone",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Ambience-Industrial-Industrial-Building-_3e4148db.wav",
+  "queries": [],
+  "dur": 181.71,
+  "peak": 10.63,
+  "segs": [
+   [
+    0.08,
+    181.92
+   ]
+  ],
+  "low": 89,
+  "max_db": -3.1
+ },
+ "es:3f56e94b-3e9e-4cb3-979b-e970e58edf2a": {
+  "source": "epidemic",
+  "id": "3f56e94b-3e9e-4cb3-979b-e970e58edf2a",
+  "title": "Tools, Hand, Ratchet Wrench Fast Turn Click",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Tools-Hand-Ratchet-Wrench-Fast-Turn-Clic_3f56e94b.wav",
+  "queries": [],
+  "dur": 7.32,
+  "peak": 2.8,
+  "segs": [
+   [
+    0.01,
+    0.45
+   ],
+   [
+    1.22,
+    1.77
+   ],
+   [
+    2.57,
+    3.16
+   ],
+   [
+    3.96,
+    4.49
+   ],
+   [
+    5.29,
+    5.92
+   ],
+   [
+    6.71,
+    7.29
+   ]
+  ],
+  "low": 0,
+  "max_db": -16.5
+ },
+ "es:40752d3d-9176-4793-b8d2-d9689cbadf15": {
+  "source": "epidemic",
+  "id": "40752d3d-9176-4793-b8d2-d9689cbadf15",
+  "title": "Vehicles, Antique, Car, Ford, 1950 Mercury, 255 CI, Flathead Engine, Turns Over Then Stalls",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Vehicles-Antique-Car-Ford-1950-Mercury-2_40752d3d.wav",
+  "queries": [],
+  "dur": 8.41,
+  "peak": 6.61,
+  "segs": [
+   [
+    0.01,
+    8.23
+   ]
+  ],
+  "low": 37,
+  "max_db": -9.0
+ },
+ "es:408eb56b-4d39-4194-a74e-50943d3f95c3": {
+  "source": "epidemic",
+  "id": "408eb56b-4d39-4194-a74e-50943d3f95c3",
+  "title": "Vehicles, Tire, Skoda 125L, Tires, Gravel",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Vehicles-Tire-Skoda-125L-Tires-Gravel_408eb56b.wav",
+  "queries": [],
+  "dur": 22.17,
+  "peak": 5.64,
+  "segs": [
+   [
+    0.85,
+    21.29
+   ],
+   [
+    21.6,
+    21.98
+   ]
+  ],
+  "low": 13,
+  "max_db": 2.2
+ },
+ "es:40c5d3a0-19fa-4e24-b4fa-85753d4abdfe": {
+  "source": "epidemic",
+  "id": "40c5d3a0-19fa-4e24-b4fa-85753d4abdfe",
+  "title": "Wood, Crash & Debris, Hard Impacts, Metal Details, Wood Break",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Wood-Crash-Debris-Hard-Impacts-Metal-Det_40c5d3a0.wav",
+  "queries": [],
+  "dur": 9.5,
+  "peak": 2.69,
+  "segs": [
+   [
+    0.01,
+    0.22
+   ],
+   [
+    1.36,
+    2.13
+   ],
+   [
+    2.68,
+    3.45
+   ],
+   [
+    4.0,
+    4.79
+   ],
+   [
+    5.51,
+    5.96
+   ],
+   [
+    7.02,
+    7.44
+   ],
+   [
+    8.4,
+    9.17
+   ]
+  ],
+  "low": 30,
+  "max_db": 0.5
+ },
  "es:40c6f0f8-6434-4e71-94eb-4983a2b19d05": {
   "source": "epidemic",
   "id": "40c6f0f8-6434-4e71-94eb-4983a2b19d05",
@@ -861,6 +2223,56 @@
   "low": 1,
   "max_db": -0.2
  },
+ "es:428213df-2718-4a99-8a06-202db2d9cb94": {
+  "source": "epidemic",
+  "id": "428213df-2718-4a99-8a06-202db2d9cb94",
+  "title": "Motors, Turbine, Jet Engine, Runway",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Motors-Turbine-Jet-Engine-Runway_428213df.wav",
+  "queries": [],
+  "dur": 30.0,
+  "peak": 6.59,
+  "segs": [
+   [
+    0.06,
+    29.85
+   ]
+  ],
+  "low": 42,
+  "max_db": -8.6
+ },
+ "es:42b604de-c4e0-469d-b454-90279b31b214": {
+  "source": "epidemic",
+  "id": "42b604de-c4e0-469d-b454-90279b31b214",
+  "title": "Metal, Movement, Oil Drum, Roll Over x3",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Metal-Movement-Oil-Drum-Roll-Over-x3_42b604de.wav",
+  "queries": [],
+  "dur": 8.32,
+  "peak": 6.07,
+  "segs": [
+   [
+    0.08,
+    1.01
+   ],
+   [
+    2.64,
+    3.38
+   ],
+   [
+    5.98,
+    6.72
+   ]
+  ],
+  "low": 12,
+  "max_db": -1.7
+ },
  "es:42d1ddce-568e-4fca-83fe-d9953039ace0": {
   "source": "epidemic",
   "id": "42d1ddce-568e-4fca-83fe-d9953039ace0",
@@ -881,6 +2293,177 @@
   ],
   "low": 0,
   "max_db": -10.2
+ },
+ "es:43187c64-9296-460c-92da-548b6fcd4015": {
+  "source": "epidemic",
+  "id": "43187c64-9296-460c-92da-548b6fcd4015",
+  "title": "Metal, Impact, Large, Loud, Heavy",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Metal-Impact-Large-Loud-Heavy_43187c64.wav",
+  "queries": [],
+  "dur": 7.33,
+  "peak": 0.06,
+  "segs": [
+   [
+    0.05,
+    2.75
+   ]
+  ],
+  "low": 37,
+  "max_db": 0.9
+ },
+ "es:452ff78e-6f37-4002-81a5-0d53e7d5739f": {
+  "source": "epidemic",
+  "id": "452ff78e-6f37-4002-81a5-0d53e7d5739f",
+  "title": "Aircraft, Prop, Twin Propeller, Small, Idle",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Aircraft-Prop-Twin-Propeller-Small-Idle_452ff78e.wav",
+  "queries": [],
+  "dur": 29.97,
+  "peak": 19.19,
+  "segs": [
+   [
+    0.0,
+    30.04
+   ]
+  ],
+  "low": 26,
+  "max_db": 2.2
+ },
+ "es:45788d9b-e863-4c89-bab3-78fe2e21f59e": {
+  "source": "epidemic",
+  "id": "45788d9b-e863-4c89-bab3-78fe2e21f59e",
+  "title": "Designed, Riser, Aircraft, Dive, Pass By",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Designed-Riser-Aircraft-Dive-Pass-By_45788d9b.wav",
+  "queries": [],
+  "dur": 10.2,
+  "peak": 3.71,
+  "segs": [
+   [
+    0.09,
+    6.6
+   ]
+  ],
+  "low": 26,
+  "max_db": -7.5
+ },
+ "es:45fb42fa-1ca2-4840-b9f4-990b0b60e518": {
+  "source": "epidemic",
+  "id": "45fb42fa-1ca2-4840-b9f4-990b0b60e518",
+  "title": "Wood, Break, Cracking Wood 01",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Wood-Break-Cracking-Wood-01_45fb42fa.wav",
+  "queries": [],
+  "dur": 3.71,
+  "peak": 1.81,
+  "segs": [
+   [
+    0.05,
+    0.66
+   ],
+   [
+    0.96,
+    1.17
+   ],
+   [
+    1.44,
+    3.59
+   ]
+  ],
+  "low": 2,
+  "max_db": -6.9
+ },
+ "es:4615b9e2-0bf6-4ffa-ba92-ab22d5a9be1e": {
+  "source": "epidemic",
+  "id": "4615b9e2-0bf6-4ffa-ba92-ab22d5a9be1e",
+  "title": "Objects, Furniture, Cushion, Handling, Pats",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Objects-Furniture-Cushion-Handling-Pats_4615b9e2.wav",
+  "queries": [],
+  "dur": 5.35,
+  "peak": 2.86,
+  "segs": [
+   [
+    0.12,
+    0.32
+   ],
+   [
+    0.67,
+    1.04
+   ],
+   [
+    1.4,
+    5.12
+   ]
+  ],
+  "low": 90,
+  "max_db": -0.0
+ },
+ "es:48056175-c3fe-4858-906b-c8b9acde4920": {
+  "source": "epidemic",
+  "id": "48056175-c3fe-4858-906b-c8b9acde4920",
+  "title": "Air, Hiss, Compressor, Pump, Car, Tire",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Air-Hiss-Compressor-Pump-Car-Tire_48056175.wav",
+  "queries": [],
+  "dur": 8.3,
+  "peak": 5.29,
+  "segs": [
+   [
+    0.03,
+    0.72
+   ],
+   [
+    1.05,
+    4.33
+   ],
+   [
+    4.69,
+    8.0
+   ]
+  ],
+  "low": 0,
+  "max_db": -18.7
+ },
+ "es:48ff6540-158b-4e49-a8c3-01b32f106769": {
+  "source": "epidemic",
+  "id": "48ff6540-158b-4e49-a8c3-01b32f106769",
+  "title": "Aircraft, Prop, Biplane, Landing, Taxing",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Aircraft-Prop-Biplane-Landing-Taxing_48ff6540.wav",
+  "queries": [],
+  "dur": 214.19,
+  "peak": 164.76,
+  "segs": [
+   [
+    0.39,
+    214.1
+   ]
+  ],
+  "low": 1,
+  "max_db": 1.4
  },
  "es:49350e02-27e0-4a6c-88f6-49d7bdb00c40": {
   "source": "epidemic",
@@ -936,6 +2519,69 @@
   "low": 38,
   "max_db": -1.1
  },
+ "es:4badabb7-a829-4dcd-ab05-df2239dd097f": {
+  "source": "epidemic",
+  "id": "4badabb7-a829-4dcd-ab05-df2239dd097f",
+  "title": "Motors, Servo, Electrical Servo, Spin 12",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Motors-Servo-Electrical-Servo-Spin-12_4badabb7.wav",
+  "queries": [],
+  "dur": 5.64,
+  "peak": 4.71,
+  "segs": [
+   [
+    0.03,
+    5.57
+   ]
+  ],
+  "low": 0,
+  "max_db": -14.9
+ },
+ "es:4d8f1879-0f8c-4282-9f43-6e98d08ab631": {
+  "source": "epidemic",
+  "id": "4d8f1879-0f8c-4282-9f43-6e98d08ab631",
+  "title": "Aircraft, Military, Small Propeller Plane, Starting Up, Idle, Long Rev, Drive Away, Runway Position 3, Sanken",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Aircraft-Military-Small-Propeller-Plane-_4d8f1879.wav",
+  "queries": [],
+  "dur": 94.39,
+  "peak": 6.95,
+  "segs": [
+   [
+    0.12,
+    94.6
+   ]
+  ],
+  "low": 58,
+  "max_db": -6.8
+ },
+ "es:50fc6e4c-7cb1-4966-a783-65c70dd46259": {
+  "source": "epidemic",
+  "id": "50fc6e4c-7cb1-4966-a783-65c70dd46259",
+  "title": "Aircraft, Prop, Small Plane, Takeoff, Distant",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Aircraft-Prop-Small-Plane-Takeoff-Distan_50fc6e4c.wav",
+  "queries": [],
+  "dur": 32.18,
+  "peak": 14.77,
+  "segs": [
+   [
+    0.2,
+    32.05
+   ]
+  ],
+  "low": 43,
+  "max_db": -4.6
+ },
  "es:541745e8-d3f3-4975-a33b-806be036857f": {
   "source": "epidemic",
   "id": "541745e8-d3f3-4975-a33b-806be036857f",
@@ -956,6 +2602,56 @@
   ],
   "low": 81,
   "max_db": 2.0
+ },
+ "es:5474f57b-01a4-4b32-a0ae-55717c3ff5f7": {
+  "source": "epidemic",
+  "id": "5474f57b-01a4-4b32-a0ae-55717c3ff5f7",
+  "title": "Mechanical, Pulley, Winch, Metal, Gear, Tension, Hoist, Load, Crank 01",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Mechanical-Pulley-Winch-Metal-Gear-Tensi_5474f57b.wav",
+  "queries": [],
+  "dur": 14.54,
+  "peak": 12.41,
+  "segs": [
+   [
+    0.04,
+    3.62
+   ],
+   [
+    4.41,
+    8.41
+   ],
+   [
+    9.04,
+    14.25
+   ]
+  ],
+  "low": 0,
+  "max_db": -2.3
+ },
+ "es:558b9994-34c0-4026-8e1f-20914ff21106": {
+  "source": "epidemic",
+  "id": "558b9994-34c0-4026-8e1f-20914ff21106",
+  "title": "Designed, Whoosh, Air, Passby, Fast",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Designed-Whoosh-Air-Passby-Fast_558b9994.wav",
+  "queries": [],
+  "dur": 2.92,
+  "peak": 1.43,
+  "segs": [
+   [
+    0.89,
+    1.94
+   ]
+  ],
+  "low": 21,
+  "max_db": -10.6
  },
  "es:576f00e2-3419-402c-b9a1-f9ebc046072c": {
   "source": "epidemic",
@@ -1023,6 +2719,55 @@
   "low": 0,
   "max_db": -2.0
  },
+ "es:5b7f42c8-5053-41f3-aab7-4d0a719701cd": {
+  "source": "epidemic",
+  "id": "5b7f42c8-5053-41f3-aab7-4d0a719701cd",
+  "title": "Wood, Friction, Squeaks, Stressed Wood, Squeaking, Scraping, Screeching Movement 02",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Wood-Friction-Squeaks-Stressed-Wood-Sque_5b7f42c8.wav",
+  "queries": [],
+  "dur": 15.29,
+  "peak": 15.21,
+  "segs": [
+   [
+    0.07,
+    1.41
+   ],
+   [
+    2.17,
+    4.13
+   ],
+   [
+    4.73,
+    5.49
+   ],
+   [
+    6.34,
+    6.54
+   ],
+   [
+    6.88,
+    9.57
+   ],
+   [
+    10.29,
+    12.31
+   ],
+   [
+    13.28,
+    14.12
+   ],
+   [
+    14.39,
+    15.3
+   ]
+  ],
+  "low": 0,
+  "max_db": 0.1
+ },
  "es:5c4fb5c3-e8f3-4484-a53d-c965a65b99c8": {
   "source": "epidemic",
   "id": "5c4fb5c3-e8f3-4484-a53d-c965a65b99c8",
@@ -1063,6 +2808,159 @@
   ],
   "low": 1,
   "max_db": -17.1
+ },
+ "es:5da944a3-77fe-4df7-8948-44e38676a579": {
+  "source": "epidemic",
+  "id": "5da944a3-77fe-4df7-8948-44e38676a579",
+  "title": "Vehicles, Generic By, Jeep, Drive By, Slow, Sand Road, Rattle Load",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Vehicles-Generic-By-Jeep-Drive-By-Slow-S_5da944a3.wav",
+  "queries": [],
+  "dur": 78.3,
+  "peak": 13.98,
+  "segs": [
+   [
+    0.16,
+    49.14
+   ],
+   [
+    49.54,
+    50.03
+   ],
+   [
+    50.29,
+    50.38
+   ],
+   [
+    50.95,
+    51.15
+   ],
+   [
+    51.43,
+    51.91
+   ],
+   [
+    52.98,
+    54.34
+   ],
+   [
+    58.52,
+    58.6
+   ],
+   [
+    63.89,
+    64.15
+   ]
+  ],
+  "low": 72,
+  "max_db": -6.3
+ },
+ "es:5e22dc64-da13-403e-a292-cd08d7f6d100": {
+  "source": "epidemic",
+  "id": "5e22dc64-da13-403e-a292-cd08d7f6d100",
+  "title": "Sports, Winter, Skiing, Skids, Slide, On Snow 03",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Sports-Winter-Skiing-Skids-Slide-On-Snow_5e22dc64.wav",
+  "queries": [],
+  "dur": 29.17,
+  "peak": 18.23,
+  "segs": [
+   [
+    0.18,
+    3.42
+   ],
+   [
+    4.17,
+    7.86
+   ],
+   [
+    9.27,
+    13.91
+   ],
+   [
+    14.96,
+    21.23
+   ],
+   [
+    22.22,
+    28.7
+   ]
+  ],
+  "low": 7,
+  "max_db": -6.6
+ },
+ "es:5fcf41d1-5e15-4162-9891-3f9a92caaf3e": {
+  "source": "epidemic",
+  "id": "5fcf41d1-5e15-4162-9891-3f9a92caaf3e",
+  "title": "Aircraft, Prop, Propeller Plane, Pass Overhead",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Aircraft-Prop-Propeller-Plane-Pass-Overh_5fcf41d1.wav",
+  "queries": [],
+  "dur": 47.5,
+  "peak": 28.0,
+  "segs": [
+   [
+    0.49,
+    47.1
+   ]
+  ],
+  "low": 14,
+  "max_db": 0.6
+ },
+ "es:6041a3e4-a7ab-4964-ac4a-0fae81ad9f47": {
+  "source": "epidemic",
+  "id": "6041a3e4-a7ab-4964-ac4a-0fae81ad9f47",
+  "title": "Ice, Break, Ice Cracking, Push 04",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Ice-Break-Ice-Cracking-Push-04_6041a3e4.wav",
+  "queries": [],
+  "dur": 4.54,
+  "peak": 1.36,
+  "segs": [
+   [
+    0.12,
+    4.49
+   ]
+  ],
+  "low": 1,
+  "max_db": 2.6
+ },
+ "es:61568c71-2b50-4e8a-a96e-072194217fc1": {
+  "source": "epidemic",
+  "id": "61568c71-2b50-4e8a-a96e-072194217fc1",
+  "title": "Wood, Break, Tree Crack, Fall 05",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Wood-Break-Tree-Crack-Fall-05_61568c71.wav",
+  "queries": [],
+  "dur": 3.77,
+  "peak": 1.46,
+  "segs": [
+   [
+    0.0,
+    0.56
+   ],
+   [
+    0.85,
+    3.12
+   ]
+  ],
+  "low": 18,
+  "max_db": -8.0
  },
  "es:619f14e4-2bf5-4dec-886b-9cf0bde54011": {
   "source": "epidemic",
@@ -1127,6 +3025,27 @@
   "low": 91,
   "max_db": -3.0
  },
+ "es:653aa152-ed3a-4f8b-a50e-15c03fbd74b5": {
+  "source": "epidemic",
+  "id": "653aa152-ed3a-4f8b-a50e-15c03fbd74b5",
+  "title": "Explosions, Real, Heavy, Large, Outdoors, Echo 04",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Explosions-Real-Heavy-Large-Outdoors-Ech_653aa152.wav",
+  "queries": [],
+  "dur": 4.6,
+  "peak": 0.15,
+  "segs": [
+   [
+    0.14,
+    0.57
+   ]
+  ],
+  "low": 65,
+  "max_db": -3.9
+ },
  "es:66203e5f-94f3-4d8e-a73c-99a39a5d58ad": {
   "source": "epidemic",
   "id": "66203e5f-94f3-4d8e-a73c-99a39a5d58ad",
@@ -1168,6 +3087,155 @@
   ],
   "low": 55,
   "max_db": -3.3
+ },
+ "es:68d76b49-feb1-4e16-9910-9dcfb498e353": {
+  "source": "epidemic",
+  "id": "68d76b49-feb1-4e16-9910-9dcfb498e353",
+  "title": "Tools, Pneumatic, Drill Gun, Screwing 4 Wheels, 4 Screws, 2 Wheels 01",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Tools-Pneumatic-Drill-Gun-Screwing-4-Whe_68d76b49.wav",
+  "queries": [],
+  "dur": 24.88,
+  "peak": 0.5,
+  "segs": [
+   [
+    0.25,
+    0.93
+   ],
+   [
+    1.89,
+    5.21
+   ],
+   [
+    5.54,
+    9.67
+   ],
+   [
+    10.52,
+    12.82
+   ],
+   [
+    13.83,
+    15.39
+   ],
+   [
+    16.02,
+    17.55
+   ],
+   [
+    17.86,
+    21.44
+   ],
+   [
+    22.12,
+    24.0
+   ]
+  ],
+  "low": 0,
+  "max_db": -9.8
+ },
+ "es:69d9a2b2-95ee-4dc9-a164-04fadae0722a": {
+  "source": "epidemic",
+  "id": "69d9a2b2-95ee-4dc9-a164-04fadae0722a",
+  "title": "Communications, Telephone, Antique, Pick Up",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Communications-Telephone-Antique-Pick-Up_69d9a2b2.wav",
+  "queries": [],
+  "dur": 8.18,
+  "peak": 4.44,
+  "segs": [
+   [
+    0.17,
+    0.64
+   ],
+   [
+    1.6,
+    1.98
+   ],
+   [
+    2.97,
+    3.49
+   ],
+   [
+    4.44,
+    5.63
+   ],
+   [
+    6.74,
+    7.93
+   ]
+  ],
+  "low": 1,
+  "max_db": -2.9
+ },
+ "es:6a057457-7b8b-45d7-be1f-493f237a8ebd": {
+  "source": "epidemic",
+  "id": "6a057457-7b8b-45d7-be1f-493f237a8ebd",
+  "title": "Trains, Clack, Ride, Pass, By, Track, Mechanism 01",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Trains-Clack-Ride-Pass-By-Track-Mechanis_6a057457.wav",
+  "queries": [],
+  "dur": 9.69,
+  "peak": 2.14,
+  "segs": [
+   [
+    0.03,
+    9.41
+   ]
+  ],
+  "low": 19,
+  "max_db": -3.7
+ },
+ "es:6bc1d1d5-5b83-40e0-9edf-5530e9084ad1": {
+  "source": "epidemic",
+  "id": "6bc1d1d5-5b83-40e0-9edf-5530e9084ad1",
+  "title": "Water, Steam, Radiator Metallic Steam Burst",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Water-Steam-Radiator-Metallic-Steam-Burs_6bc1d1d5.wav",
+  "queries": [],
+  "dur": 39.32,
+  "peak": 0.06,
+  "segs": [
+   [
+    0.02,
+    33.68
+   ]
+  ],
+  "low": 0,
+  "max_db": -0.7
+ },
+ "es:6bdde873-63c8-4f8b-80c2-5dfc6557783f": {
+  "source": "epidemic",
+  "id": "6bdde873-63c8-4f8b-80c2-5dfc6557783f",
+  "title": "Vehicles, Construction, Bulldozer, Operating",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Vehicles-Construction-Bulldozer-Operatin_6bdde873.wav",
+  "queries": [],
+  "dur": 60.37,
+  "peak": 23.95,
+  "segs": [
+   [
+    0.03,
+    60.5
+   ]
+  ],
+  "low": 11,
+  "max_db": -0.5
  },
  "es:71c7c237-bf74-4c5b-8f6d-a015b1e2b3e8": {
   "source": "epidemic",
@@ -1218,6 +3286,93 @@
   "low": 0,
   "max_db": 1.2
  },
+ "es:73375b73-87e9-4986-8c38-5c1c55ebdc8c": {
+  "source": "epidemic",
+  "id": "73375b73-87e9-4986-8c38-5c1c55ebdc8c",
+  "title": "Guns, Automatic, SMG, Designed, Heavy Continuous Burst",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-SMG-Designed-Heavy-Contin_73375b73.wav",
+  "queries": [],
+  "dur": 1.96,
+  "peak": 0.22,
+  "segs": [
+   [
+    0.0,
+    1.38
+   ]
+  ],
+  "low": 71,
+  "max_db": -6.7
+ },
+ "es:7476fb99-45d7-4ff5-b36e-ef4260a0b3f9": {
+  "source": "epidemic",
+  "id": "7476fb99-45d7-4ff5-b36e-ef4260a0b3f9",
+  "title": "Aircraft, Prop, Airplane, Light, Propeller, Pass Overhead, Take Off 01",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Aircraft-Prop-Airplane-Light-Propeller-P_7476fb99.wav",
+  "queries": [],
+  "dur": 30.89,
+  "peak": 13.46,
+  "segs": [
+   [
+    4.87,
+    24.31
+   ],
+   [
+    24.85,
+    25.72
+   ],
+   [
+    27.12,
+    27.35
+   ]
+  ],
+  "low": 10,
+  "max_db": 0.9
+ },
+ "es:753a6e24-7a79-442f-b44c-ecf7b7dcfe51": {
+  "source": "epidemic",
+  "id": "753a6e24-7a79-442f-b44c-ecf7b7dcfe51",
+  "title": "Rope, Creak, Long Rope Creak, Rope Tension, Rope Stretching 06",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Rope-Creak-Long-Rope-Creak-Rope-Tension-_753a6e24.wav",
+  "queries": [],
+  "dur": 29.87,
+  "peak": 22.14,
+  "segs": [
+   [
+    0.03,
+    4.44
+   ],
+   [
+    6.02,
+    11.65
+   ],
+   [
+    12.73,
+    17.19
+   ],
+   [
+    18.24,
+    24.51
+   ],
+   [
+    25.57,
+    29.93
+   ]
+  ],
+  "low": 0,
+  "max_db": -6.8
+ },
  "es:79c6587c-18b0-4691-8612-a338e9389504": {
   "source": "epidemic",
   "id": "79c6587c-18b0-4691-8612-a338e9389504",
@@ -1239,6 +3394,52 @@
   "low": 80,
   "max_db": -1.3
  },
+ "es:7b86cb62-5eca-4851-a272-79d25052e447": {
+  "source": "epidemic",
+  "id": "7b86cb62-5eca-4851-a272-79d25052e447",
+  "title": "Air, Burst, Factory Valve, Pressure, Hiss, Release",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Air-Burst-Factory-Valve-Pressure-Hiss-Re_7b86cb62.wav",
+  "queries": [],
+  "dur": 6.95,
+  "peak": 3.58,
+  "segs": [
+   [
+    0.0,
+    2.05
+   ],
+   [
+    3.48,
+    5.53
+   ]
+  ],
+  "low": 0,
+  "max_db": -10.5
+ },
+ "es:7bb5acb9-de0d-4019-9913-93b47c8189f4": {
+  "source": "epidemic",
+  "id": "7bb5acb9-de0d-4019-9913-93b47c8189f4",
+  "title": "Tape Measure, Retract Short Length 04",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Tape-Measure-Retract-Short-Length-04_7bb5acb9.wav",
+  "queries": [],
+  "dur": 0.51,
+  "peak": 0.3,
+  "segs": [
+   [
+    0.13,
+    0.35
+   ]
+  ],
+  "low": 0,
+  "max_db": 0.0
+ },
  "es:7c4ae63a-5be3-4b2b-b2fc-08bfd5e3da98": {
   "source": "epidemic",
   "id": "7c4ae63a-5be3-4b2b-b2fc-08bfd5e3da98",
@@ -1259,6 +3460,48 @@
   ],
   "low": 0,
   "max_db": -10.6
+ },
+ "es:7e19e856-b27c-4945-bb2b-b72c291c94c9": {
+  "source": "epidemic",
+  "id": "7e19e856-b27c-4945-bb2b-b72c291c94c9",
+  "title": "Designed, Synthetic, Sweep, Noisy Laser 02",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Designed-Synthetic-Sweep-Noisy-Laser-02_7e19e856.wav",
+  "queries": [],
+  "dur": 4.82,
+  "peak": 1.3,
+  "segs": [
+   [
+    0.5,
+    2.63
+   ]
+  ],
+  "low": 0,
+  "max_db": 1.1
+ },
+ "es:7e1b52ac-46da-40a1-be57-99015e4ce249": {
+  "source": "epidemic",
+  "id": "7e1b52ac-46da-40a1-be57-99015e4ce249",
+  "title": "Wood, Break, Panel, Plywood, Bend, Splinter, Snap 02",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Wood-Break-Panel-Plywood-Bend-Splinter-S_7e1b52ac.wav",
+  "queries": [],
+  "dur": 4.5,
+  "peak": 2.24,
+  "segs": [
+   [
+    0.47,
+    4.2
+   ]
+  ],
+  "low": 5,
+  "max_db": -2.1
  },
  "es:7efbde18-bb65-4f0f-aeb2-c9cfe317917d": {
   "source": "epidemic",
@@ -1338,6 +3581,283 @@
   "low": 0,
   "max_db": -6.4
  },
+ "es:85648be4-167d-445c-8b05-7ae975d020a9": {
+  "source": "epidemic",
+  "id": "85648be4-167d-445c-8b05-7ae975d020a9",
+  "title": "Machines, Industrial, Rotating Mechanism, Vintage, Stable, Consistent, Loop Sequence 01",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Machines-Industrial-Rotating-Mechanism-V_85648be4.wav",
+  "queries": [],
+  "dur": 10.67,
+  "peak": 9.95,
+  "segs": [
+   [
+    0.0,
+    10.69
+   ]
+  ],
+  "low": 94,
+  "max_db": -10.3
+ },
+ "es:868cd65a-4017-480d-be73-225eaa70ec64": {
+  "source": "epidemic",
+  "id": "868cd65a-4017-480d-be73-225eaa70ec64",
+  "title": "Doors, Sliding, Sliding Metal Gate, Close, Open, Lock",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Doors-Sliding-Sliding-Metal-Gate-Close-O_868cd65a.wav",
+  "queries": [],
+  "dur": 30.82,
+  "peak": 16.04,
+  "segs": [
+   [
+    0.51,
+    6.36
+   ],
+   [
+    7.58,
+    8.41
+   ],
+   [
+    9.42,
+    10.26
+   ],
+   [
+    11.39,
+    14.22
+   ],
+   [
+    15.04,
+    20.58
+   ],
+   [
+    21.29,
+    23.96
+   ],
+   [
+    24.72,
+    27.5
+   ],
+   [
+    27.76,
+    27.9
+   ]
+  ],
+  "low": 60,
+  "max_db": -11.5
+ },
+ "es:877c8ff9-e17b-435e-8483-e861227589b1": {
+  "source": "epidemic",
+  "id": "877c8ff9-e17b-435e-8483-e861227589b1",
+  "title": "User Interface, Data, Radar, Sweep, Scan, Tracking, Scifi, Futuristic 04",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/User-Interface-Data-Radar-Sweep-Scan-Tra_877c8ff9.wav",
+  "queries": [],
+  "dur": 7.97,
+  "peak": 4.86,
+  "segs": [
+   [
+    0.2,
+    3.86
+   ],
+   [
+    4.2,
+    6.56
+   ],
+   [
+    6.81,
+    7.86
+   ]
+  ],
+  "low": 0,
+  "max_db": -4.9
+ },
+ "es:891b5f5f-3166-4309-bf5e-f6aeb5ed52bb": {
+  "source": "epidemic",
+  "id": "891b5f5f-3166-4309-bf5e-f6aeb5ed52bb",
+  "title": "Doors, Metal, Open, Rumble",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Doors-Metal-Open-Rumble_891b5f5f.wav",
+  "queries": [],
+  "dur": 2.48,
+  "peak": 0.12,
+  "segs": [
+   [
+    0.04,
+    1.26
+   ]
+  ],
+  "low": 86,
+  "max_db": -6.0
+ },
+ "es:8a1489ae-44d1-473e-8a66-ad75153dbb7c": {
+  "source": "epidemic",
+  "id": "8a1489ae-44d1-473e-8a66-ad75153dbb7c",
+  "title": "Objects, Wheeled, Metal Cart, Roll, Medium, Rattle",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Objects-Wheeled-Metal-Cart-Roll-Medium-R_8a1489ae.wav",
+  "queries": [],
+  "dur": 16.64,
+  "peak": 11.41,
+  "segs": [
+   [
+    0.18,
+    15.81
+   ]
+  ],
+  "low": 2,
+  "max_db": 0.1
+ },
+ "es:8a9fc1d8-20c1-41d2-bc94-7dcb8a51047d": {
+  "source": "epidemic",
+  "id": "8a9fc1d8-20c1-41d2-bc94-7dcb8a51047d",
+  "title": "Vehicles, Military, WW2, Truck, Exterior, Idle, Close Up",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Vehicles-Military-WW2-Truck-Exterior-Idl_8a9fc1d8.wav",
+  "queries": [],
+  "dur": 20.76,
+  "peak": 10.71,
+  "segs": [
+   [
+    0.0,
+    20.79
+   ]
+  ],
+  "low": 2,
+  "max_db": 0.1
+ },
+ "es:8b0b8d66-392e-447e-aa38-3937f49c53a1": {
+  "source": "epidemic",
+  "id": "8b0b8d66-392e-447e-aa38-3937f49c53a1",
+  "title": "Weather, Thunder, Thunder Strike, Clap, Slight Distance",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Weather-Thunder-Thunder-Strike-Clap-Slig_8b0b8d66.wav",
+  "queries": [],
+  "dur": 15.71,
+  "peak": 1.26,
+  "segs": [
+   [
+    0.19,
+    0.36
+   ],
+   [
+    0.63,
+    7.39
+   ],
+   [
+    7.64,
+    7.97
+   ],
+   [
+    8.59,
+    8.78
+   ],
+   [
+    9.2,
+    9.38
+   ],
+   [
+    9.65,
+    10.15
+   ],
+   [
+    13.64,
+    13.73
+   ]
+  ],
+  "low": 47,
+  "max_db": 2.0
+ },
+ "es:8b3f42af-a88a-4e3d-adad-9ec86563e3f5": {
+  "source": "epidemic",
+  "id": "8b3f42af-a88a-4e3d-adad-9ec86563e3f5",
+  "title": "Aircraft, Misc, Propeller Plane, Dash 8, Start, Drive Away",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Aircraft-Misc-Propeller-Plane-Dash-8-Sta_8b3f42af.wav",
+  "queries": [],
+  "dur": 156.5,
+  "peak": 77.22,
+  "segs": [
+   [
+    0.03,
+    0.63
+   ],
+   [
+    1.16,
+    1.68
+   ],
+   [
+    2.68,
+    3.53
+   ],
+   [
+    3.79,
+    4.08
+   ],
+   [
+    4.49,
+    9.15
+   ],
+   [
+    9.57,
+    10.29
+   ],
+   [
+    10.61,
+    12.16
+   ],
+   [
+    12.45,
+    156.8
+   ]
+  ],
+  "low": 23,
+  "max_db": -5.9
+ },
+ "es:8bb83b14-4432-4c16-9d89-f981cb92dd45": {
+  "source": "epidemic",
+  "id": "8bb83b14-4432-4c16-9d89-f981cb92dd45",
+  "title": "Metal, Impact, Large Thud, Drum Barrel",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Metal-Impact-Large-Thud-Drum-Barrel_8bb83b14.wav",
+  "queries": [],
+  "dur": 1.62,
+  "peak": 0.1,
+  "segs": [
+   [
+    0.07,
+    0.52
+   ]
+  ],
+  "low": 54,
+  "max_db": 1.5
+ },
  "es:8c82ec27-80fb-4cac-a77e-e1fd0435ce13": {
   "source": "epidemic",
   "id": "8c82ec27-80fb-4cac-a77e-e1fd0435ce13",
@@ -1371,6 +3891,35 @@
   "low": 79,
   "max_db": -6.6
  },
+ "es:8cd74467-cf17-40e4-8247-a81c7e051760": {
+  "source": "epidemic",
+  "id": "8cd74467-cf17-40e4-8247-a81c7e051760",
+  "title": "Destruction, Crash & Debris, Junkyard, Heavy Impact, Stone, Wood, Metal Debris x3",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Destruction-Crash-Debris-Junkyard-Heavy-_8cd74467.wav",
+  "queries": [],
+  "dur": 9.07,
+  "peak": 0.06,
+  "segs": [
+   [
+    0.02,
+    1.48
+   ],
+   [
+    3.35,
+    4.98
+   ],
+   [
+    6.28,
+    7.74
+   ]
+  ],
+  "low": 70,
+  "max_db": 2.2
+ },
  "es:8e0196e1-b5c8-4271-8985-ca5db0d7f80b": {
   "source": "epidemic",
   "id": "8e0196e1-b5c8-4271-8985-ca5db0d7f80b",
@@ -1400,6 +3949,196 @@
   "low": 1,
   "max_db": -0.2
  },
+ "es:8e05ce85-f0eb-488a-a3ab-285789c405ee": {
+  "source": "epidemic",
+  "id": "8e05ce85-f0eb-488a-a3ab-285789c405ee",
+  "title": "Mechanical, Gears, Mechanical Texture, Air Release, Burst, Hiss 01",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Mechanical-Gears-Mechanical-Texture-Air-_8e05ce85.wav",
+  "queries": [],
+  "dur": 7.28,
+  "peak": 3.81,
+  "segs": [
+   [
+    0.02,
+    1.26
+   ],
+   [
+    1.74,
+    3.13
+   ],
+   [
+    3.6,
+    5.24
+   ],
+   [
+    5.66,
+    7.21
+   ]
+  ],
+  "low": 82,
+  "max_db": -7.4
+ },
+ "es:8fb0f494-3e7e-4631-9bb8-f9952d2847d0": {
+  "source": "epidemic",
+  "id": "8fb0f494-3e7e-4631-9bb8-f9952d2847d0",
+  "title": "Doors, Hydraulic & Pneumatic, Automatic, Industrial, Machine, Open",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Doors-Hydraulic-Pneumatic-Automatic-Indu_8fb0f494.wav",
+  "queries": [],
+  "dur": 5.72,
+  "peak": 0.37,
+  "segs": [
+   [
+    0.02,
+    4.64
+   ]
+  ],
+  "low": 51,
+  "max_db": 0.9
+ },
+ "es:9016e30f-6790-4881-b2fd-133d0cce8de1": {
+  "source": "epidemic",
+  "id": "9016e30f-6790-4881-b2fd-133d0cce8de1",
+  "title": "Mechanical, Lock, Bolt, Metal, Connect, Snap",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Mechanical-Lock-Bolt-Metal-Connect-Snap_9016e30f.wav",
+  "queries": [],
+  "dur": 8.43,
+  "peak": 2.87,
+  "segs": [
+   [
+    0.24,
+    0.4
+   ],
+   [
+    1.01,
+    1.12
+   ],
+   [
+    1.89,
+    2.09
+   ],
+   [
+    2.83,
+    2.95
+   ],
+   [
+    3.64,
+    3.92
+   ],
+   [
+    4.53,
+    4.64
+   ],
+   [
+    5.23,
+    5.58
+   ],
+   [
+    6.17,
+    6.31
+   ],
+   [
+    6.93,
+    7.3
+   ]
+  ],
+  "low": 0,
+  "max_db": -1.9
+ },
+ "es:9094eab3-a0c2-4e9e-9305-f3799e78d4d6": {
+  "source": "epidemic",
+  "id": "9094eab3-a0c2-4e9e-9305-f3799e78d4d6",
+  "title": "Bullets, Impact, Hit, Metal 02",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Bullets-Impact-Hit-Metal-02_9094eab3.wav",
+  "queries": [],
+  "dur": 5.22,
+  "peak": 4.03,
+  "segs": [
+   [
+    0.12,
+    0.51
+   ],
+   [
+    2.05,
+    2.41
+   ],
+   [
+    3.97,
+    4.32
+   ]
+  ],
+  "low": 14,
+  "max_db": 0.8
+ },
+ "es:917c6c36-23dc-43f0-ac3d-e818a648c62d": {
+  "source": "epidemic",
+  "id": "917c6c36-23dc-43f0-ac3d-e818a648c62d",
+  "title": "Communications, Telephone, Old, Bell Ring 02",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Communications-Telephone-Old-Bell-Ring-0_917c6c36.wav",
+  "queries": [],
+  "dur": 10.69,
+  "peak": 0.28,
+  "segs": [
+   [
+    0.0,
+    2.01
+   ],
+   [
+    2.51,
+    4.5
+   ],
+   [
+    5.02,
+    6.99
+   ],
+   [
+    7.52,
+    9.49
+   ]
+  ],
+  "low": 0,
+  "max_db": 1.3
+ },
+ "es:9214ad56-64b5-498d-bc1c-53351a8c48a9": {
+  "source": "epidemic",
+  "id": "9214ad56-64b5-498d-bc1c-53351a8c48a9",
+  "title": "Water, Plumbing, Sink, Tap On, Water Run, Turn Off 02",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Water-Plumbing-Sink-Tap-On-Water-Run-Tur_9214ad56.wav",
+  "queries": [],
+  "dur": 4.55,
+  "peak": 0.38,
+  "segs": [
+   [
+    0.15,
+    3.57
+   ]
+  ],
+  "low": 0,
+  "max_db": 1.1
+ },
  "es:93505bfe-e95d-4b5f-96aa-508d405b7013": {
   "source": "epidemic",
   "id": "93505bfe-e95d-4b5f-96aa-508d405b7013",
@@ -1420,6 +4159,72 @@
   ],
   "low": 0,
   "max_db": -6.5
+ },
+ "es:955926c1-1966-4a27-8fbf-cd6c38ca630c": {
+  "source": "epidemic",
+  "id": "955926c1-1966-4a27-8fbf-cd6c38ca630c",
+  "title": "Vehicles, Skid, Car, Skids, Scrape, Brake, On Dirt, Exterior 03",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Vehicles-Skid-Car-Skids-Scrape-Brake-On-_955926c1.wav",
+  "queries": [],
+  "dur": 34.8,
+  "peak": 16.5,
+  "segs": [
+   [
+    0.25,
+    10.97
+   ],
+   [
+    12.06,
+    20.14
+   ],
+   [
+    21.84,
+    25.53
+   ],
+   [
+    26.47,
+    33.37
+   ]
+  ],
+  "low": 10,
+  "max_db": -5.9
+ },
+ "es:95f76fab-0ed1-4013-9705-a491496b8ad1": {
+  "source": "epidemic",
+  "id": "95f76fab-0ed1-4013-9705-a491496b8ad1",
+  "title": "Machines, Industrial, Medium Industrial Press, Full Cycle",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Machines-Industrial-Medium-Industrial-Pr_95f76fab.wav",
+  "queries": [],
+  "dur": 154.44,
+  "peak": 57.08,
+  "segs": [
+   [
+    0.05,
+    81.89
+   ],
+   [
+    83.17,
+    106.11
+   ],
+   [
+    107.41,
+    143.08
+   ],
+   [
+    144.12,
+    154.26
+   ]
+  ],
+  "low": 44,
+  "max_db": -4.2
  },
  "es:962e2399-8a0f-43bb-b823-2ea46b0a4734": {
   "source": "epidemic",
@@ -1470,6 +4275,60 @@
   "low": 37,
   "max_db": 2.6
  },
+ "es:9801e766-26dc-4450-a8f9-c12b9c27b65b": {
+  "source": "epidemic",
+  "id": "9801e766-26dc-4450-a8f9-c12b9c27b65b",
+  "title": "Metal, Impact, Metal, Crash, Small",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Metal-Impact-Metal-Crash-Small_9801e766.wav",
+  "queries": [],
+  "dur": 2.03,
+  "peak": 0.1,
+  "segs": [
+   [
+    0.04,
+    1.24
+   ]
+  ],
+  "low": 1,
+  "max_db": -8.5
+ },
+ "es:983508bf-14a9-46c3-ace0-e529d0aa2235": {
+  "source": "epidemic",
+  "id": "983508bf-14a9-46c3-ace0-e529d0aa2235",
+  "title": "Sports, Misc, Paragliding, Take Off, Inflate, Short, Rustle, Slight Wind 01",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Sports-Misc-Paragliding-Take-Off-Inflate_983508bf.wav",
+  "queries": [],
+  "dur": 18.49,
+  "peak": 0.87,
+  "segs": [
+   [
+    0.23,
+    2.61
+   ],
+   [
+    3.75,
+    6.2
+   ],
+   [
+    6.47,
+    6.6
+   ],
+   [
+    10.74,
+    10.98
+   ]
+  ],
+  "low": 2,
+  "max_db": -1.3
+ },
  "es:98592ab5-61fe-40d8-8d7c-e17d093ab043": {
   "source": "epidemic",
   "id": "98592ab5-61fe-40d8-8d7c-e17d093ab043",
@@ -1498,6 +4357,102 @@
   ],
   "low": 12,
   "max_db": -9.2
+ },
+ "es:986fa781-af19-4ae3-9c4c-35e640bf1604": {
+  "source": "epidemic",
+  "id": "986fa781-af19-4ae3-9c4c-35e640bf1604",
+  "title": "Explosions, Real, Heavy, Large, Outdoors, Echo 05",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Explosions-Real-Heavy-Large-Outdoors-Ech_986fa781.wav",
+  "queries": [],
+  "dur": 5.44,
+  "peak": 0.08,
+  "segs": [
+   [
+    0.08,
+    0.58
+   ]
+  ],
+  "low": 91,
+  "max_db": -1.4
+ },
+ "es:9a5fb914-fc56-4810-943e-ecafd35345e2": {
+  "source": "epidemic",
+  "id": "9a5fb914-fc56-4810-943e-ecafd35345e2",
+  "title": "Aircraft, Prop, Propeller, Plane, Unknown Type, Acrobatics, Air Show",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Aircraft-Prop-Propeller-Plane-Unknown-Ty_9a5fb914.wav",
+  "queries": [],
+  "dur": 33.12,
+  "peak": 17.98,
+  "segs": [
+   [
+    0.04,
+    31.35
+   ]
+  ],
+  "low": 1,
+  "max_db": 0.4
+ },
+ "es:9b00ffc0-25b9-4639-ad32-794b0b7e02d0": {
+  "source": "epidemic",
+  "id": "9b00ffc0-25b9-4639-ad32-794b0b7e02d0",
+  "title": "Explosion, Real, Cannon, Punchy",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Explosion-Real-Cannon-Punchy_9b00ffc0.wav",
+  "queries": [],
+  "dur": 13.08,
+  "peak": 0.04,
+  "segs": [
+   [
+    0.02,
+    1.53
+   ],
+   [
+    4.85,
+    6.27
+   ],
+   [
+    8.87,
+    10.19
+   ],
+   [
+    11.07,
+    11.41
+   ]
+  ],
+  "low": 81,
+  "max_db": -5.2
+ },
+ "es:9bdfb611-fa30-4f6b-90e3-0b9dd73647c0": {
+  "source": "epidemic",
+  "id": "9bdfb611-fa30-4f6b-90e3-0b9dd73647c0",
+  "title": "Aircraft, Military, Small Propeller Plane, Take Off, Passby, Runway Position 2, Parabol Mic",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Aircraft-Military-Small-Propeller-Plane-_9bdfb611.wav",
+  "queries": [],
+  "dur": 34.16,
+  "peak": 6.49,
+  "segs": [
+   [
+    1.4,
+    21.04
+   ]
+  ],
+  "low": 3,
+  "max_db": -4.1
  },
  "es:9dc3f412-3ea0-47cb-981e-a66a0b6a7b98": {
   "source": "epidemic",
@@ -1535,6 +4490,27 @@
   ],
   "low": 70,
   "max_db": -0.6
+ },
+ "es:9de1d844-5948-4bd9-9996-f9f27b51d5da": {
+  "source": "epidemic",
+  "id": "9de1d844-5948-4bd9-9996-f9f27b51d5da",
+  "title": "Aircraft, Prop, Airplane, Light, Propeller, Pass Overhead, Take Off 03",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Aircraft-Prop-Airplane-Light-Propeller-P_9de1d844.wav",
+  "queries": [],
+  "dur": 18.76,
+  "peak": 8.46,
+  "segs": [
+   [
+    1.42,
+    16.46
+   ]
+  ],
+  "low": 36,
+  "max_db": -1.4
  },
  "es:9f496626-bdaf-4aa4-95b0-5db57d204fcb": {
   "source": "epidemic",
@@ -1577,6 +4553,94 @@
   ],
   "low": 7,
   "max_db": -0.6
+ },
+ "es:9fb158d8-7cd1-49c2-aa52-30c83c241a05": {
+  "source": "epidemic",
+  "id": "9fb158d8-7cd1-49c2-aa52-30c83c241a05",
+  "title": "Aircraft, Prop, Airfield, Propeller, Runway 02",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Aircraft-Prop-Airfield-Propeller-Runway-_9fb158d8.wav",
+  "queries": [],
+  "dur": 69.71,
+  "peak": 67.43,
+  "segs": [
+   [
+    0.0,
+    69.86
+   ]
+  ],
+  "low": 14,
+  "max_db": 1.9
+ },
+ "es:a28af7a8-98d3-433a-8ba9-83c170183284": {
+  "source": "epidemic",
+  "id": "a28af7a8-98d3-433a-8ba9-83c170183284",
+  "title": "Mechanical, Hydraulic & Pneumatic, Electronic Shelf, Adjustable, Move Up, Move Down, Fast, Long",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Mechanical-Hydraulic-Pneumatic-Electroni_a28af7a8.wav",
+  "queries": [],
+  "dur": 7.38,
+  "peak": 0.08,
+  "segs": [
+   [
+    0.03,
+    7.08
+   ]
+  ],
+  "low": 5,
+  "max_db": -2.7
+ },
+ "es:a34ceb26-9839-4e8b-b8ae-7275f5c50b1f": {
+  "source": "epidemic",
+  "id": "a34ceb26-9839-4e8b-b8ae-7275f5c50b1f",
+  "title": "Chains, Movement, Impacts, Chain, Metal, Heavy, Rattle",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Chains-Movement-Impacts-Chain-Metal-Heav_a34ceb26.wav",
+  "queries": [],
+  "dur": 4.09,
+  "peak": 3.85,
+  "segs": [
+   [
+    0.17,
+    3.4
+   ],
+   [
+    3.68,
+    3.95
+   ]
+  ],
+  "low": 0,
+  "max_db": -0.5
+ },
+ "es:a4638fa8-f00b-409f-9fa6-87f7526c3188": {
+  "source": "epidemic",
+  "id": "a4638fa8-f00b-409f-9fa6-87f7526c3188",
+  "title": "Aircraft, Helicopter, Sikorsky S92a Mk2, Helibus, Close, Takeoff Position, Waits For Takeoff",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Aircraft-Helicopter-Sikorsky-S92a-Mk2-He_a4638fa8.wav",
+  "queries": [],
+  "dur": 167.08,
+  "peak": 140.5,
+  "segs": [
+   [
+    0.05,
+    167.26
+   ]
+  ],
+  "low": 30,
+  "max_db": -5.0
  },
  "es:a53bc308-a076-4cd3-a07b-89cda997bf0b": {
   "source": "epidemic",
@@ -1639,6 +4703,27 @@
   ],
   "low": 0,
   "max_db": -4.9
+ },
+ "es:a64f5a2e-0eb0-43d8-9599-7a36cbd6664a": {
+  "source": "epidemic",
+  "id": "a64f5a2e-0eb0-43d8-9599-7a36cbd6664a",
+  "title": "Machines, Hitech, Electric Scan, Long, High Tech",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Machines-Hitech-Electric-Scan-Long-High-_a64f5a2e.wav",
+  "queries": [],
+  "dur": 42.52,
+  "peak": 41.05,
+  "segs": [
+   [
+    0.04,
+    42.57
+   ]
+  ],
+  "low": 0,
+  "max_db": -14.3
  },
  "es:a64fde52-81c0-49a2-97ca-5ea8ff008240": {
   "source": "epidemic",
@@ -1705,6 +4790,85 @@
   "low": 21,
   "max_db": 1.6
  },
+ "es:abbebdeb-4c88-494f-93cc-f8af838a84b6": {
+  "source": "epidemic",
+  "id": "abbebdeb-4c88-494f-93cc-f8af838a84b6",
+  "title": "Cloth, Flap, Flap, Blanket, Whoosh",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Cloth-Flap-Flap-Blanket-Whoosh_abbebdeb.wav",
+  "queries": [],
+  "dur": 2.36,
+  "peak": 0.84,
+  "segs": [
+   [
+    0.19,
+    1.38
+   ]
+  ],
+  "low": 3,
+  "max_db": -2.9
+ },
+ "es:acc84a57-b524-4c63-a168-d5e0e8219642": {
+  "source": "epidemic",
+  "id": "acc84a57-b524-4c63-a168-d5e0e8219642",
+  "title": "Guns, Automatic, Light Machinegun, Burst Fire, Shoot, Reverberant 02",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-Light-Machinegun-Burst-Fi_acc84a57.wav",
+  "queries": [],
+  "dur": 7.84,
+  "peak": 2.28,
+  "segs": [
+   [
+    0.02,
+    1.14
+   ],
+   [
+    1.69,
+    2.73
+   ],
+   [
+    3.46,
+    4.74
+   ],
+   [
+    5.08,
+    5.6
+   ],
+   [
+    6.23,
+    6.74
+   ]
+  ],
+  "low": 10,
+  "max_db": -9.3
+ },
+ "es:adb77527-813f-48d4-91c7-926d3596a967": {
+  "source": "epidemic",
+  "id": "adb77527-813f-48d4-91c7-926d3596a967",
+  "title": "Tools, Hand, Tape Measure, Metal, Extend",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Tools-Hand-Tape-Measure-Metal-Extend_adb77527.wav",
+  "queries": [],
+  "dur": 0.86,
+  "peak": 0.36,
+  "segs": [
+   [
+    0.12,
+    0.71
+   ]
+  ],
+  "low": 0,
+  "max_db": 1.0
+ },
  "es:ae8f1882-aa34-4d41-93df-4c59e0cd6488": {
   "source": "epidemic",
   "id": "ae8f1882-aa34-4d41-93df-4c59e0cd6488",
@@ -1725,6 +4889,108 @@
   ],
   "low": 3,
   "max_db": -13.9
+ },
+ "es:aeddc077-73c3-429d-b9a9-8d688b512f55": {
+  "source": "epidemic",
+  "id": "aeddc077-73c3-429d-b9a9-8d688b512f55",
+  "title": "Footsteps, Human, Walking on Wooden Floor 03",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Footsteps-Human-Walking-on-Wooden-Floor-_aeddc077.wav",
+  "queries": [],
+  "dur": 10.85,
+  "peak": 0.41,
+  "segs": [
+   [
+    0.4,
+    0.55
+   ],
+   [
+    1.19,
+    1.32
+   ],
+   [
+    2.09,
+    2.23
+   ],
+   [
+    2.91,
+    3.04
+   ],
+   [
+    3.84,
+    4.24
+   ],
+   [
+    4.79,
+    4.87
+   ],
+   [
+    6.04,
+    6.64
+   ],
+   [
+    7.18,
+    7.3
+   ],
+   [
+    8.26,
+    8.35
+   ],
+   [
+    9.27,
+    9.39
+   ],
+   [
+    10.04,
+    10.31
+   ]
+  ],
+  "low": 5,
+  "max_db": -9.2
+ },
+ "es:b0372e92-81a6-4b65-94b8-66f5a58848d3": {
+  "source": "epidemic",
+  "id": "b0372e92-81a6-4b65-94b8-66f5a58848d3",
+  "title": "Objects, Luggage, Suitcase, Baggage, Big Case, Open, Close, Button Lock, Unlock 02",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Objects-Luggage-Suitcase-Baggage-Big-Cas_b0372e92.wav",
+  "queries": [],
+  "dur": 14.9,
+  "peak": 2.11,
+  "segs": [
+   [
+    0.0,
+    0.23
+   ],
+   [
+    1.75,
+    2.19
+   ],
+   [
+    4.26,
+    4.52
+   ],
+   [
+    5.83,
+    6.19
+   ],
+   [
+    9.34,
+    9.48
+   ],
+   [
+    12.25,
+    12.87
+   ]
+  ],
+  "low": 10,
+  "max_db": -1.3
  },
  "es:b28ad95a-bc03-4aa6-95f1-1f2d6355ee04": {
   "source": "epidemic",
@@ -1771,6 +5037,106 @@
   ],
   "low": 42,
   "max_db": -3.8
+ },
+ "es:b3b2c25d-24d2-4809-8a3b-697a26a062d7": {
+  "source": "epidemic",
+  "id": "b3b2c25d-24d2-4809-8a3b-697a26a062d7",
+  "title": "Objects, Misc, Carabiner, Open, Close, Click",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Objects-Misc-Carabiner-Open-Close-Click_b3b2c25d.wav",
+  "queries": [],
+  "dur": 2.82,
+  "peak": 0.96,
+  "segs": [
+   [
+    0.0,
+    0.22
+   ],
+   [
+    0.74,
+    0.98
+   ],
+   [
+    1.59,
+    1.82
+   ],
+   [
+    2.31,
+    2.55
+   ]
+  ],
+  "low": 0,
+  "max_db": 3.3
+ },
+ "es:b4757afe-5ad0-4a13-9fbf-061993bcb7be": {
+  "source": "epidemic",
+  "id": "b4757afe-5ad0-4a13-9fbf-061993bcb7be",
+  "title": "Lasers, Beam, Hypnotic, Paralysing Beam, Constant, Moving",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Lasers-Beam-Hypnotic-Paralysing-Beam-Con_b4757afe.wav",
+  "queries": [],
+  "dur": 10.89,
+  "peak": 0.03,
+  "segs": [
+   [
+    0.01,
+    10.91
+   ]
+  ],
+  "low": 1,
+  "max_db": -2.7
+ },
+ "es:b5d12e1e-3f7b-443e-ad11-7ce373f58620": {
+  "source": "epidemic",
+  "id": "b5d12e1e-3f7b-443e-ad11-7ce373f58620",
+  "title": "Aircraft, Prop, Airplane, Light, Propeller, Pass Overhead, Take Off 02",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Aircraft-Prop-Airplane-Light-Propeller-P_b5d12e1e.wav",
+  "queries": [],
+  "dur": 28.6,
+  "peak": 14.95,
+  "segs": [
+   [
+    4.48,
+    25.44
+   ]
+  ],
+  "low": 40,
+  "max_db": -1.2
+ },
+ "es:b7b3063b-8765-469d-aa7e-4b5918e499d0": {
+  "source": "epidemic",
+  "id": "b7b3063b-8765-469d-aa7e-4b5918e499d0",
+  "title": "Mechanical, Click, Slide, Toggle Switch",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Mechanical-Click-Slide-Toggle-Switch_b7b3063b.wav",
+  "queries": [],
+  "dur": 1.4,
+  "peak": 1.29,
+  "segs": [
+   [
+    0.04,
+    0.28
+   ],
+   [
+    1.27,
+    1.33
+   ]
+  ],
+  "low": 0,
+  "max_db": -2.3
  },
  "es:b8e27608-ab15-4af5-804e-2085dd5e94a8": {
   "source": "epidemic",
@@ -1821,6 +5187,197 @@
   "low": 0,
   "max_db": -0.5
  },
+ "es:ba6294e9-b01b-41d8-b2da-179c450c20e9": {
+  "source": "epidemic",
+  "id": "ba6294e9-b01b-41d8-b2da-179c450c20e9",
+  "title": "Aircraft, Prop, Airfield, Propeller, Runway 03",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Aircraft-Prop-Airfield-Propeller-Runway-_ba6294e9.wav",
+  "queries": [],
+  "dur": 82.68,
+  "peak": 28.56,
+  "segs": [
+   [
+    0.01,
+    82.87
+   ]
+  ],
+  "low": 31,
+  "max_db": 2.1
+ },
+ "es:ba71877d-ccb6-4162-b22d-6bd8ed72b9ca": {
+  "source": "epidemic",
+  "id": "ba71877d-ccb6-4162-b22d-6bd8ed72b9ca",
+  "title": "Machines, Hitech, Pulsing Engine, Propeller, Turbine, Accelerate, Start, Heat Up 05",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Machines-Hitech-Pulsing-Engine-Propeller_ba71877d.wav",
+  "queries": [],
+  "dur": 8.3,
+  "peak": 1.95,
+  "segs": [
+   [
+    0.1,
+    5.42
+   ]
+  ],
+  "low": 80,
+  "max_db": -10.7
+ },
+ "es:ba841cf5-051d-437c-920c-e240f53bce79": {
+  "source": "epidemic",
+  "id": "ba841cf5-051d-437c-920c-e240f53bce79",
+  "title": "User Interface, Data, Radar, Sweep, Scan, Tracking, Scifi, Futuristic 01",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/User-Interface-Data-Radar-Sweep-Scan-Tra_ba841cf5.wav",
+  "queries": [],
+  "dur": 17.67,
+  "peak": 4.18,
+  "segs": [
+   [
+    0.34,
+    2.81
+   ],
+   [
+    3.11,
+    8.56
+   ],
+   [
+    8.95,
+    11.48
+   ],
+   [
+    11.74,
+    17.08
+   ]
+  ],
+  "low": 0,
+  "max_db": -9.7
+ },
+ "es:bafe7c08-6628-421c-ba36-f7e5f0220e75": {
+  "source": "epidemic",
+  "id": "bafe7c08-6628-421c-ba36-f7e5f0220e75",
+  "title": "Mechanical, Latch, Metal Latch, Heavy, Lock, Unlock, Sanken",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Mechanical-Latch-Metal-Latch-Heavy-Lock-_bafe7c08.wav",
+  "queries": [],
+  "dur": 10.65,
+  "peak": 2.06,
+  "segs": [
+   [
+    0.05,
+    0.49
+   ],
+   [
+    1.55,
+    1.65
+   ],
+   [
+    2.0,
+    2.45
+   ],
+   [
+    4.1,
+    4.51
+   ],
+   [
+    5.56,
+    6.08
+   ],
+   [
+    7.34,
+    7.67
+   ],
+   [
+    8.93,
+    9.53
+   ]
+  ],
+  "low": 1,
+  "max_db": -4.0
+ },
+ "es:bded62a0-b53a-4067-90e2-d6179b5575d7": {
+  "source": "epidemic",
+  "id": "bded62a0-b53a-4067-90e2-d6179b5575d7",
+  "title": "Rubber, Impact, Balloon, Inflated, Hits, Thuds",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Rubber-Impact-Balloon-Inflated-Hits-Thud_bded62a0.wav",
+  "queries": [],
+  "dur": 3.1,
+  "peak": 1.54,
+  "segs": [
+   [
+    0.1,
+    2.69
+   ]
+  ],
+  "low": 81,
+  "max_db": -0.5
+ },
+ "es:be44dd4a-b85e-419f-a241-2be11c0917a7": {
+  "source": "epidemic",
+  "id": "be44dd4a-b85e-419f-a241-2be11c0917a7",
+  "title": "Paper, Handle, Map, Sheet, Grab, Crease, Movement, Rustle",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Paper-Handle-Map-Sheet-Grab-Crease-Movem_be44dd4a.wav",
+  "queries": [],
+  "dur": 8.53,
+  "peak": 6.36,
+  "segs": [
+   [
+    0.02,
+    1.31
+   ],
+   [
+    2.02,
+    7.32
+   ]
+  ],
+  "low": 0,
+  "max_db": -2.8
+ },
+ "es:bfd8781f-b676-4608-b677-fe0668036898": {
+  "source": "epidemic",
+  "id": "bfd8781f-b676-4608-b677-fe0668036898",
+  "title": "Guns, Artillery, Designed, Mortar, 120mm, Distant 05",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Artillery-Designed-Mortar-120mm-Dis_bfd8781f.wav",
+  "queries": [],
+  "dur": 6.84,
+  "peak": 0.04,
+  "segs": [
+   [
+    0.01,
+    2.52
+   ],
+   [
+    2.79,
+    3.08
+   ]
+  ],
+  "low": 91,
+  "max_db": -4.0
+ },
  "es:c0ec4fde-6148-45b3-90a5-e415eadf94c2": {
   "source": "epidemic",
   "id": "c0ec4fde-6148-45b3-90a5-e415eadf94c2",
@@ -1862,6 +5419,56 @@
   ],
   "low": 34,
   "max_db": -17.3
+ },
+ "es:c1cfdd3e-a47e-4a62-a49b-7e7abcd27bf6": {
+  "source": "epidemic",
+  "id": "c1cfdd3e-a47e-4a62-a49b-7e7abcd27bf6",
+  "title": "Explosions, Real, Heavy, Large, Outdoors, Echo 01",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Explosions-Real-Heavy-Large-Outdoors-Ech_c1cfdd3e.wav",
+  "queries": [],
+  "dur": 5.96,
+  "peak": 0.21,
+  "segs": [
+   [
+    0.2,
+    1.12
+   ]
+  ],
+  "low": 86,
+  "max_db": -3.5
+ },
+ "es:c1e1910a-2482-4c45-a408-b0d5d95c1c94": {
+  "source": "epidemic",
+  "id": "c1e1910a-2482-4c45-a408-b0d5d95c1c94",
+  "title": "Explosions, Designed, Artillery, Distant, Deep",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Explosions-Designed-Artillery-Distant-De_c1e1910a.wav",
+  "queries": [],
+  "dur": 26.41,
+  "peak": 1.0,
+  "segs": [
+   [
+    0.97,
+    1.83
+   ],
+   [
+    8.35,
+    9.08
+   ],
+   [
+    16.71,
+    17.59
+   ]
+  ],
+  "low": 75,
+  "max_db": 1.7
  },
  "es:c27102b5-f2f4-4e0e-8b7d-5e486ffe6d9d": {
   "source": "epidemic",
@@ -1971,6 +5578,27 @@
   "low": 98,
   "max_db": -0.2
  },
+ "es:c6ae1b81-1fb6-4edf-b635-744b04fa283a": {
+  "source": "epidemic",
+  "id": "c6ae1b81-1fb6-4edf-b635-744b04fa283a",
+  "title": "Aircraft, Prop, Small Plane, Driving On Grass, Engine Stop",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Aircraft-Prop-Small-Plane-Driving-On-Gra_c6ae1b81.wav",
+  "queries": [],
+  "dur": 27.13,
+  "peak": 20.92,
+  "segs": [
+   [
+    0.19,
+    27.0
+   ]
+  ],
+  "low": 74,
+  "max_db": -7.2
+ },
  "es:c6df5552-92d7-46cc-a378-6b015e0706fb": {
   "source": "epidemic",
   "id": "c6df5552-92d7-46cc-a378-6b015e0706fb",
@@ -2011,6 +5639,113 @@
   ],
   "low": 33,
   "max_db": -7.9
+ },
+ "es:c73f9ef8-4617-4207-b6c8-4a2ddcb9f908": {
+  "source": "epidemic",
+  "id": "c73f9ef8-4617-4207-b6c8-4a2ddcb9f908",
+  "title": "Wood, Break, Panel, Plywood, Bend, Splinter, Snap 03",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Wood-Break-Panel-Plywood-Bend-Splinter-S_c73f9ef8.wav",
+  "queries": [],
+  "dur": 2.28,
+  "peak": 1.22,
+  "segs": [
+   [
+    0.09,
+    1.83
+   ]
+  ],
+  "low": 14,
+  "max_db": -0.5
+ },
+ "es:c7d393de-fec1-4a4d-90f0-60727b29dc07": {
+  "source": "epidemic",
+  "id": "c7d393de-fec1-4a4d-90f0-60727b29dc07",
+  "title": "Wind, Turbulent, Strong, Constant, Wind Break Pier, Storm",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Wind-Turbulent-Strong-Constant-Wind-Brea_c7d393de.wav",
+  "queries": [],
+  "dur": 57.54,
+  "peak": 26.44,
+  "segs": [
+   [
+    0.01,
+    57.66
+   ]
+  ],
+  "low": 36,
+  "max_db": -3.2
+ },
+ "es:c8974b9b-1070-45d1-a6b1-954a23b9ce86": {
+  "source": "epidemic",
+  "id": "c8974b9b-1070-45d1-a6b1-954a23b9ce86",
+  "title": "Guns, Automatic, Machinegun, Burst Fire, Shoot, Clicky, Reverberant 03",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Guns-Automatic-Machinegun-Burst-Fire-Sho_c8974b9b.wav",
+  "queries": [],
+  "dur": 15.96,
+  "peak": 5.96,
+  "segs": [
+   [
+    0.0,
+    2.47
+   ],
+   [
+    2.96,
+    3.37
+   ],
+   [
+    3.64,
+    3.84
+   ],
+   [
+    4.33,
+    4.62
+   ],
+   [
+    4.89,
+    5.18
+   ],
+   [
+    5.78,
+    6.12
+   ],
+   [
+    6.56,
+    6.85
+   ],
+   [
+    7.59,
+    8.37
+   ],
+   [
+    8.96,
+    9.84
+   ],
+   [
+    10.71,
+    10.99
+   ],
+   [
+    11.25,
+    11.62
+   ],
+   [
+    12.36,
+    15.61
+   ]
+  ],
+  "low": 9,
+  "max_db": -7.6
  },
  "es:c8d7156d-16ae-43db-97a6-fa1ebd3c2bbf": {
   "source": "epidemic",
@@ -2114,6 +5849,64 @@
   ],
   "low": 68,
   "max_db": 2.6
+ },
+ "es:ce3eb91d-65a8-4c14-a8a0-7c6b6f1f1191": {
+  "source": "epidemic",
+  "id": "ce3eb91d-65a8-4c14-a8a0-7c6b6f1f1191",
+  "title": "Equipment, Sport, Climbing Gear, Carabiner, Metal, Handling 02",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Equipment-Sport-Climbing-Gear-Carabiner-_ce3eb91d.wav",
+  "queries": [],
+  "dur": 12.72,
+  "peak": 10.62,
+  "segs": [
+   [
+    0.61,
+    0.98
+   ],
+   [
+    1.69,
+    2.3
+   ],
+   [
+    7.27,
+    7.34
+   ],
+   [
+    8.89,
+    9.21
+   ],
+   [
+    10.58,
+    10.97
+   ]
+  ],
+  "low": 1,
+  "max_db": 1.2
+ },
+ "es:ced211de-670b-41de-929b-2bd72354a03e": {
+  "source": "epidemic",
+  "id": "ced211de-670b-41de-929b-2bd72354a03e",
+  "title": "Sports, Winter, Ski Slope, Slide, Snow, Glide",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Sports-Winter-Ski-Slope-Slide-Snow-Glide_ced211de.wav",
+  "queries": [],
+  "dur": 64.0,
+  "peak": 47.83,
+  "segs": [
+   [
+    0.0,
+    64.14
+   ]
+  ],
+  "low": 0,
+  "max_db": -0.8
  },
  "es:cf1f1d9e-4537-43d4-bf74-8560074ad3dc": {
   "source": "epidemic",
@@ -2325,6 +6118,35 @@
   "low": 4,
   "max_db": -0.7
  },
+ "es:d692dd20-071e-419f-bc31-4f7da37dc332": {
+  "source": "epidemic",
+  "id": "d692dd20-071e-419f-bc31-4f7da37dc332",
+  "title": "Tools, Misc, Bolt, Screw, Fastening 01",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Tools-Misc-Bolt-Screw-Fastening-01_d692dd20.wav",
+  "queries": [],
+  "dur": 9.25,
+  "peak": 6.88,
+  "segs": [
+   [
+    0.0,
+    2.75
+   ],
+   [
+    3.48,
+    5.8
+   ],
+   [
+    6.4,
+    9.13
+   ]
+  ],
+  "low": 0,
+  "max_db": -3.4
+ },
  "es:d7473fe7-ec96-4505-80b3-8811d1e38332": {
   "source": "epidemic",
   "id": "d7473fe7-ec96-4505-80b3-8811d1e38332",
@@ -2354,6 +6176,39 @@
   "low": 40,
   "max_db": -1.2
  },
+ "es:d95eacb8-b35d-4769-813a-58010fc16765": {
+  "source": "epidemic",
+  "id": "d95eacb8-b35d-4769-813a-58010fc16765",
+  "title": "Explosion, Real, Cannon Blast, Airy",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Explosion-Real-Cannon-Blast-Airy_d95eacb8.wav",
+  "queries": [],
+  "dur": 16.59,
+  "peak": 7.41,
+  "segs": [
+   [
+    0.01,
+    1.32
+   ],
+   [
+    3.98,
+    4.84
+   ],
+   [
+    7.12,
+    8.34
+   ],
+   [
+    11.48,
+    12.7
+   ]
+  ],
+  "low": 74,
+  "max_db": -4.2
+ },
  "es:dcec8499-a1da-43b9-ab1a-31dd9b6a57ee": {
   "source": "epidemic",
   "id": "dcec8499-a1da-43b9-ab1a-31dd9b6a57ee",
@@ -2381,6 +6236,48 @@
   "low": 74,
   "max_db": 2.8,
   "notes": "pháo T-72 bắn cận, thu thật, có tiếng cơ cấu; đỉnh 0.51, đuôi tới 3.7, tiếng máy 3.9–4.2"
+ },
+ "es:dd9aa9c0-8458-4354-bd44-4671204ae5d1": {
+  "source": "epidemic",
+  "id": "dd9aa9c0-8458-4354-bd44-4671204ae5d1",
+  "title": "Machines, Pump, Fuel Pump, Start, Hum, Stop",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Machines-Pump-Fuel-Pump-Start-Hum-Stop_dd9aa9c0.wav",
+  "queries": [],
+  "dur": 28.56,
+  "peak": 0.15,
+  "segs": [
+   [
+    0.02,
+    28.51
+   ]
+  ],
+  "low": 49,
+  "max_db": 2.7
+ },
+ "es:dde095dd-4622-43c8-b36a-a399c999cdae": {
+  "source": "epidemic",
+  "id": "dde095dd-4622-43c8-b36a-a399c999cdae",
+  "title": "Aircraft, Prop, Small Plane, Exterior, Engine Start, Propellers, Accelerates, Decelerates Stop Engine Runway",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Aircraft-Prop-Small-Plane-Exterior-Engin_dde095dd.wav",
+  "queries": [],
+  "dur": 30.29,
+  "peak": 10.85,
+  "segs": [
+   [
+    0.08,
+    29.97
+   ]
+  ],
+  "low": 38,
+  "max_db": -6.4
  },
  "es:de510bcb-df30-4cfe-87f8-47deb0ed4044": {
   "source": "epidemic",
@@ -2456,6 +6353,43 @@
   ],
   "low": 1,
   "max_db": -16.5
+ },
+ "es:e3669201-f66e-4df8-a0ea-cd89b271a654": {
+  "source": "epidemic",
+  "id": "e3669201-f66e-4df8-a0ea-cd89b271a654",
+  "title": "Swooshes, Whoosh, Air, Large, Gust",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Swooshes-Whoosh-Air-Large-Gust_e3669201.wav",
+  "queries": [],
+  "dur": 15.85,
+  "peak": 3.98,
+  "segs": [
+   [
+    0.3,
+    2.31
+   ],
+   [
+    3.21,
+    5.45
+   ],
+   [
+    6.57,
+    8.82
+   ],
+   [
+    9.79,
+    11.93
+   ],
+   [
+    13.11,
+    15.13
+   ]
+  ],
+  "low": 85,
+  "max_db": -2.6
  },
  "es:e46aca33-20d9-4acf-b7dc-d916b968591c": {
   "source": "epidemic",
@@ -2561,6 +6495,51 @@
   "low": 78,
   "max_db": -9.7
  },
+ "es:ec46098e-b3a9-4a7a-8802-e7388c911da8": {
+  "source": "epidemic",
+  "id": "ec46098e-b3a9-4a7a-8802-e7388c911da8",
+  "title": "Cloth, Flap, Flag, Sail, Flutter, Heavy, Hard",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Cloth-Flap-Flag-Sail-Flutter-Heavy-Hard_ec46098e.wav",
+  "queries": [],
+  "dur": 22.38,
+  "peak": 3.19,
+  "segs": [
+   [
+    0.1,
+    4.08
+   ],
+   [
+    4.4,
+    4.63
+   ],
+   [
+    5.03,
+    14.23
+   ],
+   [
+    14.56,
+    17.25
+   ],
+   [
+    18.26,
+    19.84
+   ],
+   [
+    20.13,
+    20.31
+   ],
+   [
+    21.55,
+    22.14
+   ]
+  ],
+  "low": 2,
+  "max_db": -5.1
+ },
  "es:edb48511-5297-46fe-853d-90b55f80195d": {
   "source": "epidemic",
   "id": "edb48511-5297-46fe-853d-90b55f80195d",
@@ -2647,6 +6626,67 @@
   "low": 1,
   "max_db": -6.6
  },
+ "es:eff695f1-022c-43c7-81aa-828845f0dbd5": {
+  "source": "epidemic",
+  "id": "eff695f1-022c-43c7-81aa-828845f0dbd5",
+  "title": "Wind, General, Strong Wind, Field, Countryside, New Mexico, USA",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Wind-General-Strong-Wind-Field-Countrysi_eff695f1.wav",
+  "queries": [],
+  "dur": 180.37,
+  "peak": 102.7,
+  "segs": [
+   [
+    0.35,
+    70.0
+   ],
+   [
+    70.28,
+    98.62
+   ],
+   [
+    98.99,
+    126.06
+   ],
+   [
+    126.34,
+    156.96
+   ],
+   [
+    157.23,
+    157.59
+   ],
+   [
+    159.05,
+    160.05
+   ],
+   [
+    161.19,
+    162.62
+   ],
+   [
+    163.66,
+    164.04
+   ],
+   [
+    168.11,
+    171.46
+   ],
+   [
+    171.98,
+    172.45
+   ],
+   [
+    172.73,
+    180.76
+   ]
+  ],
+  "low": 35,
+  "max_db": -9.0
+ },
  "es:f040a2a4-0570-4a43-bcdb-d0afee3ccdc5": {
   "source": "epidemic",
   "id": "f040a2a4-0570-4a43-bcdb-d0afee3ccdc5",
@@ -2701,6 +6741,233 @@
   "low": 0,
   "max_db": -12.6
  },
+ "es:f0afa190-0e11-482d-a442-5ed67725ff7f": {
+  "source": "epidemic",
+  "id": "f0afa190-0e11-482d-a442-5ed67725ff7f",
+  "title": "User Interface, Data, Scanning, Processing, Loading, Futuristic Tech 06",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/User-Interface-Data-Scanning-Processing-_f0afa190.wav",
+  "queries": [],
+  "dur": 10.89,
+  "peak": 0.36,
+  "segs": [
+   [
+    0.01,
+    10.88
+   ]
+  ],
+  "low": 23,
+  "max_db": -6.5
+ },
+ "es:f1aeb02c-b557-4343-b015-d43f3470fa31": {
+  "source": "epidemic",
+  "id": "f1aeb02c-b557-4343-b015-d43f3470fa31",
+  "title": "Machines, Industrial, Hydraulic Lift, Different Maneuvers, Squeaky",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Machines-Industrial-Hydraulic-Lift-Diffe_f1aeb02c.wav",
+  "queries": [],
+  "dur": 47.84,
+  "peak": 28.01,
+  "segs": [
+   [
+    0.62,
+    6.81
+   ],
+   [
+    7.52,
+    11.95
+   ],
+   [
+    12.64,
+    16.25
+   ],
+   [
+    17.23,
+    17.53
+   ],
+   [
+    17.94,
+    28.63
+   ],
+   [
+    30.53,
+    44.2
+   ],
+   [
+    45.27,
+    47.44
+   ]
+  ],
+  "low": 1,
+  "max_db": -2.8
+ },
+ "es:f313371f-064c-4c5b-8689-1843a5bf1649": {
+  "source": "epidemic",
+  "id": "f313371f-064c-4c5b-8689-1843a5bf1649",
+  "title": "Explosions, Real, Heavy, Large, Outdoors, Echo 02",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Explosions-Real-Heavy-Large-Outdoors-Ech_f313371f.wav",
+  "queries": [],
+  "dur": 5.28,
+  "peak": 0.21,
+  "segs": [
+   [
+    0.2,
+    0.75
+   ]
+  ],
+  "low": 76,
+  "max_db": -7.0
+ },
+ "es:f6babba2-ce8e-4ae3-94bd-1a60284cbf4d": {
+  "source": "epidemic",
+  "id": "f6babba2-ce8e-4ae3-94bd-1a60284cbf4d",
+  "title": "Mechanical, Hydraulic & Pneumatic, Electric Adjustable Desk Movement 02",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Mechanical-Hydraulic-Pneumatic-Electric-_f6babba2.wav",
+  "queries": [],
+  "dur": 4.82,
+  "peak": 4.45,
+  "segs": [
+   [
+    0.19,
+    4.71
+   ]
+  ],
+  "low": 57,
+  "max_db": -13.1
+ },
+ "es:f7addf61-3f86-448c-babc-4d8599eee0c1": {
+  "source": "epidemic",
+  "id": "f7addf61-3f86-448c-babc-4d8599eee0c1",
+  "title": "Aircraft, Misc, Propeller Plane, Dash 8, Drive Away 01",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Aircraft-Misc-Propeller-Plane-Dash-8-Dri_f7addf61.wav",
+  "queries": [],
+  "dur": 225.5,
+  "peak": 140.11,
+  "segs": [
+   [
+    5.94,
+    6.15
+   ],
+   [
+    6.92,
+    7.64
+   ],
+   [
+    8.1,
+    8.45
+   ],
+   [
+    9.48,
+    10.04
+   ],
+   [
+    10.3,
+    12.28
+   ],
+   [
+    12.79,
+    178.33
+   ],
+   [
+    179.48,
+    187.09
+   ],
+   [
+    187.37,
+    187.92
+   ],
+   [
+    188.56,
+    190.32
+   ],
+   [
+    194.05,
+    194.41
+   ],
+   [
+    207.77,
+    207.93
+   ],
+   [
+    218.63,
+    218.77
+   ]
+  ],
+  "low": 1,
+  "max_db": -8.2
+ },
+ "es:f8b205fd-66ef-4193-ac12-de5b15729041": {
+  "source": "epidemic",
+  "id": "f8b205fd-66ef-4193-ac12-de5b15729041",
+  "title": "Motors, Servo, Robot Movement, Medium, Electric",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Motors-Servo-Robot-Movement-Medium-Elect_f8b205fd.wav",
+  "queries": [],
+  "dur": 5.24,
+  "peak": 0.9,
+  "segs": [
+   [
+    0.0,
+    1.23
+   ],
+   [
+    2.04,
+    3.04
+   ],
+   [
+    3.85,
+    5.11
+   ]
+  ],
+  "low": 1,
+  "max_db": -8.6
+ },
+ "es:f9f4d9ae-25ea-4f61-86dc-ee9dae7e2c0f": {
+  "source": "epidemic",
+  "id": "f9f4d9ae-25ea-4f61-86dc-ee9dae7e2c0f",
+  "title": "Aircraft, Helicopter, Military Cougar, Passby, Mid Distant",
+  "author": "",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Aircraft-Helicopter-Military-Cougar-Pass_f9f4d9ae.wav",
+  "queries": [],
+  "dur": 55.09,
+  "peak": 2.67,
+  "segs": [
+   [
+    0.11,
+    30.98
+   ],
+   [
+    31.23,
+    32.08
+   ]
+  ],
+  "low": 31,
+  "max_db": 0.5
+ },
  "es:fb0df9c5-0a56-48bc-b875-b0b6a8be11c5": {
   "source": "epidemic",
   "id": "fb0df9c5-0a56-48bc-b875-b0b6a8be11c5",
@@ -2725,6 +6992,92 @@
   ],
   "low": 1,
   "max_db": -17.7
+ },
+ "es:fc7e657c-faef-40d7-8900-dbd3c6f86e17": {
+  "source": "epidemic",
+  "id": "fc7e657c-faef-40d7-8900-dbd3c6f86e17",
+  "title": "Cloth, Flap, Parachute, Deploy, Open",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Cloth-Flap-Parachute-Deploy-Open_fc7e657c.wav",
+  "queries": [],
+  "dur": 0.98,
+  "peak": 0.31,
+  "segs": [
+   [
+    0.06,
+    0.81
+   ]
+  ],
+  "low": 84,
+  "max_db": -0.0
+ },
+ "es:fd5b1215-1176-4f6f-ab2c-7da9635de2b4": {
+  "source": "epidemic",
+  "id": "fd5b1215-1176-4f6f-ab2c-7da9635de2b4",
+  "title": "Footsteps, Human, Military Boots, On Gravel",
+  "author": "Epidemic Sound",
+  "stem": "full",
+  "license": "Epidemic Sound (theo gói đăng ký — không chia sẻ file)",
+  "page": "https://www.epidemicsound.com/",
+  "file": "library/sfx/epidemic/Footsteps-Human-Military-Boots-On-Gravel_fd5b1215.wav",
+  "queries": [],
+  "dur": 10.82,
+  "peak": 7.0,
+  "segs": [
+   [
+    0.0,
+    0.3
+   ],
+   [
+    0.58,
+    0.78
+   ],
+   [
+    1.15,
+    1.36
+   ],
+   [
+    1.73,
+    2.55
+   ],
+   [
+    2.9,
+    3.12
+   ],
+   [
+    3.49,
+    3.73
+   ],
+   [
+    4.03,
+    4.84
+   ],
+   [
+    5.19,
+    5.49
+   ],
+   [
+    5.78,
+    6.02
+   ],
+   [
+    6.36,
+    7.17
+   ],
+   [
+    7.49,
+    7.72
+   ],
+   [
+    8.09,
+    8.38
+   ]
+  ],
+  "low": 4,
+  "max_db": 2.9
  },
  "es:fde11e40-68a3-4b46-b987-e6ae070cf6dd": {
   "source": "epidemic",

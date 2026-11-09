@@ -34,3 +34,7 @@ bk_cache/
 
 # thư viện động tác Mixamo tải về (1.3GB, không phát tán lại)
 mixamo/
+
+# trình duyệt headless Remotion tự tải về
+.remotion/
+*~lock~

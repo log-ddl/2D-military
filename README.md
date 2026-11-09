@@ -13,7 +13,7 @@ core/
 skills/<tên>/     SKILL.md, templates/, lib/ (→ @skill/<tên>/…), agents/
   military/       video giải thích quân sự 2D/3D
   long-video/     chia việc theo chương, dùng cho mọi skill
-library/          media dùng chung giữa các video
+library/          media dùng chung giữa các video (nhạc, sfx, brand/ chứa logo_white.svg & logo_black.svg)
 projects/<id>/    mỗi video một thư mục (xem "Khung một dự án")
 voice/            voice gốc
 dashboard/        giao diện web quản lý dự án (./dash)

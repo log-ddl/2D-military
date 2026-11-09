@@ -1,6 +1,6 @@
-// Camera điện ảnh mặc định cho quy trình Blender + Three.js:
+// Camera điện ảnh cho quy trình Blender + Three.js:
 // 1. Đường cong mượt CatmullRom Spline (centripetal, không gãy góc hay văng cua)
-// 2. Đổi tiêu cự ống kính (lens mm chuẩn cảm biến Full-Frame 35mm: 20mm rộng -> 85mm/135mm tele)
+// 2. Đổi tiêu cự ống kính (mặc định 29mm tương đương fov = 38° thoáng đãng như <Cam>)
 // 3. Quét khoảng cách BVHTree mỗi khung hình để tự động trượt tránh va chạm, cấm đâm xuyên vật thể & mặt sàn.
 import React, { useLayoutEffect, useMemo, useRef } from 'react';
 import { useThree } from '@react-three/fiber';
@@ -13,7 +13,7 @@ export type SplineKeyframe = {
   at?: number;
   pos: V3;
   look: V3;
-  /** Tiêu cự ống kính 35mm (mặc định 35mm). Góc rộng ~22-28mm, vừa ~35-50mm, tele cận ~75-135mm. */
+  /** Tiêu cự ống kính 35mm (mặc định 29mm tương đương fov = 38°). */
   lens?: number;
   /** Nghiêng máy nhẹ (radian) khi lượn cua. */
   roll?: number;
@@ -46,7 +46,7 @@ export function sampleSplineRig(keyframes: SplineKeyframe[], param: { u?: number
     return {
       pos: [...keyframes[0].pos] as V3,
       look: [...keyframes[0].look] as V3,
-      lens: keyframes[0].lens ?? 35,
+      lens: keyframes[0].lens ?? 29,
       roll: keyframes[0].roll ?? 0,
     };
   }
@@ -100,7 +100,7 @@ export function sampleSplineRig(keyframes: SplineKeyframe[], param: { u?: number
   const kA = keyframes[segIdx];
   const kB = keyframes[segIdx + 1];
   const e = smoothstep(localAlpha);
-  const lens = (kA.lens ?? 35) + ((kB.lens ?? 35) - (kA.lens ?? 35)) * e;
+  const lens = (kA.lens ?? 29) + ((kB.lens ?? 29) - (kA.lens ?? 29)) * e;
   const roll = (kA.roll ?? 0) + ((kB.roll ?? 0) - (kA.roll ?? 0)) * e;
 
   return {
@@ -183,3 +183,108 @@ export const SplineCam: React.FC<SplineCamProps> = ({
   useLayoutEffect(apply);
   return null;
 };
+
+export type ModelPose3D = {
+  pos?: V3;
+  rot?: V3;
+  position?: V3;
+  rotation?: V3;
+  scale?: number | V3;
+};
+
+export type ProjectedPoint2D = [number, number] & { at: [number, number] };
+
+function makeProjectedPoint(sx: number, sy: number): ProjectedPoint2D {
+  const tuple: [number, number] = [sx, sy];
+  return Object.assign(tuple, { at: tuple });
+}
+
+/** Chuyển toạ độ cục bộ [lx, ly, lz] trên khí tài đang bay/di chuyển sang toạ độ thế giới 3D [wx, wy, wz]. */
+export function worldAt(localPt: V3, pose?: ModelPose3D): V3 {
+  if (!pose) return localPt;
+  const v = new THREE.Vector3(...localPt);
+  if (pose.scale !== undefined) {
+    if (typeof pose.scale === 'number') {
+      v.multiplyScalar(pose.scale);
+    } else {
+      v.set(v.x * pose.scale[0], v.y * pose.scale[1], v.z * pose.scale[2]);
+    }
+  }
+  const rot = pose.rot ?? pose.rotation;
+  if (rot) {
+    v.applyEuler(new THREE.Euler(rot[0], rot[1], rot[2], 'XYZ'));
+  }
+  const pos = pose.pos ?? pose.position;
+  if (pos) {
+    v.x += pos[0];
+    v.y += pos[1];
+    v.z += pos[2];
+  }
+  return [v.x, v.y, v.z];
+}
+
+/** Chiếu điểm 3D (thế giới hoặc cục bộ qua `modelPose`) qua thông số ống kính `rig` ra toạ độ màn hình 2D [px, py] (1920×1080) để neo `<Callout>`. */
+export function projectCameraPoint(
+  pt: V3,
+  rig: { pos: V3; look: V3; lens?: number; roll?: number },
+  opts?: { width?: number; height?: number; minY?: number; modelPose?: ModelPose3D },
+): ProjectedPoint2D {
+  const w = opts?.width ?? 1920;
+  const h = opts?.height ?? 1080;
+  const minY = opts?.minY ?? 0.45;
+  const wPt = opts?.modelPose ? worldAt(pt, opts.modelPose) : pt;
+
+  const cam = new THREE.PerspectiveCamera(45, w / h, 0.08, 3500);
+  cam.filmGauge = 36;
+  cam.setFocalLength(Math.max(12, Math.min(250, rig.lens ?? 29)));
+  cam.position.set(rig.pos[0], Math.max(minY, rig.pos[1]), rig.pos[2]);
+  const r = rig.roll ?? 0;
+  cam.up.set(Math.sin(r), Math.cos(r), 0);
+  cam.lookAt(rig.look[0], rig.look[1], rig.look[2]);
+  cam.updateProjectionMatrix();
+  cam.updateMatrixWorld(true);
+
+  const ndc = new THREE.Vector3(...wPt).project(cam);
+  const sx = Math.max(60, Math.min(w - 60, (ndc.x * 0.5 + 0.5) * w));
+  const sy = Math.max(60, Math.min(h - 60, (-ndc.y * 0.5 + 0.5) * h));
+  return makeProjectedPoint(sx, sy);
+}
+
+/** Chiếu điểm 3D qua quỹ đạo `SplineCam` (`keyframes` + `{ t }` hoặc `{ u }`) ra toạ độ màn hình 2D [px, py] để `<Callout>` bám dính 100% theo bộ phận 3D. */
+export function projectSplinePoint(
+  pt: V3,
+  keyframesOrT: SplineKeyframe[] | number,
+  paramOrKeyframes: { u?: number; t?: number } | SplineKeyframe[],
+  optsOrPose?: { width?: number; height?: number; minY?: number; modelPose?: ModelPose3D } | ModelPose3D,
+): ProjectedPoint2D {
+  if (typeof keyframesOrT === 'number') {
+    const keyframes = paramOrKeyframes as SplineKeyframe[];
+    const rig = sampleSplineRig(keyframes, { t: keyframesOrT });
+    const isDirectPose =
+      optsOrPose && ('pos' in optsOrPose || 'position' in optsOrPose || 'rot' in optsOrPose || 'rotation' in optsOrPose);
+    return projectCameraPoint(
+      pt,
+      rig,
+      isDirectPose
+        ? { modelPose: optsOrPose as ModelPose3D }
+        : (optsOrPose as { width?: number; height?: number; minY?: number; modelPose?: ModelPose3D }),
+    );
+  }
+  const rig = sampleSplineRig(keyframesOrT, paramOrKeyframes as { u?: number; t?: number });
+  return projectCameraPoint(
+    pt,
+    rig,
+    optsOrPose as { width?: number; height?: number; minY?: number; modelPose?: ModelPose3D },
+  );
+}
+
+export function calloutOffset(
+  at: [number, number],
+  dx: number,
+  dy: number,
+  bounds: [number, number, number, number] = [210, 110, 1710, 950],
+): [number, number] {
+  const tx = Math.max(bounds[0], Math.min(bounds[2], at[0] + dx));
+  const ty = Math.max(bounds[1], Math.min(bounds[3], at[1] + dy));
+  return [tx, ty];
+}

@@ -10,7 +10,7 @@ import { useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { clone as cloneSkeleton } from 'three/examples/jsm/utils/SkeletonUtils.js';
 import { bump } from '@core/time';
-import { loadCachedGLTF, makeSafePbrMaterial } from './gltf';
+import { getCachedGLTF, loadCachedGLTF, makeSafePbrMaterial } from './gltf';
 import { JetPlume, softDot } from './fx';
 import type { V3 } from './stage';
 
@@ -190,12 +190,18 @@ export const Soldier3D: React.FC<Soldier3DProps> = ({
   const [loadedPair, setLoadedPair] = useState<{
     skin: Awaited<ReturnType<typeof loadCachedGLTF>>;
     anims: Awaited<ReturnType<typeof loadCachedGLTF>>;
-  } | null>(null);
-  const [handle] = useState(() => delayRender(`soldier3d:${skinSrc}`));
-  const releasedRef = useRef(false);
+  } | null>(() => {
+    const s = getCachedGLTF(skinSrc);
+    const a = getCachedGLTF(animSrc);
+    return s && a ? { skin: s, anims: a } : null;
+  });
+  const [handle] = useState<number | null>(() =>
+    getCachedGLTF(skinSrc) && getCachedGLTF(animSrc) ? null : delayRender(`soldier3d:${skinSrc}`),
+  );
+  const releasedRef = useRef(handle === null);
 
   const releaseOnce = () => {
-    if (!releasedRef.current) {
+    if (!releasedRef.current && handle !== null) {
       releasedRef.current = true;
       continueRender(handle);
     }
@@ -203,6 +209,7 @@ export const Soldier3D: React.FC<Soldier3DProps> = ({
 
   useEffect(() => {
     let cancelled = false;
+    if (loadedPair) return;
     Promise.all([loadCachedGLTF(skinSrc), loadCachedGLTF(animSrc)])
       .then(([skin, anims]) => {
         if (!cancelled) setLoadedPair({ skin, anims });
@@ -214,7 +221,7 @@ export const Soldier3D: React.FC<Soldier3DProps> = ({
     return () => {
       cancelled = true;
     };
-  }, [skinSrc, animSrc]);
+  }, [skinSrc, animSrc, loadedPair]);
 
   const actor = useMemo(() => {
     if (!loadedPair) return null;
@@ -268,19 +275,15 @@ export const Soldier3D: React.FC<Soldier3DProps> = ({
   }, [actor]);
 
   useEffect(() => {
-    if (!actor || releasedRef.current) return;
+    if (!actor) return;
     invalidate();
-    let raf2 = 0;
+    if (releasedRef.current) return;
     const raf1 = requestAnimationFrame(() => {
       advance(performance.now());
-      raf2 = requestAnimationFrame(() => {
-        advance(performance.now());
-        releaseOnce();
-      });
+      releaseOnce();
     });
     return () => {
       cancelAnimationFrame(raf1);
-      if (raf2) cancelAnimationFrame(raf2);
     };
   }, [actor, advance, invalidate]);
 

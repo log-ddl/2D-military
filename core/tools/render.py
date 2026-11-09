@@ -31,14 +31,18 @@ def parts(tl: dict) -> list:
     return out
 
 
-def mix_audio(pdir, video, out, props, vol, seconds):
+def mix_audio(pdir, video, out, props, vol, seconds, start_sec=0.0):
     pub = pdir / '.build/public'
     tracks = [(pub / 'voice.mp3', 1.0)]
     if props['music'] and vol['music']:
         tracks.append((pub / 'music.wav', vol['music']))
     if props['sfx'] and vol['sfx']:
         tracks.append((pub / 'sfx.wav', vol['sfx']))
-    inputs = [x for f, _ in tracks for x in ('-i', str(f))]
+    inputs = []
+    for f, _ in tracks:
+        if start_sec > 0:
+            inputs += ['-ss', f'{start_sec:.3f}']
+        inputs += ['-i', str(f)]
     master = pub / 'master.json'   # audio.py bản mới: track stereo + nén nhẹ + chuẩn -14 LUFS + limiter sau khi cộng
     # voice mono → nhân đôi sang 2 kênh (để ffmpeg tự đổi thì mỗi kênh bị hạ 3 dB, lệch mức đã đo)
     up = 'pan=stereo|c0=c0|c1=c0,' if master.exists() else ''
@@ -66,12 +70,30 @@ def main():
         sys.exit(remotion(['studio', str(entry), pub, f'--port={port}']).returncode)
     props = {'music': '--no-music' not in argv, 'sfx': '--no-sfx' not in argv}
     tl = timeline(pdir)
-    ranges = parts(tl)
-    pdir_parts = pdir / 'out/parts'
+    ch_id = argv[argv.index('--chapter') + 1] if '--chapter' in argv else None
+    start_sec = 0.0
+    if ch_id:
+        chs = tl['chapters']
+        idx = next((i for i, c in enumerate(chs) if c['id'] == ch_id), None)
+        if idx is None:
+            sys.exit(f'không tìm thấy chương {ch_id}')
+        ch = chs[idx]
+        fps = tl['fps']
+        end_sec = chs[idx + 1]['from'] if idx + 1 < len(chs) else tl['duration']
+        a, b = round(ch['from'] * fps), round(end_sec * fps)
+        n = -(-(b - a) // PART)
+        ranges = [(a + (b - a) * i // n, a + (b - a) * (i + 1) // n - 1) for i in range(n)]
+        start_sec = float(ch['from'])
+        out = pdir / 'out/chapters' / f'{ch_id}.mp4'
+        out.parent.mkdir(parents=True, exist_ok=True)
+    else:
+        ranges = parts(tl)
+        out = pdir / 'out/video.mp4'
+    pdir_parts = pdir / ('out/parts_' + ch_id if ch_id else 'out/parts')
     if '--resume' not in argv:
         shutil.rmtree(pdir_parts, ignore_errors=True)
     pdir_parts.mkdir(parents=True, exist_ok=True)
-    print(f"xuất projects/{pdir.name}/out/video.mp4 thành {len(ranges)} phần: nhạc {'có' if props['music'] else 'không'}, sfx {'có' if props['sfx'] else 'không'}")
+    print(f"xuất {out.relative_to(pdir.parent.parent)} thành {len(ranges)} phần: nhạc {'có' if props['music'] else 'không'}, sfx {'có' if props['sfx'] else 'không'}")
     silent_props = json.dumps({'voice': False, 'music': False, 'sfx': False})
     target = None
     files = []
@@ -95,8 +117,7 @@ def main():
     silent = pdir_parts / 'video_silent.mp4'
     if subprocess.run(['ffmpeg', '-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', str(concat), '-c', 'copy', str(silent)]).returncode:
         sys.exit('ghép các phần lỗi')
-    out = pdir / 'out/video.mp4'
-    if mix_audio(pdir, silent, out, props, tl['volume'], sum(b - a + 1 for a, b in ranges) / tl['fps']):
+    if mix_audio(pdir, silent, out, props, tl['volume'], sum(b - a + 1 for a, b in ranges) / tl['fps'], start_sec=start_sec):
         sys.exit('trộn âm thanh lỗi')
     print(f'xong: {out}')
 

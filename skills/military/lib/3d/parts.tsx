@@ -2,7 +2,7 @@
 // Đây là linh kiện, không phải mô hình hoàn chỉnh — mỗi video tự dựng phương tiện của mình từ các linh kiện này.
 import React, { useLayoutEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
-import { lathe, loft, rbox } from './geom';
+import { lathe, rbox } from './geom';
 import { plain } from './materials';
 import { FONT } from '../theme';
 
@@ -177,6 +177,10 @@ export const Measure3D: React.FC<Measure3DProps> = ({
     ctx.font = fontSpec;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
+    ctx.lineJoin = 'round';
+    ctx.lineWidth = 22;
+    ctx.strokeStyle = 'rgba(8, 12, 20, 0.82)';
+    ctx.strokeText(text, wPx / 2, hPx * 0.52);
     ctx.fillStyle = color;
     ctx.fillText(text, wPx / 2, hPx * 0.52);
     const tex = new THREE.CanvasTexture(c);
@@ -200,7 +204,7 @@ export const Measure3D: React.FC<Measure3DProps> = ({
   const textY = thickness * 0.5 + fontSize * 0.72;
 
   return (
-    <group position={[basis.mid.x, basis.mid.y, basis.mid.z]} quaternion={basis.quat} userData={{ noShadow: true }}>
+    <group position={[basis.mid.x, basis.mid.y, basis.mid.z]} quaternion={basis.quat} userData={{ noShadow: true, noCollide: true }}>
       <mesh material={barMat}>
         <boxGeometry args={[span, thickness, thickness * 0.65]} />
       </mesh>
@@ -240,64 +244,10 @@ export const Measure3D: React.FC<Measure3DProps> = ({
   );
 };
 
-/** Hình người chuẩn tỷ lệ (mặc định cao 1.78 m) đặt cạnh khí tài để đối chiếu quy mô trực quan. */
+/** Đã ngưng dùng (trả về null): nhân vật con người bắt buộc lấy từ Blender qua `bk.py prep-actor` + `<Soldier3D>`. */
 export const ScaleHuman: React.FC<{
   position?: [number, number, number];
   rotationY?: number;
   height?: number;
   color?: string;
-}> = ({ position = [0, 0, 0], rotationY = 0, height = 1.78, color = '#6eb4f0' }) => {
-  const s = height / 1.78;
-  const mat = useMemo(() => plain(color, 0.62, 0.05), [color]);
-  const torsoG = useMemo(() => {
-    const g = loft(
-      [
-        { x: 0.88, rz: 0.145, ry: 0.095, n: 2.4 },
-        { x: 1.08, rz: 0.135, ry: 0.09, n: 2.3 },
-        { x: 1.34, rz: 0.205, ry: 0.115, n: 2.5 },
-        { x: 1.44, rz: 0.18, ry: 0.1, n: 2.2 },
-      ],
-      { radialSeg: 20, subdiv: 2 },
-    ).clone();
-    g.rotateZ(Math.PI / 2);
-    return g;
-  }, []);
-
-  return (
-    <group position={position} rotation={[0, rotationY, 0]} scale={[s, s, s]}>
-      <mesh geometry={torsoG} material={mat} castShadow receiveShadow />
-      {/* Đầu & cổ */}
-      <mesh position={[0, 1.49, 0]} material={mat} castShadow>
-        <cylinderGeometry args={[0.052, 0.058, 0.09, 14]} />
-      </mesh>
-      <mesh position={[0, 1.64, 0]} scale={[0.92, 1.16, 0.98]} material={mat} castShadow>
-        <sphereGeometry args={[0.105, 18, 14]} />
-      </mesh>
-      {/* Hai chân */}
-      {[-1, 1].map((side) => (
-        <group key={side} position={[0, 0, side * 0.095]}>
-          <mesh position={[0, 0.67, 0]} rotation={[side * 0.02, 0, 0]} material={mat} castShadow>
-            <capsuleGeometry args={[0.068, 0.34, 6, 12]} />
-          </mesh>
-          <mesh position={[0, 0.26, 0]} material={mat} castShadow>
-            <capsuleGeometry args={[0.054, 0.34, 6, 12]} />
-          </mesh>
-          <mesh position={[0.04, 0.035, 0]} material={mat} castShadow>
-            <boxGeometry args={[0.22, 0.07, 0.095]} />
-          </mesh>
-        </group>
-      ))}
-      {/* Hai tay */}
-      {[-1, 1].map((side) => (
-        <group key={`arm${side}`} position={[0, 1.38, side * 0.225]} rotation={[side * 0.04, 0, side * -0.09]}>
-          <mesh position={[0, -0.15, 0]} material={mat} castShadow>
-            <capsuleGeometry args={[0.046, 0.23, 6, 10]} />
-          </mesh>
-          <mesh position={[0.015, -0.42, 0]} rotation={[0, 0, 0.06]} material={mat} castShadow>
-            <capsuleGeometry args={[0.038, 0.22, 6, 10]} />
-          </mesh>
-        </group>
-      ))}
-    </group>
-  );
-};
+}> = () => null;

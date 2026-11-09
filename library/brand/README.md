@@ -1,7 +1,12 @@
 # Logo & Nhận diện Kênh dùng chung (`library/brand/`)
 
-Thả trực tiếp file logo chính thức của kênh vào thư mục này với tên **`logo.png`** (khuyên dùng PNG nền trong suốt `512×512` hoặc `1024×1024` px) hoặc **`logo.svg`**.
+Thư mục này chứa bộ logo chính thức của kênh được đồng bộ tự động vào mọi dự án qua `build.py`, `check.py` và `render.py`:
 
-- Khi chưa có `logo.png` / `logo.svg`, hệ thống tự động dùng `logo_placeholder.png` để không bao giờ gãy bản dựng.
-- Ngay khi bạn chép `logo.png` vào đây, `build.py`, `check.py` và `render.py` tự nhận diện dấu thời gian mới và cập nhật lên toàn bộ vách nhà chứa (`<BrandWallMark>`), sơn stencil trên khí tài (`<BrandDecal>`) và nhãn kim loại (`<BrandPlate>`) mà không cần sửa code dự án.
-- Chỉnh màu sơn stencil mặc định hoặc độ đậm nhạt tại `brand.json`.
+- **`logo_white.svg`** — bản logo màu trắng (dùng cho khí tài sơn tối, xanh ô-liu, xám chiến thuật, rằn ri).
+- **`logo_black.svg`** — bản logo màu đen (dùng cho khí tài vỏ nhôm bạc, sơn trắng vùng cực hoặc nền sáng).
+- (Tuỳ chọn) **`logo.svg`** / **`logo.png`** — bản logo mặc định nếu dùng chung 1 file.
+
+## Quy tắc gắn Logo (`@skill/military/3d/brand`)
+- **Chỉ dùng `<BrandDecal target={root} ... />`** để chiếu sơn stencil low-vis (`opacity ~ 0.42–0.46`, `wear ~ 0.18–0.22`) ôm cong khít 100% lên bề mặt lưới 3D của khí tài chính (cánh đuôi đứng, lưng cánh chính, tháp pháo xe tăng, mạn tàu).
+- **Cấm** gắn biển tường nhà chứa (`BrandWallMark`), bảng kim loại (`BrandPlate`) hay đóng dấu góc màn hình 2D (`BrandMark2D`).
+- Cấu hình màu sơn stencil và độ đậm mặc định nằm tại `brand.json`.

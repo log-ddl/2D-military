@@ -71,13 +71,23 @@ export const Stage: React.FC<StageProps> = ({
     effects.push(<SMAA key="aa" />);
   }
   const fillDir: V3 = [-sun[0], Math.max(12, Math.abs(sun[1]) * 0.45), -sun[2]];
+  // Đảm bảo cảnh đêm / nhà chứa tối vẫn có ánh sáng ven (rim/moonlight) và môi trường tối thiểu để khí tài màu sẫm nổi rõ khối
+  const skyLum = (() => {
+    const c = new THREE.Color(sky[1]);
+    return 0.299 * c.r + 0.587 * c.g + 0.114 * c.b;
+  })();
+  const isDarkScene = skyLum < 0.24;
+  const effAmbient = isDarkScene ? Math.max(ambient, 0.36) : ambient;
+  const effEnv = isDarkScene ? Math.max(env, 0.52) : env;
+  const fillColor = isDarkScene ? '#8fb4dc' : sky[1];
+  const fillIntensity = isDarkScene ? Math.max(sunIntensity * 0.24, 0.52) : sunIntensity * 0.14;
   return (
     <ThreeCanvas width={width} height={height} dpr={1} shadows flat={post !== false} gl={{ antialias: post === false, toneMappingExposure: exposure }}>
       <SkyDome colors={sky} sun={sun} />
       {fog && <fog attach="fog" args={[fogColor ?? sky[1], fog[0], fog[1]]} />}
-      <Env sky={sky} sun={sun} sunColor={sunColor} sunIntensity={sunIntensity} intensity={env} />
-      <hemisphereLight args={[sky[1], sky[2], ambient]} />
-      <directionalLight position={fillDir} color={sky[1]} intensity={sunIntensity * 0.14} />
+      <Env sky={sky} sun={sun} sunColor={sunColor} sunIntensity={sunIntensity} intensity={effEnv} />
+      <hemisphereLight args={[isDarkScene ? '#7ca0c8' : sky[1], sky[2], effAmbient]} />
+      <directionalLight position={fillDir} color={fillColor} intensity={fillIntensity} />
       <Sun dir={sun} color={sunColor} intensity={sunIntensity} area={shadowArea} center={shadowCenter} mapSize={4096} />
       {children}
       {post !== false && <EffectComposer multisampling={0}>{effects}</EffectComposer>}

@@ -7,8 +7,13 @@ import { mergeGeometries, toCreasedNormals } from 'three/examples/jsm/utils/Buff
 
 const cache = new Map<string, THREE.BufferGeometry>();
 const memo = (key: string, make: () => THREE.BufferGeometry) => {
-  if (!cache.has(key)) cache.set(key, make());
-  return cache.get(key)!.clone();
+  let g = cache.get(key);
+  if (!g) {
+    g = make();
+    g.computeBoundingBox();
+    cache.set(key, g);
+  }
+  return g;
 };
 
 export type P2 = [number, number];

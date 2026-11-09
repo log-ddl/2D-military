@@ -3,6 +3,8 @@ import { staticFile } from 'remotion';
 
 export type BrandSpec = {
   file: string;
+  whiteFile: string;
+  blackFile: string;
   name: string;
   darkTint: string;
   lightTint: string;
@@ -12,13 +14,15 @@ export type BrandSpec = {
 };
 
 const DEFAULT_BRAND: BrandSpec = {
-  file: 'brand/logo_placeholder.png',
-  name: 'CHANNEL',
+  file: 'brand/logo_white.svg',
+  whiteFile: 'brand/logo_white.svg',
+  blackFile: 'brand/logo_black.svg',
+  name: 'MILITARY STUDIO',
   darkTint: '#14181f',
   lightTint: '#e8eef5',
-  stencilOpacity: 0.44,
-  wallOpacity: 0.9,
-  isPlaceholder: true,
+  stencilOpacity: 0.46,
+  wallOpacity: 0.92,
+  isPlaceholder: false,
 };
 
 let CURRENT_BRAND: BrandSpec = { ...DEFAULT_BRAND };
@@ -30,5 +34,9 @@ export const registerBrand = (spec: Partial<BrandSpec>) => {
 
 export const brandConfig = (): BrandSpec => CURRENT_BRAND;
 
-/** URL tĩnh của file logo kênh để nạp vào THREE.TextureLoader, <Img> hoặc 2D overlay. */
-export const brandLogoUrl = (): string => staticFile(CURRENT_BRAND.file);
+/** URL tĩnh của file logo kênh (`variant`: `'white'` | `'black'` | mặc định) để nạp vào `<BrandDecal>`. */
+export const brandLogoUrl = (variant?: 'white' | 'black'): string => {
+  if (variant === 'black' && CURRENT_BRAND.blackFile) return staticFile(CURRENT_BRAND.blackFile);
+  if (variant === 'white' && CURRENT_BRAND.whiteFile) return staticFile(CURRENT_BRAND.whiteFile);
+  return staticFile(CURRENT_BRAND.file);
+};

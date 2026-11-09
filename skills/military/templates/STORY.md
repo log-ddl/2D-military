@@ -1,6 +1,6 @@
 # Story: {title}
 
-Voice: `assets/voice/voice.mp3`, tổng {duration} s. Mốc luôn là giây toàn phim. Skill: `military` (chuẩn dựng); video dài thêm `long-video` (chia việc).
+Voice: `assets/voice/voice.mp3`, tổng {duration} s. Ngôn ngữ chữ trên hình (theo `transcript.json`): {lang}. Mốc luôn là giây toàn phim. Skill: `military` (chuẩn dựng); video dài thêm `long-video` (chia việc).
 
 ## 1. Lập luận cả phim
 - Hook mở câu hỏi gì:
@@ -23,6 +23,7 @@ Mỗi base có đủ `props` để chương phát triển tiếp (trạng thái,
 |---|---|---|---|---|---|---|
 
 ## 4. Quy ước xuyên phim
+- Ngôn ngữ chữ hiển thị trên màn hình (bắt buộc trùng 100% với ngôn ngữ của `voice` trong `transcript.json`):
 - Tên gọi thống nhất (khí tài, đơn vị, địa danh) — đúng một tên cho mỗi thứ:
 - Hiệu ứng dùng chung (nổ, khói, vệt đạn) và mức độ:
 - Nhãn chữ: kiểu, vị trí:

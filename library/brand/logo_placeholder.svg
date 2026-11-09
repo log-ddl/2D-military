@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <!-- Biểu tượng hình học cánh chim chiến thuật giữ chỗ (nền trong suốt, nét sắc nét) -->
-  <g fill="#ffffff">
-    <polygon points="242,76 62,388 158,360 242,208" />
-    <polygon points="270,76 450,388 354,360 270,208" />
-    <polygon points="256,246 192,378 256,346 320,378" />
-    <rect x="148" y="414" width="216" height="18" rx="4" />
-  </g>
-</svg>

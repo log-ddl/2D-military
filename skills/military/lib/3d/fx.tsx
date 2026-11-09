@@ -392,11 +392,11 @@ export const RotorBlur: React.FC<{
         if (r > 1.0 || r < uInner) discard;
         float ang = atan(vPos.y, vPos.x) - uSpin;
         float sector = 0.5 + 0.5 * cos(ang * uBlades);
-        float wedge = mix(pow(sector, 6.0), 0.38 + 0.34 * sector, clamp(uBlur, 0.0, 1.0));
-        float radialFade = smoothstep(uInner, uInner + 0.08, r) * (1.0 - smoothstep(0.96, 1.0, r));
-        float tipBand = smoothstep(0.91, 0.95, r) * (1.0 - smoothstep(0.985, 1.0, r));
-        vec3 col = mix(uCol, uTip, tipBand * 0.85);
-        float a = clamp(wedge * radialFade * uBlur * 0.46 + tipBand * uBlur * 0.24, 0.0, 0.65);
+        float wedge = mix(pow(sector, 6.0), 0.18 + 0.42 * pow(sector, 2.2), clamp(uBlur, 0.0, 1.0));
+        float radialFade = smoothstep(uInner, uInner + 0.12, r) * (1.0 - smoothstep(0.88, 1.0, r));
+        float tipBand = smoothstep(0.88, 0.94, r) * (1.0 - smoothstep(0.96, 1.0, r)) * pow(sector, 2.5);
+        vec3 col = mix(uCol, uTip, tipBand * 0.45);
+        float a = clamp(wedge * radialFade * uBlur * 0.28 + tipBand * uBlur * 0.06, 0.0, 0.34);
         if (a < 0.006) discard;
         gl_FragColor = vec4(col, a);
         #include <tonemapping_fragment>

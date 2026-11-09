@@ -315,8 +315,22 @@ def shoot_ranges(pdir: Path, proj: dict, tl: dict, jobs: list, full: bool):
 
 # ---------------------------------------------------------------- cảnh cô lập
 
+_VI_DIACRITIC_RE = re.compile(
+    r'[àáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵđ]',
+    re.IGNORECASE,
+)
+
+
 def warn_scene_typography(pdir: Path, sids: list):
-    """Nhắc nhở khi cảnh tự viết thẻ <text> hoặc ép fontFamily riêng ngoài component nhãn chuẩn."""
+    """Nhắc nhở khi cảnh tự viết thẻ <text>/fontFamily hoặc dùng sai ngôn ngữ chữ so với voice."""
+    voice_lang = None
+    tr_file = pdir / 'plan/transcript.json'
+    if tr_file.is_file():
+        try:
+            voice_lang = json.loads(tr_file.read_text()).get('language')
+        except Exception:
+            voice_lang = None
+
     for sid in sids:
         src = pdir / 'src/scenes' / f'{sid}.tsx'
         if not src.is_file():
@@ -326,6 +340,13 @@ def warn_scene_typography(pdir: Path, sids: list):
         raw_font = len(re.findall(r'\bfontFamily\s*:', code))
         if raw_txt or raw_font:
             print(f'  ⚠ [chữ] {sid}.tsx: có {raw_txt} thẻ <text> / {raw_font} fontFamily tự viết — ưu tiên dùng component nhãn chuẩn của skill để đồng bộ chữ toàn kênh')
+        if voice_lang == 'en':
+            # Bỏ comment trước khi tìm chuỗi hiển thị để không bắt nhầm comment tiếng Việt
+            no_comments = re.sub(r'//[^\n]*|/\*[\s\S]*?\*/', '', code)
+            ui_strings = re.findall(r'\b(?:text|sub|title|subtitle)\s*=\s*["\']([^"\']+)["\']', no_comments)
+            vi_hits = [s for s in ui_strings if _VI_DIACRITIC_RE.search(s)]
+            if vi_hits:
+                print(f'  ⚠ [ngôn ngữ] {sid}.tsx: voice là tiếng Anh (en) nhưng chữ hiển thị có tiếng Việt: {vi_hits[:3]} — chữ trên hình bắt buộc cùng ngôn ngữ với voice')
 
 
 def shoot_scenes(pdir: Path, proj: dict, want: list, n: int, cols: int, width: int, force: bool, full: bool):

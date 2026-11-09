@@ -219,6 +219,10 @@ def sync_brand(pdir: Path) -> dict:
         ('logo.png', False),
         ('logo.webp', False),
         ('logo.svg', False),
+        ('logo_white.svg', False),
+        ('logo_black.svg', False),
+        ('logo_white.png', False),
+        ('logo_black.png', False),
         ('logo_placeholder.png', True),
         ('logo_placeholder.svg', True),
     ]
@@ -229,14 +233,24 @@ def sync_brand(pdir: Path) -> dict:
             chosen, is_ph = fp, ph
             break
 
+    if bdir.is_dir():
+        for ext_fp in bdir.iterdir():
+            if ext_fp.is_file() and ext_fp.suffix.lower() in {'.svg', '.png', '.webp'}:
+                link_file(ext_fp, pdir / '.build/public/brand' / ext_fp.name)
+
     if chosen is not None:
         rel_pub = f'brand/{chosen.name}'
         link_file(chosen, pdir / '.build/public' / rel_pub)
         cfg['file'] = rel_pub
         cfg['isPlaceholder'] = is_ph
     else:
-        cfg['file'] = 'brand/logo_placeholder.png'
-        cfg['isPlaceholder'] = True
+        cfg['file'] = 'brand/logo_white.svg'
+        cfg['isPlaceholder'] = False
+
+    w_svg = bdir / 'logo_white.svg'
+    b_svg = bdir / 'logo_black.svg'
+    cfg['whiteFile'] = 'brand/logo_white.svg' if w_svg.is_file() else cfg['file']
+    cfg['blackFile'] = 'brand/logo_black.svg' if b_svg.is_file() else cfg['file']
     return cfg
 
 

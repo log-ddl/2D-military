@@ -511,37 +511,10 @@ export const Surface: React.FC<SurfaceProps> = ({
   }, [kind, baseCol, showMark, seed, sx, sz]);
 
   const geo = useMemo(() => {
-    if (!cyclorama) {
-      const g = new THREE.PlaneGeometry(sx, sz, 1, 1);
-      g.rotateX(-Math.PI / 2);
-      return g;
-    }
-    // Phông cong cyclorama uốn mượt từ sàn ngang lên tường đứng phía xa (bán kính cong R = 14m)
-    const R = 14, H = Math.min(60, sz * 0.45);
-    const pts: [number, number][] = [
-      [-sz * 0.5, H],
-      [-sz * 0.5, R],
-    ];
-    for (let i = 1; i <= 12; i++) {
-      const a = Math.PI + (i / 12) * (Math.PI / 2);
-      pts.push([-sz * 0.5 + R + Math.cos(a) * R, R + Math.sin(a) * R]);
-    }
-    pts.push([sz * 0.5, 0]);
-    const pos: number[] = [], uv: number[] = [], idx: number[] = [];
-    for (let i = 0; i < pts.length; i++) {
-      const [pz, py] = pts[i];
-      pos.push(-sx / 2, py, pz, sx / 2, py, pz);
-      uv.push(0, i / (pts.length - 1), 1, i / (pts.length - 1));
-      if (i < pts.length - 1) {
-        const a = i * 2, b = a + 1, c = a + 2, d = a + 3;
-        idx.push(a, c, b, b, c, d);
-      }
-    }
-    const g = new THREE.BufferGeometry();
-    g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
-    g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
-    g.setIndex(idx);
-    g.computeVertexNormals();
+    const w = cyclorama ? Math.max(sx, 600) : sx;
+    const d = cyclorama ? Math.max(sz, 600) : sz;
+    const g = new THREE.PlaneGeometry(w, d, 1, 1);
+    g.rotateX(-Math.PI / 2);
     return g;
   }, [sx, sz, cyclorama]);
 

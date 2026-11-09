@@ -378,26 +378,24 @@ def apply_laplace_recolor(hex_color: str, td: Path) -> int:
         lum = 0.299 * r + 0.587 * g + 0.114 * b
         chroma = np.maximum(np.maximum(r, g), b) - np.minimum(np.minimum(r, g), b)
 
-        vivid = chroma > 0.16
-        if int(vivid.sum()) < (w * h) // 40:
+        vivid = chroma > 0.11
+        if int(vivid.sum()) < 32 and w < 512:
             continue
 
         # Giữ nguyên chi tiết tối (khung kính, lốp xe, hốc xả, cánh quạt đen)
-        keep_dark = (lum < 0.22) & (chroma < 0.14)
-        target_lum = np.clip(avg_l * (lum / max(0.25, float(np.median(lum[vivid])))), avg_l * 0.55, min(0.92, avg_l * 1.28))
-        neutral_lum = np.clip(lum, 0.04, 0.92)
-        shade = np.where(vivid, target_lum, neutral_lum * (avg_l / max(0.35, float(np.median(lum))))).astype(np.float32)
+        keep_dark = (lum < 0.20) & (chroma < 0.11)
+        med_lum = max(0.30, float(np.median(lum[~keep_dark])) if (~keep_dark).any() else float(np.median(lum)))
+        shade = np.clip(lum * (avg_l / med_lum), 0.04, 0.94).astype(np.float32)
 
-        # Làm mượt ranh giới sắc độ cao (ví dụ vạch đỏ/cam giáp vàng) bằng 40 vòng khuếch tán nhẹ
-        stripe = (r - g) > 0.16
-        if stripe.any():
-            shade[stripe] = avg_l
-            for _ in range(40):
+        # Xoá sạch chữ/logo/dải sơn màu của BlenderKit (vùng có độ bão hoà màu chroma > 0.11) bằng khuếch tán Laplace
+        if vivid.any():
+            shade[vivid] = avg_l
+            for _ in range(48):
                 avg4 = 0.25 * (
                     np.roll(shade, 1, axis=0) + np.roll(shade, -1, axis=0)
                     + np.roll(shade, 1, axis=1) + np.roll(shade, -1, axis=1)
                 )
-                shade[stripe] = avg4[stripe]
+                shade[vivid] = avg4[vivid]
 
         out = arr.copy()
         paint_mask = ~keep_dark

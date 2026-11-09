@@ -3,7 +3,7 @@
 // 1. <GltfPart>: Vật thể tĩnh hoặc mổ xẻ liền mạch bằng mặt phẳng cắt động `clipPlanes` + viền laser HDR + bóng kính `ghost`.
 // 2. <GltfRig>: Khí tài có khớp động học theo tên node (`joints`) + mổ xẻ X-Ray theo nhóm vỏ (`ghostNodes` / `cutaway`)
 //    + render-prop `children={(root) => ...}` để gắn thêm lõi hộp số, luồng phản lực hoặc sơn stencil `<BrandDecal target={root}>`.
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { continueRender, delayRender } from 'remotion';
 import { useThree } from '@react-three/fiber';
 import * as THREE from 'three';
@@ -128,15 +128,21 @@ function makeLaserClippedMaterial(
   return mat;
 }
 
+const STANDBY_CLIP_PLANES: THREE.Plane[] = [new THREE.Plane(new THREE.Vector3(0, -1, 0), 10000)];
+
+export function getCachedGLTF(url: string): GLTF | null {
+  return parsedCache.get(url) ?? null;
+}
+
 function useLoadedGLTF(src: string) {
   const advance = useThree((s) => s.advance);
   const invalidate = useThree((s) => s.invalidate);
   const [gltf, setGltf] = useState<GLTF | null>(() => parsedCache.get(src) ?? null);
-  const [handle] = useState(() => delayRender(`gltf:${src}`));
-  const releasedRef = useRef(false);
+  const [handle] = useState<number | null>(() => (parsedCache.has(src) ? null : delayRender(`gltf:${src}`)));
+  const releasedRef = useRef(handle === null);
 
   const releaseOnce = () => {
-    if (!releasedRef.current) {
+    if (!releasedRef.current && handle !== null) {
       releasedRef.current = true;
       continueRender(handle);
     }
@@ -160,19 +166,15 @@ function useLoadedGLTF(src: string) {
 
   const notifyMounted = (ready: boolean) => {
     useEffect(() => {
-      if (!ready || releasedRef.current) return;
+      if (!ready) return;
       invalidate();
-      let raf2 = 0;
+      if (releasedRef.current) return;
       const raf1 = requestAnimationFrame(() => {
         advance(performance.now());
-        raf2 = requestAnimationFrame(() => {
-          advance(performance.now());
-          releaseOnce();
-        });
+        releaseOnce();
       });
       return () => {
         cancelAnimationFrame(raf1);
-        if (raf2) cancelAnimationFrame(raf2);
       };
     }, [ready, advance, invalidate]);
 
@@ -181,6 +183,11 @@ function useLoadedGLTF(src: string) {
 
   return { gltf, notifyMounted };
 }
+
+export type MaterialReplacer = (
+  mat: THREE.Material,
+  mesh: THREE.Mesh,
+) => THREE.Material | null | undefined;
 
 export type GltfPartProps = {
   /** URL từ asset('aNNN'). */
@@ -192,6 +199,8 @@ export type GltfPartProps = {
   noCollide?: boolean;
   castShadow?: boolean;
   receiveShadow?: boolean;
+  /** Hàm thay thế vật liệu PBR (ví dụ: gỡ texture chữ/logo của BlenderKit và phủ lớp sơn panelPaint sạch). */
+  replaceMaterial?: MaterialReplacer;
   /** Mặt phẳng cắt mổ xẻ (nếu truyền vào sẽ tự kích hoạt mặt cắt hai mặt + viền sáng laser). */
   clipPlanes?: THREE.Plane[];
   /** Màu viền laser dọc vết cắt (mặc định cam nhiệt '#ff8a1e'). */
@@ -214,6 +223,7 @@ export const GltfPart: React.FC<GltfPartProps> = ({
   noCollide = false,
   castShadow = true,
   receiveShadow = true,
+  replaceMaterial,
   clipPlanes,
   cutRimColor = '#ff8a1e',
   cutRimWidth = 0.085,
@@ -225,9 +235,14 @@ export const GltfPart: React.FC<GltfPartProps> = ({
   const { gltf, notifyMounted } = useLoadedGLTF(src);
   const hasClip = Boolean(clipPlanes && clipPlanes.length > 0);
 
-  const mainRoot = useMemo(() => {
+  const mainPack = useMemo(() => {
     if (!gltf) return null;
     const root = gltf.scene.clone(true);
+    const clipMeshes: {
+      mesh: THREE.Mesh;
+      safeMat: THREE.Material | THREE.Material[];
+      clipMat: THREE.Material | THREE.Material[];
+    }[] = [];
     root.traverse((o) => {
       if (noCollide) o.userData.noCollide = true;
       const m = o as THREE.Mesh;
@@ -237,26 +252,33 @@ export const GltfPart: React.FC<GltfPartProps> = ({
       if (m.geometry && m.geometry.attributes.uv && !m.geometry.attributes.uv1) {
         m.geometry.setAttribute('uv1', m.geometry.attributes.uv);
       }
-      const applyOne = (mat: THREE.Material) =>
-        hasClip
-          ? makeLaserClippedMaterial(mat, clipPlanes!, cutRimColor, cutRimWidth, cutRimBoost)
-          : makeSafePbrMaterial(mat);
-      m.material = Array.isArray(m.material) ? m.material.map(applyOne) : applyOne(m.material);
+      const origMats = Array.isArray(m.material) ? m.material : [m.material];
+      const baseMats = origMats.map((mat) => (replaceMaterial && replaceMaterial(mat, m)) || mat);
+      const safeArr = baseMats.map((bm) => makeSafePbrMaterial(bm));
+      const clipArr = baseMats.map((bm) =>
+        makeLaserClippedMaterial(bm, STANDBY_CLIP_PLANES, cutRimColor, cutRimWidth, cutRimBoost),
+      );
+      const safeMat = Array.isArray(m.material) ? safeArr : safeArr[0];
+      const clipMat = Array.isArray(m.material) ? clipArr : clipArr[0];
+      m.material = safeMat;
+      clipMeshes.push({ mesh: m, safeMat, clipMat });
     });
-    return root;
-  }, [gltf, noCollide, castShadow, receiveShadow, hasClip, cutRimColor, cutRimWidth, cutRimBoost]);
+    return { root, clipMeshes };
+  }, [gltf, noCollide, castShadow, receiveShadow, replaceMaterial, cutRimColor, cutRimWidth, cutRimBoost]);
 
+  const mainRoot = mainPack?.root ?? null;
   notifyMounted(Boolean(mainRoot));
 
-  if (mainRoot && hasClip && clipPlanes) {
-    mainRoot.traverse((o) => {
-      const m = o as THREE.Mesh;
-      if (!m.isMesh) return;
-      const mats = Array.isArray(m.material) ? m.material : [m.material];
-      for (const mat of mats) {
-        mat.clippingPlanes = clipPlanes;
+  if (mainPack) {
+    for (const cm of mainPack.clipMeshes) {
+      cm.mesh.material = hasClip ? cm.clipMat : cm.safeMat;
+      if (hasClip && clipPlanes) {
+        const mats = Array.isArray(cm.clipMat) ? cm.clipMat : [cm.clipMat];
+        for (const mat of mats) {
+          mat.clippingPlanes = clipPlanes;
+        }
       }
-    });
+    }
   }
 
   const invPlanes = useMemo(
@@ -287,7 +309,7 @@ export const GltfPart: React.FC<GltfPartProps> = ({
   const sc: V3 = typeof scale === 'number' ? [scale, scale, scale] : scale;
 
   return (
-    <group position={position} rotation={rotation} scale={sc} userData={noCollide ? { noCollide: true } : undefined}>
+    <group position={position} rotation={rotation} scale={sc} userData={noCollide ? { noCollide: true } : { isActorRoot: true }}>
       <primitive object={mainRoot} />
       {ghostRoot && <primitive object={ghostRoot.root} />}
       {typeof children === 'function' ? children(mainRoot) : children}
@@ -319,9 +341,23 @@ export type GltfRigProps = {
   noCollide?: boolean;
   castShadow?: boolean;
   receiveShadow?: boolean;
+  /** Hàm thay thế vật liệu PBR (ví dụ: gỡ texture chữ/logo của BlenderKit và phủ lớp sơn panelPaint sạch). */
+  replaceMaterial?: MaterialReplacer;
   /** Bảng điều khiển các khớp động theo tên node Empty/Mesh trong .glb. */
   joints?: Record<string, JointTransform>;
-  /** Danh sách tên node (hoặc tiền tố tên) sẽ chuyển sang lớp kính mờ X-Ray khi `cutaway > 0`. */
+  /** Mặt phẳng cắt mổ xẻ laser vật lý (giống <GltfPart> trong bk_f16_cutaway). */
+  clipPlanes?: THREE.Plane[];
+  /** Danh sách tên node (hoặc tiền tố) áp dụng `clipPlanes` (mặc định cắt toàn bộ mô hình nếu không truyền). */
+  clipNodes?: string[];
+  /** Màu viền laser dọc vết cắt (mặc định cam nhiệt '#ff8a1e'). */
+  cutRimColor?: string;
+  /** Bề rộng viền sáng vết cắt (m, mặc định 0.085m). */
+  cutRimWidth?: number;
+  /** Cường độ HDR của viền vết cắt (mặc định 3.4). */
+  cutRimBoost?: number;
+  /** Độ mờ lớp vỏ X-Ray Fresnel ở nửa bị cắt bỏ (0 = bỏ hẳn, 0.14 = hiện bóng kính mờ giữ dáng khí tài). */
+  ghostCutawayOpacity?: number;
+  /** Danh sách tên node (hoặc tiền tố tên) sẽ chuyển sang lớp kính mờ X-Ray khi `cutaway > 0` (nếu không dùng clipPlanes). */
   ghostNodes?: string[];
   /** Tiến trình mổ xẻ X-Ray 0..1 (0 = sơn PBR gốc, 1 = vỏ mờ Fresnel lộ cơ khí bên trong). */
   cutaway?: number;
@@ -339,7 +375,7 @@ type SavedNodeState = {
   childMeshes: THREE.Mesh[];
 };
 
-/** Component điều khiển khí tài .glb nhiều khớp động + mổ xẻ X-Ray chọn lọc theo nhóm vỏ. */
+/** Component điều khiển khí tài .glb nhiều khớp động + mổ xẻ bằng mặt phẳng cắt laser (`clipPlanes`) hoặc X-Ray theo nhóm vỏ. */
 export const GltfRig: React.FC<GltfRigProps> = ({
   src,
   position = [0, 0, 0],
@@ -348,7 +384,14 @@ export const GltfRig: React.FC<GltfRigProps> = ({
   noCollide = false,
   castShadow = true,
   receiveShadow = true,
+  replaceMaterial,
   joints,
+  clipPlanes,
+  clipNodes,
+  cutRimColor = '#ff8a1e',
+  cutRimWidth = 0.085,
+  cutRimBoost = 3.4,
+  ghostCutawayOpacity = 0,
   ghostNodes,
   cutaway = 0,
   ghostColor = '#b8c7d8',
@@ -357,12 +400,42 @@ export const GltfRig: React.FC<GltfRigProps> = ({
 }) => {
   const { gltf, notifyMounted } = useLoadedGLTF(src);
   const ghostKey = (ghostNodes ?? []).join('|');
+  const clipKey = (clipNodes ?? []).join('|');
+  const hasClip = Boolean(clipPlanes && clipPlanes.length > 0);
+
+  const isUnderTargets = (obj: THREE.Object3D, targets: string[]) => {
+    if (targets.length === 0) return true;
+    let cur: THREE.Object3D | null = obj;
+    while (cur) {
+      const nm = cur.name || '';
+      const unm = (cur.userData?.name as string) || '';
+      if (
+        targets.some(
+          (g) =>
+            nm === g ||
+            nm.startsWith(g) ||
+            unm === g ||
+            unm.startsWith(g),
+        )
+      ) {
+        return true;
+      }
+      cur = cur.parent;
+    }
+    return false;
+  };
 
   const rig = useMemo(() => {
     if (!gltf) return null;
     const root = gltf.scene.clone(true);
     const ghostTargets = ghostNodes ?? [];
+    const clipTargets = clipNodes ?? [];
     const skinMeshes: { mesh: THREE.Mesh; origMat: THREE.Material | THREE.Material[] }[] = [];
+    const clippedMeshes: {
+      mesh: THREE.Mesh;
+      safeMat: THREE.Material | THREE.Material[];
+      clipMat: THREE.Material | THREE.Material[];
+    }[] = [];
     const nodeMap = new Map<string, SavedNodeState>();
 
     root.traverse((o) => {
@@ -374,52 +447,120 @@ export const GltfRig: React.FC<GltfRigProps> = ({
         }
         m.castShadow = castShadow;
         m.receiveShadow = receiveShadow;
-        m.material = Array.isArray(m.material)
-          ? m.material.map(makeSafePbrMaterial)
-          : makeSafePbrMaterial(m.material);
+        const shouldClipMesh = isUnderTargets(m, clipTargets);
+        const origMats = Array.isArray(m.material) ? m.material : [m.material];
+        const baseMats = origMats.map((mat) => (replaceMaterial && replaceMaterial(mat, m)) || mat);
+        const safeArr = baseMats.map((bm) => makeSafePbrMaterial(bm));
+        const safeMat = Array.isArray(m.material) ? safeArr : safeArr[0];
+        m.material = safeMat;
+        if (shouldClipMesh) {
+          const clipArr = baseMats.map((bm) =>
+            makeLaserClippedMaterial(bm, STANDBY_CLIP_PLANES, cutRimColor, cutRimWidth, cutRimBoost),
+          );
+          const clipMat = Array.isArray(m.material) ? clipArr : clipArr[0];
+          clippedMeshes.push({ mesh: m, safeMat, clipMat });
+        }
 
-        if (ghostTargets.length > 0) {
-          let cur: THREE.Object3D | null = m;
-          while (cur) {
-            if (ghostTargets.some((g) => cur!.name === g || cur!.name.startsWith(g))) {
-              skinMeshes.push({ mesh: m, origMat: m.material });
-              break;
-            }
-            cur = cur.parent;
-          }
+        if (ghostTargets.length > 0 && isUnderTargets(m, ghostTargets)) {
+          skinMeshes.push({ mesh: m, origMat: safeMat });
         }
       }
     });
 
     root.traverse((o) => {
-      if (!o.name) return;
+      if (!o.name && !o.userData?.name) return;
       const childMeshes: THREE.Mesh[] = [];
       o.traverse((sub) => {
         if ((sub as THREE.Mesh).isMesh) childMeshes.push(sub as THREE.Mesh);
       });
-      nodeMap.set(o.name, {
+      const st: SavedNodeState = {
         obj: o,
         basePos: o.position.clone(),
         baseRot: o.rotation.clone(),
         baseScale: o.scale.clone(),
         childMeshes,
-      });
+      };
+      if (o.name) nodeMap.set(o.name, st);
+      if (o.userData?.name) nodeMap.set(o.userData.name, st);
     });
 
     const ghostShellMat = ghost(ghostColor, ghostMaxOpacity, 2.15).clone();
-    return { root, nodeMap, skinMeshes, ghostShellMat };
-  }, [gltf, noCollide, castShadow, receiveShadow, ghostKey, ghostColor, ghostMaxOpacity]);
+    return { root, nodeMap, skinMeshes, clippedMeshes, ghostShellMat };
+  }, [
+    gltf,
+    noCollide,
+    castShadow,
+    receiveShadow,
+    replaceMaterial,
+    clipKey,
+    cutRimColor,
+    cutRimWidth,
+    cutRimBoost,
+    ghostKey,
+    ghostColor,
+    ghostMaxOpacity,
+  ]);
 
   notifyMounted(Boolean(rig));
 
+  const invPlanes = useMemo(
+    () => (clipPlanes && clipPlanes.length > 0 ? [clipPlanes[0].clone().negate()] : []),
+    [clipPlanes],
+  );
+
+  const ghostRoot = useMemo(() => {
+    if (!gltf || !hasClip || ghostCutawayOpacity <= 0.005) return null;
+    const clipTargets = clipNodes ?? [];
+    const gMat = ghost(ghostColor, ghostCutawayOpacity, 2.5).clone();
+    const root = gltf.scene.clone(true);
+    const gNodes = new Map<string, THREE.Object3D>();
+    root.traverse((o) => {
+      o.userData.noCollide = true;
+      const m = o as THREE.Mesh;
+      if (m.isMesh) {
+        if (!isUnderTargets(m, clipTargets)) {
+          m.visible = false;
+          m.userData.hideInGhost = true;
+          return;
+        }
+        m.castShadow = false;
+        m.receiveShadow = false;
+        m.material = gMat;
+      }
+      if (o.name) gNodes.set(o.name, o);
+      if (o.userData?.name) gNodes.set(o.userData.name, o);
+    });
+    return { root, gMat, gNodes };
+  }, [gltf, hasClip, clipKey, ghostCutawayOpacity, ghostColor]);
+
   if (!rig) return null;
 
-  // Khôi phục mặc định rồi áp biến đổi khớp tất định theo khung hiện tại
-  for (const st of rig.nodeMap.values()) {
+  for (const cm of rig.clippedMeshes) {
+    cm.mesh.material = hasClip ? cm.clipMat : cm.safeMat;
+    if (hasClip && clipPlanes) {
+      const mats = Array.isArray(cm.clipMat) ? cm.clipMat : [cm.clipMat];
+      for (const mat of mats) {
+        mat.clippingPlanes = clipPlanes;
+      }
+    }
+  }
+
+  if (ghostRoot && invPlanes.length > 0) {
+    ghostRoot.gMat.clippingPlanes = invPlanes;
+  }
+
+  for (const [name, st] of rig.nodeMap.entries()) {
     st.obj.position.copy(st.basePos);
     st.obj.rotation.copy(st.baseRot);
     st.obj.scale.copy(st.baseScale);
     st.obj.visible = true;
+    const go = ghostRoot?.gNodes.get(name);
+    if (go && !go.userData.hideInGhost) {
+      go.position.copy(st.basePos);
+      go.rotation.copy(st.baseRot);
+      go.scale.copy(st.baseScale);
+      go.visible = true;
+    }
   }
 
   if (joints) {
@@ -443,23 +584,80 @@ export const GltfRig: React.FC<GltfRigProps> = ({
       if (jt.castShadow !== undefined) {
         for (const cm of st.childMeshes) cm.castShadow = jt.castShadow;
       }
+      const go = ghostRoot?.gNodes.get(name);
+      if (go) {
+        go.position.copy(st.obj.position);
+        go.rotation.copy(st.obj.rotation);
+        go.scale.copy(st.obj.scale);
+        go.visible = st.obj.visible;
+      }
     }
   }
 
-  const isCut = cutaway > 0.02;
-  if (isCut) {
-    rig.ghostShellMat.uniforms.uOpacity.value = ghostMaxOpacity * Math.min(1, cutaway) + 0.03;
-  }
-  for (const sm of rig.skinMeshes) {
-    sm.mesh.material = isCut ? rig.ghostShellMat : sm.origMat;
-    sm.mesh.castShadow = castShadow && !isCut;
+  if (!hasClip) {
+    const isCut = cutaway > 0.02;
+    if (isCut) {
+      rig.ghostShellMat.uniforms.uOpacity.value = ghostMaxOpacity * Math.min(1, cutaway) + 0.03;
+    }
+    for (const sm of rig.skinMeshes) {
+      sm.mesh.material = isCut ? rig.ghostShellMat : sm.origMat;
+      sm.mesh.castShadow = castShadow && !isCut;
+    }
   }
 
   const sc: V3 = typeof scale === 'number' ? [scale, scale, scale] : scale;
   return (
-    <group position={position} rotation={rotation} scale={sc} userData={noCollide ? { noCollide: true } : undefined}>
+    <group position={position} rotation={rotation} scale={sc} userData={noCollide ? { noCollide: true } : { isActorRoot: true }}>
       <primitive object={rig.root} />
+      {ghostRoot && <primitive object={ghostRoot.root} />}
       {typeof children === 'function' ? children(rig.root) : children}
+    </group>
+  );
+};
+
+/**
+ * Lớp nội thất / cơ khí giải phẫu bên trong (Layer 2) chỉ hiển thị trong vùng đã được mặt phẳng laser `clipPlanes` cắt mở.
+ * Đảm bảo lớp ruột bên trong không bao giờ đâm xuyên qua lớp vỏ ngoài (Layer 1) khi tia laser đang quét.
+ */
+export const CutawayLayer: React.FC<{
+  clipPlanes?: THREE.Plane[];
+  position?: V3;
+  rotation?: V3;
+  scale?: number | V3;
+  children?: React.ReactNode;
+}> = ({ clipPlanes, position = [0, 0, 0], rotation = [0, 0, 0], scale = 1, children }) => {
+  const groupRef = useRef<THREE.Group>(null);
+  const invPlanes = useMemo(
+    () => (clipPlanes && clipPlanes.length > 0 ? clipPlanes.map((p) => p.clone().negate()) : null),
+    [clipPlanes],
+  );
+
+  useLayoutEffect(() => {
+    const g = groupRef.current;
+    if (!g) return;
+    g.traverse((o) => {
+      o.userData.noCollide = true;
+      const m = o as THREE.Mesh;
+      if (!m.isMesh || !m.material) return;
+      const applyClip = (mat: THREE.Material) => {
+        if (mat.userData?.__isCutawayClone) {
+          mat.clippingPlanes = invPlanes;
+          return mat;
+        }
+        const cloned = mat.clone();
+        cloned.userData = { ...cloned.userData, __isCutawayClone: true };
+        cloned.clippingPlanes = invPlanes;
+        cloned.clipShadows = true;
+        return cloned;
+      };
+      m.material = Array.isArray(m.material) ? m.material.map(applyClip) : applyClip(m.material);
+    });
+  }, [invPlanes, children]);
+
+  const sc: V3 = typeof scale === 'number' ? [scale, scale, scale] : scale;
+  return (
+    <group ref={groupRef} position={position} rotation={rotation} scale={sc} userData={{ noCollide: true }}>
+      {children}
     </group>
   );
 };

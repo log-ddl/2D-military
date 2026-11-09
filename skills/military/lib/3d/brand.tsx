@@ -1,9 +1,6 @@
-// Hệ thống gắn Logo Kênh tự nhiên bên trong không gian 3D & sơ đồ 2D (Diegetic Anti-Reup Branding).
-// Tự động nạp file logo từ `library/brand/` qua `@core/brand` (an toàn khung đầu với `delayRender` + `advance`):
-// - <BrandWallMark>: Logo kiến trúc/sơn tường trên vách nhà chứa máy bay, tháp chỉ huy, sàn studio X-Ray, bục sa bàn.
-// - <BrandDecal>: Sơn stencil ôm cong khít 100% theo bề mặt lưới 3D của cánh đuôi máy bay, tháp pháo xe tăng, mạn tàu, thùng đạn.
-// - <BrandPlate>: Bảng tên kim loại phay xước khắc nổi logo cho các góc cận mổ xẻ cơ khí / hộp số.
-// - <BrandMark2D>: Dấu bản vẽ kỹ thuật mờ tinh tế cho cảnh bản đồ / sơ đồ 2D.
+// Hệ thống gắn Logo Kênh tự nhiên trên bề mặt khí tài 3D (Diegetic Anti-Reup Branding).
+// Tự động nạp `logo_white.svg` / `logo_black.svg` từ `library/brand/` qua `@core/brand` (an toàn khung đầu với `delayRender` + `advance`):
+// - CHỈ dùng <BrandDecal>: Sơn stencil low-vis ôm cong khít 100% theo bề mặt lưới 3D của cánh đuôi máy bay, lưng cánh, tháp pháo xe tăng, mạn tàu.
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { continueRender, delayRender } from 'remotion';
 import { useThree } from '@react-three/fiber';
@@ -130,16 +127,16 @@ function buildBrandTextures(img: HTMLImageElement, tint: string | 'original', we
   return out;
 }
 
-function useBrandImage() {
-  const url = brandLogoUrl();
+function useBrandImage(variant?: 'white' | 'black') {
+  const url = brandLogoUrl(variant);
   const advance = useThree((s) => s.advance);
   const invalidate = useThree((s) => s.invalidate);
   const [img, setImg] = useState<HTMLImageElement | null>(() => imgLoadedCache.get(url) ?? null);
-  const [handle] = useState(() => delayRender(`brand:${url}`));
-  const releasedRef = useRef(false);
+  const [handle] = useState<number | null>(() => (imgLoadedCache.has(url) ? null : delayRender(`brand:${url}`)));
+  const releasedRef = useRef(handle === null);
 
   const releaseOnce = () => {
-    if (!releasedRef.current) {
+    if (!releasedRef.current && handle !== null) {
       releasedRef.current = true;
       continueRender(handle);
     }
@@ -162,19 +159,15 @@ function useBrandImage() {
   }, [url, img]);
 
   useEffect(() => {
-    if (!img || releasedRef.current) return;
+    if (!img) return;
     invalidate();
-    let raf2 = 0;
+    if (releasedRef.current) return;
     const raf1 = requestAnimationFrame(() => {
       advance(performance.now());
-      raf2 = requestAnimationFrame(() => {
-        advance(performance.now());
-        releaseOnce();
-      });
+      releaseOnce();
     });
     return () => {
       cancelAnimationFrame(raf1);
-      if (raf2) cancelAnimationFrame(raf2);
     };
   }, [img, advance, invalidate]);
 
@@ -198,60 +191,8 @@ export type BrandWallMarkProps = {
   backingColor?: string;
 };
 
-/** Gắn logo kênh lên vách nhà chứa máy bay, cửa khoang, sàn studio X-Ray hoặc vách bục sa bàn. */
-export const BrandWallMark: React.FC<BrandWallMarkProps> = ({
-  position = [0, 8, 0],
-  rotation = [0, Math.PI / 2, 0],
-  width = 6.5,
-  tint,
-  opacity,
-  roughness = 0.58,
-  metalness = 0.12,
-  backingPlate = false,
-  backingColor = '#dce3ec',
-}) => {
-  const cfg = brandConfig();
-  const img = useBrandImage();
-  const resolvedTint = tint ?? cfg.darkTint;
-  const resolvedOpacity = opacity ?? cfg.wallOpacity;
-
-  const tex = useMemo(
-    () => (img ? buildBrandTextures(img, resolvedTint, 0) : null),
-    [img, resolvedTint],
-  );
-
-  const mat = useMemo(() => {
-    if (!tex) return null;
-    return new THREE.MeshStandardMaterial({
-      map: tex.map,
-      transparent: true,
-      alphaTest: 0.015,
-      opacity: resolvedOpacity,
-      roughness,
-      metalness,
-      depthWrite: false,
-      polygonOffset: true,
-      polygonOffsetFactor: -3,
-      polygonOffsetUnits: -3,
-    });
-  }, [tex, resolvedOpacity, roughness, metalness]);
-
-  if (!tex || !mat) return null;
-
-  return (
-    <group position={position} rotation={rotation} userData={{ noCollide: true, noShadow: true }}>
-      {backingPlate && (
-        <mesh position={[0, 0, -0.03]} userData={{ noCollide: true, noShadow: true }}>
-          <boxGeometry args={[width * 1.16, width * 1.16, 0.04]} />
-          <meshStandardMaterial color={backingColor} roughness={0.45} metalness={0.08} />
-        </mesh>
-      )}
-      <mesh material={mat} castShadow={false} receiveShadow userData={{ noCollide: true, noShadow: true }}>
-        <planeGeometry args={[width, width]} />
-      </mesh>
-    </group>
-  );
-};
+/** Gắn logo kênh lên vách nhà chứa (đã vô hiệu hoá theo chuẩn mới: chỉ dùng <BrandDecal> trên bề mặt khí tài). */
+export const BrandWallMark: React.FC<BrandWallMarkProps> = () => null;
 
 export type BrandDecalProps = {
   /** Mesh hoặc nhánh Object3D (ví dụ `root` từ `<GltfRig>` hoặc `ref.current` của thân/tháp pháo) cần chiếu sơn lên. */
@@ -264,7 +205,9 @@ export type BrandDecalProps = {
   roll?: number;
   /** Kích thước [rộng, cao, độ sâu chiếu] (m) hoặc một số đơn (mặc định 1.2m). */
   size?: number | V3;
-  /** Màu sơn stencil ('original' để giữ màu gốc, mặc định lấy `darkTint` hoặc xám chiến thuật low-vis). */
+  /** Chọn trực tiếp bản logo trắng ('white' -> `logo_white.svg`) hoặc đen ('black' -> `logo_black.svg') từ `library/brand/`. */
+  variant?: 'white' | 'black';
+  /** Màu sơn stencil ('original' để giữ màu gốc của `logo_white.svg`/`logo_black.svg`, hoặc mã hex tuỳ chỉnh). */
   tint?: string | 'original';
   /** Độ đậm sơn stencil (mặc định lấy từ `brand.json`, ~0.46 cho kiểu low-vis quân sự). */
   opacity?: number;
@@ -274,6 +217,9 @@ export type BrandDecalProps = {
   metalness?: number;
 };
 
+// Cache geometry decal đã cắt theo (mesh UUID + vị trí + pháp tuyến + kích thước) để không cắt lại DecalGeometry khi clone nhiều máy bay cùng loại
+const DECAL_GEO_CACHE = new Map<string, THREE.BufferGeometry | null>();
+
 /** Sơn Stencil / Decal chiếu và ôm cong khít 100% theo bề mặt lưới 3D của khí tài (đuôi máy bay, tháp pháo, tàu chiến). */
 export const BrandDecal: React.FC<BrandDecalProps> = ({
   target,
@@ -281,6 +227,7 @@ export const BrandDecal: React.FC<BrandDecalProps> = ({
   normal = [0, 0, 1],
   roll = 0,
   size = 1.2,
+  variant,
   tint,
   opacity,
   wear = 0.18,
@@ -288,8 +235,17 @@ export const BrandDecal: React.FC<BrandDecalProps> = ({
   metalness = 0.16,
 }) => {
   const cfg = brandConfig();
-  const img = useBrandImage();
-  const resolvedTint = tint ?? cfg.darkTint;
+  const autoVariant: 'white' | 'black' = useMemo(() => {
+    if (variant) return variant;
+    if (tint && tint !== 'original') {
+      const c = new THREE.Color(tint);
+      const luma = 0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b;
+      return luma < 0.45 ? 'black' : 'white';
+    }
+    return 'white';
+  }, [variant, tint]);
+  const img = useBrandImage(autoVariant);
+  const resolvedTint = tint ?? (variant ? 'original' : cfg.darkTint);
   const resolvedOpacity = opacity ?? cfg.stencilOpacity;
 
   const obj = target && 'current' in target ? target.current : target;
@@ -306,6 +262,19 @@ export const BrandDecal: React.FC<BrandDecalProps> = ({
 
   const decalGeo = useMemo(() => {
     if (!obj) return null;
+    let meshSig = '';
+    obj.traverse((child) => {
+      const m = child as THREE.Mesh;
+      if (m.isMesh && m.geometry && meshSig.length < 160) {
+        const orig = (m.userData?.__origFullGeo as THREE.BufferGeometry) || m.geometry;
+        meshSig += `${m.name}:${orig.uuid}|`;
+      }
+    });
+    const cacheKey = `${meshSig}@${posKey}|${normKey}|${sizeKey}`;
+    if (DECAL_GEO_CACHE.has(cacheKey)) {
+      return DECAL_GEO_CACHE.get(cacheKey) ?? null;
+    }
+
     obj.updateWorldMatrix(true, true);
     const invRoot = obj.matrixWorld.clone().invert();
 
@@ -392,11 +361,15 @@ export const BrandDecal: React.FC<BrandDecalProps> = ({
       }
     });
 
-    if (parts.length === 0) return null;
-    if (parts.length === 1) return parts[0];
-    const merged = merge(parts);
-    for (const p of parts) p.dispose();
-    return merged;
+    let res: THREE.BufferGeometry | null = null;
+    if (parts.length === 1) {
+      res = parts[0];
+    } else if (parts.length > 1) {
+      res = merge(parts);
+      for (const p of parts) p.dispose();
+    }
+    DECAL_GEO_CACHE.set(cacheKey, res);
+    return res;
   }, [obj, posKey, normKey, sizeKey]);
 
   const mat = useMemo(() => {
@@ -428,64 +401,13 @@ export type BrandPlateProps = {
   logoTint?: string | 'original';
 };
 
-/** Nhãn kim loại phay xước dập nổi/khắc chìm logo (dùng ở góc cận mổ xẻ cơ khí, bệ trưng bày động cơ). */
-export const BrandPlate: React.FC<BrandPlateProps> = ({
-  position = [0, 0.02, 0],
-  rotation = [-Math.PI / 2, 0, 0],
-  width = 0.65,
-  plateColor = '#8f98a3',
-  logoTint = '#1d232b',
-}) => {
-  const img = useBrandImage();
-  const tex = useMemo(() => (img ? buildBrandTextures(img, logoTint, 0) : null), [img, logoTint]);
-  if (!tex) return null;
+/** Nhãn kim loại (đã vô hiệu hoá theo chuẩn mới: chỉ dùng <BrandDecal> trên bề mặt khí tài). */
+export const BrandPlate: React.FC<BrandPlateProps> = () => null;
 
-  const h = width * 0.62;
-  const thick = Math.max(0.008, width * 0.022);
-
-  return (
-    <group position={position} rotation={rotation} userData={{ noCollide: true }}>
-      <mesh receiveShadow castShadow userData={{ noCollide: true }}>
-        <boxGeometry args={[width, h, thick]} />
-        <meshStandardMaterial color={plateColor} roughness={0.32} metalness={0.78} />
-      </mesh>
-      <mesh position={[0, 0, thick * 0.5 + 0.001]} receiveShadow userData={{ noCollide: true }}>
-        <planeGeometry args={[h * 0.86, h * 0.86]} />
-        <meshStandardMaterial
-          map={tex.map}
-          bumpMap={tex.bump}
-          bumpScale={0.012}
-          transparent
-          opacity={0.88}
-          roughness={0.28}
-          metalness={0.65}
-          depthWrite={false}
-          polygonOffset
-          polygonOffsetFactor={-2}
-          polygonOffsetUnits={-2}
-        />
-      </mesh>
-    </group>
-  );
-};
-
-/** Dấu bản vẽ kỹ thuật nhỏ gọn gắn cố định vào tờ bản đồ / sơ đồ 2D (không phải watermark nổi trên kính). */
+/** Dấu bản vẽ 2D (đã vô hiệu hoá theo chuẩn mới: chỉ dùng <BrandDecal> trên bề mặt khí tài). */
 export const BrandMark2D: React.FC<{
   x?: number;
   y?: number;
   size?: number;
   opacity?: number;
-}> = ({ x = 1810, y = 1010, size = 54, opacity = 0.28 }) => {
-  const url = brandLogoUrl();
-  return (
-    <image
-      href={url}
-      x={x - size * 0.5}
-      y={y - size * 0.5}
-      width={size}
-      height={size}
-      opacity={opacity}
-      preserveAspectRatio="xMidYMid meet"
-    />
-  );
-};
+}> = () => null;
