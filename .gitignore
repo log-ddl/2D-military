@@ -38,3 +38,8 @@ mixamo/
 # trình duyệt headless Remotion tự tải về
 .remotion/
 *~lock~
+
+# kho đệm media tải về và thư mục voice thô cục bộ
+library/*/dl/
+library/*/epidemic/
+voice/

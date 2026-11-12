@@ -394,6 +394,43 @@ def frame_db(x, h):
     return 20 * np.log10(np.sqrt(np.mean(x[:k * h].reshape(k, h) ** 2, axis=1)) + 1e-9)
 
 
+def auto_protect_voice(v, music, amb, sfx, venv, scenes, logs):
+    """Tự động khoét thêm dải 1–4 kHz của SFX ở đúng các khung lúc có lời nếu SFX lấn giọng đọc."""
+    n = len(v)
+    h = SR // 10
+    k = n // h
+    if k < 5:
+        return sfx
+    band = lambda x: spectral(x, lambda f: hp(f, 1000, 2) * lp(f, 4000, 2))
+    vb = frame_db(band(v), h)
+    bg = frame_db(band((music + amb + sfx).mean(0)), h)
+    on = venv[:k * h].reshape(k, h).mean(1) > 0.5
+    snr = vb - bg
+
+    extra_frame_db = np.zeros(k)
+    adjusted = []
+    for s in scenes:
+        a, b = max(0, int(s['from'] * 10)), min(k, int(s['to'] * 10))
+        z = snr[a:b][on[a:b]]
+        if len(z) >= 5:
+            med = float(np.median(z))
+            bad = float(np.mean(z < 6) * 100)
+            if med < 12.6 or bad > 22.0:
+                need_med = max(0.0, 13.4 - med)
+                p22 = float(np.percentile(z, 22))
+                need_bad = max(0.0, 7.0 - p22) if bad > 22.0 else 0.0
+                cut_db = min(18.0, max(need_med, need_bad) + 1.2)
+                extra_frame_db[a:b] = np.maximum(extra_frame_db[a:b], cut_db)
+                adjusted.append(f"{s['id']}(-{cut_db:.1f}dB)")
+    if not adjusted:
+        return sfx
+    t_frames = (np.arange(k) + 0.5) * 0.1
+    curve_db = np.interp(np.arange(n) / SR, t_frames, extra_frame_db) * venv
+    curve_db = np.convolve(curve_db, np.ones(int(0.08 * SR)) / int(0.08 * SR), mode='same')
+    logs.append(f"  tự cân bằng SFX nhường lời (1–4 kHz): {', '.join(adjusted)}")
+    return carve(sfx, curve_db, mid_db=1.0, wide_db=0.35)
+
+
 def report(pdir, tl, v, music, amb, sfx, events, master, logs, used):
     n = len(v)
     lines = list(logs)
@@ -506,7 +543,10 @@ def main():
 
     trim = mix.get('trim', {})
     music *= 10 ** (trim.get('music', 0) / 20)
-    sfx_all = (sfx + amb) * 10 ** (trim.get('sfx', 0) / 20)
+    sfx_scale = 10 ** (trim.get('sfx', 0) / 20)
+    amb *= sfx_scale
+    sfx = auto_protect_voice(v, music, amb, sfx * sfx_scale, venv, tl['scenes'], logs)
+    sfx_all = sfx + amb
     vs = np.vstack([v, v])
     full = vs + music + sfx_all
     g = -14 - lufs(full, GLUE + ',')[0]

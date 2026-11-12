@@ -1,0 +1,3 @@
+display_name: History Military Documentary (footage thật · Remotion)
+short_description: Dựng phim tư liệu lịch sử quân sự từ kịch bản + voice trên footage và tài liệu thật; mỗi video một dự án trong projects/<id>/.
+default_prompt: Dựng phim tư liệu lịch sử quân sự từ kịch bản và voice theo skill history_military; tìm nguồn phạm vi công cộng, lập bảng shot, cắt theo câu, cao trào cắt theo nhịp nhạc, ghi nguồn ở mọi khung.

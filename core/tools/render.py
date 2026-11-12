@@ -2,6 +2,8 @@
 """Xuất mp4 hoặc mở Studio cho một dự án (chỉ đóng gói đúng dự án đó). Chạy build.py và audio.py trước.
 
     python3 core/tools/render.py <id>                       → projects/<id>/out/video.mp4 (voice + nhạc + sfx)
+    python3 core/tools/render.py <id> --chapter C01         → projects/<id>/out/chapters/C01.mp4 (xuất thử nhanh 1 chương)
+    python3 core/tools/render.py <id> --to 60 [--from 0]    → projects/<id>/out/preview_0s_60s.mp4 (xuất thử đoạn ngắn kiểm chuyển động)
     python3 core/tools/render.py <id> --no-music --no-sfx   bỏ nhạc nền / tiếng động khỏi bản xuất
     python3 core/tools/render.py <id> --resume              giữ các phần đã xuất xong ở lần trước, chỉ xuất phần còn thiếu
     python3 core/tools/render.py <id> --studio              → Studio ở port riêng của dự án (bật/tắt music, sfx ở bảng Props)
@@ -71,8 +73,22 @@ def main():
     props = {'music': '--no-music' not in argv, 'sfx': '--no-sfx' not in argv}
     tl = timeline(pdir)
     ch_id = argv[argv.index('--chapter') + 1] if '--chapter' in argv else None
+    sec_from = float(argv[argv.index('--from') + 1]) if '--from' in argv else None
+    sec_to = float(argv[argv.index('--to') + 1]) if '--to' in argv else None
     start_sec = 0.0
-    if ch_id:
+    if sec_from is not None or sec_to is not None:
+        fps = tl['fps']
+        s0 = max(0.0, sec_from or 0.0)
+        s1 = min(float(tl['duration']), sec_to if sec_to is not None else float(tl['duration']))
+        a, b = round(s0 * fps), max(round(s0 * fps), round(s1 * fps) - 1)
+        n = max(1, -(-(b - a + 1) // PART))
+        span = b - a + 1
+        ranges = [(a + span * i // n, a + span * (i + 1) // n - 1) for i in range(n)]
+        start_sec = s0
+        tag = f'preview_{int(round(s0))}s_{int(round(s1))}s'
+        out = pdir / 'out' / f'{tag}.mp4'
+        pdir_parts = pdir / f'out/parts_{tag}'
+    elif ch_id:
         chs = tl['chapters']
         idx = next((i for i, c in enumerate(chs) if c['id'] == ch_id), None)
         if idx is None:
@@ -86,10 +102,11 @@ def main():
         start_sec = float(ch['from'])
         out = pdir / 'out/chapters' / f'{ch_id}.mp4'
         out.parent.mkdir(parents=True, exist_ok=True)
+        pdir_parts = pdir / ('out/parts_' + ch_id)
     else:
         ranges = parts(tl)
         out = pdir / 'out/video.mp4'
-    pdir_parts = pdir / ('out/parts_' + ch_id if ch_id else 'out/parts')
+        pdir_parts = pdir / 'out/parts'
     if '--resume' not in argv:
         shutil.rmtree(pdir_parts, ignore_errors=True)
     pdir_parts.mkdir(parents=True, exist_ok=True)

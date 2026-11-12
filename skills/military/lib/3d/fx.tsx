@@ -1,5 +1,5 @@
 // Hiệu ứng 3D tất định theo thời gian t (giây voice):
-// - Explosion, MuzzleBlast, DustTrail, Trail, ballistic, ballisticPoints (nâng cấp cầu lửa bức xạ nhiệt + sóng xung kích + tia lửa)
+// - Explosion, MuzzleBlast, DustTrail, ballistic, ballisticPoints (nâng cấp cầu lửa bức xạ nhiệt + sóng xung kích + tia lửa)
 // - JetPlume: luồng phụt động cơ phản lực / tên lửa có vân kim cương siêu thanh (Mach diamonds)
 // - RotorBlur: đĩa mờ chuyển động quay tốc độ cao (cánh quạt trực thăng, chân vịt, tuabin)
 // - SmokeColumn: cột lửa & khói đen bốc lên liên tục theo gió (mục tiêu cháy, hỏng động cơ, chiến trường)
@@ -480,24 +480,8 @@ export const DustTrail: React.FC<{ t: number; from: number; to: number; path: (t
   return <>{items}</>;
 };
 
-/** Vệt sáng theo dãy điểm (quỹ đạo đạn), vẽ tới tỉ lệ `upto` 0..1. Phát sáng (bloom) khi `glow`. */
-export const Trail: React.FC<{ points: V3[]; upto?: number; color?: string; width?: number; opacity?: number; glow?: boolean }> = ({
-  points, upto = 1, color = '#ffb347', width = 0.15, opacity = 0.9, glow = true,
-}) => {
-  const n = Math.max(2, Math.floor(points.length * Math.min(1, upto)));
-  const geo = useMemo(() => {
-    if (upto <= 0.001) return null;
-    return new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points.slice(0, n).map((p) => new THREE.Vector3(...p))), n * 2, width, 6, false);
-  }, [points, n, width, upto]);
-  useEffect(() => () => geo?.dispose(), [geo]);
-  if (!geo) return null;
-  const matColor = glow ? new THREE.Color(color).multiplyScalar(1.8) : new THREE.Color(color);
-  return (
-    <mesh geometry={geo}>
-      <meshBasicMaterial color={matColor} transparent opacity={opacity} toneMapped={!glow} />
-    </mesh>
-  );
-};
+/** Đã ngưng dùng (trả về null): không vẽ ống vệt sáng giả cho đạn bắn hay đầu cánh máy bay; dùng `<MuzzleBlast>` + `<Explosion>`. */
+export const Trail: React.FC<{ points: V3[]; upto?: number; color?: string; width?: number; opacity?: number; glow?: boolean }> = () => null;
 
 /** Điểm trên quỹ đạo đạn đạo (parabol) từ `a` tới `b`, đỉnh cao `apex` trên đường nối; p = 0..1. */
 export const ballistic = (p: number, a: V3, b: V3, apex: number): V3 => [

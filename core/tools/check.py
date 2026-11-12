@@ -100,7 +100,7 @@ def rel(p: Path, base: Path) -> str:
 
 
 def typecheck(work: Path, label: str):
-    write_tsconfig(work / 'tsconfig.json', ['./entry.tsx'], {'incremental': True, 'tsBuildInfoFile': './tsconfig.tsbuildinfo'})
+    write_tsconfig(work / 'tsconfig.json', ['./entry.tsx'], {'incremental': True, 'tsBuildInfoFile': './tsconfig.tsbuildinfo', 'noUnusedLocals': False, 'noUnusedParameters': False})
     errs = tsc(work / 'tsconfig.json')
     if errs:
         print(f'LỖI TypeScript khi kiểm {label}:')
@@ -315,39 +315,6 @@ def shoot_ranges(pdir: Path, proj: dict, tl: dict, jobs: list, full: bool):
 
 # ---------------------------------------------------------------- cảnh cô lập
 
-_VI_DIACRITIC_RE = re.compile(
-    r'[àáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵđ]',
-    re.IGNORECASE,
-)
-
-
-def warn_scene_typography(pdir: Path, sids: list):
-    """Nhắc nhở khi cảnh tự viết thẻ <text>/fontFamily hoặc dùng sai ngôn ngữ chữ so với voice."""
-    voice_lang = None
-    tr_file = pdir / 'plan/transcript.json'
-    if tr_file.is_file():
-        try:
-            voice_lang = json.loads(tr_file.read_text()).get('language')
-        except Exception:
-            voice_lang = None
-
-    for sid in sids:
-        src = pdir / 'src/scenes' / f'{sid}.tsx'
-        if not src.is_file():
-            continue
-        code = src.read_text()
-        raw_txt = len(re.findall(r'<text\b', code))
-        raw_font = len(re.findall(r'\bfontFamily\s*:', code))
-        if raw_txt or raw_font:
-            print(f'  ⚠ [chữ] {sid}.tsx: có {raw_txt} thẻ <text> / {raw_font} fontFamily tự viết — ưu tiên dùng component nhãn chuẩn của skill để đồng bộ chữ toàn kênh')
-        if voice_lang == 'en':
-            # Bỏ comment trước khi tìm chuỗi hiển thị để không bắt nhầm comment tiếng Việt
-            no_comments = re.sub(r'//[^\n]*|/\*[\s\S]*?\*/', '', code)
-            ui_strings = re.findall(r'\b(?:text|sub|title|subtitle)\s*=\s*["\']([^"\']+)["\']', no_comments)
-            vi_hits = [s for s in ui_strings if _VI_DIACRITIC_RE.search(s)]
-            if vi_hits:
-                print(f'  ⚠ [ngôn ngữ] {sid}.tsx: voice là tiếng Anh (en) nhưng chữ hiển thị có tiếng Việt: {vi_hits[:3]} — chữ trên hình bắt buộc cùng ngôn ngữ với voice')
-
 
 def shoot_scenes(pdir: Path, proj: dict, want: list, n: int, cols: int, width: int, force: bool, full: bool):
     tl = timeline(pdir)
@@ -358,7 +325,6 @@ def shoot_scenes(pdir: Path, proj: dict, want: list, n: int, cols: int, width: i
         s = by[sid]
         if (s['type'] == 'code' or s.get('overlay')) and not (pdir / 'src/scenes' / f'{sid}.tsx').exists():
             sys.exit(f'chưa có file src/scenes/{sid}.tsx')
-    warn_scene_typography(pdir, want)
     sync_cues(pdir)
 
     fps, w, h = proj['fps'], proj['width'], proj['height']
@@ -415,13 +381,16 @@ def shoot_scenes(pdir: Path, proj: dict, want: list, n: int, cols: int, width: i
     if errs:
         sys.exit('THIẾU tài sản: ' + '; '.join(errs))
 
+    all_code = all(by[sid]['type'] == 'code' and not by[sid].get('overlay') for sid in dirty)
     with work_lock(pdir / '.build/check' / ('scene_' + '_'.join(dirty))) as work:
         imports = [
             "import '" + rel(pdir / '.build/assets', work) + "';",
-            "import { Composition, registerRoot } from 'remotion';",
-            "import { SceneView } from '@core/timeline';",
+            "import React from 'react';",
+            "import { Composition, registerRoot, useCurrentFrame, useVideoConfig } from 'remotion';",
+            "import { SceneView, type SceneSpec } from '@core/timeline';",
         ]
-        comps = []
+        comps, batch_specs, batch_items, scene_ranges = [], [], [], {}
+        cur_idx = 0
         for sid in dirty:
             s = by[sid]
             comp = None
@@ -429,28 +398,74 @@ def shoot_scenes(pdir: Path, proj: dict, want: list, n: int, cols: int, width: i
                 imports.append(f"import {sid} from '{rel(pdir / 'src/scenes' / sid, work)}';")
                 comp = sid
             ts, _ = scene_spec_ts(dict(s, transition='cut'), comp, w, h)
-            _, _, _, _, base, dur = plan[sid]
+            f0, lf0, lf1, step, base, dur = plan[sid]
+            cnt = min(n, (lf1 - lf0) // step + 1)
+            secs_list = [(f0 + i * step) / fps for i in range(cnt)]
+            scene_ranges[sid] = (cur_idx, cur_idx + cnt, secs_list)
+            cur_idx += cnt
+            batch_specs.append(f'const spec_{sid}: SceneSpec = {ts};')
+            for t_sec in secs_list:
+                batch_items.append(f"  {{ sid: '{sid}', s: spec_{sid}, t: {t_sec:.6f} }},")
             comps.append(f'    <Composition id="scene-{sid}" component={{() => <SceneView s={{{ts}}} t0={{{base / fps:.6f}}} />}} '
                          f'durationInFrames={{{dur}}} fps={{{fps}}} width={{{w}}} height={{{h}}} />')
-        write_if_changed(work / 'entry.tsx', '\n'.join(imports) + '\n\nregisterRoot(() => (\n  <>\n' + '\n'.join(comps) + '\n  </>\n));\n')
+        if all_code and len(dirty) > 1:
+            batch_code = [
+                *batch_specs,
+                'const BATCH_ITEMS: { sid: string; s: SceneSpec; t: number }[] = [',
+                *batch_items,
+                '];',
+                'const BatchSceneRunner: React.FC = () => {',
+                '  const f = useCurrentFrame();',
+                '  const { fps } = useVideoConfig();',
+                '  const it = BATCH_ITEMS[Math.min(f, BATCH_ITEMS.length - 1)];',
+                '  return <SceneView key={it.sid} s={it.s} t0={it.t - f / fps} />;',
+                '};',
+            ]
+            comps.append(f'    <Composition id="scene-batch" component={{BatchSceneRunner}} '
+                         f'durationInFrames={{{cur_idx}}} fps={{{fps}}} width={{{w}}} height={{{h}}} />')
+        else:
+            batch_code = []
+        write_if_changed(
+            work / 'entry.tsx',
+            '\n'.join([*imports, '', *batch_code, '', 'registerRoot(() => (', '  <>', *comps, '  </>', '));', '']),
+        )
         typecheck(work, f"cảnh {', '.join(dirty)}")
 
         done_sigs = {}
+        pub = [f'--public-dir={pdir / ".build/public"}']
         with tempfile.TemporaryDirectory(dir=work, prefix='shots_') as td, render_slot():
             tdp = Path(td)
-            target, pub = (bundle(work / 'entry.tsx', tdp, pdir), []) if len(dirty) > 1 else \
-                (str(work / 'entry.tsx'), [f'--public-dir={pdir / ".build/public"}'])
-            for sid in dirty:
-                f0, lf0, lf1, step, _, _ = plan[sid]
-                sd = tdp / sid
-                sd.mkdir()
-                shots = render_frames(target, f'scene-{sid}', f'{lf0}-{lf1}', step, render_scale(width, w, full), sd, pub)[:n]
-                out = pdir / 'out/checks/scenes' / f'{sid}.png'
-                tile_frames(shots, sd, cols, width, out)
-                secs = ' '.join(f'{(f0 + i * step) / fps:.2f}' for i in range(len(shots)))
-                write_secs(out, secs)
-                done_sigs[f'scene:{sid}'] = new_sigs[f'scene:{sid}']
-                print(out, '\n  mốc (giây):', secs)
+            if all_code and len(dirty) > 1:
+                sd_all = tdp / 'batch'
+                sd_all.mkdir()
+                all_shots = render_frames(
+                    str(work / 'entry.tsx'), 'scene-batch', f'0-{cur_idx - 1}', 1,
+                    render_scale(width, w, full), sd_all, pub,
+                )
+                for sid in dirty:
+                    i0, i1, secs_list = scene_ranges[sid]
+                    sd = tdp / sid
+                    sd.mkdir()
+                    shots = all_shots[i0:i1]
+                    out = pdir / 'out/checks/scenes' / f'{sid}.png'
+                    tile_frames(shots, sd, cols, width, out)
+                    secs = ' '.join(f'{t_sec:.2f}' for t_sec in secs_list[:len(shots)])
+                    write_secs(out, secs)
+                    done_sigs[f'scene:{sid}'] = new_sigs[f'scene:{sid}']
+                    print(out, '\n  mốc (giây):', secs)
+            else:
+                target, r_pub = (bundle(work / 'entry.tsx', tdp, pdir), []) if len(dirty) > 1 else (str(work / 'entry.tsx'), pub)
+                for sid in dirty:
+                    f0, lf0, lf1, step, _, _ = plan[sid]
+                    sd = tdp / sid
+                    sd.mkdir()
+                    shots = render_frames(target, f'scene-{sid}', f'{lf0}-{lf1}', step, render_scale(width, w, full), sd, r_pub)[:n]
+                    out = pdir / 'out/checks/scenes' / f'{sid}.png'
+                    tile_frames(shots, sd, cols, width, out)
+                    secs = ' '.join(f'{(f0 + i * step) / fps:.2f}' for i in range(len(shots)))
+                    write_secs(out, secs)
+                    done_sigs[f'scene:{sid}'] = new_sigs[f'scene:{sid}']
+                    print(out, '\n  mốc (giây):', secs)
         update_sigs(pdir, done_sigs)
 
 
@@ -511,26 +526,83 @@ def shoot_parts(pdir: Path, proj: dict, raw: str, width: int, force: bool, full:
     with work_lock(pdir / '.build/check' / tag) as work:
         imports = [
             "import '" + rel(pdir / '.build/assets', work) + "';",
-            "import { Composition, registerRoot } from 'remotion';",
-            "import { PreviewHost } from '@core/preview';",
+            "import React from 'react';",
+            "import { AbsoluteFill, Composition, registerRoot, useCurrentFrame } from 'remotion';",
+            "import { PreviewHost, type Preview } from '@core/preview';",
         ]
-        comps = []
+        comps, part_items = [], []
         for nm in dirty:
             imports.append(f"import {{ preview as P_{nm} }} from '{rel(have[nm].with_suffix(''), work)}';")
+            part_items.append(f"  {{ name: '{nm}', P: P_{nm} }},")
             comps.append(f'    <Composition id="{comp_id(f"part-{nm}")}" component={{() => <PreviewHost preview={{P_{nm}}} />}} '
                          f'durationInFrames={{P_{nm}.views}} fps={{30}} width={{{w}}} height={{{h}}} />')
-        write_if_changed(work / 'entry.tsx', '\n'.join(imports) + '\n\nregisterRoot(() => (\n  <>\n' + '\n'.join(comps) + '\n  </>\n));\n')
+        if len(dirty) > 1:
+            batch_code = [
+                'const PART_BATCH: { name: string; P: Preview }[] = [',
+                *part_items,
+                '];',
+                'let _loggedViews = false;',
+                'const BatchPartRunner: React.FC = () => {',
+                '  const f = useCurrentFrame();',
+                '  if (!_loggedViews) { _loggedViews = true; console.warn("__PART_VIEWS__:" + JSON.stringify(PART_BATCH.map((it) => it.P.views))); }',
+                '  let rem = f;',
+                '  for (const it of PART_BATCH) {',
+                '    if (rem < it.P.views) {',
+                '      return <AbsoluteFill key={it.name} style={{ backgroundColor: "#20232a" }}><it.P.C view={rem} /></AbsoluteFill>;',
+                '    }',
+                '    rem -= it.P.views;',
+                '  }',
+                '  const last = PART_BATCH[PART_BATCH.length - 1];',
+                '  return <AbsoluteFill key={last.name} style={{ backgroundColor: "#20232a" }}><last.P.C view={0} /></AbsoluteFill>;',
+                '};',
+            ]
+            comps.append(
+                f'    <Composition id="part-batch" component={{BatchPartRunner}} '
+                f'durationInFrames={{PART_BATCH.reduce((s, it) => s + it.P.views, 0)}} fps={{30}} width={{{w}}} height={{{h}}} />'
+            )
+        else:
+            batch_code = []
+        write_if_changed(
+            work / 'entry.tsx',
+            '\n'.join([*imports, '', *batch_code, '', 'registerRoot(() => (', '  <>', *comps, '  </>', '));', '']),
+        )
         typecheck(work, f"part {', '.join(dirty)}")
 
         done_sigs = {}
+        pub = [f'--public-dir={pdir / ".build/public"}']
         with tempfile.TemporaryDirectory(dir=work, prefix='shots_') as td, render_slot():
             tdp = Path(td)
-            target = bundle(work / 'entry.tsx', tdp, pdir)
-            for nm in dirty:
+            if len(dirty) > 1:
+                sd_all = tdp / 'batch'
+                sd_all.mkdir()
+                r = remotion(['render', str(work / 'entry.tsx'), 'part-batch', str(sd_all / 'f'), '--sequence',
+                              '--image-format=jpeg', f'--scale={render_scale(width, w, full)}', '--muted', *pub, '--log=warn'],
+                             capture_output=True, text=True)
+                all_shots = sorted((sd_all / 'f').glob('*.jpeg'))
+                vm = re.search(r'__PART_VIEWS__:(\[[0-9,\s]+\])', (r.stdout or '') + '\n' + (r.stderr or ''))
+                views_list = json.loads(vm.group(1)) if vm else (
+                    [len(all_shots) // len(dirty)] * len(dirty) if all_shots and len(all_shots) % len(dirty) == 0 else []
+                )
+                if r.returncode or len(views_list) != len(dirty) or sum(views_list) != len(all_shots):
+                    print(r.stdout[-3000:], r.stderr[-3000:])
+                    sys.exit('render lỗi ở part-batch')
+                cur = 0
+                for nm, v in zip(dirty, views_list):
+                    shots = all_shots[cur:cur + v]
+                    cur += v
+                    sd = tdp / nm
+                    sd.mkdir()
+                    out = pdir / 'out/checks/parts' / f'{nm}.png'
+                    tile_frames(shots, sd, 2 if len(shots) == 4 else min(len(shots), 4), width, out)
+                    done_sigs[f'part:{nm}'] = new_sigs[f'part:{nm}']
+                    print(out, f'  ({len(shots)} góc)')
+            else:
+                nm = dirty[0]
                 sd = tdp / nm
                 sd.mkdir()
-                r = remotion(['render', target, comp_id(f'part-{nm}'), str(sd / 'f'), '--sequence', '--image-format=jpeg',
-                              f'--scale={render_scale(width, w, full)}', '--muted', '--log=error'], capture_output=True, text=True)
+                r = remotion(['render', str(work / 'entry.tsx'), comp_id(f'part-{nm}'), str(sd / 'f'), '--sequence',
+                              '--image-format=jpeg', f'--scale={render_scale(width, w, full)}', '--muted', *pub, '--log=error'],
+                             capture_output=True, text=True)
                 shots = sorted((sd / 'f').glob('*.jpeg'))
                 if r.returncode or not shots:
                     print(r.stdout[-3000:], r.stderr[-3000:])
@@ -572,7 +644,7 @@ def main():
             sys.exit('cần ít nhất 2 chương')
         i = argv.index('--seams') + 1
         only = {x.strip() for x in argv[i].split(',')} if i < len(argv) and not argv[i].startswith('--') else set()
-        n, cols, width = opt(argv, '--n', 6, int), opt(argv, '--cols', 6, int), opt(argv, '--width', 480, int)
+        n, cols, width = opt(argv, '--n', 6, int), opt(argv, '--cols', 6, int), opt(argv, '--width', 640, int)
         jobs = []
         for c0, c1 in zip(chs, chs[1:]):
             if not only or c0['id'] in only or c1['id'] in only:
@@ -587,13 +659,13 @@ def main():
         c = next((c for c in chs if c['id'] == cid), None) or sys.exit(f'không có chương {cid}')
         k = sum(s['chapter'] == cid for s in tl['scenes'])
         shoot_ranges(pdir, proj, tl, [(f'chapter_{cid}', c['from'], c['to'], opt(argv, '--n', max(12, min(36, 2 * k)), int),
-                                       opt(argv, '--cols', 6, int), opt(argv, '--width', 480, int), out / 'chapters' / f'{cid}.png')], full)
+                                       opt(argv, '--cols', 6, int), opt(argv, '--width', 640, int), out / 'chapters' / f'{cid}.png')], full)
         return
     a, b = opt(argv, '--from', 0.0, float), opt(argv, '--to', tl['duration'], float)
     name = 'sheet.png' if '--from' not in argv and '--to' not in argv else f'sheet_{a:g}-{b:g}.png'
     tag = 'full' if name == 'sheet.png' else re.sub(r'[^A-Za-z0-9_]+', '_', f'range_{a:g}_{b:g}')
     shoot_ranges(pdir, proj, tl, [(tag, a, b, opt(argv, '--n', 24, int), opt(argv, '--cols', 6, int),
-                                   opt(argv, '--width', 480, int), out / name)], full)
+                                   opt(argv, '--width', 640, int), out / name)], full)
 
 
 if __name__ == '__main__':

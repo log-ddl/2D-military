@@ -1,0 +1,3 @@
+display_name: Story 2D (kể chuyện hoạt hình 2.5D kiểu Paper Millions)
+short_description: Đạo diễn và dựng video kể chuyện điều tra / tài chính / công nghệ / nhân vật kiểu Paper Millions bằng hoạt hình 2.5D thuần vẽ, ẩn dụ vật lý, chia ô truyện tranh và thẻ đen từng từ.
+default_prompt: Dựng video kể chuyện hoạt hình 2.5D theo skill story_2d (phong cách Paper Millions) — dịch mọi ý sang ẩn dụ vật lý trực diện, khung chia ô truyện tranh, thẻ đen #000000 đúng nhịp 20s, hỗ trợ cả voice có sẵn lẫn kịch bản đa giọng.

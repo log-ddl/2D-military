@@ -191,48 +191,59 @@ export const Measure3D: React.FC<Measure3DProps> = ({
   }, [text, color]);
 
   const barMat = useMemo(
-    () => new THREE.MeshBasicMaterial({ color, toneMapped: false }),
+    () =>
+      new THREE.MeshBasicMaterial({
+        color,
+        transparent: true,
+        depthTest: false,
+        depthWrite: false,
+        toneMapped: false,
+      }),
     [color],
   );
 
-  if (!basis || p <= 0.002) return null;
+  if (!basis || p <= 0.02) return null;
 
-  const span = basis.len * p;
+  const barOpacity = Math.max(0, Math.min(1, p / 0.35));
+  barMat.opacity = barOpacity;
+  const span = basis.len * (0.85 + 0.15 * Math.min(1, p / 0.5));
   const planeH = fontSize * 1.65;
   const planeW = planeH * labelTex.aspect;
-  const textOpacity = Math.max(0, Math.min(1, (p - 0.22) / 0.55));
+  const textOpacity = Math.max(0, Math.min(1, (p - 0.12) / 0.45));
   const textY = thickness * 0.5 + fontSize * 0.72;
 
   return (
     <group position={[basis.mid.x, basis.mid.y, basis.mid.z]} quaternion={basis.quat} userData={{ noShadow: true, noCollide: true }}>
-      <mesh material={barMat}>
+      <mesh material={barMat} renderOrder={998}>
         <boxGeometry args={[span, thickness, thickness * 0.65]} />
       </mesh>
-      <mesh position={[-span / 2, 0, 0]} material={barMat}>
+      <mesh position={[-span / 2, 0, 0]} material={barMat} renderOrder={998}>
         <boxGeometry args={[thickness * 1.15, tickSize, thickness * 0.65]} />
       </mesh>
-      <mesh position={[span / 2, 0, 0]} material={barMat}>
+      <mesh position={[span / 2, 0, 0]} material={barMat} renderOrder={998}>
         <boxGeometry args={[thickness * 1.15, tickSize, thickness * 0.65]} />
       </mesh>
       {textOpacity > 0.005 && (
         <group position={[0, textY, 0]}>
-          <mesh position={[0, 0, 0.002]}>
+          <mesh position={[0, 0, 0.002]} renderOrder={999}>
             <planeGeometry args={[planeW, planeH]} />
             <meshBasicMaterial
               map={labelTex.tex}
               transparent
               opacity={textOpacity}
+              depthTest={false}
               depthWrite={false}
               toneMapped={false}
               side={THREE.FrontSide}
             />
           </mesh>
-          <mesh position={[0, 0, -0.002]} rotation={[0, Math.PI, 0]}>
+          <mesh position={[0, 0, -0.002]} rotation={[0, Math.PI, 0]} renderOrder={999}>
             <planeGeometry args={[planeW, planeH]} />
             <meshBasicMaterial
               map={labelTex.tex}
               transparent
               opacity={textOpacity}
+              depthTest={false}
               depthWrite={false}
               toneMapped={false}
               side={THREE.FrontSide}

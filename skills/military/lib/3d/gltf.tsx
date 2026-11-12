@@ -359,11 +359,17 @@ export type GltfRigProps = {
   ghostCutawayOpacity?: number;
   /** Danh sách tên node (hoặc tiền tố tên) sẽ chuyển sang lớp kính mờ X-Ray khi `cutaway > 0` (nếu không dùng clipPlanes). */
   ghostNodes?: string[];
-  /** Tiến trình mổ xẻ X-Ray 0..1 (0 = sơn PBR gốc, 1 = vỏ mờ Fresnel lộ cơ khí bên trong). */
+  /** Tiến trình mổ xẻ vỏ mờ 0..1 (0 = sơn PBR đặc 100%, tăng dần sẽ hoà tan mượt lớp vỏ xuống `ghostMaxOpacity`, không giật frame). */
   cutaway?: number;
   ghostColor?: string;
-  /** Độ mờ tối đa của vỏ X-Ray khi cutaway = 1 (mặc định 0.2). */
+  /** Độ mờ tối thiểu của vỏ khi cutaway = 1 (mặc định 0.2). */
   ghostMaxOpacity?: number;
+  /** Tiến trình tách nắp cơ khí / bung cụm lắp ráp Exploded View 0..1 (0 = khít nguyên bản, 1 = tách hết biên độ). */
+  explode?: number;
+  /** Vector tịnh tiến cục bộ [dx, dy, dz] (m) theo tên node hoặc tiền tố tên khi `explode = 1`. */
+  explodeVectors?: Record<string, V3>;
+  /** Góc mở bản lề cục bộ [rx, ry, rz] (radian) theo tên node hoặc tiền tố tên khi `explode = 1` (mở nắp khoang máy, cửa hầm đạn…). */
+  explodeRotations?: Record<string, V3>;
   children?: React.ReactNode | ((root: THREE.Object3D) => React.ReactNode);
 };
 
@@ -396,6 +402,9 @@ export const GltfRig: React.FC<GltfRigProps> = ({
   cutaway = 0,
   ghostColor = '#b8c7d8',
   ghostMaxOpacity = 0.2,
+  explode = 0,
+  explodeVectors,
+  explodeRotations,
   children,
 }) => {
   const { gltf, notifyMounted } = useLoadedGLTF(src);
@@ -430,7 +439,11 @@ export const GltfRig: React.FC<GltfRigProps> = ({
     const root = gltf.scene.clone(true);
     const ghostTargets = ghostNodes ?? [];
     const clipTargets = clipNodes ?? [];
-    const skinMeshes: { mesh: THREE.Mesh; origMat: THREE.Material | THREE.Material[] }[] = [];
+    const skinMeshes: {
+      mesh: THREE.Mesh;
+      origMat: THREE.Material | THREE.Material[];
+      fadeMat: THREE.Material | THREE.Material[];
+    }[] = [];
     const clippedMeshes: {
       mesh: THREE.Mesh;
       safeMat: THREE.Material | THREE.Material[];
@@ -462,7 +475,14 @@ export const GltfRig: React.FC<GltfRigProps> = ({
         }
 
         if (ghostTargets.length > 0 && isUnderTargets(m, ghostTargets)) {
-          skinMeshes.push({ mesh: m, origMat: safeMat });
+          const fadeArr = safeArr.map((smMat) => {
+            const dm = smMat.clone();
+            dm.transparent = true;
+            dm.side = THREE.FrontSide;
+            return dm;
+          });
+          const fadeMat = Array.isArray(m.material) ? fadeArr : fadeArr[0];
+          skinMeshes.push({ mesh: m, origMat: safeMat, fadeMat });
         }
       }
     });
@@ -484,8 +504,7 @@ export const GltfRig: React.FC<GltfRigProps> = ({
       if (o.userData?.name) nodeMap.set(o.userData.name, st);
     });
 
-    const ghostShellMat = ghost(ghostColor, ghostMaxOpacity, 2.15).clone();
-    return { root, nodeMap, skinMeshes, clippedMeshes, ghostShellMat };
+    return { root, nodeMap, skinMeshes, clippedMeshes };
   }, [
     gltf,
     noCollide,
@@ -497,8 +516,6 @@ export const GltfRig: React.FC<GltfRigProps> = ({
     cutRimWidth,
     cutRimBoost,
     ghostKey,
-    ghostColor,
-    ghostMaxOpacity,
   ]);
 
   notifyMounted(Boolean(rig));
@@ -594,14 +611,62 @@ export const GltfRig: React.FC<GltfRigProps> = ({
     }
   }
 
+  if (Math.abs(explode) > 1e-4 && (explodeVectors || explodeRotations)) {
+    const eKeys = Array.from(
+      new Set([...Object.keys(explodeVectors ?? {}), ...Object.keys(explodeRotations ?? {})]),
+    );
+    const applied = new Set<THREE.Object3D>();
+    rig.root.traverse((o) => {
+      const nm = o.name || '';
+      const unm = (o.userData?.name as string) || '';
+      if (!nm && !unm) return;
+      // Tránh nhân đôi độ lệch nếu nút cha đã khớp tiền tố
+      let p = o.parent;
+      while (p) {
+        if (applied.has(p)) return;
+        p = p.parent;
+      }
+      const matched = eKeys.find(
+        (k) => nm === k || nm.startsWith(k) || unm === k || unm.startsWith(k),
+      );
+      if (!matched) return;
+      applied.add(o);
+      const dv = explodeVectors?.[matched];
+      if (dv) {
+        o.position.x += dv[0] * explode;
+        o.position.y += dv[1] * explode;
+        o.position.z += dv[2] * explode;
+      }
+      const dr = explodeRotations?.[matched];
+      if (dr) {
+        o.rotation.x += dr[0] * explode;
+        o.rotation.y += dr[1] * explode;
+        o.rotation.z += dr[2] * explode;
+      }
+      const go = ghostRoot?.gNodes.get(nm) ?? ghostRoot?.gNodes.get(unm);
+      if (go) {
+        go.position.copy(o.position);
+        go.rotation.copy(o.rotation);
+      }
+    });
+  }
+
   if (!hasClip) {
-    const isCut = cutaway > 0.02;
-    if (isCut) {
-      rig.ghostShellMat.uniforms.uOpacity.value = ghostMaxOpacity * Math.min(1, cutaway) + 0.03;
-    }
+    const c = Math.max(0, Math.min(1, cutaway));
+    const isCut = c > 0.001;
+    const targetOpacity = 1.0 - (1.0 - ghostMaxOpacity) * c;
     for (const sm of rig.skinMeshes) {
-      sm.mesh.material = isCut ? rig.ghostShellMat : sm.origMat;
-      sm.mesh.castShadow = castShadow && !isCut;
+      if (isCut) {
+        const fMats = Array.isArray(sm.fadeMat) ? sm.fadeMat : [sm.fadeMat];
+        for (const fm of fMats) {
+          fm.opacity = targetOpacity;
+          fm.depthWrite = targetOpacity > 0.88;
+        }
+        sm.mesh.material = sm.fadeMat;
+      } else {
+        sm.mesh.material = sm.origMat;
+      }
+      sm.mesh.castShadow = castShadow && targetOpacity > 0.55;
     }
   }
 

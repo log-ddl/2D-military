@@ -439,74 +439,193 @@ def apply_selective_decimate(meshes, role: str, custom_ratio):
     return total_before, total_after, ratio
 
 
-def bake_procedural_materials_if_needed(meshes, td: Path):
-    """Nếu vật liệu dùng node thủ tục phức tạp không có ảnh Base Color, tự nướng sang PBR Image Texture trên đĩa."""
+_PROCEDURAL_NODE_TYPES = {
+    'TEX_NOISE', 'TEX_VORONOI', 'TEX_MUSGRAVE', 'TEX_WAVE', 'TEX_GRADIENT',
+    'TEX_MAGIC', 'TEX_CHECKER', 'TEX_BRICK', 'VALTORGB', 'AMBIENT_OCCLUSION',
+    'BEVEL', 'NEW_GEOMETRY', 'OBJECT_INFO', 'VERTEX_COLOR', 'ATTRIBUTE',
+    'GROUP', 'MIX_SHADER', 'ADD_SHADER',
+}
+
+
+def ensure_mesh_uv(o):
+    """Tạo UVMap tự động bằng Smart UV Project nếu mesh chưa có lớp UV nào."""
+    if o.data.uv_layers:
+        return True
+    try:
+        if o.data.users > 1:
+            o.data = o.data.copy()
+        o.data.uv_layers.new(name='UVMap')
+        bpy.ops.object.select_all(action='DESELECT')
+        o.select_set(True)
+        bpy.context.view_layer.objects.active = o
+        bpy.ops.object.mode_set(mode='EDIT')
+        bpy.ops.mesh.select_all(action='SELECT')
+        bpy.ops.uv.smart_project(angle_limit=math.radians(66.0), island_margin=0.02)
+        bpy.ops.object.mode_set(mode='OBJECT')
+        return True
+    except Exception:
+        try:
+            bpy.ops.object.mode_set(mode='OBJECT')
+        except Exception:
+            pass
+        return bool(o.data.uv_layers)
+
+
+def _needs_material_bake(mat) -> tuple[bool, bool, bool]:
+    """Trả về (bake_color, bake_roughness, bake_normal) nếu vật liệu dùng Shader Nodes thủ tục / NodeGroup."""
+    if not mat or not mat.node_tree:
+        return (False, False, False)
+    nodes = mat.node_tree.nodes
+    out_node = next((n for n in nodes if n.type == 'OUTPUT_MATERIAL' and n.is_active_output), None)
+    if not out_node:
+        out_node = next((n for n in nodes if n.type == 'OUTPUT_MATERIAL'), None)
+    if not out_node or not out_node.inputs['Surface'].is_linked:
+        return (False, False, False)
+
+    surf_node = out_node.inputs['Surface'].links[0].from_node
+    has_proc_nodes = any(n.type in _PROCEDURAL_NODE_TYPES for n in nodes)
+    has_bump = any(n.type == 'BUMP' for n in nodes)
+
+    # Nếu nối thẳng NodeGroup hoặc MixShader ra Output -> glTF exporter không hiểu, cần bake cả 3 kênh
+    if surf_node.type != 'BSDF_PRINCIPLED':
+        return (True, True, has_bump or surf_node.type == 'GROUP')
+
+    bsdf = surf_node
+    bc_in = bsdf.inputs.get('Base Color')
+    rough_in = bsdf.inputs.get('Roughness')
+    norm_in = bsdf.inputs.get('Normal')
+
+    bake_color = False
+    if bc_in and bc_in.is_linked:
+        from_node = bc_in.links[0].from_node
+        if from_node.type != 'TEX_IMAGE' or has_proc_nodes:
+            bake_color = True
+
+    bake_rough = False
+    if rough_in and rough_in.is_linked:
+        from_node = rough_in.links[0].from_node
+        if from_node.type != 'TEX_IMAGE' or has_proc_nodes:
+            bake_rough = True
+
+    bake_norm = False
+    if norm_in and norm_in.is_linked:
+        from_node = norm_in.links[0].from_node
+        if from_node.type == 'BUMP' or (from_node.type != 'NORMAL_MAP' and has_proc_nodes):
+            bake_norm = True
+
+    return (bake_color, bake_rough, bake_norm)
+
+
+def bake_procedural_materials_if_needed(meshes, td: Path, role: str = 'hero'):
+    """Tự động nướng (bake) vật liệu dùng Shader Nodes thủ tục / NodeGroup của BlenderKit
+    sang PBR Image Texture (BaseColor, Roughness, Normal) để giữ nguyên chất liệu trong Three.js."""
     baked_count = 0
-    visited = set()
-    has_procedural = []
+    mat_to_meshes: dict[str, tuple] = {}
     for o in meshes:
-        if not o.data.uv_layers:
-            continue
         for slot in o.material_slots:
             mat = slot.material
-            if not mat or not mat.node_tree or mat.name in visited:
+            if not mat or not mat.node_tree:
                 continue
-            visited.add(mat.name)
-            bsdf = next((n for n in mat.node_tree.nodes if n.type == 'BSDF_PRINCIPLED'), None)
-            if not bsdf:
-                continue
-            bc_in = bsdf.inputs.get('Base Color')
-            if bc_in and bc_in.is_linked:
-                has_img = any(n.type == 'TEX_IMAGE' and n.image is not None for n in mat.node_tree.nodes)
-                if not has_img:
-                    has_procedural.append((o, mat, bsdf))
+            flags = _needs_material_bake(mat)
+            if any(flags):
+                if mat.name not in mat_to_meshes:
+                    mat_to_meshes[mat.name] = (mat, flags, [])
+                mat_to_meshes[mat.name][2].append(o)
 
-    if not has_procedural:
+    if not mat_to_meshes:
         return 0
 
     scene = bpy.context.scene
     scene.render.engine = 'CYCLES'
     scene.cycles.device = 'CPU'
-    scene.cycles.samples = 8
-    for idx, (o, mat, bsdf) in enumerate(has_procedural[:6]):
+    scene.cycles.samples = 4
+    res = 1024 if role != 'bg' else 512
+
+    for idx, (mat_name, (mat, (do_col, do_rough, do_norm), objs)) in enumerate(list(mat_to_meshes.items())[:10]):
+        # Đảm bảo mọi mesh dùng vật liệu này đều có UVMap và chọn mesh lớn nhất để bake
+        for o_m in objs:
+            ensure_mesh_uv(o_m)
+        primary = max(objs, key=lambda m: len(m.data.polygons))
+        if not primary.data.uv_layers:
+            continue
         try:
             nt = mat.node_tree
-            img = bpy.data.images.new(f'bk_bake_{idx}', width=1024, height=1024, alpha=False)
-            tex_node = nt.nodes.new('ShaderNodeTexImage')
-            tex_node.image = img
-            for n in nt.nodes:
-                n.select = False
-            tex_node.select = True
-            nt.nodes.active = tex_node
-
-            bc_link = bsdf.inputs['Base Color'].links[0].from_socket
-            emit = nt.nodes.new('ShaderNodeEmission')
-            nt.links.new(bc_link, emit.inputs['Color'])
             out_node = next((n for n in nt.nodes if n.type == 'OUTPUT_MATERIAL'), None)
-            if not out_node:
+            if not out_node or not out_node.inputs['Surface'].is_linked:
                 continue
-            old_surf = out_node.inputs['Surface'].links[0].from_socket if out_node.inputs['Surface'].is_linked else None
-            nt.links.new(emit.outputs['Emission'], out_node.inputs['Surface'])
+            old_surf_socket = out_node.inputs['Surface'].links[0].from_socket
+            bsdf = old_surf_socket.node if old_surf_socket.node.type == 'BSDF_PRINCIPLED' else None
 
-            bpy.ops.object.select_all(action='DESELECT')
-            o.select_set(True)
-            bpy.context.view_layer.objects.active = o
-            bpy.ops.object.bake(type='EMIT', margin=4, use_clear=True)
+            def _bake_pass(suffix: str, bake_type: str, non_color: bool = False, emit_socket=None):
+                img = bpy.data.images.new(f'bk_{ suffix }_{idx}', width=res, height=res, alpha=False)
+                if non_color:
+                    img.colorspace_settings.name = 'Non-Color'
+                t_node = nt.nodes.new('ShaderNodeTexImage')
+                t_node.image = img
+                for n in nt.nodes:
+                    n.select = False
+                t_node.select = True
+                nt.nodes.active = t_node
 
-            out_png = td / f'baked_{idx}.png'
-            img.filepath_raw = str(out_png)
-            img.file_format = 'PNG'
-            img.save()
-            fresh = bpy.data.images.load(str(out_png))
-            tex_node.image = fresh
+                emit_node = None
+                if emit_socket is not None:
+                    emit_node = nt.nodes.new('ShaderNodeEmission')
+                    nt.links.new(emit_socket, emit_node.inputs['Color'])
+                    nt.links.new(emit_node.outputs['Emission'], out_node.inputs['Surface'])
 
-            if old_surf:
-                nt.links.new(old_surf, out_node.inputs['Surface'])
-            nt.nodes.remove(emit)
-            nt.links.new(tex_node.outputs['Color'], bsdf.inputs['Base Color'])
+                bpy.ops.object.select_all(action='DESELECT')
+                primary.select_set(True)
+                bpy.context.view_layer.objects.active = primary
+                if bake_type == 'DIFFUSE':
+                    bpy.ops.object.bake(type='DIFFUSE', pass_filter={'COLOR'}, margin=4, use_clear=True)
+                else:
+                    bpy.ops.object.bake(type=bake_type, margin=4, use_clear=True)
+
+                if emit_node is not None:
+                    nt.links.new(old_surf_socket, out_node.inputs['Surface'])
+                    nt.nodes.remove(emit_node)
+
+                out_png = td / f'baked_{suffix}_{idx}.png'
+                img.filepath_raw = str(out_png)
+                img.file_format = 'PNG'
+                img.save()
+                fresh = bpy.data.images.load(str(out_png))
+                if non_color:
+                    fresh.colorspace_settings.name = 'Non-Color'
+                t_node.image = fresh
+                return t_node
+
+            col_tex = None
+            if do_col:
+                bc_sock = bsdf.inputs['Base Color'].links[0].from_socket if (bsdf and bsdf.inputs['Base Color'].is_linked) else None
+                col_tex = _bake_pass('col', 'EMIT' if bc_sock else 'DIFFUSE', non_color=False, emit_socket=bc_sock)
+
+            rough_tex = None
+            if do_rough:
+                r_sock = bsdf.inputs['Roughness'].links[0].from_socket if (bsdf and bsdf.inputs['Roughness'].is_linked) else None
+                rough_tex = _bake_pass('rough', 'EMIT' if r_sock else 'ROUGHNESS', non_color=True, emit_socket=r_sock)
+
+            norm_tex = None
+            if do_norm:
+                norm_tex = _bake_pass('norm', 'NORMAL', non_color=True)
+
+            # Nếu vật liệu gốc là NodeGroup / MixShader, tạo Principled BSDF chuẩn glTF để nối kết quả bake
+            if bsdf is None:
+                bsdf = nt.nodes.new('ShaderNodeBsdfPrincipled')
+                nt.links.new(bsdf.outputs['BSDF'], out_node.inputs['Surface'])
+
+            if col_tex is not None:
+                nt.links.new(col_tex.outputs['Color'], bsdf.inputs['Base Color'])
+            if rough_tex is not None:
+                nt.links.new(rough_tex.outputs['Color'], bsdf.inputs['Roughness'])
+            if norm_tex is not None:
+                nmap = nt.nodes.new('ShaderNodeNormalMap')
+                nt.links.new(norm_tex.outputs['Color'], nmap.inputs['Color'])
+                nt.links.new(nmap.outputs['Normal'], bsdf.inputs['Normal'])
+
             baked_count += 1
         except Exception as e:
-            print(f'[bk-prep] Bỏ qua bake {mat.name}: {e}')
+            print(f'[bk-prep] Bỏ qua bake {mat_name}: {e}')
     return baked_count
 
 
@@ -641,7 +760,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix='bk_tex_') as td_str:
         td = Path(td_str)
         faces_before, faces_after, ratio = apply_selective_decimate(meshes, args['role'], args['decimate'])
-        baked = bake_procedural_materials_if_needed(meshes, td)
+        baked = bake_procedural_materials_if_needed(meshes, td, args['role'])
         recolored = apply_laplace_recolor(args['recolor'], td) if args['recolor'] else 0
         bvh_count = bvh_stats(meshes)
 

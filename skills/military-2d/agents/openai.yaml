@@ -1,0 +1,3 @@
+display_name: Military 2D (chiến thuật & cơ chế 2D + bản đồ + ảnh tư liệu)
+short_description: Dựng video quân sự thuần 2D từ voice — kết hợp cảnh vẽ 2D chiến thuật/hành động/mặt cắt, bản đồ chiến dịch và ảnh tư liệu thật.
+default_prompt: Dựng video quân sự thuần 2D từ voice theo skill military-2d — luân phiên cảnh vẽ 2D chiến thuật/hành động/cơ chế, bản đồ tác chiến và ảnh tư liệu thật, tự tìm ảnh và tự kiểm hình.

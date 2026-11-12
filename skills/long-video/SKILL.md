@@ -1,13 +1,20 @@
 ---
 name: long-video
-description: Làm video dài (khoảng 10 phút tới 50 phút trở lên) theo chương bằng Remotion. Chốt base và mỹ thuật cho cả phim trước, rồi chia chương, plan và dựng song song bằng subagent mà vẫn giữ mốc từng từ và chuẩn chất lượng của skill chính (ghi trong project.json, ví dụ military). Skill này chỉ chia việc; chuẩn dựng là của skill chính.
+description: Làm video dài (khoảng 10 phút tới 50 phút trở lên) theo chương cho cả skill military (Remotion) lẫn skill military-blender (100% Blender 5.2). Chốt base/tài sản 3D và mỹ thuật cho cả phim trước, rồi chia chương, plan và dựng song song bằng subagent mà vẫn giữ mốc từng từ và chuẩn chất lượng của skill chính (ghi trong project.json). Skill này chỉ chia việc; chuẩn dựng là của skill chính.
 ---
 
-# Video dài theo chương
+# Video dài theo chương (`military` hoặc `military-blender`)
 
-Skill này **chỉ chia việc**. Mọi chuẩn dựng (lệnh, tư duy đạo diễn, chất lượng 2D/3D, chữ, âm thanh) vẫn là của skill chính
-(`"skill"` trong `project.json`, ví dụ `skills/military/SKILL.md`), đọc nó trước. Mỗi chương
+Skill này **chỉ chia việc**. Mọi chuẩn dựng (lệnh, tư duy đạo diễn, chất lượng 3D/Bản đồ, chữ Callout, âm thanh) vẫn là của skill chính
+(`"skill"` trong `project.json`, ví dụ `skills/military-blender/SKILL.md` hoặc `skills/military/SKILL.md`), đọc nó trước. Mỗi chương
 phải qua **đủ mọi bước** như một video ngắn: không bớt mốc từng từ, không bớt tự kiểm hình, không đổi model nhanh hơn để xong sớm.
+
+> [!IMPORTANT]
+> **Khi skill chính trong `project.json` là `military-blender` (100% Blender 5.2):**
+> - Mọi cảnh của chương `CNN` được viết vào `blender/CNNSxx.py` (không dùng `src/scenes/*.tsx`, không chạy `build.py` hay `check.py` của Remotion).
+> - Tài sản dùng chung cả phim là các file `.blend` gốc trong `bk_cache/<uuid>/source_*.blend` và hành động `.fbx` trong `mixamo/` (ghi rõ trong bảng tài sản của `plan/STORY.md`).
+> - Kiểm hình từng cảnh/chương bằng `python3 skills/military-blender/tools/blender_runner.py <id> --check CNNS01,CNNS02` hoặc `--check --chapter CNN` (sinh `out/blend/CNNSxx.blend` + `out/checks/chapters/CNN.png`).
+> - Mặc định **chỉ dừng ở bước dựng `.blend` + chụp kiểm `--check` + trộn âm thanh `audio.py`**, tuyệt đối không tự chạy `--render` xuất full video khi người dùng chưa ra lệnh xuất.
 
 Video ngắn hơn khoảng 8–10 phút: không dùng skill này, làm thẳng skill chính.
 
@@ -40,7 +47,7 @@ Lệnh thêm:
 | `.venv/bin/python core/tools/asr.py <id> --chapters` | `plan/chapters/CNN.voice.md` cho mọi chương |
 | `python3 core/tools/check.py <id> --chapter C03` | `out/checks/chapters/C03.png` (cần `build.py` trước) |
 | `python3 core/tools/check.py <id> --seams [C03,C04]` | `out/checks/seams/CNN-CMM.png` ±1.5 s quanh mỗi chỗ nối chương |
-| `python3 core/tools/render.py <id> --chapter C01` | `out/video_C01.mp4` — xuất nhanh riêng 1 chương để kiểm duyệt thử |
+| `python3 core/tools/render.py <id> --to 60` · `--chapter C01` | `out/preview_0s_60s.mp4` · `out/chapters/C01.mp4` — xuất nhanh đoạn ngắn / 1 chương kiểm chuyển động thật trước khi xuất cả phim |
 
 `build.py` kiểm: chương liền nhau, cảnh phủ đúng mốc chương, id cảnh đúng chương, CUE không trùng tên. Chương chưa plan
 hiện một khung giữ chỗ.
@@ -63,8 +70,8 @@ hiện một khung giữ chỗ.
 ## 3. Base (khoá xong mới sang plan chương)
 
 Như Bước A2 của skill chính, nhưng cho cả phim:
-- Kho 3D dùng chung: gộp tìm kiếm (`bk.py search "q1" "q2" … -j 6` / `mocap.py search`), tải hàng loạt song song (`bk.py fetch <hero_id> <bg_id>:bg … -j 6`), soi gộp (`bk.py inspect-parts … -j 4`) và chuẩn hoá song song bằng Blender dòng lệnh nền (`bk.py prep ... --save-cache <slug>`, `bk.py prep-actor ... --save-cache <slug>`, `mocap.py pack ... --save-cache <slug>`) cho toàn bộ khí tài chính, quân phục các phe & đạo cụ lặp lại nhiều chương, đưa vào `projects/<id>/input/` → `ingest.py <id>` trước khi giao bọc `parts/`.
-- Mô hình 3D: mỗi khí tài độc lập một file `src/parts/<Tên>.tsx` (bọc `<GltfRig>` / `<GltfPart>`, gắn `<BrandDecal>` nếu là khí tài chính, lồng lõi cơ khí giải phẫu ngay tại đúng vị trí bộ phận đó trên thân/cánh khí tài — không tách rời động cơ/bộ phận của cùng một khí tài thành part trưng bày riêng dưới đất), tự kiểm `check.py --part`. Có nhiều khí tài khác nhau thì gọi 2–5 subagent song song.
+- Kho 3D dùng chung: ưu tiên kiểm tra `bk.py list-prepped` (`bk_cache/prepped/`) để tái sử dụng ngay các `.glb` có sẵn; phần thiếu mới gộp tìm kiếm (`bk.py search "q1" "q2" … -j 6` / `mocap.py search`), tải hàng loạt song song (`bk.py fetch <hero_id> <bg_id>:bg … -j 6`), soi gộp (`bk.py inspect-parts … -j 4`) và chuẩn hoá song song bằng Blender dòng lệnh nền (`bk.py prep ... --save-cache <slug>`, `bk.py prep-actor ... --save-cache <slug>`, `mocap.py pack ... --save-cache <slug>`) cho **toàn bộ thành phần 3D trong phim** (khí tài chính, cụm cơ khí/nội thất bên trong như động cơ/ghế khoang, nhà chứa/công trình kiến trúc, xe hậu cần/đạo cụ & quân phục các phe — không tự ghép hộp code Three.js), đưa vào `projects/<id>/input/` → `ingest.py <id>` trước khi giao bọc `parts/`.
+- Mô hình 3D: mỗi khí tài/công trình độc lập một file `src/parts/<Tên>.tsx` (bọc `<GltfRig>` / `<GltfPart>`, gắn `<BrandDecal>` nếu là khí tài chính; khi cần mổ xẻ thì lồng `<GltfPart>` của bộ phận con như động cơ/ghế khoang vào đúng toạ độ lắp đặt thật trên thân/bầu động cơ cánh của `<GltfRig>` khí tài chính — tuyệt đối không tách rời động cơ/bộ phận của cùng một khí tài thành part trưng bày riêng dưới đất), tự kiểm `check.py --part`. Có nhiều khí tài khác nhau thì gọi 2–5 subagent song song.
 - Hình chiếu 2D đồng bộ với 3D, bản đồ địa lý (`<GeoMap>` từ `@skill/military/2d/map`) / ký hiệu dùng chung: Agent chính vẽ (hoặc giao subagent khi quá nhiều, mỗi subagent một nhóm file riêng).
 - `python3 core/tools/build.py <id>` sạch lỗi, duyệt `out/checks/parts/*.png`. Cập nhật cột Trạng thái.
 
@@ -107,9 +114,9 @@ Cập nhật cột Dựng ngay khi một chương đủ cảnh (và mở ngay ki
 ## 6. Kiểm & dựng SFX cuốn chiếu theo chương (Agent chính kiểm chỗ nối)
 
 1. Ngay khi một chương `CNN` vừa dựng đủ cảnh `src/scenes/CNNS*.tsx`, chạy `python3 core/tools/build.py <id>` rồi **gọi song song 2 subagent cho chương `CNN`** trong lúc các chương sau vẫn đang dựng:
-   - **1 subagent kiểm hình** (`check.py <id> --chapter CNN` — tự cắt lát đúng các cảnh trong khoảng kiểm và tắt giải mã `voice.mp3`, không phụ thuộc `audio.py`): xem ảnh, đối chiếu `CNN.md` và chuẩn chất lượng của skill chính (bố cục, góc máy, độ sáng ngày/đêm, ngôn ngữ chữ, 85–90% cảnh không treo chữ thừa); báo cảnh hỏng kèm lý do. Không sửa code.
+   - **1 subagent kiểm hình AI Vision độc lập** (`check.py <id> --chapter CNN` — tự cắt lát đúng các cảnh trong khoảng kiểm và tắt giải mã `voice.mp3`, không phụ thuộc `audio.py`): mở ảnh soi kỹ từng ô (cấm xem lướt), đối chiếu `CNN.md` và chuẩn chất lượng của skill chính — đặc biệt **đọc rà toàn bộ chữ trên mọi khung ảnh (kể cả chữ nhỏ trên đạo cụ/biển hiệu/vỏ mô hình) bắt buộc trùng 100% ngôn ngữ `transcript.json`**, kiểm bố cục, khoảng trống, chồng lấn, tiếp xúc mặt sàn, độ sáng ngày/đêm và diễn tiến chuyển động; báo danh sách cảnh hỏng kèm lý do cụ thể. Không sửa code.
    - **1–4 subagent SFX chạy song song của chương `CNN`** (tối đa 4 subagent SFX hoạt động đồng thời theo `skills/sound-design/SKILL.md` mục 4 — Pha 2 + `skills/<skill>/SOUND.md`): chia các cảnh `src/scenes/CNNS*.tsx` của chương đó thành các cụm để ghi `plan/sfx/CNN_1.json`..`CNN_4.json` khớp chính xác mọi mốc `<Explosion`/`<MuzzleBlast`/va chạm và khoảng chuyển động `prog(t, a, b)` trên hình (không tự viết script giả lập trộn âm trên RAM; chưa gọi `audio.py` khi các chương khác chưa xong).
 2. Khi toàn bộ cảnh đã dựng xong, agent nhạc và mọi agent SFX chương đã báo xong (nếu có cảnh dựng lại làm đổi mốc sự kiện thì cập nhật `plan/sfx/CNN_*.json` cảnh đó) → chạy `.venv/bin/python core/tools/audio.py <id>` (kiểm chéo `.tsx` mục 5 `sound-design` + đọc `.build/sound_report.txt`) → `python3 core/tools/build.py <id> --strict` sạch lỗi.
 3. Agent chính: `check.py <id> --seams`, xem mọi `out/checks/seams/*.png` (gom toàn bộ chỗ nối trong 1 lần chụp cắt lát: liền mạch, không giật màu / ánh sáng vô lý, trạng thái khớp).
 4. Cảnh hỏng → giao lại subagent dựng cảnh đó kèm ghi chú. **Khi sửa lỗi hình ảnh thuần `.tsx` mà không đổi `plan/mix.json` hay `plan/sfx/*.json` (`"sfx"`), KHÔNG chạy lại `audio.py`** — chỉ chạy `python3 core/tools/build.py <id> --strict` rồi chụp lại đúng `--chapter CNN` / `--seams` bị ảnh hưởng. Cập nhật cột Kiểm.
-5. Báo người dùng: đã dựng gì, lỗi còn lại theo chương. Xuất `render.py <id>` chỉ khi được yêu cầu (có thể chạy `render.py <id> --chapter C01` để xuất thử nhanh Chương 1 trong ~10–15 phút trước khi xuất cả phim).
+5. Báo người dùng: đã dựng gì, lỗi còn lại theo chương. Khi được yêu cầu xuất cả phim, nên xuất kiểm thử nhanh 30–60 giây đầu (`render.py <id> --to 60`) hoặc Chương 1 (`render.py <id> --chapter C01`) để xác nhận nhịp chuyển động mượt, không lọt lỗi bật/tắt vỏ hay đơ máy quay trước khi chạy `render.py <id>` toàn phim.

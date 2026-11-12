@@ -4,8 +4,11 @@ import json
 import os
 import re
 import shutil
+import signal
 import subprocess
 import sys
+import threading
+import time
 import zlib
 from pathlib import Path
 
@@ -302,9 +305,115 @@ def tsc(config: Path) -> list:
     return [ln for ln in (r.stdout + r.stderr).splitlines() if 'error TS' in ln]
 
 
+def _kill_tree(pid: int, sig: int = signal.SIGKILL):
+    for fn in (os.killpg, os.kill):
+        try:
+            fn(pid, sig)
+        except OSError:
+            pass
+
+
+def reap_remotion_orphans():
+    """Dọn chrome-headless-shell mồ côi (PPID=1) và thư mục tạm rmt_* của tiến trình đã chết."""
+    chrome_prefix = str(RUNTIME / 'node_modules/.remotion/chrome-headless-shell')
+    out = subprocess.run(['ps', '-axo', 'pid,ppid,command'], capture_output=True, text=True).stdout
+    for ln in out.splitlines()[1:]:
+        parts = ln.strip().split(None, 2)
+        if len(parts) == 3 and int(parts[1]) == 1 and chrome_prefix in parts[2]:
+            _kill_tree(int(parts[0]))
+    tmp_root = Path('/tmp').resolve()
+    for d in tmp_root.glob('rmt_*_*'):
+        m = re.match(r'^rmt_(\d+)_[0-9a-f]+$', d.name)
+        if not m:
+            continue
+        try:
+            os.kill(int(m.group(1)), 0)
+        except ProcessLookupError:
+            tag = f'/{d.name}'
+            killed_dead = False
+            for ln in out.splitlines()[1:]:
+                parts = ln.strip().split(None, 2)
+                if len(parts) == 3 and tag in parts[2]:
+                    _kill_tree(int(parts[0]))
+                    killed_dead = True
+            if killed_dead:
+                time.sleep(0.05)
+            shutil.rmtree(d, ignore_errors=True)
+        except PermissionError:
+            pass
+
+
 def remotion(args, **kw):
-    """Chạy CLI Remotion từ remotion/ (để nhận remotion.config.ts)."""
-    return subprocess.run([NPX, 'remotion', *args], cwd=RUNTIME, **kw)
+    """Chạy CLI Remotion từ remotion/ (để nhận remotion.config.ts), tự dọn sạch Chrome con khi thoát hoặc bị ngắt."""
+    reap_remotion_orphans()
+    cmd = [NPX, 'remotion', *args]
+    if kw.pop('capture_output', False):
+        kw['stdout'] = subprocess.PIPE
+        kw['stderr'] = subprocess.PIPE
+    check = kw.pop('check', False)
+    timeout = kw.pop('timeout', None)
+    inp = kw.pop('input', None)
+
+    tag = f'rmt_{os.getpid()}_{os.urandom(4).hex()}'
+    run_tmp = Path('/tmp').resolve() / tag
+    run_tmp.mkdir(parents=True, exist_ok=True)
+    env = {**(kw.pop('env', None) or os.environ), 'TMPDIR': str(run_tmp)}
+
+    proc = None
+    cleaned = False
+
+    def cleanup():
+        nonlocal cleaned
+        if cleaned:
+            return
+        cleaned = True
+        if proc is not None and proc.poll() is None:
+            _kill_tree(proc.pid, signal.SIGTERM)
+            try:
+                proc.wait(timeout=0.3)
+            except subprocess.TimeoutExpired:
+                _kill_tree(proc.pid, signal.SIGKILL)
+        out = subprocess.run(['ps', '-axo', 'pid,command'], capture_output=True, text=True).stdout
+        needle = f'/{tag}'
+        killed_any = False
+        for ln in out.splitlines()[1:]:
+            parts = ln.strip().split(None, 1)
+            if len(parts) == 2 and needle in parts[1]:
+                _kill_tree(int(parts[0]), signal.SIGKILL)
+                killed_any = True
+        if killed_any:
+            time.sleep(0.05)
+        reap_remotion_orphans()
+        shutil.rmtree(run_tmp, ignore_errors=True)
+
+    sigs = (signal.SIGINT, signal.SIGTERM, signal.SIGHUP)
+    old_handlers = {}
+    is_main = threading.current_thread() is threading.main_thread()
+    if is_main:
+        def on_sig(signum, _frame):
+            cleanup()
+            if signum == signal.SIGINT:
+                raise KeyboardInterrupt
+            sys.exit(128 + signum)
+        for s in sigs:
+            old_handlers[s] = signal.signal(s, on_sig)
+
+    try:
+        proc = subprocess.Popen(cmd, cwd=RUNTIME, env=env, start_new_session=True, **kw)
+        try:
+            stdout, stderr = proc.communicate(input=inp, timeout=timeout)
+        except subprocess.TimeoutExpired:
+            cleanup()
+            proc.communicate()
+            raise
+        if check and proc.returncode:
+            raise subprocess.CalledProcessError(proc.returncode, cmd, output=stdout, stderr=stderr)
+        return subprocess.CompletedProcess(cmd, proc.returncode, stdout, stderr)
+    finally:
+        if is_main:
+            for s, h in old_handlers.items():
+                signal.signal(s, h)
+        cleanup()
 
 
 def max_mtime(paths) -> float:
